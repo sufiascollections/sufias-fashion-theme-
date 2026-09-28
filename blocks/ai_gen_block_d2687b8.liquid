@@ -1,0 +1,482 @@
+{% doc %}
+  @prompt
+    Create a pop-up modal for a Size Guide link on product pages. When customers click the "Size Guide" link above the Add to Cart button, it should open a modal/pop-up overlay that displays the size guide image from /pages/size-guide. The modal should have a close button (X) and a semi-transparent backdrop. The modal should be responsive and work well on mobile devices. Include the necessary HTML structure, CSS styling for the modal overlay and content box, and JavaScript to handle opening/closing the modal when the Size Guide link is clicked.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-size-guide-modal-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-size-guide-link-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ block.settings.link_color }};
+    text-decoration: {{ block.settings.link_underline }};
+    font-size: {{ block.settings.link_font_size }}px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .ai-size-guide-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-size-guide-link-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+  }
+
+  .ai-size-guide-overlay-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9998;
+  }
+
+  .ai-size-guide-overlay-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-size-guide-popup-{{ ai_gen_id }} {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: {{ block.settings.modal_max_width }}px;
+    max-height: 90vh;
+    background-color: {{ block.settings.modal_bg_color }};
+    border-radius: {{ block.settings.modal_border_radius }}px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-size-guide-popup-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .ai-size-guide-header-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ block.settings.modal_padding }}px;
+    border-bottom: 1px solid {{ block.settings.modal_border_color }};
+  }
+
+  .ai-size-guide-title-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-size-guide-close-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.close_button_color }};
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .ai-size-guide-close-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.close_button_hover_color }};
+    transform: rotate(90deg);
+  }
+
+  .ai-size-guide-close-{{ ai_gen_id }} svg {
+    width: {{ block.settings.close_button_size }}px;
+    height: {{ block.settings.close_button_size }}px;
+  }
+
+  .ai-size-guide-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.modal_padding }}px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .ai-size-guide-content-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-size-guide-loading-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-size-guide-error-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: {{ block.settings.error_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-size-guide-popup-{{ ai_gen_id }} {
+      width: 95%;
+      max-height: 85vh;
+    }
+
+    .ai-size-guide-header-{{ ai_gen_id }},
+    .ai-size-guide-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.modal_padding | times: 0.7 }}px;
+    }
+
+    .ai-size-guide-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<size-guide-modal-{{ ai_gen_id }} class="ai-size-guide-modal-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <a class="ai-size-guide-link-{{ ai_gen_id }}" role="button" tabindex="0" aria-label="Open size guide">
+    {% if block.settings.show_icon %}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+    {% endif %}
+    {{ block.settings.link_text }}
+  </a>
+
+  <div class="ai-size-guide-overlay-{{ ai_gen_id }}"></div>
+
+  <div class="ai-size-guide-popup-{{ ai_gen_id }}">
+    <div class="ai-size-guide-header-{{ ai_gen_id }}">
+      <h3 class="ai-size-guide-title-{{ ai_gen_id }}">{{ block.settings.modal_title }}</h3>
+      <button class="ai-size-guide-close-{{ ai_gen_id }}" aria-label="Close size guide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="ai-size-guide-content-{{ ai_gen_id }}">
+      <div class="ai-size-guide-loading-{{ ai_gen_id }}">Loading size guide...</div>
+    </div>
+  </div>
+</size-guide-modal-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SizeGuideModal{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.link = this.querySelector('.ai-size-guide-link-{{ ai_gen_id }}');
+        this.overlay = this.querySelector('.ai-size-guide-overlay-{{ ai_gen_id }}');
+        this.popup = this.querySelector('.ai-size-guide-popup-{{ ai_gen_id }}');
+        this.closeButton = this.querySelector('.ai-size-guide-close-{{ ai_gen_id }}');
+        this.content = this.querySelector('.ai-size-guide-content-{{ ai_gen_id }}');
+        this.isLoaded = false;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.link.addEventListener('click', () => this.openModal());
+        this.link.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.openModal();
+          }
+        });
+
+        this.closeButton.addEventListener('click', () => this.closeModal());
+        this.overlay.addEventListener('click', () => this.closeModal());
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.popup.classList.contains('active')) {
+            this.closeModal();
+          }
+        });
+      }
+
+      openModal() {
+        this.overlay.classList.add('active');
+        this.popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        if (!this.isLoaded) {
+          this.loadSizeGuide();
+        }
+      }
+
+      closeModal() {
+        this.overlay.classList.remove('active');
+        this.popup.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      loadSizeGuide() {
+        const pageUrl = '{{ block.settings.size_guide_page.url }}';
+        
+        if (!pageUrl) {
+          this.content.innerHTML = '<div class="ai-size-guide-error-{{ ai_gen_id }}">Please select a size guide page in the block settings.</div>';
+          return;
+        }
+
+        fetch(pageUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to load size guide');
+            }
+            return response.text();
+          })
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const pageContent = doc.querySelector('.page-content, .rte, main, article');
+            
+            if (pageContent) {
+              this.content.innerHTML = pageContent.innerHTML;
+            } else {
+              this.content.innerHTML = '<div class="ai-size-guide-error-{{ ai_gen_id }}">Size guide content not found.</div>';
+            }
+            
+            this.isLoaded = true;
+          })
+          .catch(error => {
+            console.error('Error loading size guide:', error);
+            this.content.innerHTML = '<div class="ai-size-guide-error-{{ ai_gen_id }}">Failed to load size guide. Please try again.</div>';
+          });
+      }
+    }
+
+    customElements.define('size-guide-modal-{{ ai_gen_id }}', SizeGuideModal{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Size guide modal",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Size Guide"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "link_underline",
+      "label": "Text decoration",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        }
+      ],
+      "default": "underline"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#113f67"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#56cfe1"
+    },
+    {
+      "type": "header",
+      "content": "Modal"
+    },
+    {
+      "type": "page",
+      "id": "size_guide_page",
+      "label": "Size guide page"
+    },
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Modal title",
+      "default": "Size Guide"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "modal_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "modal_padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "modal_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "modal_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "modal_border_color",
+      "label": "Border color",
+      "default": "#dddddd"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Close button"
+    },
+    {
+      "type": "range",
+      "id": "close_button_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "close_button_color",
+      "label": "Color",
+      "default": "#878787"
+    },
+    {
+      "type": "color",
+      "id": "close_button_hover_color",
+      "label": "Hover color",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "rgba(0, 0, 0, 0.6)"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error message color",
+      "default": "#D82C0D"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size guide modal"
+    }
+  ]
+}
+{% endschema %}
