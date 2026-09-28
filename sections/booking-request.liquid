@@ -1,0 +1,686 @@
+{%- liquid
+  assign booking_description = section.settings.description | strip_html | strip_newlines
+  assign booking_title = page.title | default: section.settings.heading
+-%}
+
+<div id="sf-booking-{{ section.id }}" class="sf-booking-page">
+  <header class="sf-booking-nav">
+    <a class="sf-booking-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">{{ shop.name | escape }}</a>
+    <nav class="sf-booking-links" aria-label="{{ 'booking.nav.label' | t }}">
+      <a href="#sf-booking-details">{{ 'booking.nav.details' | t }}</a>
+      <a href="#sf-booking-form">{{ 'booking.nav.request' | t }}</a>
+    </nav>
+    <a class="sf-booking-nav-cta" href="#sf-booking-form">{{ 'booking.nav.book_now' | t }}</a>
+  </header>
+
+  <section class="sf-booking-hero" aria-labelledby="sf-booking-title-{{ section.id }}">
+    <div class="sf-booking-hero-copy">
+      <p class="sf-booking-kicker">{{ section.settings.eyebrow | escape }}</p>
+      <h1 id="sf-booking-title-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+      <p class="sf-booking-intro">{{ section.settings.description | escape }}</p>
+    </div>
+    <p class="sf-booking-hero-note">{{ section.settings.hero_note | escape }}</p>
+  </section>
+
+  <section class="sf-booking-content" aria-label="{{ 'booking.content.label' | t }}">
+    <div class="sf-booking-details" id="sf-booking-details">
+      <p class="sf-booking-kicker">{{ section.settings.details_eyebrow | escape }}</p>
+      <h2>{{ section.settings.details_heading | escape }}</h2>
+      <p class="sf-booking-details-copy">{{ section.settings.details_text | escape }}</p>
+
+      <dl class="sf-booking-facts">
+        <div>
+          <dt>{{ 'booking.details.duration' | t }}</dt>
+          <dd>{{ section.settings.duration | escape }}</dd>
+        </div>
+        <div>
+          <dt>{{ 'booking.details.location' | t }}</dt>
+          <dd>{{ section.settings.location | escape }}</dd>
+        </div>
+        <div>
+          <dt>{{ 'booking.details.contact' | t }}</dt>
+          <dd><a href="mailto:{{ shop.email | escape }}">{{ shop.email | escape }}</a></dd>
+        </div>
+      </dl>
+
+      <div class="sf-booking-reminder">
+        <span class="sf-booking-reminder-mark" aria-hidden="true">i</span>
+        <p>{{ section.settings.confirmation_note | escape }}</p>
+      </div>
+    </div>
+
+    <div class="sf-booking-card" id="sf-booking-form">
+      <div class="sf-booking-card-heading">
+        <p class="sf-booking-kicker">{{ 'booking.form.eyebrow' | t }}</p>
+        <h2>{{ section.settings.form_heading | escape }}</h2>
+      </div>
+
+      {% form 'contact', id: 'SufiasBookingForm', class: 'sf-booking-form' %}
+        {% if form.posted_successfully? %}
+          <div class="sf-booking-success" role="status" tabindex="-1">
+            <strong>{{ 'booking.form.success_title' | t }}</strong>
+            <span>{{ 'booking.form.success_message' | t }}</span>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="sf-booking-errors" role="alert" tabindex="-1">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <input type="hidden" name="contact[subject]" value="{{ 'booking.form.subject' | t }} — {{ shop.name | escape }}">
+        <input type="hidden" name="contact[tags]" value="booking request">
+
+        <div class="sf-booking-field">
+          <label for="BookingType-{{ section.id }}">{{ 'booking.form.appointment_type' | t }} <span aria-hidden="true">*</span></label>
+          <select id="BookingType-{{ section.id }}" name="contact[appointment_type]" required data-booking-type>
+            <option value="" disabled selected>{{ 'booking.form.choose_type' | t }}</option>
+            <option value="Personal styling">{{ 'booking.form.type_styling' | t }}</option>
+            <option value="Wholesale consultation">{{ 'booking.form.type_wholesale' | t }}</option>
+            <option value="Order support">{{ 'booking.form.type_order' | t }}</option>
+          </select>
+        </div>
+
+        <div class="sf-booking-row">
+          <div class="sf-booking-field">
+            <label for="BookingDate-{{ section.id }}">{{ 'booking.form.preferred_date' | t }} <span aria-hidden="true">*</span></label>
+            <input id="BookingDate-{{ section.id }}" type="date" name="contact[preferred_date]" min="{{ 'now' | date: '%Y-%m-%d' }}" required data-booking-date>
+          </div>
+          <div class="sf-booking-field">
+            <label for="BookingTime-{{ section.id }}">{{ 'booking.form.preferred_time' | t }} <span aria-hidden="true">*</span></label>
+            <select id="BookingTime-{{ section.id }}" name="contact[preferred_time]" required data-booking-time>
+              <option value="" disabled selected>{{ 'booking.form.choose_time' | t }}</option>
+              <option value="10:00 AM PKT">10:00 AM</option>
+              <option value="12:00 PM PKT">12:00 PM</option>
+              <option value="2:00 PM PKT">2:00 PM</option>
+              <option value="4:00 PM PKT">4:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sf-booking-field">
+          <label for="BookingName-{{ section.id }}">{{ 'booking.form.name' | t }} <span aria-hidden="true">*</span></label>
+          <input id="BookingName-{{ section.id }}" type="text" name="contact[name]" autocomplete="name" value="{{ form.name | escape }}" required>
+        </div>
+
+        <div class="sf-booking-row">
+          <div class="sf-booking-field">
+            <label for="BookingEmail-{{ section.id }}">{{ 'booking.form.email' | t }} <span aria-hidden="true">*</span></label>
+            <input id="BookingEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" autocorrect="off" autocapitalize="off" value="{{ form.email | escape }}" required>
+          </div>
+          <div class="sf-booking-field">
+            <label for="BookingPhone-{{ section.id }}">{{ 'booking.form.phone' | t }}</label>
+            <input id="BookingPhone-{{ section.id }}" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone | escape }}">
+          </div>
+        </div>
+
+        <div class="sf-booking-field">
+          <label for="BookingMessage-{{ section.id }}">{{ 'booking.form.message' | t }}</label>
+          <textarea id="BookingMessage-{{ section.id }}" name="contact[body]" rows="4" placeholder="{{ 'booking.form.message_hint' | t }}">{{ form.body | escape }}</textarea>
+        </div>
+
+        <div class="sf-booking-summary" aria-live="polite" data-booking-summary>
+          <span>{{ 'booking.form.summary_label' | t }}</span>
+          <p data-booking-summary-text>{{ 'booking.form.summary_empty' | t }}</p>
+        </div>
+
+        <button class="sf-booking-submit" type="submit">{{ section.settings.submit_label | escape }}<span aria-hidden="true">→</span></button>
+        <p class="sf-booking-form-note">{{ 'booking.form.disclaimer' | t }}</p>
+      {% endform %}
+    </div>
+  </section>
+
+  <footer class="sf-booking-footer">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</span>
+    <a href="mailto:{{ shop.email | escape }}">{{ shop.email | escape }}</a>
+    <a href="{{ routes.root_url }}">{{ 'booking.footer.back_to_store' | t }}</a>
+  </footer>
+</div>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": {{ booking_title | json }},
+    "description": {{ page_description | default: booking_description | json }},
+    "url": {{ canonical_url | json }}
+  }
+</script>
+
+{% stylesheet %}
+  body:has(.sf-booking-page) .t4s-header__wrapper,
+  body:has(.sf-booking-page) .t4s-announcement-bar,
+  body:has(.sf-booking-page) .t4s-top-bar,
+  body:has(.sf-booking-page) #t4s-footer {
+    display: none !important;
+  }
+
+  body:has(.sf-booking-page) .t4s-website-wrapper {
+    min-height: 100vh;
+  }
+
+  .sf-booking-page {
+    --sf-ink: #080808;
+    --sf-paper: #fff;
+    --sf-muted: #747474;
+    --sf-line: #dedede;
+    --sf-soft: #f3f3f3;
+    color: var(--sf-ink);
+    background: var(--sf-paper);
+    font-family: var(--font-body-family, Poppins, Arial, sans-serif);
+    line-height: 1.55;
+  }
+
+  .sf-booking-page *,
+  .sf-booking-page *::before,
+  .sf-booking-page *::after {
+    box-sizing: border-box;
+  }
+
+  .sf-booking-page a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sf-booking-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    gap: 28px;
+    padding: 12px 5%;
+    border-bottom: 1px solid var(--sf-line);
+    background: rgb(255 255 255 / 96%);
+    backdrop-filter: blur(12px);
+  }
+
+  .sf-booking-logo {
+    flex: 0 0 auto;
+    font-size: clamp(16px, 2vw, 21px);
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-left: auto;
+  }
+
+  .sf-booking-links a,
+  .sf-booking-nav-cta {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-links a {
+    color: var(--sf-muted);
+  }
+
+  .sf-booking-links a:hover,
+  .sf-booking-links a:focus-visible {
+    color: var(--sf-ink);
+  }
+
+  .sf-booking-nav-cta {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    border: 1px solid var(--sf-ink);
+    transition: background .2s ease, color .2s ease;
+  }
+
+  .sf-booking-nav-cta:hover,
+  .sf-booking-nav-cta:focus-visible {
+    color: var(--sf-paper);
+    background: var(--sf-ink);
+  }
+
+  .sf-booking-hero {
+    display: flex;
+    min-height: 330px;
+    align-items: end;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 74px 8% 68px;
+    color: var(--sf-paper);
+    background: var(--sf-ink);
+  }
+
+  .sf-booking-hero-copy {
+    max-width: 760px;
+  }
+
+  .sf-booking-kicker {
+    margin: 0 0 13px;
+    color: var(--sf-muted);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-hero .sf-booking-kicker {
+    color: #aaa;
+  }
+
+  .sf-booking-hero h1,
+  .sf-booking-details h2,
+  .sf-booking-card h2 {
+    margin: 0;
+    font-family: var(--font-heading-family, "Libre Baskerville", Georgia, serif);
+    font-weight: 400;
+  }
+
+  .sf-booking-hero h1 {
+    max-width: 720px;
+    font-size: clamp(36px, 6vw, 68px);
+    line-height: 1.08;
+  }
+
+  .sf-booking-intro {
+    max-width: 590px;
+    margin: 18px 0 0;
+    color: #c5c5c5;
+    font-size: 14px;
+  }
+
+  .sf-booking-hero-note {
+    max-width: 220px;
+    margin: 0 0 4px;
+    color: #aaa;
+    font-size: 11px;
+    letter-spacing: .12em;
+    line-height: 1.8;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-content {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(420px, 1.15fr);
+    gap: clamp(36px, 7vw, 100px);
+    padding: 76px 8%;
+    background: var(--sf-soft);
+  }
+
+  .sf-booking-details {
+    padding-top: 14px;
+  }
+
+  .sf-booking-details h2,
+  .sf-booking-card h2 {
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.2;
+  }
+
+  .sf-booking-details-copy {
+    max-width: 440px;
+    margin: 18px 0 30px;
+    color: var(--sf-muted);
+    font-size: 13px;
+  }
+
+  .sf-booking-facts {
+    margin: 0;
+    border-top: 1px solid var(--sf-line);
+  }
+
+  .sf-booking-facts div {
+    display: grid;
+    grid-template-columns: minmax(100px, .7fr) 1.3fr;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--sf-line);
+  }
+
+  .sf-booking-facts dt {
+    color: var(--sf-muted);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-facts dd {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .sf-booking-facts dd a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .sf-booking-reminder {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 16px;
+    border: 1px solid var(--sf-line);
+    background: rgb(255 255 255 / 55%);
+  }
+
+  .sf-booking-reminder-mark {
+    display: inline-grid;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    color: var(--sf-muted);
+    font-family: Georgia, serif;
+    font-size: 12px;
+  }
+
+  .sf-booking-reminder p {
+    margin: 0;
+    color: var(--sf-muted);
+    font-size: 11px;
+  }
+
+  .sf-booking-card {
+    padding: clamp(24px, 4vw, 42px);
+    border: 1px solid var(--sf-line);
+    background: var(--sf-paper);
+    box-shadow: 0 16px 50px rgb(0 0 0 / 4%);
+  }
+
+  .sf-booking-card-heading {
+    margin-bottom: 27px;
+  }
+
+  .sf-booking-form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .sf-booking-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .sf-booking-field {
+    min-width: 0;
+  }
+
+  .sf-booking-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-field label span {
+    color: #777;
+  }
+
+  .sf-booking-field input,
+  .sf-booking-field select,
+  .sf-booking-field textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    border: 1px solid #d7d7d7;
+    border-radius: 0;
+    color: var(--sf-ink);
+    background: #fff;
+    font: inherit;
+    font-size: 12px;
+  }
+
+  .sf-booking-field textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .sf-booking-field input:focus-visible,
+  .sf-booking-field select:focus-visible,
+  .sf-booking-field textarea:focus-visible,
+  .sf-booking-nav a:focus-visible,
+  .sf-booking-submit:focus-visible {
+    outline: 2px solid var(--sf-ink);
+    outline-offset: 2px;
+  }
+
+  .sf-booking-field input::placeholder,
+  .sf-booking-field textarea::placeholder {
+    color: #999;
+  }
+
+  .sf-booking-summary {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--sf-line);
+    background: #f8f8f8;
+  }
+
+  .sf-booking-summary span {
+    color: var(--sf-muted);
+    font-size: 9px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-summary p {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .sf-booking-submit {
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 18px;
+    border: 1px solid var(--sf-ink);
+    color: var(--sf-paper);
+    background: var(--sf-ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-align: left;
+    text-transform: uppercase;
+    transition: background .2s ease, color .2s ease;
+  }
+
+  .sf-booking-submit:hover {
+    color: var(--sf-ink);
+    background: var(--sf-paper);
+  }
+
+  .sf-booking-submit span {
+    font-size: 18px;
+  }
+
+  .sf-booking-form-note {
+    margin: -7px 0 0;
+    color: var(--sf-muted);
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .sf-booking-success,
+  .sf-booking-errors {
+    display: grid;
+    gap: 5px;
+    padding: 14px 16px;
+    border: 1px solid var(--sf-ink);
+    font-size: 12px;
+  }
+
+  .sf-booking-success {
+    background: #f5f5f5;
+  }
+
+  .sf-booking-errors {
+    border-color: #9b1c1c;
+    color: #741414;
+  }
+
+  .sf-booking-footer {
+    display: flex;
+    min-height: 76px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 5%;
+    color: #aaa;
+    background: var(--sf-ink);
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .sf-booking-footer a:hover,
+  .sf-booking-footer a:focus-visible {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 850px) {
+    .sf-booking-content {
+      grid-template-columns: 1fr;
+      padding: 56px 6%;
+    }
+
+    .sf-booking-details {
+      max-width: 650px;
+    }
+
+    .sf-booking-hero {
+      min-height: 300px;
+      padding: 64px 6%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sf-booking-nav {
+      min-height: 62px;
+      gap: 12px;
+      padding: 10px 5%;
+    }
+
+    .sf-booking-links {
+      display: none;
+    }
+
+    .sf-booking-nav-cta {
+      min-height: 36px;
+      margin-left: auto;
+      padding: 0 11px;
+      font-size: 9px;
+    }
+
+    .sf-booking-hero {
+      display: block;
+      min-height: auto;
+      padding: 56px 6% 50px;
+    }
+
+    .sf-booking-hero-note {
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .sf-booking-content {
+      gap: 38px;
+      padding: 44px 5%;
+    }
+
+    .sf-booking-row {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .sf-booking-card {
+      padding: 24px 18px;
+    }
+
+    .sf-booking-footer {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 9px;
+      padding: 24px 5%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-booking-page *,
+    .sf-booking-page *::before,
+    .sf-booking-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    document.querySelectorAll('.sf-booking-page').forEach((root) => {
+      const type = root.querySelector('[data-booking-type]');
+      const date = root.querySelector('[data-booking-date]');
+      const time = root.querySelector('[data-booking-time]');
+      const summary = root.querySelector('[data-booking-summary-text]');
+
+      if (!type || !date || !time || !summary) return;
+
+      const updateSummary = () => {
+        const parts = [];
+
+        if (type.value) parts.push(type.options[type.selectedIndex].text);
+        if (date.value) {
+          const selectedDate = new Date(`${date.value}T12:00:00`);
+          parts.push(selectedDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }));
+        }
+        if (time.value) parts.push(time.options[time.selectedIndex].text);
+
+        summary.textContent = parts.length ? parts.join(' · ') : summary.dataset.emptyText;
+      };
+
+      summary.dataset.emptyText = summary.textContent;
+      [type, date, time].forEach((field) => field.addEventListener('change', updateSummary));
+    });
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Booking request",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Hero eyebrow", "default": "Sufias Fashion appointments" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A more personal way to shop" },
+    { "type": "textarea", "id": "description", "label": "Introduction", "default": "Book time with our team for personal styling, a wholesale conversation or help with an order." },
+    { "type": "text", "id": "hero_note", "label": "Hero side note", "default": "Thoughtful advice. A time that works for you." },
+    { "type": "text", "id": "details_eyebrow", "label": "Details eyebrow", "default": "Before you book" },
+    { "type": "text", "id": "details_heading", "label": "Details heading", "default": "Let’s find the right time." },
+    { "type": "textarea", "id": "details_text", "label": "Details text", "default": "Choose the kind of appointment and share a preferred date and time. Our team will get back to you to confirm availability." },
+    { "type": "text", "id": "duration", "label": "Appointment duration", "default": "Around 30 minutes" },
+    { "type": "text", "id": "location", "label": "Location", "default": "Lahore, Pakistan or online" },
+    { "type": "textarea", "id": "confirmation_note", "label": "Confirmation note", "default": "This form sends an appointment request. Your time is confirmed only after our team replies." },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Request an appointment" },
+    { "type": "text", "id": "submit_label", "label": "Submit button label", "default": "Send appointment request" }
+  ],
+  "presets": [
+    { "name": "Booking request" }
+  ]
+}
+{% endschema %}

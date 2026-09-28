@@ -753,5 +753,46 @@
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
     }
+  },
+  "booking": {
+    "nav": {
+      "label": "Booking navigation",
+      "details": "What to expect",
+      "request": "Appointment form",
+      "book_now": "Book an appointment"
+    },
+    "content": {
+      "label": "Appointment details and request form"
+    },
+    "details": {
+      "duration": "Duration",
+      "location": "Location",
+      "contact": "Contact"
+    },
+    "form": {
+      "eyebrow": "Your details",
+      "success_title": "Request received",
+      "success_message": "Thank you. Our team will contact you to confirm a time.",
+      "subject": "Appointment request",
+      "appointment_type": "Appointment type",
+      "choose_type": "Choose an appointment",
+      "type_styling": "Personal styling",
+      "type_wholesale": "Wholesale consultation",
+      "type_order": "Order support",
+      "preferred_date": "Preferred date",
+      "preferred_time": "Preferred time",
+      "choose_time": "Choose a time",
+      "name": "Full name",
+      "email": "Email address",
+      "phone": "Phone number",
+      "message": "Anything we should know?",
+      "message_hint": "Share a little about what you would like help with",
+      "summary_label": "Your request",
+      "summary_empty": "Select an appointment type, date and time to see your request summary.",
+      "disclaimer": "Your preferred time is a request and is confirmed only after our team replies."
+    },
+    "footer": {
+      "back_to_store": "Back to the store"
+    }
   }
 }
