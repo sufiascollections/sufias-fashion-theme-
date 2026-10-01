@@ -114,6 +114,7 @@
       <div class="sfbc-kicker">Order request</div><h2 id="sfbc-request-title-{{ sid }}">Your request list</h2>
       <div data-request-lines></div>
       <div class="sfbc-empty" data-request-empty>Your request list is empty.</div>
+      <div class="sfbc-error" role="alert" data-submit-error tabindex="-1" hidden>Please add a suit to your request list before sending.</div>
       <div class="sfbc-total sfbc-total--request" data-request-total hidden><span>Estimated total</span><strong data-request-total-value></strong></div>
       {% form 'contact', id: request_form_id, class: 'sfbc-request-form' %}
         {% if form.posted_successfully? %}<div class="sfbc-success" role="status" data-request-success><strong>Request sent.</strong><span>Thank you. Our team will contact you to confirm availability and final pricing.</span></div>{% endif %}
@@ -124,8 +125,10 @@
         <div class="sfbc-form-grid">
           <div><label for="sfbc-name-{{ sid }}">Full name</label><input id="sfbc-name-{{ sid }}" name="contact[name]" type="text" autocomplete="name" required></div>
           <div><label for="sfbc-phone-{{ sid }}">Phone number</label><input id="sfbc-phone-{{ sid }}" name="contact[phone]" type="tel" autocomplete="tel" required></div>
-          <div><label for="sfbc-email-{{ sid }}">Email address</label><input id="sfbc-email-{{ sid }}" name="contact[email]" type="email" autocomplete="email" required></div>
+          <div><label for="sfbc-email-{{ sid }}">Email address (optional)</label><input id="sfbc-email-{{ sid }}" name="contact[email]" type="email" autocomplete="email"></div>
           <div><label for="sfbc-city-{{ sid }}">City</label><input id="sfbc-city-{{ sid }}" name="contact[city]" type="text" autocomplete="address-level2"></div>
+          <div><label for="sfbc-date-{{ sid }}">Preferred booking date</label><input id="sfbc-date-{{ sid }}" name="booking[preferred_date]" type="date"></div>
+          <div><label for="sfbc-time-{{ sid }}">Preferred booking time</label><input id="sfbc-time-{{ sid }}" name="booking[preferred_time]" type="time"></div>
           <div class="sfbc-form-wide"><label for="sfbc-address-{{ sid }}">Address / notes</label><textarea id="sfbc-address-{{ sid }}" name="contact[address]" rows="3" autocomplete="street-address"></textarea></div>
         </div>
         <button class="sfbc-button sfbc-button--full" type="submit" data-submit-request>Send order request</button>

@@ -21,6 +21,7 @@
     const toast = root.querySelector('[data-booking-toast]');
     const form = root.querySelector('.sfbc-request-form');
     const request = [];
+    let submitting = false;
     let product = null;
     let mode = 'single';
     let colour = 'Black';
@@ -235,14 +236,30 @@
       noResults.hidden = visible !== 0;
     });
 
-    if (form) form.addEventListener('submit', () => {
+    if (form) form.addEventListener('submit', (event) => {
+      if (submitting) { event.preventDefault(); return; }
+      if (request.length === 0) {
+        event.preventDefault();
+        const error = root.querySelector('[data-submit-error]');
+        error.hidden = false;
+        error.focus();
+        return;
+      }
+      root.querySelector('[data-submit-error]').hidden = true;
       const lines = request.map((item) => `- ${item.name}: ${item.details}; estimated ${money(item.total)}`).join('\n');
       const name = form.querySelector('[name="contact[name]"]').value;
       const phone = form.querySelector('[name="contact[phone]"]').value;
       const email = form.querySelector('[name="contact[email]"]').value;
       const city = form.querySelector('[name="contact[city]"]').value;
       const address = form.querySelector('[name="contact[address]"]').value;
-      form.querySelector('[data-request-message]').value = `Order request from the Booking page\n\nCustomer: ${name}\nPhone: ${phone}\nEmail: ${email}\nCity: ${city}\nAddress / notes: ${address}\n\nRequested styles:\n${lines}\n\nEstimated total: ${money(request.reduce((sum, item) => sum + item.total, 0))}\nPrices and availability require confirmation by Sufias Fashion.`;
+      const preferredDate = form.querySelector('[name="booking[preferred_date]"]').value;
+      const preferredTime = form.querySelector('[name="booking[preferred_time]"]').value;
+      form.querySelector('[data-request-message]').value = `Booking/order request from the Booking page\n\nCustomer: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\nCity: ${city}\nPreferred booking date: ${preferredDate || 'Not provided'}\nPreferred booking time: ${preferredTime || 'Not provided'}\nAddress / notes: ${address}\n\nRequested styles:\n${lines}\n\nEstimated total: ${money(request.reduce((sum, item) => sum + item.total, 0))}\nPrices and availability require confirmation by Sufias Fashion.`;
+      submitting = true;
+      const submitButton = form.querySelector('[data-submit-request]');
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      submitButton.textContent = 'Sending request…';
     });
     renderRequest();
   });
