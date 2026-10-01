@@ -1,0 +1,170 @@
+{%- liquid
+  assign sid = section.id
+  assign booking_url = section.settings.booking_url
+-%}
+
+<section id="SufiasBookingPreview-{{ sid }}" class="sufias-booking-preview">
+  <div class="sufias-booking-preview__hero">
+    <div class="sufias-booking-preview__hero-copy">
+      <div class="sufias-booking-preview__kicker">{{ section.settings.kicker }}</div>
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.intro }}</p>
+      <div class="sufias-booking-preview__actions">
+        <a class="sufias-booking-preview__button" href="{{ booking_url }}">Book an Appointment</a>
+        <a class="sufias-booking-preview__link" href="{{ section.settings.secondary_url }}">{{ section.settings.secondary_text }}</a>
+      </div>
+    </div>
+    <div class="sufias-booking-preview__hero-side">
+      <span class="sufias-booking-preview__dot"></span>
+      <span>{{ section.settings.hero_note }}</span>
+    </div>
+  </div>
+
+  <div class="sufias-booking-preview__details">
+    <div>
+      <div class="sufias-booking-preview__kicker">The Experience</div>
+      <h2>{{ section.settings.details_heading }}</h2>
+    </div>
+    <p>{{ section.settings.details_text }}</p>
+  </div>
+
+  <div class="sufias-booking-preview__grid">
+    <article>
+      <span>01</span>
+      <h3>{{ section.settings.card_one_title }}</h3>
+      <p>{{ section.settings.card_one_text }}</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>{{ section.settings.card_two_title }}</h3>
+      <p>{{ section.settings.card_two_text }}</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>{{ section.settings.card_three_title }}</h3>
+      <p>{{ section.settings.card_three_text }}</p>
+    </article>
+  </div>
+
+  <div class="sufias-booking-preview__cta">
+    <div>
+      <div class="sufias-booking-preview__kicker">Private Appointments</div>
+      <h2>{{ section.settings.cta_heading }}</h2>
+    </div>
+    <a class="sufias-booking-preview__button" href="{{ booking_url }}">{{ section.settings.cta_button }}</a>
+  </div>
+</section>
+
+<style>
+#SufiasBookingPreview-{{ sid }}{
+  --sbp-ink:#000;
+  --sbp-paper:#fff;
+  --sbp-muted:#6b6b6b;
+  --sbp-line:#d9d9d9;
+  background:var(--sbp-paper);
+  color:var(--sbp-ink);
+  font-family:"DM Sans",sans-serif;
+}
+#SufiasBookingPreview-{{ sid }} *{box-sizing:border-box}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero{
+  min-height:560px;
+  padding:90px 5%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:50px;
+  border-bottom:1px solid var(--sbp-line);
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero-copy{max-width:720px}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__kicker{
+  font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--sbp-muted);margin-bottom:14px
+}
+#SufiasBookingPreview-{{ sid }} h1,#SufiasBookingPreview-{{ sid }} h2,#SufiasBookingPreview-{{ sid }} h3{
+  font-family:"Playfair Display",serif;font-weight:500
+}
+#SufiasBookingPreview-{{ sid }} h1{
+  font-size:clamp(48px,8vw,96px);line-height:.94;margin:0 0 24px;max-width:850px
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero-copy>p{
+  max-width:560px;color:var(--sbp-muted);font-size:14px;line-height:1.8;margin:0
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__actions{
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:34px
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__button{
+  display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;
+  background:#000;color:#fff;border:1px solid #000;border-radius:2px;font-size:11px;
+  text-transform:uppercase;letter-spacing:.14em;text-decoration:none;transition:.25s
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__button:hover{background:#333;border-color:#333}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__link{
+  color:#000;font-size:11px;text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid #000;padding-bottom:4px;text-decoration:none
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero-side{
+  display:flex;align-items:center;gap:9px;align-self:flex-start;padding-top:8px;
+  font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--sbp-muted);white-space:nowrap
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__dot{
+  width:6px;height:6px;border-radius:50%;background:#000;display:block
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__details{
+  padding:80px 5%;display:grid;grid-template-columns:1fr 1fr;gap:40px;border-bottom:1px solid var(--sbp-line)
+}
+#SufiasBookingPreview-{{ sid }} h2{font-size:clamp(34px,5vw,58px);line-height:1;margin:0}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__details p{
+  max-width:500px;align-self:end;color:var(--sbp-muted);font-size:14px;line-height:1.8;margin:0
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--sbp-line)
+}
+#SufiasBookingPreview-{{ sid }} article{padding:42px 5%;min-height:250px;border-right:1px solid var(--sbp-line)}
+#SufiasBookingPreview-{{ sid }} article:last-child{border-right:0}
+#SufiasBookingPreview-{{ sid }} article>span{font-size:10px;letter-spacing:.14em;color:var(--sbp-muted)}
+#SufiasBookingPreview-{{ sid }} article h3{font-size:28px;line-height:1.05;margin:40px 0 14px}
+#SufiasBookingPreview-{{ sid }} article p{font-size:13px;line-height:1.7;color:var(--sbp-muted);margin:0;max-width:330px}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta{
+  padding:65px 5%;display:flex;align-items:center;justify-content:space-between;gap:30px;background:#000;color:#fff
+}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta .sufias-booking-preview__kicker{color:#aaa}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta h2{max-width:650px}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta .sufias-booking-preview__button{background:#fff;color:#000;border-color:#fff}
+#SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta .sufias-booking-preview__button:hover{background:#e9e9e9;border-color:#e9e9e9}
+@media(max-width:700px){
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero{min-height:auto;padding:65px 5%;display:block}
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__hero-side{margin-top:55px}
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__details{grid-template-columns:1fr;padding:55px 5%}
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__grid{grid-template-columns:1fr}
+  #SufiasBookingPreview-{{ sid }} article{border-right:0;border-bottom:1px solid var(--sbp-line);min-height:0}
+  #SufiasBookingPreview-{{ sid }} article:last-child{border-bottom:0}
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta{display:block;padding:55px 5%}
+  #SufiasBookingPreview-{{ sid }} .sufias-booking-preview__cta .sufias-booking-preview__button{margin-top:28px}
+}
+</style>
+
+{% schema %}
+{
+  "name":"Sufias Booking Preview",
+  "tag":"section",
+  "class":"t4s-section sufias-booking-preview-section",
+  "settings":[
+    {"type":"text","id":"kicker","label":"Kicker","default":"Private Appointments"},
+    {"type":"text","id":"heading","label":"Heading","default":"A more personal way to shop Sufias."},
+    {"type":"textarea","id":"intro","label":"Intro","default":"Book a private appointment with Sufias Fashion for styling, private shopping, or help choosing the right pieces for your occasion."},
+    {"type":"text","id":"hero_note","label":"Hero note","default":"Appointments are limited"},
+    {"type":"url","id":"booking_url","label":"Booking form URL","default":"/pages/booking"},
+    {"type":"url","id":"secondary_url","label":"Secondary link URL","default":"/collections/all"},
+    {"type":"text","id":"secondary_text","label":"Secondary link text","default":"Continue shopping"},
+    {"type":"text","id":"details_heading","label":"Details heading","default":"Designed around you."},
+    {"type":"textarea","id":"details_text","label":"Details text","default":"Tell us what you are looking for, choose your preferred date and time, and send your request. We’ll review it and contact you to confirm availability."},
+    {"type":"text","id":"card_one_title","label":"Card 1 title","default":"Personal Styling"},
+    {"type":"textarea","id":"card_one_text","label":"Card 1 text","default":"Get help selecting silhouettes, colours and pieces that suit your occasion and preferences."},
+    {"type":"text","id":"card_two_title","label":"Card 2 title","default":"Private Shopping"},
+    {"type":"textarea","id":"card_two_text","label":"Card 2 text","default":"Enjoy focused time to explore Sufias pieces with a more personal shopping experience."},
+    {"type":"text","id":"card_three_title","label":"Card 3 title","default":"Order Consultation"},
+    {"type":"textarea","id":"card_three_text","label":"Card 3 text","default":"Need help before placing an order? Share your questions and we’ll guide you through the details."},
+    {"type":"text","id":"cta_heading","label":"CTA heading","default":"Ready to plan your appointment?"},
+    {"type":"text","id":"cta_button","label":"CTA button","default":"Book Now"}
+  ],
+  "presets":[{"name":"Sufias Booking Preview"}]
+}
+{% endschema %}
