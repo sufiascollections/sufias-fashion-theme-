@@ -1,0 +1,75 @@
+{%- liquid
+  assign booking_product = product
+  assign booking_card_type = card_type | default: 'archive'
+  assign booking_launch = booking_product.metafields.custom.launch_date_time.value
+  assign booking_variant_separator = ''
+  assign booking_variants_json = '['
+  assign booking_has_stock = false
+  assign booking_variant_count = 0
+-%}
+{%- for booking_variant in booking_product.variants -%}
+  {%- if booking_variant.inventory_management == blank or booking_variant.inventory_quantity > 0 -%}
+    {%- assign booking_has_stock = true -%}
+    {%- assign booking_variant_count = booking_variant_count | plus: 1 -%}
+    {%- capture booking_variant_json -%}{{ booking_variant_separator }}{"id":{{ booking_variant.id | json }},"title":{{ booking_variant.title | json }},"price":{{ booking_variant.price | divided_by: 100.0 }}}{%- endcapture -%}
+    {%- assign booking_variants_json = booking_variants_json | append: booking_variant_json -%}
+    {%- assign booking_variant_separator = ',' -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign booking_variants_json = booking_variants_json | append: ']' -%}
+
+{%- if booking_has_stock -%}
+  <article
+    class="sfbc-card{% if booking_card_type == 'upcoming' %} sfbc-card--upcoming{% endif %}"
+    data-product-card
+    data-product-id="{{ booking_product.id }}"
+    data-product-name="{{ booking_product.title | escape }}"
+    data-price="{{ booking_product.price_min | divided_by: 100.0 }}"
+    data-product-image="{% if booking_product.featured_image %}{{ booking_product.featured_image | image_url: width: 1000 }}{% endif %}"
+    data-product-url="{{ booking_product.url }}"
+    data-product-variants="{{ booking_variants_json | escape }}"
+    {% if booking_card_type == 'upcoming' and booking_launch %}data-release-at="{{ booking_launch | date: '%Y-%m-%dT%H:%M:%S%z' }}"{% endif %}
+  >
+    {%- if booking_card_type == 'upcoming' -%}
+      <div class="sfbc-card-image sfbc-card-image--static" aria-label="{{ booking_product.title | escape }} — coming soon">
+        {% if booking_product.featured_image %}
+          <img src="{{ booking_product.featured_image | image_url: width: 1000 }}" alt="{{ booking_product.featured_image.alt | default: booking_product.title | escape }}" loading="lazy" width="800" height="1000">
+        {% endif %}
+        <span class="sfbc-tag">Launching soon</span>
+        <span class="sfbc-overlay">
+          {% if booking_launch %}
+            <span class="sfbc-release">AVAILABLE IN</span>
+            <span class="sfbc-timer" aria-label="Time until available">
+              <span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span>
+              <span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span>
+              <span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span>
+              <span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span>
+            </span>
+          {% else %}
+            <span class="sfbc-release">LAUNCH DATE NOT SET</span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="sfbc-card-body">
+        <div class="sfbc-card-name">{{ booking_product.title | escape }}</div>
+        <div class="sfbc-card-price">{{ booking_product.price_min | money }}</div>
+        <div class="sfbc-stock">Coming soon · booking opens at launch</div>
+        <span class="sfbc-button sfbc-button--full sfbc-button--disabled" aria-disabled="true">Booking opens at launch</span>
+      </div>
+    {%- else -%}
+      <a class="sfbc-card-image" href="{{ booking_product.url }}" aria-label="View {{ booking_product.title | escape }}">
+        {% if booking_product.featured_image %}
+          <img src="{{ booking_product.featured_image | image_url: width: 1000 }}" alt="{{ booking_product.featured_image.alt | default: booking_product.title | escape }}" loading="lazy" width="800" height="1000">
+        {% endif %}
+        <span class="sfbc-previous-tag">Previous</span>
+      </a>
+      <div class="sfbc-card-body">
+        <a class="sfbc-card-name sfbc-card-name-link" href="{{ booking_product.url }}">{{ booking_product.title | escape }}</a>
+        <div class="sfbc-card-price">{{ booking_product.price_min | money }}</div>
+        <div class="sfbc-stock">In stock · {{ booking_variant_count }} options available</div>
+        <button class="sfbc-button sfbc-button--full" type="button" data-open-product>Add to booking request</button>
+        <a class="sfbc-product-link" href="{{ booking_product.url }}">View product</a>
+      </div>
+    {%- endif -%}
+  </article>
+{%- endif -%}

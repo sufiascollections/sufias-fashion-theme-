@@ -28,64 +28,43 @@
     </div>
   </nav>
 
-  <section class="sfbc-upcoming" id="sfbc-coming-{{ sid }}" aria-labelledby="sfbc-coming-title-{{ sid }}">
-    <div class="sfbc-section-head">
-      <div><div class="sfbc-kicker">The Next Drops</div><h1 id="sfbc-coming-title-{{ sid }}">Coming Soon</h1></div>
-      <div class="sfbc-head-note">
-        <div class="sfbc-drop-note"><span class="sfbc-drop-dot" aria-hidden="true"></span>Drops are limited</div>
-        <p>Tap any piece to preview it. Each countdown shows when the request window opens.</p>
+  {% paginate collections.all.products by 250 %}
+    <section class="sfbc-upcoming" id="sfbc-coming-{{ sid }}" aria-labelledby="sfbc-coming-title-{{ sid }}">
+      <div class="sfbc-section-head">
+        <div><div class="sfbc-kicker">The Next Drops</div><h1 id="sfbc-coming-title-{{ sid }}">Coming Soon</h1></div>
+        <div class="sfbc-head-note">
+          <div class="sfbc-drop-note"><span class="sfbc-drop-dot" aria-hidden="true"></span>Drops are limited</div>
+          <p>Launch times are set on each product. Coming soon styles cannot be booked or purchased yet.</p>
+        </div>
       </div>
-    </div>
-    <div class="sfbc-grid" data-coming-grid>
-      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="1" data-product-name="Black Embroidered Winter Suit — D4761" data-price="4700" data-release-hours="6" data-product-image="{{ 'sufias-booking-product-1.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Black Embroidered Winter Suit — D4761">
-          <img src="{{ 'sufias-booking-product-1.jpg' | asset_url }}" alt="Black embroidered winter suit D4761 with colour options" loading="lazy" width="640" height="800">
-          <span class="sfbc-tag">Launching soon</span>
-          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
-        </button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Black Embroidered Winter Suit — D4761</div><div class="sfbc-card-price">Rs. 4,700</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="2" data-product-name="Emerald Sequin Embroidered Suit" data-price="5200" data-release-hours="30" data-product-image="{{ 'sufias-booking-product-2.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Emerald Sequin Embroidered Suit">
-          <img src="{{ 'sufias-booking-product-2.jpg' | asset_url }}" alt="Emerald sequin embroidered suit with colour options" loading="lazy" width="640" height="800">
-          <span class="sfbc-tag">Launching soon</span>
-          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
-        </button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Emerald Sequin Embroidered Suit</div><div class="sfbc-card-price">Rs. 5,200</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="3" data-product-name="Emerald Embroidered Suit — Party Edition" data-price="5500" data-release-hours="60" data-product-image="{{ 'sufias-booking-product-3.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Emerald Embroidered Suit — Party Edition">
-          <img src="{{ 'sufias-booking-product-3.jpg' | asset_url }}" alt="Emerald embroidered party suit with colour options" loading="lazy" width="640" height="800">
-          <span class="sfbc-tag">Launching soon</span>
-          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
-        </button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Emerald Embroidered Suit — Party Edition</div><div class="sfbc-card-price">Rs. 5,500</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-    </div>
-  </section>
+      <div class="sfbc-grid" data-coming-grid>
+        {% for booking_product in collections.all.products %}
+          {% if booking_product.tags contains 'booking' and booking_product.tags contains 'preview' %}
+              {% render 'sufias-booking-product-card', product: booking_product, card_type: 'upcoming' %}
+          {% endif %}
+        {% endfor %}
+        <div class="sfbc-no-results" data-empty-coming hidden>No upcoming styles right now.</div>
+      </div>
+    </section>
 
-  <section class="sfbc-archive" id="sfbc-previous-{{ sid }}" aria-labelledby="sfbc-previous-title-{{ sid }}">
-    <div class="sfbc-section-head">
-      <div><div class="sfbc-kicker">Archive</div><h2 id="sfbc-previous-title-{{ sid }}">Previous Arrivals</h2></div>
-      <p>Loved styles from our earlier drops, while stock lasts.</p>
-    </div>
-    <div class="sfbc-grid" data-previous-grid>
-      <article class="sfbc-card" data-product-card data-product-id="4" data-product-name="Rose Pink Embroidered Suit" data-price="4900" data-product-image="{{ 'sufias-booking-product-4.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Rose Pink Embroidered Suit"><img src="{{ 'sufias-booking-product-4.jpg' | asset_url }}" alt="Rose pink embroidered suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Rose Pink Embroidered Suit</div><div class="sfbc-card-price">Rs. 4,900</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-      <article class="sfbc-card" data-product-card data-product-id="5" data-product-name="Mauve Cutwork Palazzo Suit" data-price="5000" data-product-image="{{ 'sufias-booking-product-5.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Mauve Cutwork Palazzo Suit"><img src="{{ 'sufias-booking-product-5.jpg' | asset_url }}" alt="Mauve cutwork palazzo suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Mauve Cutwork Palazzo Suit</div><div class="sfbc-card-price">Rs. 5,000</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-      <article class="sfbc-card" data-product-card data-product-id="6" data-product-name="Magenta Palazzo Suit" data-price="5300" data-product-image="{{ 'sufias-booking-product-6.jpg' | asset_url }}">
-        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Magenta Palazzo Suit"><img src="{{ 'sufias-booking-product-6.jpg' | asset_url }}" alt="Magenta palazzo suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
-        <div class="sfbc-card-body"><div class="sfbc-card-name">Magenta Palazzo Suit</div><div class="sfbc-card-price">Rs. 5,300</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
-      </article>
-      <div class="sfbc-no-results" data-no-results hidden>No matching products.</div>
-    </div>
-  </section>
-
+    <section class="sfbc-archive" id="sfbc-previous-{{ sid }}" aria-labelledby="sfbc-previous-title-{{ sid }}">
+      <div class="sfbc-section-head">
+        <div><div class="sfbc-kicker">Archive</div><h2 id="sfbc-previous-title-{{ sid }}">Previous Arrivals</h2></div>
+        <p>In-stock styles from earlier drops.</p>
+      </div>
+      <div class="sfbc-grid" data-previous-grid>
+        {% for booking_product in collections.all.products %}
+          {% if booking_product.tags contains 'booking' %}
+            {% unless booking_product.tags contains 'preview' %}
+                {% render 'sufias-booking-product-card', product: booking_product, card_type: 'archive' %}
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+        <div class="sfbc-no-results" data-no-results hidden>No matching products.</div>
+        <div class="sfbc-no-results" data-empty-previous hidden>No in-stock previous arrivals right now.</div>
+      </div>
+    </section>
+  {% endpaginate %}
   <div class="sfbc-modal" data-quick-modal hidden>
     <div class="sfbc-sheet sfbc-sheet--quick" role="dialog" aria-modal="true" aria-labelledby="sfbc-quick-name-{{ sid }}">
       <button class="sfbc-close" type="button" data-close-modal aria-label="Close">&times;</button>
@@ -96,12 +75,12 @@
         <div class="sfbc-availability-note">Availability and final price are confirmed by our team.</div>
         <div class="sfbc-mode-tabs"><button type="button" data-mode="single" class="is-active">Single</button><button type="button" data-mode="bulk">Bulk order</button></div>
         <div data-single-options>
-          <label>Colour: <span data-selected-colour>Black</span></label>
-          <div class="sfbc-swatches" data-swatches></div>
+          <label>Product variant</label>
+          <select class="sfbc-variant-select" data-variant-select aria-label="Product variant"></select>
           <label>Quantity</label>
           <div class="sfbc-quantity"><button type="button" data-single-step="-1" aria-label="Decrease quantity">−</button><span data-single-quantity>1</span><button type="button" data-single-step="1" aria-label="Increase quantity">+</button></div>
         </div>
-        <div data-bulk-options hidden><div class="sfbc-bulk-label">Pieces per colour</div><div data-bulk-rows></div><div class="sfbc-bulk-info" data-bulk-info></div></div>
+        <div data-bulk-options hidden><div class="sfbc-bulk-label">Pieces per variant</div><div data-bulk-rows></div><div class="sfbc-bulk-info" data-bulk-info></div></div>
         <div class="sfbc-total"><span>Estimated total</span><strong data-quick-total></strong></div>
         <button class="sfbc-button sfbc-button--full" type="button" data-add-request>Add to request list</button>
       </div>
