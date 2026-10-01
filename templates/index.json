@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "slideshow_KMf3zM": {
@@ -86,7 +95,7 @@
         "image_parent_GrfgRi": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/IMG_6010.png",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_30_2026_01_29_18_PM.png",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
@@ -100,7 +109,7 @@
             "cv_pos_mb": 50,
             "ch_pos_mb": 0,
             "bg_overlay": "#000000",
-            "bg_opacity": 0,
+            "bg_opacity": 18,
             "bg_content_cl": "rgba(0,0,0,0)",
             "bg_content_op": 0,
             "content_radius": 0,
@@ -121,12 +130,68 @@
             "time_animation": 1,
             "animation_delay": 30
           }
+        },
+        "custom_text_4f4kY7": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Winter\n<br>collection",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "3",
+            "text_cl": "#ffffff",
+            "text_fs": 77,
+            "text_lh": 61,
+            "text_fw": 200,
+            "text_ls": 1,
+            "text_mgb": 49,
+            "font_italic": false,
+            "text_shadow": true,
+            "hidden_mobile": false,
+            "text_fs_mb": 26,
+            "text_lh_mb": 20,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 6,
+            "animation": "fadeInUpBig"
+          }
+        },
+        "custom_button_3Enka4": {
+          "type": "custom_button",
+          "settings": {
+            "button_text": "Shop now",
+            "button_link": "shopify://collections/winter-collection",
+            "target_link": "_self",
+            "fontf": "inherit",
+            "button_icon_w": 0,
+            "button_style": "default",
+            "button_effect": "default",
+            "pri_cl": "#F8F6F6",
+            "second_cl": "#0A0000",
+            "pri_cl_hover": "#0A0000",
+            "second_cl_hover": "#F8F6F6",
+            "fsbutton": 14,
+            "fwbutton": 200,
+            "button_ls": 1.2,
+            "button_mh": 39,
+            "button_bdr": 8,
+            "button_pd_lr": 26,
+            "button_mgb": 8,
+            "hidden_mobile": false,
+            "button_icon_w_mb": 0,
+            "fsbutton_mb": 10,
+            "button_mh_mb": 36,
+            "button_pd_lr_mb": 15,
+            "button_ls_mb": 0,
+            "button_mgb_mb": 10,
+            "animation": "fadeInDownBig"
+          }
         }
       },
       "block_order": [
         "image_parent_afrRAp",
         "image_parent_DbAXJf",
-        "image_parent_GrfgRi"
+        "image_parent_GrfgRi",
+        "custom_text_4f4kY7",
+        "custom_button_3Enka4"
       ],
       "settings": {
         "se_height": "t4s_ratioadapt_f",
@@ -176,21 +241,14 @@
           "settings": {
             "collection": "winter-collection",
             "image": "shopify://shop_images/D357CA41-1716-47F1-8A46-ABAEE64FF720.jpg",
-            "title": "Winter collection"
-          }
-        },
-        "view_all_abpAf4": {
-          "type": "view_all",
-          "settings": {
-            "title": "",
-            "item_link": ""
+            "title": "Winter cotton"
           }
         },
         "collection_item_P6gCHF": {
           "type": "collection_item",
           "settings": {
             "collection": "sheesha-silk",
-            "image": "shopify://shop_images/89D6ECDD-14E4-4147-9717-A029E4540BFA.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_29_2026_05_14_36_PM.png",
             "title": "Sheesha Silk"
           }
         },
@@ -198,7 +256,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "abaya-collections",
-            "image": "shopify://shop_images/19EACBA3-A068-486E-AAE9-D40A64A734ED.jpg",
+            "image": "shopify://shop_images/7324FFD4-4A76-40B5-931D-A038875D6256_1.jpg",
             "title": "abaya"
           }
         },
@@ -206,7 +264,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "2-piece",
-            "image": "shopify://shop_images/7C2A6906.jpg",
+            "image": "shopify://shop_images/maxi.png",
             "title": "Maxi Chiffon"
           }
         },
@@ -214,7 +272,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "3-piece",
-            "image": "shopify://shop_images/ZA1824SH3P_1.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_29_2026_12_12_19_PM_1.png",
             "title": "3 - Piece"
           }
         },
@@ -230,8 +288,15 @@
           "type": "collection_item",
           "settings": {
             "collection": "lawn-3-piece",
-            "image": "shopify://shop_images/IDR01688.jpg",
+            "image": "shopify://shop_images/emerald-floral-digital-print-lawn-3-piece-suit.png",
             "title": "Summer"
+          }
+        },
+        "view_all_abpAf4": {
+          "type": "view_all",
+          "settings": {
+            "title": "",
+            "item_link": ""
           }
         }
       },
@@ -270,6 +335,80 @@
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": "30px,,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "featured_collection_Ck7dUN": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "design_heading": "2",
+        "heading_align": "t4s-text-center",
+        "top_heading": "New Arrivals",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "head_btn_label": "View All",
+        "head_btn_url": "shopify://collections/new-arrivals",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection": "new-arrivals",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "ratio2_3",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 8,
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "2",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "center_slide": false,
+        "nav_btn": false,
+        "btns_pos": "default",
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "use_pagination": "none",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "default",
+        "btns_size": "large",
+        "btns_cl": "dark",
+        "button_effect": "default",
+        "btn_pos": "t4s-text-center",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ""
@@ -362,6 +501,7 @@
       "block_order": [
         "item_HgJy4d"
       ],
+      "disabled": true,
       "name": "Scrolling text",
       "settings": {
         "speed": 5,
@@ -379,88 +519,14 @@
         "pd_mb": ""
       }
     },
-    "featured_collection_Ck7dUN": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "design_heading": "2",
-        "heading_align": "t4s-text-center",
-        "top_heading": "New Arrivals",
-        "icon_heading": "las la-gem",
-        "top_subheading": "",
-        "tophead_mb": 30,
-        "head_btn_label": "View All",
-        "head_btn_url": "shopify://collections/new-arrivals",
-        "head_btn_icon": false,
-        "head_btn_style": "default",
-        "head_btn_size": "medium",
-        "head_btn_cl": "dark",
-        "head_btn_effect": "default",
-        "head_btn_hidden_mb": false,
-        "collection": "new-arrivals",
-        "product_des": "1",
-        "show_vendor": false,
-        "use_cdt": false,
-        "image_ratio": "ratio2_3",
-        "image_size": "cover",
-        "image_position": "8",
-        "content_align": "default",
-        "limit": 8,
-        "col_dk": "4",
-        "col_tb": "2",
-        "col_mb": "2",
-        "space_h_item": "30",
-        "space_v_item": "30",
-        "space_h_item_mb": "10",
-        "space_v_item_mb": "10",
-        "layout_des": "2",
-        "loop": true,
-        "au_time": 0,
-        "au_hover": true,
-        "center_slide": false,
-        "nav_btn": false,
-        "btns_pos": "default",
-        "btn_vi": "hover",
-        "btn_owl": "default",
-        "btn_shape": "none",
-        "btn_cl": "dark",
-        "btn_size": "small",
-        "btn_hidden_mobile": true,
-        "nav_dot": false,
-        "dot_owl": "default",
-        "dots_cl": "dark",
-        "dots_round": true,
-        "dots_space": 10,
-        "dots_hidden_mobile": false,
-        "use_pagination": "none",
-        "enable_bar_lm": true,
-        "btn_icon": false,
-        "button_style": "default",
-        "btns_size": "large",
-        "btns_cl": "dark",
-        "button_effect": "default",
-        "btn_pos": "t4s-text-center",
-        "layout": "t4s-container-wrap",
-        "cl_bg": "",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
-      }
-    },
     "1646028739ae283905": {
       "type": "slideshow",
       "blocks": {
         "image_parent_9ETQk9": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/IDR01508.jpg",
-            "image_mb": "shopify://shop_images/IDR01508.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_27_2026_02_40_34_AM_3.png",
+            "image_mb": "shopify://shop_images/ChatGPT_Image_Sep_27_2026_02_40_34_AM_3.png",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
@@ -499,8 +565,8 @@
         "image_parent_VDXrgz": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/7C2A6933.jpg",
-            "image_mb": "shopify://shop_images/7C2A6933.jpg",
+            "image": "shopify://shop_images/sufias-winter-teal-3-piece-suit-main_1.jpg",
+            "image_mb": "shopify://shop_images/sufias-winter-teal-3-piece-suit-main_1.jpg",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
@@ -663,26 +729,8 @@
           "type": "collection_item",
           "settings": {
             "collection": "hot-collections",
-            "image": "shopify://shop_images/D207ORG3P_4.jpg",
+            "image": "shopify://shop_images/sufias-winter-edit-emerald-green-1.png",
             "collection_title": "New_winter arrival",
-            "collection_link": ""
-          }
-        },
-        "1646035040fee424aa-1": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "lawn-3-piece",
-            "image": "shopify://shop_images/IDR01303.jpg",
-            "collection_title": "Summer",
-            "collection_link": ""
-          }
-        },
-        "1646035040fee424aa-2": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "3-piece",
-            "image": "shopify://shop_images/C3CDA80E-EE09-4275-839D-C9F83421DCBA.jpg",
-            "collection_title": "3-Piece",
             "collection_link": ""
           }
         },
@@ -690,8 +738,26 @@
           "type": "collection_item",
           "settings": {
             "collection": "3-piece",
-            "image": "shopify://shop_images/8f28cc8c-e909-4f06-8aea-4aa36d61aa7a.jpg",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_29_2026_01_09_51_PM.png",
             "collection_title": "Hot-Collections",
+            "collection_link": ""
+          }
+        },
+        "1646035040fee424aa-2": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "3-piece",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_30_2026_02_33_39_PM.png",
+            "collection_title": "3-Piece",
+            "collection_link": ""
+          }
+        },
+        "1646035040fee424aa-1": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "lawn-3-piece",
+            "image": "shopify://shop_images/ChatGPT_Image_Sep_30_2026_02_38_00_PM.png",
+            "collection_title": "Summer",
             "collection_link": ""
           }
         }
