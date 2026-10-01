@@ -138,9 +138,9 @@
             "remove_br_tag": false,
             "tag": "h2",
             "fontf": "3",
-            "text_cl": "#ffffff",
+            "text_cl": "#FFFFFF",
             "text_fs": 77,
-            "text_lh": 61,
+            "text_lh": 62,
             "text_fw": 200,
             "text_ls": 1,
             "text_mgb": 49,
@@ -151,7 +151,7 @@
             "text_lh_mb": 20,
             "text_ls_mb": 0,
             "text_mgb_mobile": 6,
-            "animation": "fadeInUpBig"
+            "animation": "fadeInUp"
           }
         },
         "custom_button_3Enka4": {
@@ -160,7 +160,7 @@
             "button_text": "Shop now",
             "button_link": "shopify://collections/winter-collection",
             "target_link": "_self",
-            "fontf": "inherit",
+            "fontf": "3",
             "button_icon_w": 0,
             "button_style": "default",
             "button_effect": "default",
@@ -171,18 +171,18 @@
             "fsbutton": 14,
             "fwbutton": 200,
             "button_ls": 1.2,
-            "button_mh": 39,
-            "button_bdr": 8,
-            "button_pd_lr": 26,
-            "button_mgb": 8,
+            "button_mh": 37,
+            "button_bdr": 15,
+            "button_pd_lr": 18,
+            "button_mgb": 80,
             "hidden_mobile": false,
             "button_icon_w_mb": 0,
             "fsbutton_mb": 10,
             "button_mh_mb": 36,
             "button_pd_lr_mb": 15,
             "button_ls_mb": 0,
-            "button_mgb_mb": 10,
-            "animation": "fadeInDownBig"
+            "button_mgb_mb": 40,
+            "animation": "fadeInDown"
           }
         }
       },
