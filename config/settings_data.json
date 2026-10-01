@@ -623,6 +623,7 @@
         "blocks": {
           "334013b4-82f3-4046-8371-eaf3c3340153": {
             "type": "drop",
+            "disabled": true,
             "settings": {
               "title": "NEW IN",
               "url": "shopify://collections/new-arrivals",
@@ -735,6 +736,25 @@
               "item_fsize": 13,
               "sp_bettewn_item": 20
             }
+          },
+          "drop_X6hEGj": {
+            "type": "drop",
+            "settings": {
+              "title": "booking",
+              "url": "shopify://pages/booking",
+              "open_link": "_self",
+              "menu": "",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#0A0000",
+              "lb": "",
+              "lb_cl": "",
+              "lazy_mn": true,
+              "pos_sub": "bottom",
+              "pos": "left",
+              "item_fsize": 13,
+              "sp_bettewn_item": 20
+            }
           }
         },
         "block_order": [
@@ -743,7 +763,8 @@
           "drop_awyTQR",
           "drop_JD8UT4",
           "556a85dc-041d-4d44-8c22-263ed70a8b48",
-          "drop_YXhthE"
+          "drop_YXhthE",
+          "drop_X6hEGj"
         ],
         "custom_css": [
           ".header__heading-logo {max-width: 260px !important; /* Adjust size */ height: auto !important;}"
