@@ -1,6 +1,6 @@
 {%- liquid
   assign sid = section.id
-  assign booking_url = section.settings.booking_url
+  assign booking_url = section.settings.booking_url | default: '/pages/booking'
 -%}
 
 <section id="SufiasBookingPreview-{{ sid }}" class="sufias-booking-preview">
@@ -151,7 +151,7 @@
     {"type":"text","id":"heading","label":"Heading","default":"A more personal way to shop Sufias."},
     {"type":"textarea","id":"intro","label":"Intro","default":"Book a private appointment with Sufias Fashion for styling, private shopping, or help choosing the right pieces for your occasion."},
     {"type":"text","id":"hero_note","label":"Hero note","default":"Appointments are limited"},
-    {"type":"url","id":"booking_url","label":"Booking form URL","default":"/pages/booking"},
+    {"type":"url","id":"booking_url","label":"Booking form URL"},
     {"type":"url","id":"secondary_url","label":"Secondary link URL","default":"/collections/all"},
     {"type":"text","id":"secondary_text","label":"Secondary link text","default":"Continue shopping"},
     {"type":"text","id":"details_heading","label":"Details heading","default":"Designed around you."},

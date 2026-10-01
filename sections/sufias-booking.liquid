@@ -1,5 +1,6 @@
 {%- liquid
   assign sid = section.id
+  assign form_id = 'SufiasBookingForm-' | append: sid
 -%}
 <section id="SufiasBooking-{{ sid }}" class="sufias-booking">
   <div class="sufias-booking__inner">
@@ -9,7 +10,7 @@
       <p>{{ section.settings.subheading }}</p>
     </div>
 
-    {%- form 'contact', id: 'SufiasBookingForm-' | append: sid, class: 'sufias-booking__form' -%}
+    {%- form 'contact', id: form_id, class: 'sufias-booking__form' -%}
       {%- if form.posted_successfully? -%}
         <div class="sufias-booking__success" role="status">
           <strong>Booking request received.</strong>
