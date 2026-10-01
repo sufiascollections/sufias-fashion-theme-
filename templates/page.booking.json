@@ -9,7 +9,5 @@
       }
     }
   },
-  "order": [
-    "booking"
-  ]
+  "order": ["booking"]
 }
