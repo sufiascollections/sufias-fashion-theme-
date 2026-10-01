@@ -176,7 +176,7 @@
           "settings": {
             "collection": "winter-collection",
             "image": "shopify://shop_images/D357CA41-1716-47F1-8A46-ABAEE64FF720.jpg",
-            "title": "Winter Edit"
+            "title": "Winter collection"
           }
         },
         "view_all_abpAf4": {
@@ -199,7 +199,7 @@
           "settings": {
             "collection": "abaya-collections",
             "image": "shopify://shop_images/19EACBA3-A068-486E-AAE9-D40A64A734ED.jpg",
-            "title": "Islamic Wear"
+            "title": "abaya"
           }
         },
         "collection_item_TjFMkz": {
@@ -236,13 +236,13 @@
         }
       },
       "block_order": [
+        "collection_item_VPKPzj",
         "collection_item_P6gCHF",
         "collection_item_jW4XmY",
         "collection_item_TjFMkz",
         "collection_item_TzeHVQ",
         "collection_item_Dkpmwf",
         "collection_item_B6dacP",
-        "collection_item_VPKPzj",
         "view_all_abpAf4"
       ],
       "name": "Categories Section",
@@ -664,7 +664,7 @@
           "settings": {
             "collection": "hot-collections",
             "image": "shopify://shop_images/D207ORG3P_4.jpg",
-            "collection_title": "Hot-Collections",
+            "collection_title": "New_winter arrival",
             "collection_link": ""
           }
         },
@@ -689,18 +689,18 @@
         "fb81d2b5-38b4-4322-93fc-cd722f8758f3": {
           "type": "collection_item",
           "settings": {
-            "collection": "new-arrivals",
+            "collection": "3-piece",
             "image": "shopify://shop_images/8f28cc8c-e909-4f06-8aea-4aa36d61aa7a.jpg",
-            "collection_title": "New-Arrival",
+            "collection_title": "Hot-Collections",
             "collection_link": ""
           }
         }
       },
       "block_order": [
         "1646035040fee424aa-0",
-        "1646035040fee424aa-1",
+        "fb81d2b5-38b4-4322-93fc-cd722f8758f3",
         "1646035040fee424aa-2",
-        "fb81d2b5-38b4-4322-93fc-cd722f8758f3"
+        "1646035040fee424aa-1"
       ],
       "settings": {
         "design_heading": "6",
@@ -932,9 +932,9 @@
   "order": [
     "slideshow_KMf3zM",
     "categories_section_i4cq3z",
+    "featured_collection_Ck7dUN",
     "featured_collection_xwPW7d",
     "scrolling_text_9LWWeE",
-    "featured_collection_Ck7dUN",
     "1646028739ae283905",
     "featured_collection_f86ECd",
     "164603504020ce33da",
