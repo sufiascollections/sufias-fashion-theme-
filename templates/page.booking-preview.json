@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "booking_preview": {
+      "type": "sufias-booking-preview",
+      "settings": {
+        "kicker": "Private Appointments",
+        "heading": "A more personal way to shop Sufias.",
+        "intro": "Book a private appointment with Sufias Fashion for styling, private shopping, or help choosing the right pieces for your occasion.",
+        "hero_note": "Appointments are limited",
+        "booking_url": "/pages/booking",
+        "secondary_url": "/collections/all",
+        "secondary_text": "Continue shopping",
+        "details_heading": "Designed around you.",
+        "details_text": "Tell us what you are looking for, choose your preferred date and time, and send your request. We’ll review it and contact you to confirm availability.",
+        "card_one_title": "Personal Styling",
+        "card_one_text": "Get help selecting silhouettes, colours and pieces that suit your occasion and preferences.",
+        "card_two_title": "Private Shopping",
+        "card_two_text": "Enjoy focused time to explore Sufias pieces with a more personal shopping experience.",
+        "card_three_title": "Order Consultation",
+        "card_three_text": "Need help before placing an order? Share your questions and we’ll guide you through the details.",
+        "cta_heading": "Ready to plan your appointment?",
+        "cta_button": "Book Now"
+      }
+    }
+  },
+  "order": ["booking_preview"]
+}
