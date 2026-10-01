@@ -1,8 +1,12 @@
 {
   "sections": {
     "booking": {
-      "type": "booking-request",
-      "settings": {}
+      "type": "sufias-booking",
+      "settings": {
+        "heading": "Book an Appointment",
+        "subheading": "Request a private appointment with Sufias Fashion. Choose your preferred date and time and we’ll confirm availability.",
+        "button_text": "Request Booking"
+      }
     }
   },
   "order": [
