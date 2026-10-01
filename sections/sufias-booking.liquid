@@ -1,134 +1,150 @@
 {%- liquid
   assign sid = section.id
-  assign form_id = 'SufiasBookingForm-' | append: sid
+  assign request_form_id = 'SufiasBookingRequest-' | append: sid
 -%}
-<section id="SufiasBooking-{{ sid }}" class="sufias-booking">
-  <div class="sufias-booking__inner">
-    <div class="sufias-booking__intro">
-      <div class="sufias-booking__kicker">BOOKING</div>
-      <h1>{{ section.settings.heading }}</h1>
-      <p>{{ section.settings.subheading }}</p>
+
+{{ 'sufias-booking.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<div id="SufiasBookingCatalog-{{ sid }}" class="sf-booking-catalog" data-booking-catalog>
+  <nav class="sfbc-toolbar" aria-label="Booking collection navigation">
+    <div class="sfbc-menu">
+      <a href="#sfbc-coming-{{ sid }}">Coming Soon</a>
+      <a href="#sfbc-previous-{{ sid }}">Previous Arrivals</a>
     </div>
+    <label class="sfbc-search">
+      <span class="sfbc-visually-hidden">Search previous arrivals</span>
+      <input type="search" placeholder="Search products..." autocomplete="off" data-booking-search>
+    </label>
+    <div class="sfbc-nav-actions">
+      <a class="sfbc-navlink" href="{{ routes.account_url }}">Orders</a>
+      <a class="sfbc-icon-link" href="{{ routes.account_login_url }}" aria-label="Account">&#9786;</a>
+      <a class="sfbc-icon-link" href="{{ routes.cart_url }}" aria-label="Store cart">&#128722;<span class="sfbc-badge">{{ cart.item_count }}</span></a>
+      <button class="sfbc-request-bag" type="button" data-open-request aria-label="Open request list">
+        Request list <span class="sfbc-badge" data-request-count>0</span>
+      </button>
+    </div>
+  </nav>
 
-    {%- form 'contact', id: form_id, class: 'sufias-booking__form' -%}
-      {%- if form.posted_successfully? -%}
-        <div class="sufias-booking__success" role="status">
-          <strong>Booking request received.</strong>
-          <span>Thank you. We’ll contact you to confirm the details.</span>
-        </div>
-      {%- endif -%}
-      {%- if form.errors -%}
-        <div class="sufias-booking__error" role="alert">{{ form.errors | default_errors }}</div>
-      {%- endif -%}
-
-      <div class="sufias-booking__grid">
-        <div class="sufias-booking__field">
-          <label for="BookingName-{{ sid }}">Full name</label>
-          <input id="BookingName-{{ sid }}" type="text" name="contact[name]" value="{{ form.name | default: customer.name }}" autocomplete="name" required>
-        </div>
-        <div class="sufias-booking__field">
-          <label for="BookingPhone-{{ sid }}">Phone number</label>
-          <input id="BookingPhone-{{ sid }}" type="tel" name="contact[phone]" value="{{ form.phone | default: customer.phone }}" autocomplete="tel" required>
-        </div>
-        <div class="sufias-booking__field">
-          <label for="BookingEmail-{{ sid }}">Email address</label>
-          <input id="BookingEmail-{{ sid }}" type="email" name="contact[email]" value="{{ form.email | default: customer.email }}" autocomplete="email" required>
-        </div>
-        <div class="sufias-booking__field">
-          <label for="BookingDate-{{ sid }}">Booking date</label>
-          <input id="BookingDate-{{ sid }}" type="date" name="contact[booking_date]" required>
-        </div>
-        <div class="sufias-booking__field">
-          <label for="BookingTime-{{ sid }}">Preferred time</label>
-          <input id="BookingTime-{{ sid }}" type="time" name="contact[preferred_time]" required>
-        </div>
-        <div class="sufias-booking__field">
-          <label for="BookingType-{{ sid }}">Booking type</label>
-          <select id="BookingType-{{ sid }}" name="contact[booking_type]" required>
-            <option value="" selected disabled>Select booking type</option>
-            <option value="Personal styling">Personal styling</option>
-            <option value="Private shopping">Private shopping</option>
-            <option value="Order consultation">Order consultation</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+  <section class="sfbc-upcoming" id="sfbc-coming-{{ sid }}" aria-labelledby="sfbc-coming-title-{{ sid }}">
+    <div class="sfbc-section-head">
+      <div><div class="sfbc-kicker">The Next Drops</div><h1 id="sfbc-coming-title-{{ sid }}">Coming Soon</h1></div>
+      <div class="sfbc-head-note">
+        <div class="sfbc-drop-note"><span class="sfbc-drop-dot" aria-hidden="true"></span>Drops are limited</div>
+        <p>Tap any piece to preview it. Each countdown shows when the request window opens.</p>
       </div>
+    </div>
+    <div class="sfbc-grid" data-coming-grid>
+      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="1" data-product-name="Black Embroidered Winter Suit — D4761" data-price="4700" data-release-hours="6" data-product-image="{{ 'sufias-booking-product-1.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Black Embroidered Winter Suit — D4761">
+          <img src="{{ 'sufias-booking-product-1.jpg' | asset_url }}" alt="Black embroidered winter suit D4761 with colour options" loading="lazy" width="640" height="800">
+          <span class="sfbc-tag">Launching soon</span>
+          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
+        </button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Black Embroidered Winter Suit — D4761</div><div class="sfbc-card-price">Rs. 4,700</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="2" data-product-name="Emerald Sequin Embroidered Suit" data-price="5200" data-release-hours="30" data-product-image="{{ 'sufias-booking-product-2.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Emerald Sequin Embroidered Suit">
+          <img src="{{ 'sufias-booking-product-2.jpg' | asset_url }}" alt="Emerald sequin embroidered suit with colour options" loading="lazy" width="640" height="800">
+          <span class="sfbc-tag">Launching soon</span>
+          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
+        </button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Emerald Sequin Embroidered Suit</div><div class="sfbc-card-price">Rs. 5,200</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+      <article class="sfbc-card sfbc-card--upcoming" data-product-card data-product-id="3" data-product-name="Emerald Embroidered Suit — Party Edition" data-price="5500" data-release-hours="60" data-product-image="{{ 'sufias-booking-product-3.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Emerald Embroidered Suit — Party Edition">
+          <img src="{{ 'sufias-booking-product-3.jpg' | asset_url }}" alt="Emerald embroidered party suit with colour options" loading="lazy" width="640" height="800">
+          <span class="sfbc-tag">Launching soon</span>
+          <span class="sfbc-overlay"><span class="sfbc-release">AVAILABLE IN</span><span class="sfbc-timer" aria-label="Time until available"><span class="sfbc-time-box"><strong data-days>00</strong><span>Days</span></span><span class="sfbc-time-box"><strong data-hours>00</strong><span>Hrs</span></span><span class="sfbc-time-box"><strong data-minutes>00</strong><span>Min</span></span><span class="sfbc-time-box"><strong data-seconds>00</strong><span>Sec</span></span></span></span>
+        </button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Emerald Embroidered Suit — Party Edition</div><div class="sfbc-card-price">Rs. 5,500</div><div class="sfbc-stock">Limited drop · availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+    </div>
+  </section>
 
-      <div class="sufias-booking__field sufias-booking__field--full">
-        <label for="BookingMessage-{{ sid }}">Message / notes</label>
-        <textarea id="BookingMessage-{{ sid }}" name="contact[body]" rows="7" placeholder="Tell us anything we should know about your booking.">{{ form.body }}</textarea>
+  <section class="sfbc-archive" id="sfbc-previous-{{ sid }}" aria-labelledby="sfbc-previous-title-{{ sid }}">
+    <div class="sfbc-section-head">
+      <div><div class="sfbc-kicker">Archive</div><h2 id="sfbc-previous-title-{{ sid }}">Previous Arrivals</h2></div>
+      <p>Loved styles from our earlier drops, while stock lasts.</p>
+    </div>
+    <div class="sfbc-grid" data-previous-grid>
+      <article class="sfbc-card" data-product-card data-product-id="4" data-product-name="Rose Pink Embroidered Suit" data-price="4900" data-product-image="{{ 'sufias-booking-product-4.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Rose Pink Embroidered Suit"><img src="{{ 'sufias-booking-product-4.jpg' | asset_url }}" alt="Rose pink embroidered suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Rose Pink Embroidered Suit</div><div class="sfbc-card-price">Rs. 4,900</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+      <article class="sfbc-card" data-product-card data-product-id="5" data-product-name="Mauve Cutwork Palazzo Suit" data-price="5000" data-product-image="{{ 'sufias-booking-product-5.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Mauve Cutwork Palazzo Suit"><img src="{{ 'sufias-booking-product-5.jpg' | asset_url }}" alt="Mauve cutwork palazzo suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Mauve Cutwork Palazzo Suit</div><div class="sfbc-card-price">Rs. 5,000</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+      <article class="sfbc-card" data-product-card data-product-id="6" data-product-name="Magenta Palazzo Suit" data-price="5300" data-product-image="{{ 'sufias-booking-product-6.jpg' | asset_url }}">
+        <button class="sfbc-card-image" type="button" data-open-product aria-label="Preview Magenta Palazzo Suit"><img src="{{ 'sufias-booking-product-6.jpg' | asset_url }}" alt="Magenta palazzo suit" loading="lazy" width="640" height="800"><span class="sfbc-previous-tag">Previous</span></button>
+        <div class="sfbc-card-body"><div class="sfbc-card-name">Magenta Palazzo Suit</div><div class="sfbc-card-price">Rs. 5,300</div><div class="sfbc-stock">Availability confirmed by our team</div><button class="sfbc-button sfbc-button--full" type="button" data-open-product>Colours &amp; bulk order</button></div>
+      </article>
+      <div class="sfbc-no-results" data-no-results hidden>No matching products.</div>
+    </div>
+  </section>
+
+  <div class="sfbc-modal" data-quick-modal hidden>
+    <div class="sfbc-sheet sfbc-sheet--quick" role="dialog" aria-modal="true" aria-labelledby="sfbc-quick-name-{{ sid }}">
+      <button class="sfbc-close" type="button" data-close-modal aria-label="Close">&times;</button>
+      <div class="sfbc-quick-image"><img data-quick-image src="" alt=""></div>
+      <div class="sfbc-quick-body">
+        <div class="sfbc-kicker" data-quick-tag></div><h2 id="sfbc-quick-name-{{ sid }}" data-quick-name></h2>
+        <div class="sfbc-card-price" data-quick-price></div>
+        <div class="sfbc-availability-note">Availability and final price are confirmed by our team.</div>
+        <div class="sfbc-mode-tabs"><button type="button" data-mode="single" class="is-active">Single</button><button type="button" data-mode="bulk">Bulk order</button></div>
+        <div data-single-options>
+          <label>Colour: <span data-selected-colour>Black</span></label>
+          <div class="sfbc-swatches" data-swatches></div>
+          <label>Quantity</label>
+          <div class="sfbc-quantity"><button type="button" data-single-step="-1" aria-label="Decrease quantity">−</button><span data-single-quantity>1</span><button type="button" data-single-step="1" aria-label="Increase quantity">+</button></div>
+        </div>
+        <div data-bulk-options hidden><div class="sfbc-bulk-label">Pieces per colour</div><div data-bulk-rows></div><div class="sfbc-bulk-info" data-bulk-info></div></div>
+        <div class="sfbc-total"><span>Estimated total</span><strong data-quick-total></strong></div>
+        <button class="sfbc-button sfbc-button--full" type="button" data-add-request>Add to request list</button>
       </div>
-
-      <button class="sufias-booking__button" type="submit">{{ section.settings.button_text }}</button>
-      <p class="sufias-booking__note">We’ll review your request and contact you to confirm availability.</p>
-    {%- endform -%}
+    </div>
   </div>
-</section>
 
-<style>
-#SufiasBooking-{{ sid }}{
-  --sb-ink:#000;
-  --sb-paper:#fff;
-  --sb-muted:#6b6b6b;
-  --sb-line:#d9d9d9;
-  background:var(--sb-paper);
-  color:var(--sb-ink);
-  font-family:"DM Sans",sans-serif;
-  padding:70px 5%;
-}
-#SufiasBooking-{{ sid }} *{box-sizing:border-box}
-#SufiasBooking-{{ sid }} .sufias-booking__inner{width:min(920px,100%);margin:0 auto}
-#SufiasBooking-{{ sid }} .sufias-booking__intro{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:38px;flex-wrap:wrap}
-#SufiasBooking-{{ sid }} .sufias-booking__kicker{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--sb-muted);margin-bottom:10px}
-#SufiasBooking-{{ sid }} h1{font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(34px,6vw,58px);line-height:1;margin:0}
-#SufiasBooking-{{ sid }} .sufias-booking__intro p{max-width:360px;color:var(--sb-muted);font-size:13px;line-height:1.7;margin:0}
-#SufiasBooking-{{ sid }} .sufias-booking__form{border:1px solid var(--sb-line);padding:34px}
-#SufiasBooking-{{ sid }} .sufias-booking__grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
-#SufiasBooking-{{ sid }} .sufias-booking__field{margin-bottom:20px}
-#SufiasBooking-{{ sid }} label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--sb-muted);margin:0 0 8px}
-#SufiasBooking-{{ sid }} input,#SufiasBooking-{{ sid }} select,#SufiasBooking-{{ sid }} textarea{width:100%;border:1px solid var(--sb-line);border-radius:0;background:#fff;color:#000;font:inherit;font-size:14px;padding:0 14px;box-shadow:none}
-#SufiasBooking-{{ sid }} input,#SufiasBooking-{{ sid }} select{height:48px}
-#SufiasBooking-{{ sid }} textarea{padding:14px;resize:vertical;min-height:150px}
-#SufiasBooking-{{ sid }} input:focus,#SufiasBooking-{{ sid }} select:focus,#SufiasBooking-{{ sid }} textarea:focus{outline:0;border-color:#000}
-#SufiasBooking-{{ sid }} .sufias-booking__button{width:100%;height:48px;border:0;border-radius:2px;background:#000;color:#fff;font:inherit;font-size:11px;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;transition:.25s}
-#SufiasBooking-{{ sid }} .sufias-booking__button:hover{background:#333}
-#SufiasBooking-{{ sid }} .sufias-booking__note{text-align:center;color:var(--sb-muted);font-size:11px;margin:14px 0 0}
-#SufiasBooking-{{ sid }} .sufias-booking__success{display:flex;flex-direction:column;gap:4px;border:1px solid #000;padding:16px;margin-bottom:24px;font-size:13px}
-#SufiasBooking-{{ sid }} .sufias-booking__error{border:1px solid #9c3a2e;padding:14px;margin-bottom:24px;color:#9c3a2e;font-size:12px}
-@media(max-width:600px){
-  #SufiasBooking-{{ sid }}{padding:48px 5%}
-  #SufiasBooking-{{ sid }} .sufias-booking__form{padding:22px 18px}
-  #SufiasBooking-{{ sid }} .sufias-booking__grid{grid-template-columns:1fr;gap:0}
-  #SufiasBooking-{{ sid }} .sufias-booking__intro{display:block}
-  #SufiasBooking-{{ sid }} .sufias-booking__intro p{margin-top:14px}
-}
-</style>
+  <div class="sfbc-modal" data-request-modal hidden>
+    <div class="sfbc-sheet sfbc-sheet--request" role="dialog" aria-modal="true" aria-labelledby="sfbc-request-title-{{ sid }}">
+      <button class="sfbc-close" type="button" data-close-modal aria-label="Close">&times;</button>
+      <div class="sfbc-kicker">Order request</div><h2 id="sfbc-request-title-{{ sid }}">Your request list</h2>
+      <div data-request-lines></div>
+      <div class="sfbc-empty" data-request-empty>Your request list is empty.</div>
+      <div class="sfbc-total sfbc-total--request" data-request-total hidden><span>Estimated total</span><strong data-request-total-value></strong></div>
+      {% form 'contact', id: request_form_id, class: 'sfbc-request-form' %}
+        {% if form.posted_successfully? %}<div class="sfbc-success" role="status" data-request-success><strong>Request sent.</strong><span>Thank you. Our team will contact you to confirm availability and final pricing.</span></div>{% endif %}
+        {% if form.errors %}<div class="sfbc-error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+        <input type="hidden" name="contact[subject]" value="Sufias Fashion order request">
+        <input type="hidden" name="contact[tags]" value="booking page, order request">
+        <textarea class="sfbc-hidden-message" name="contact[body]" data-request-message hidden></textarea>
+        <div class="sfbc-form-grid">
+          <div><label for="sfbc-name-{{ sid }}">Full name</label><input id="sfbc-name-{{ sid }}" name="contact[name]" type="text" autocomplete="name" required></div>
+          <div><label for="sfbc-phone-{{ sid }}">Phone number</label><input id="sfbc-phone-{{ sid }}" name="contact[phone]" type="tel" autocomplete="tel" required></div>
+          <div><label for="sfbc-email-{{ sid }}">Email address</label><input id="sfbc-email-{{ sid }}" name="contact[email]" type="email" autocomplete="email" required></div>
+          <div><label for="sfbc-city-{{ sid }}">City</label><input id="sfbc-city-{{ sid }}" name="contact[city]" type="text" autocomplete="address-level2"></div>
+          <div class="sfbc-form-wide"><label for="sfbc-address-{{ sid }}">Address / notes</label><textarea id="sfbc-address-{{ sid }}" name="contact[address]" rows="3" autocomplete="street-address"></textarea></div>
+        </div>
+        <button class="sfbc-button sfbc-button--full" type="submit" data-submit-request>Send order request</button>
+        <p class="sfbc-form-note">This sends an inquiry to Sufias Fashion. It does not take payment or place a confirmed order.</p>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="sfbc-toast" role="status" aria-live="polite" data-booking-toast></div>
+</div>
+
+<script src="{{ 'sufias-booking.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
   "name": "Sufias Booking",
   "tag": "section",
   "class": "t4s-section sufias-booking-section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Book an Appointment"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Request a private appointment with Sufias Fashion. Choose your preferred date and time and we’ll confirm availability."
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "Request Booking"
-    }
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "Sufias Booking"
