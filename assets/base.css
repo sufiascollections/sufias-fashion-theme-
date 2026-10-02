@@ -4646,3 +4646,4 @@ shopify-payment-terms {
   }
 }
 .sufias-launch-lock{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid rgba(0,0,0,.18);background:#f6f3ee;color:#171717;text-align:center;font-size:13px}.sufias-launch-lock strong{font-size:15px}
+body.sufias-launch-locked .es-form,body.sufias-launch-locked .t4s-sticky-atc,body.sufias-launch-locked [data-sticky-addtocart]{display:none!important}

@@ -8,7 +8,8 @@
   assign booking_variant_count = 0
 -%}
 {%- for booking_variant in booking_product.variants -%}
-  {%- if booking_variant.inventory_management == blank or booking_variant.inventory_quantity > 0 -%}
+  {%- comment -%}Untracked inventory is available for booking; tracked stock needs positive quantity.{%- endcomment -%}
+  {%- if booking_variant.inventory_management != 'shopify' or booking_variant.inventory_quantity > 0 -%}
     {%- assign booking_has_stock = true -%}
     {%- assign booking_variant_count = booking_variant_count | plus: 1 -%}
     {%- capture booking_variant_json -%}{{ booking_variant_separator }}{"id":{{ booking_variant.id | json }},"title":{{ booking_variant.title | json }},"price":{{ booking_variant.price | divided_by: 100.0 }}}{%- endcapture -%}
