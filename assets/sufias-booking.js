@@ -3,6 +3,7 @@
 
   document.querySelectorAll('[data-booking-catalog]').forEach((root) => {
     if (root.dataset.initialized) return;
+    document.body.classList.add('sfbc-booking-page');
     root.dataset.initialized = 'true';
     const quickModal = root.querySelector('[data-quick-modal]');
     const requestModal = root.querySelector('[data-request-modal]');
