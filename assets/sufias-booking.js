@@ -12,7 +12,9 @@
     const quickTotal = root.querySelector('[data-quick-total]');
     const variantSelect = root.querySelector('[data-variant-select]');
     const singleQuantity = root.querySelector('[data-single-quantity]');
-    const bulkRows = root.querySelector('[data-bulk-rows]');
+    const cartForm = root.querySelector('[data-shopify-cart-form]');
+    const cartVariantInput = root.querySelector('[data-cart-variant]');
+    const cartQuantityInput = root.querySelector('[data-cart-quantity]');
     const toast = root.querySelector('[data-booking-toast]');
     const form = root.querySelector('.sfbc-request-form');
     const request = [];
@@ -20,7 +22,6 @@
     let product = null;
     let variants = [];
     let selectedVariant = null;
-    let mode = 'single';
     let quantity = 1;
     let toastTimer;
 
@@ -81,38 +82,19 @@
       if (quickModal.hidden && requestModal.hidden) document.body.classList.remove('sfbc-modal-open');
     }
 
-    function bulkQuantities() {
-      return [...bulkRows.querySelectorAll('input')].map((input) => Number(input.value) || 0);
-    }
-
-    function bulkLines() {
-      return variants.map((variant, index) => ({ variant, count: bulkQuantities()[index] || 0 })).filter((line) => line.count > 0);
-    }
-
-    function discountFor(pieces) { return pieces >= 15 ? 0.2 : pieces >= 10 ? 0.15 : pieces >= 5 ? 0.1 : 0; }
-
     function currentTotal() {
-      if (!product || !selectedVariant) return 0;
-      if (mode === 'single') return selectedVariant.price * quantity;
-      const lines = bulkLines();
-      const pieces = lines.reduce((sum, line) => sum + line.count, 0);
-      return lines.reduce((sum, line) => sum + line.variant.price * line.count, 0) * (1 - discountFor(pieces));
+      return selectedVariant ? selectedVariant.price * quantity : 0;
     }
 
     function updateTotal() {
       quickTotal.textContent = money(currentTotal());
-      if (mode === 'bulk') {
-        const pieces = bulkLines().reduce((sum, line) => sum + line.count, 0);
-        const discount = Math.round(discountFor(pieces) * 100);
-        root.querySelector('[data-bulk-info]').textContent = pieces < 5
-          ? 'Add at least 5 pieces for a bulk request.'
-          : `${pieces} pieces · ${discount}% estimated bulk discount`;
-      }
+      if (cartVariantInput && selectedVariant) cartVariantInput.value = String(selectedVariant.id);
+      if (cartQuantityInput) cartQuantityInput.value = String(quantity);
+      singleQuantity.textContent = String(quantity);
     }
 
     function buildQuickView(card) {
       product = card;
-      mode = 'single';
       quantity = 1;
       try { variants = JSON.parse(card.dataset.productVariants || '[]'); } catch (_) { variants = []; }
       if (!variants.length) return;
@@ -130,27 +112,11 @@
       }
       root.querySelector('[data-quick-tag]').textContent = 'Previous arrival';
       singleQuantity.textContent = '1';
-      root.querySelectorAll('[data-mode]').forEach((button) => button.classList.toggle('is-active', button.dataset.mode === mode));
-      root.querySelector('[data-single-options]').hidden = false;
-      root.querySelector('[data-bulk-options]').hidden = true;
       variantSelect.replaceChildren(...variants.map((variant) => {
         const option = document.createElement('option');
         option.value = String(variant.id);
         option.textContent = variant.title;
         return option;
-      }));
-      bulkRows.replaceChildren(...variants.map((variant) => {
-        const row = document.createElement('label');
-        row.className = 'sfbc-bulk-row';
-        const title = document.createElement('span');
-        title.textContent = variant.title;
-        const input = document.createElement('input');
-        input.type = 'number'; input.min = '0'; input.step = '1'; input.value = '0';
-        input.setAttribute('aria-label', `${variant.title} quantity`);
-        input.addEventListener('input', updateTotal);
-        const unit = document.createElement('span'); unit.textContent = 'pcs';
-        row.append(title, input, unit);
-        return row;
       }));
       updateTotal();
     }
@@ -193,29 +159,16 @@
       if (event.target.closest('[data-open-request]')) { renderRequest(); openModal(requestModal); return; }
       if (event.target.closest('[data-close-modal]')) { closeModal(event.target.closest('.sfbc-modal')); return; }
       if (event.target.classList.contains('sfbc-modal')) { closeModal(event.target); return; }
-      const modeButton = event.target.closest('[data-mode]');
-      if (modeButton) {
-        mode = modeButton.dataset.mode;
-        root.querySelectorAll('[data-mode]').forEach((button) => button.classList.toggle('is-active', button === modeButton));
-        root.querySelector('[data-single-options]').hidden = mode !== 'single';
-        root.querySelector('[data-bulk-options]').hidden = mode !== 'bulk';
-        updateTotal(); return;
-      }
       const step = event.target.closest('[data-single-step]');
-      if (step) { quantity = Math.max(1, quantity + Number(step.dataset.singleStep)); singleQuantity.textContent = String(quantity); updateTotal(); return; }
+      if (step) { quantity = Math.max(1, quantity + Number(step.dataset.singleStep)); updateTotal(); return; }
       if (event.target.closest('[data-add-request]')) {
-        const selected = mode === 'single' ? [{ variant: selectedVariant, count: quantity }] : bulkLines();
-        const pieces = selected.reduce((sum, line) => sum + line.count, 0);
-        if (!pieces || (mode === 'bulk' && pieces < 5)) { showToast(mode === 'bulk' ? 'Bulk requests start at 5 pieces.' : 'Choose at least one piece.'); return; }
-        const discount = discountFor(pieces);
-        const lines = selected.map((line) => ({ ...line, unitPrice: line.variant.price * (1 - discount) }));
-        const total = lines.reduce((sum, line) => sum + line.unitPrice * line.count, 0);
+        if (!selectedVariant) { showToast('Choose a product option first.'); return; }
         request.push({
           name: product.dataset.productName,
           image: product.dataset.productImage || '',
-          details: lines.map((line) => `${line.variant.title} × ${line.count} @ ${money(line.variant.price)}`).join(', '),
-          pieces, total,
-          emailLines: lines.map((line) => `  ${line.variant.title}: ${line.count} × ${money(line.variant.price)}${discount ? ` (${Math.round(discount * 100)}% bulk discount)` : ''}`).join('\n')
+          details: `${selectedVariant.title} × ${quantity} @ ${money(selectedVariant.price)}`,
+          pieces: quantity, total: selectedVariant.price * quantity,
+          emailLines: `  ${selectedVariant.title}: ${quantity} × ${money(selectedVariant.price)}`
         });
         renderRequest(); closeModal(quickModal); showToast('Added to your request list.');
       }
@@ -238,6 +191,16 @@
         if (match) visible += 1;
       });
       if (noResults) noResults.hidden = archiveCards.length === 0 || visible !== 0;
+    });
+
+    if (cartForm) cartForm.addEventListener('submit', (event) => {
+      if (!selectedVariant || quantity < 1) {
+        event.preventDefault();
+        showToast('Choose a product option and quantity.');
+        return;
+      }
+      cartVariantInput.value = String(selectedVariant.id);
+      cartQuantityInput.value = String(quantity);
     });
 
     if (form) form.addEventListener('submit', (event) => {

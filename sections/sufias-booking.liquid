@@ -77,17 +77,19 @@
       <div class="sfbc-quick-body">
         <div class="sfbc-kicker" data-quick-tag></div><h2 id="sfbc-quick-name-{{ sid }}" data-quick-name></h2>
         <div class="sfbc-card-price" data-quick-price></div>
-        <div class="sfbc-availability-note">Availability and final price are confirmed by our team.</div>
-        <div class="sfbc-mode-tabs"><button type="button" data-mode="single" class="is-active">Single</button><button type="button" data-mode="bulk">Bulk order</button></div>
-        <div data-single-options>
+        <div class="sfbc-availability-note">Select an option and quantity to add this item to your Shopify cart.</div>
+        <form class="sfbc-cart-form" action="{{ routes.cart_add_url }}" method="post" data-shopify-cart-form>
           <label>Product variant</label>
           <select class="sfbc-variant-select" data-variant-select aria-label="Product variant"></select>
           <label>Quantity</label>
           <div class="sfbc-quantity"><button type="button" data-single-step="-1" aria-label="Decrease quantity">−</button><span data-single-quantity>1</span><button type="button" data-single-step="1" aria-label="Increase quantity">+</button></div>
-        </div>
-        <div data-bulk-options hidden><div class="sfbc-bulk-label">Pieces per variant</div><div data-bulk-rows></div><div class="sfbc-bulk-info" data-bulk-info></div></div>
-        <div class="sfbc-total"><span>Estimated total</span><strong data-quick-total></strong></div>
-        <button class="sfbc-button sfbc-button--full" type="button" data-add-request>Add to request list</button>
+          <input type="hidden" name="id" value="" data-cart-variant>
+          <input type="hidden" name="quantity" value="1" data-cart-quantity>
+          <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+          <div class="sfbc-total"><span>Subtotal</span><strong data-quick-total></strong></div>
+          <button class="sfbc-button sfbc-button--full" type="submit" name="add">Add to cart</button>
+        </form>
+        <button class="sfbc-request-secondary" type="button" data-add-request>Add to booking request list</button>
       </div>
     </div>
   </div>
