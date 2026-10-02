@@ -40,7 +40,12 @@
       <div class="sfbc-grid" data-coming-grid>
         {% for booking_product in collections.all.products %}
           {% if booking_product.tags contains 'booking' and booking_product.tags contains 'preview' %}
+            {% assign booking_launch_at = booking_product.metafields.custom.launch_date_time.value %}
+            {% assign booking_launch_epoch = booking_launch_at | date: '%s' | plus: 0 %}
+            {% assign booking_now_epoch = 'now' | date: '%s' | plus: 0 %}
+            {% if booking_launch_at != blank and booking_launch_epoch > booking_now_epoch %}
               {% render 'sufias-booking-product-card', product: booking_product, card_type: 'upcoming' %}
+            {% endif %}
           {% endif %}
         {% endfor %}
         <div class="sfbc-no-results" data-empty-coming hidden>No upcoming styles right now.</div>

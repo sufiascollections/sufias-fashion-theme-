@@ -43,6 +43,8 @@
           if (release) release.textContent = 'AVAILABLE NOW';
           const timer = card.querySelector('.sfbc-timer');
           if (timer) timer.hidden = true;
+          card.hidden = true;
+          if (comingEmpty && upcomingCards.every((upcomingCard) => upcomingCard.hidden)) comingEmpty.hidden = false;
           return;
         }
         const values = {
