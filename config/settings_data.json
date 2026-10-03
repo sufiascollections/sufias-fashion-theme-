@@ -740,13 +740,13 @@
           "drop_X6hEGj": {
             "type": "drop",
             "settings": {
-              "title": "booking",
+              "title": "wholesale",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "",
               "icon": "",
               "cus_cl": false,
-              "cl": "#0A0000",
+              "cl": "#0a0000",
               "lb": "",
               "lb_cl": "",
               "lazy_mn": true,
