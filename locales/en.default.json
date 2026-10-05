@@ -1,4 +1,16 @@
 {
+  "sufias_seo_titles": {
+  "cotton": "Summer Cotton Embroidered 3-Piece Suit",
+  "cotton_6178": "Embroidered Cotton 3-Piece Suit - Rose Gold & Pista Options",
+  "iris": "Purple Iris Embroidered Chiffon 3-Piece Suit",
+  "zinc": "Zinc Embroidered Chiffon Stitched 3-Piece Suit",
+  "red": "Red Embroidered Chiffon Stitched 3-Piece Suit",
+  "plum": "Plum Embroidered Chiffon Stitched 3-Piece Suit",
+  "orange": "Orange Embroidered Chiffon Stitched 3-Piece Suit",
+  "purple": "Purple Embroidered Chiffon Stitched 3-Piece Suit",
+  "emerald_embroidered": "Emerald Green Winter Cotton Suit - Embroidered Dupatta",
+  "emerald_printed": "Emerald Green Winter Cotton Suit - Printed Dupatta"
+},
   "sufias_seo": {
   "cart": "Review the items in your {{ shop }} shopping cart, update quantities, and continue to checkout.",
   "search": "Search {{ shop }} for Pakistani women's clothing, embroidered suits, chiffon outfits, and seasonal collections.",
