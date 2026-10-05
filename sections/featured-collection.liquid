@@ -186,7 +186,7 @@
             </div>
           {%- endif -%}
       {%- else -%}
-        <a class="t4s-btn t4s-viewall-btn t4s-btn-base t4s-btn-style-{{ se_stts.button_style }} t4s-btn-size-{{ se_stts.btns_size }} t4s-btn-icon-{{ se_stts.btn_icon }} t4s-btn-color-{{ se_stts.btns_cl }} {% if se_stts.button_style == 'default' or se_stts.button_style == 'outline' %}t4s-btn-effect-{{ se_stts.button_effect }}{% endif %}" href="{{ collection.url }}">{{ 'collections.pagination.view_all' | t }}{%- if se_stts.btn_icon -%} <svg class="t4s-btn-icon" viewBox="0 0 14 10"><use xlink:href="#t4s-icon-btn"></use></svg>{%- endif -%}</a>
+        <a class="t4s-btn t4s-viewall-btn t4s-btn-base t4s-btn-style-{{ se_stts.button_style }} t4s-btn-size-{{ se_stts.btns_size }} t4s-btn-icon-{{ se_stts.btn_icon }} t4s-btn-color-{{ se_stts.btns_cl }} {% if se_stts.button_style == 'default' or se_stts.button_style == 'outline' %}t4s-btn-effect-{{ se_stts.button_effect }}{% endif %}" href="{{ collection.url }}" aria-label="{{ 'collections.pagination.view_all' | t | escape }} {{ collection.title | escape }}" title="{{ 'collections.pagination.view_all' | t | escape }} {{ collection.title | escape }}">{{ 'collections.pagination.view_all' | t }}<span class="visually-hidden"> {{ collection.title | escape }}</span>{%- if se_stts.btn_icon -%} <svg class="t4s-btn-icon" viewBox="0 0 14 10"><use xlink:href="#t4s-icon-btn"></use></svg>{%- endif -%}</a>
        {%- endif -%} 
     </div>
   {%- endif -%} 
