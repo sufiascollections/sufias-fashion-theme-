@@ -2,7 +2,7 @@
   assign shop_name = shop.name
   assign shop_name_escape = shop_name | escape
   assign shop_domain = shop.domain
-  assign og_title = page_title | default: shop_name
+  assign og_title = seo_title | default: page_title | default: shop_name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = seo_description | default: page_description | default: shop.description | default: shop_name
