@@ -1,3 +1,6 @@
+{% doc %}
+Renders breadcrumb and page-specific structured data.
+{% enddoc %}
 {%- capture grich -%}
 {%- assign position = 1 %}
 <script type="application/ld+json">
@@ -51,7 +54,8 @@
     ,{
       "@type": "ListItem",
       "position": {{ position }},
-      "name": "{{ page_title }}{%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tag' | t: tags: meta_tags -}}{%- endif -%}",
+      {%- capture breadcrumb_tag_title -%}{{ page_title }}{%- assign meta_tags = current_tags | join: ', ' %} – {{ 'general.meta.tags' | t: tags: meta_tags }}{%- endcapture -%}
+      "name": {{ breadcrumb_tag_title | json }},
       "item": "{{ canonical_url }}"
       {%- assign position = position | plus: 1 -%}
     }
@@ -92,8 +96,8 @@
     ,{
       "@type": "ListItem",
       "position": {{ position }},
-      "name": {{ page.title | json }},
-      "item": "{{ shop.url }}{{ page.url }}"
+      "name": {{ page.title | default: page_title | default: shop.name | json }},
+      "item": {{ canonical_url | json }}
       {%- assign position = position | plus: 1 -%}
     }
     {%- endunless -%}
