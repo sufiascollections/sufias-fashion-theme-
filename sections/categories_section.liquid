@@ -117,6 +117,7 @@
         <div class="t4s-d-flex t4s-flex-column t4s-view-all-container t4s-align-items-center t4s-col-item">
           <a
             href="{{ block.settings.item_link | default: '#' }}"
+            aria-label="{{ block.settings.title | default: 'View all collections' | escape }}"
             class="t4s-view-all t4s-d-flex t4s-align-items-center t4s-justify-content-center t4s-collection-item-image"
           >
             <div>

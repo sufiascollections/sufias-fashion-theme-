@@ -120,18 +120,22 @@
                         {%- if image -%}
                             {% liquid
                               assign fetchpriority = 'auto'
-                              if forloop.first 
+                              assign slide_loading = 'lazy'
+                              assign image_alt = image.alt | default: shop.name
+                              assign mobile_image_alt = mb_image.alt | default: image_alt
+                              if forloop.first and section.index < 3
+                                assign slide_loading = 'eager'
                                 assign fetchpriority = 'high'
                               endif
                               if bk_stts.image_mb == blank
                                 assign class = "t4s-img-as-bg -t4s-lz--fadeIn t4s-slide-" | append: bk_stts.animate_slide
-                                echo image | image_url: width: image.width, format: 'pjpg' | image_tag: class: class, alt: image.alt, loading: load, size: '100vw', widths: '100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3400,3600,3800,4000', fetchpriority: fetchpriority
+                                echo image | image_url: width: image.width | image_tag: class: class, alt: image_alt, loading: slide_loading, sizes: '100vw', widths: '100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3400,3600,3800,4000', fetchpriority: fetchpriority
                               else
                                 assign class = "t4s-img-as-bg t4s-d-none t4s-d-md-block -t4s-lz--fadeIn t4s-slide-" | append: bk_stts.animate_slide
-                                echo image | image_url: width: image.width, format: 'pjpg' | image_tag: class: class, alt: image.alt, loading: load, size: '100vw', widths: '100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3400,3600,3800,4000', fetchpriority: fetchpriority
+                                echo image | image_url: width: image.width | image_tag: class: class, alt: image_alt, loading: slide_loading, sizes: '100vw', widths: '100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3400,3600,3800,4000', fetchpriority: fetchpriority
                           
                                 assign class = "t4s-img-as-bg t4s-d-md-none -t4s-lz--fadeIn t4s-slide-" | append: bk_stts.animate_slide
-                                echo mb_image | image_url: width: mb_image.width, format: 'pjpg' | image_tag: class: class, alt: mb_image.alt, loading: load, size: '100vw', widths: '375, 550, 750, 1100', fetchpriority: fetchpriority
+                                echo mb_image | image_url: width: mb_image.width | image_tag: class: class, alt: mobile_image_alt, loading: slide_loading, sizes: '100vw', widths: '375, 550, 750, 1100', fetchpriority: fetchpriority
                               endif
                             -%}
                             {% comment %} {%- if forloop.first -%}
@@ -210,7 +214,7 @@
                                 {%- endfor -%}
                             </div>
                         </div>
-                    <a href="{{ url }}" target="{{ open_link }}" class="t4s-full-width-link{% if url == blank %} t4s-pe-none {% else %} t4s-pe-auto{% endif %}" style="--bg-overlay:{{ bg_overlay }};"></a>
+                    {% if url == blank %}<div class="t4s-full-width-link t4s-pe-none" style="--bg-overlay:{{ bg_overlay }};"></div>{% else %}<a href="{{ url }}" aria-label="{{ image_alt | escape }}" target="{{ open_link }}" class="t4s-full-width-link t4s-pe-auto" style="--bg-overlay:{{ bg_overlay }};"></a>{% endif %}
                 </div>
             </div>
         {%- endfor -%}

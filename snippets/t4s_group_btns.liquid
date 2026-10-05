@@ -270,11 +270,11 @@ t4s_group_btns_split
 						</div>
 					</div>
 	      </div>
-			  <a class="t4s-pr t4s-d-lg-none" href="{{ routes.search_url }}" data-drawer-delay- data-drawer-options='{ "id":"#t4s-search-hidden" }'>
+			  <a class="t4s-pr t4s-d-lg-none" aria-label="{{ 'general.mobile_menu.search' | t | escape }}" href="{{ routes.search_url }}" data-drawer-delay- data-drawer-options='{ "id":"#t4s-search-hidden" }'>
 					<svg class="t4s-icon t4s-icon--search" aria-hidden="true" focusable="false" role="presentation"><use href="#icon-h-search"></use></svg>
 			  </a>
     {%- else -%}
-			<a class="t4s-pr" href="{{ routes.search_url }}" data-drawer-delay- data-drawer-options='{ "id":"#t4s-search-hidden" }'>
+			<a class="t4s-pr" aria-label="{{ 'general.mobile_menu.search' | t | escape }}" href="{{ routes.search_url }}" data-drawer-delay- data-drawer-options='{ "id":"#t4s-search-hidden" }'>
 				<svg class="t4s-icon t4s-icon--search" aria-hidden="true" focusable="false" role="presentation"><use href="#icon-h-search"></use></svg>
 			</a>
 		{%- endif -%}
@@ -282,7 +282,7 @@ t4s_group_btns_split
 	{%- endif -%}
 	{%- if shop.customer_accounts_enabled and se_stts.show_acc -%}
 		<div class="t4s-site-nav__icon t4s-site-nav__account t4s-pr t4s-d-none t4s-d-md-inline-block">
-			<a class="t4s-pr is--checked-link" href="{{ routes.account_url }}" data-no-instant{% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}>
+			<a class="t4s-pr is--checked-link" aria-label="{{ 'general.mobile_menu.my_account' | t | escape }}" href="{{ routes.account_url }}" data-no-instant{% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}>
 				<svg class="t4s-icon t4s-icon--account" aria-hidden="true" focusable="false" role="presentation"><use href="#icon-h-account"></use></svg>
 			</a>
 			{%- if customer -%}

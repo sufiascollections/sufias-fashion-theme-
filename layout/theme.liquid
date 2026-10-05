@@ -41,7 +41,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 <meta name="google-site-verification" content="h8HbEu9DUCJiUpwrfz1MpDY-t_7lN5l4jgkAaTpCJkk" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ settings.body_bg }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
@@ -101,6 +101,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
     {%- liquid
       render 'render_bottom'
       render 'structured-data'
+      render 'theme-accessibility'
     -%}
   </body>
 </html>
@@ -108,3 +109,4 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 {% else %}
 {{ content_for_layout }}
 {%- endunless -%}
+
