@@ -280,7 +280,7 @@
 <template id="btns_pr_temp">
   {%- if enable_quickview %}<a href="#t4s_pr_url" data-tooltip="" data-id="id_nt_94" rel="nofollow" class="t4s-pr-item-btn t4s-pr-quickview" data-action-quickview><span class="t4s-svg-pr-icon"><svg viewBox="0 0 24 24"><use xlink:href="#t4s-icon-qv"></use></svg></span><span class="t4s-text-pr">{{ 'products.product_card.quick_view' | t }}</span></a>{% endif %}[split_t4snt]
 
-  {%- if settings.enable_compe %}<a href="#t4s_pr_url" data-tooltip="" data-id="id_nt_94" data-handle="handle_nt_94" rel="nofollow" class="t4s-pr-item-btn t4s-pr-compare" data-action-compare><span class="t4s-svg-pr-icon"><svg class="t4s-svg-cp" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-cp"></use></svg></span><span class="t4s-text-pr">{{ 'products.product.compare' | t }}</span></a>{% endif %}[split_t4snt]
+  {%- if settings.enable_compe %}<button type="button" data-tooltip="" data-id="id_nt_94" data-handle="handle_nt_94" class="t4s-pr-item-btn t4s-pr-compare" data-action-compare><span class="t4s-svg-pr-icon"><svg class="t4s-svg-cp" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-cp"></use></svg></span><span class="t4s-text-pr">{{ 'products.product.compare' | t }}</span></button>{% endif %}[split_t4snt]
 
   {%- if settings.wishlist_mode == "1" -%}
     <a href="#t4s_pr_url" data-tooltip="" data-id="id_nt_94" rel="nofollow" class="t4s-pr-item-btn t4s-pr-wishlist" data-action-wishlist><span class="t4s-svg-pr-icon"><svg viewBox="0 0 24 24"><use xlink:href="#t4s-icon-wis"></use></svg></span><span class="t4s-text-pr">{{ 'products.product.add_to_wishlist' | t }}</span></a>

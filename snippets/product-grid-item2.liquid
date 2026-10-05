@@ -131,7 +131,7 @@ endif -%}
         </div>
       </div>
       {%- if use_countdown and countdown != blank %}{%- render 'product-countdown', countdown: countdown %}{% endif -%}
-      <a data-pr-href class="t4s-full-width-link" href="{{ pr_url }}"></a>
+      <a data-pr-href class="t4s-full-width-link" href="{{ pr_url }}" aria-label="{{ product.title | escape }}" title="{{ product.title | escape }}"><span class="visually-hidden">{{ product.title | escape }}</span></a>
     </div>
     <div class="t4s-product-info">
       <div class="t4s-product-info__inner">
