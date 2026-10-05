@@ -1,0 +1,20 @@
+{% doc %}
+  Renders a slideshow image, loading offscreen slides through the theme image loader.
+  @param {image} image - Slideshow image
+  @param {string} class - Image classes
+  @param {string} alt - Accessible image text
+  @param {string} loading - Image loading mode
+  @param {string} widths - Responsive image widths
+  @param {string} fetchpriority - Image request priority
+  @param {boolean} preload - Whether to preload the first visible image
+{% enddoc %}
+{%- if loading == 'lazy' -%}
+  {%- assign lazy_class = class | append: ' lazyloadt4s' -%}
+  {%- capture slide_image -%}
+    {{- image | image_url: width: image.width | image_tag: class: lazy_class, alt: alt, loading: loading, sizes: '100vw', widths: widths, fetchpriority: fetchpriority -}}
+  {%- endcapture -%}
+  {{- slide_image | replace: ' src="', ' data-src="' | replace: ' srcset="', ' data-srcset="' | replace: '<img ', '<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" ' -}}
+  <noscript>{{ image | image_url: width: image.width | image_tag: class: class, alt: alt, loading: loading, sizes: '100vw', widths: widths }}</noscript>
+{%- else -%}
+  {{- image | image_url: width: image.width | image_tag: class: class, alt: alt, loading: loading, sizes: '100vw', widths: widths, fetchpriority: fetchpriority, preload: preload -}}
+{%- endif -%}
