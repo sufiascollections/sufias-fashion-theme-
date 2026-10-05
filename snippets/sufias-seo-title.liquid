@@ -1,0 +1,31 @@
+{% doc %}
+Returns a distinct SEO title for products identified in the duplicate-title report.
+{% enddoc %}
+{%- liquid
+  assign resolved_title = page_title
+  if request.page_type == 'product'
+    case product.handle
+      when 'cotton-embroidered-3-piece-suit'
+        assign resolved_title = 'sufias_seo_titles.cotton' | t
+      when 'cotton-embroidered-3-piece-suit-6178'
+        assign resolved_title = 'sufias_seo_titles.cotton_6178' | t
+      when 'purple-iris'
+        assign resolved_title = 'sufias_seo_titles.iris' | t
+      when 'pocket-luxe-embroided-2pc'
+        assign resolved_title = 'sufias_seo_titles.zinc' | t
+      when 'chiffon-fabric-stitched-3-piece-suits'
+        assign resolved_title = 'sufias_seo_titles.red' | t
+      when 'zincorus-2-pieces-embroidered'
+        assign resolved_title = 'sufias_seo_titles.plum' | t
+      when 'chiffon-fabric-stitched-3-piece'
+        assign resolved_title = 'sufias_seo_titles.orange' | t
+      when 'rosebud-embroidered-2pcs'
+        assign resolved_title = 'sufias_seo_titles.purple' | t
+      when 'emerald-green-embroidered-winter-cotton-3-piece-suit-1'
+        assign resolved_title = 'sufias_seo_titles.emerald_embroidered' | t
+      when 'emerald-green-embroidered-winter-cotton-3-piece-suit'
+        assign resolved_title = 'sufias_seo_titles.emerald_printed' | t
+    endcase
+  endif
+  echo resolved_title | strip
+-%}
