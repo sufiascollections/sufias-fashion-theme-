@@ -1,0 +1,52 @@
+{% doc %}
+Returns a page-specific SEO description while preserving existing descriptions on unaffected pages.
+{% enddoc %}
+{%- liquid
+  assign description = page_description
+  case request.page_type
+    when 'index'
+      assign description = page_description | default: shop.description | default: shop.name
+    when 'cart'
+      assign description = 'sufias_seo.cart' | t: shop: shop.name
+    when 'search'
+      assign description = 'sufias_seo.search' | t: shop: shop.name
+    when 'policy'
+      case request.path
+        when '/policies/refund-policy'
+          assign description = 'sufias_seo.refund' | t: shop: shop.name
+        when '/policies/privacy-policy'
+          assign description = 'sufias_seo.privacy' | t: shop: shop.name
+        when '/policies/shipping-policy'
+          assign description = 'sufias_seo.shipping' | t: shop: shop.name
+        when '/policies/terms-of-service'
+          assign description = 'sufias_seo.terms' | t: shop: shop.name
+        else
+          assign description = 'sufias_seo.policy' | t: title: page_title, shop: shop.name
+      endcase
+    when 'collection'
+      if collection.current_vendor != blank
+        assign description = 'sufias_seo.vendor' | t: vendor: collection.current_vendor, shop: shop.name
+      endif
+    when 'product'
+      case product.handle
+        when 'chiffon-fabric-stitched-3-piece'
+          assign description = 'sufias_seo.orange' | t
+        when 'chiffon-fabric-stitched-3-piece-suits'
+          assign description = 'sufias_seo.red' | t
+        when 'cotton-embroidered-3-piece-suit'
+          assign description = 'sufias_seo.cotton' | t
+        when 'cotton-embroidered-3-piece-suit-6178'
+          assign description = 'sufias_seo.cotton_6178' | t
+        when 'pocket-luxe-embroided-2pc'
+          assign description = 'sufias_seo.zinc' | t
+        when 'purple-iris'
+          assign description = 'sufias_seo.iris' | t
+        when 'zincorus-2-pieces-embroidered'
+          assign description = 'sufias_seo.plum' | t
+      endcase
+  endcase
+  if description == blank
+    assign description = 'sufias_seo.fallback' | t: title: page_title, shop: shop.name
+  endif
+  echo description | strip_html | strip
+-%}

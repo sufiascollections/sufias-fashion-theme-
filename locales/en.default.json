@@ -1,4 +1,34 @@
 {
+  "sufias_seo_titles": {
+  "cotton": "Summer Cotton Embroidered 3-Piece Suit",
+  "cotton_6178": "Embroidered Cotton 3-Piece Suit - Rose Gold & Pista Options",
+  "iris": "Purple Iris Embroidered Chiffon 3-Piece Suit",
+  "zinc": "Zinc Embroidered Chiffon Stitched 3-Piece Suit",
+  "red": "Red Embroidered Chiffon Stitched 3-Piece Suit",
+  "plum": "Plum Embroidered Chiffon Stitched 3-Piece Suit",
+  "orange": "Orange Embroidered Chiffon Stitched 3-Piece Suit",
+  "purple": "Purple Embroidered Chiffon Stitched 3-Piece Suit",
+  "emerald_embroidered": "Emerald Green Winter Cotton Suit - Embroidered Dupatta",
+  "emerald_printed": "Emerald Green Winter Cotton Suit - Printed Dupatta"
+},
+  "sufias_seo": {
+  "cart": "Review the items in your {{ shop }} shopping cart, update quantities, and continue to checkout.",
+  "search": "Search {{ shop }} for Pakistani women's clothing, embroidered suits, chiffon outfits, and seasonal collections.",
+  "vendor": "Browse clothing by {{ vendor }} at {{ shop }}. Explore this vendor's collection and view product details online.",
+  "refund": "Read the {{ shop }} refund policy for information about returns, exchanges, refunds, and how to contact us about an order.",
+  "privacy": "Read the {{ shop }} privacy policy to learn how personal information is collected, used, and shared when you visit or shop.",
+  "shipping": "Read the {{ shop }} shipping policy for information about order delivery, shipping arrangements, and related terms.",
+  "terms": "Read the {{ shop }} terms of service for the conditions that apply when using our website and purchasing products online.",
+  "policy": "Read {{ title }} at {{ shop }} for the information and conditions that apply to your shopping experience.",
+  "fallback": "Explore {{ title }} at {{ shop }}. Find page details and information online.",
+  "orange": "Explore the orange stitched chiffon 3-piece suit at Sufias Fashion, with an embroidered shirt, matching chiffon dupatta, and dyed trouser.",
+  "red": "Discover the red embroidered chiffon 3-piece suit at Sufias Fashion. A stitched shirt, bordered chiffon dupatta, and trouser for festive occasions.",
+  "cotton": "Explore Sufias Fashion's summer cotton 3-piece suit with front embroidery, lace finishing, straight trousers, and a lightweight printed dupatta.",
+  "cotton_6178": "Discover the embroidered cotton 3-piece summer suit at Sufias Fashion in rose gold, gold-yellow, navy, white, pista, and pink color options.",
+  "zinc": "Browse the zinc-colored stitched chiffon 3-piece suit at Sufias Fashion, featuring delicate embroidery, a matching dupatta, and solid trousers.",
+  "iris": "Explore this stitched chiffon 3-piece outfit at Sufias Fashion, with an embellished embroidered shirt, bordered dupatta, and comfortable dyed trouser.",
+  "plum": "Discover the plum chiffon 3-piece suit at Sufias Fashion. Embroidered chiffon shirt, matching bordered dupatta, and dyed trouser for occasion wear."
+},
   "general": {
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
