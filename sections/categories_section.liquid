@@ -127,7 +127,7 @@
             </div>
           </a>
           {%- if block.settings.title -%}
-            <a href="{{ block.settings.item_link | default: '#' }}">
+            <a href="{{ block.settings.item_link | default: '#' }}" aria-label="{{ block.settings.title | default: 'View all collections' | escape }}">
               <div class="t4s-justify-content-center t4s-text-center t4s-item-title">{{ block.settings.title }}</div>
             </a>
           {%- endif -%}
