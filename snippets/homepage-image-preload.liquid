@@ -1,0 +1,16 @@
+{% doc %}
+  Preloads the first eager slideshow image using its rendered responsive sources.
+{% enddoc %}
+{%- if request.page_type == 'index' -%}
+  {%- assign rendered_images = content_for_layout | split: '<img ' -%}
+  {%- for rendered_image in rendered_images -%}
+    {%- assign image_attributes = rendered_image | split: '>' | first -%}
+    {%- if image_attributes contains 'class="t4s-img-as-bg' and image_attributes contains 'loading="eager"' and image_attributes contains ' srcset="' -%}
+      {%- assign image_src = image_attributes | split: 'src="' | last | split: '"' | first -%}
+      {%- assign image_srcset = image_attributes | split: 'srcset="' | last | split: '"' | first -%}
+      {%- assign image_sizes = image_attributes | split: 'sizes="' | last | split: '"' | first -%}
+      <link rel="preload" as="image" href="{{ image_src }}" imagesrcset="{{ image_srcset }}" imagesizes="{{ image_sizes }}" fetchpriority="high">
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
