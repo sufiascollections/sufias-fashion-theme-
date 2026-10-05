@@ -681,6 +681,7 @@
           },
           "drop_JD8UT4": {
             "type": "drop",
+            "disabled": true,
             "settings": {
               "title": "PARTY WEAR",
               "url": "shopify://collections/party-wear",
