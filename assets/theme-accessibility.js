@@ -15,6 +15,14 @@
     const statuses = root.matches('ul.instafeed-shoppable__track > [role="status"]')
       ? [root] : root.querySelectorAll('ul.instafeed-shoppable__track > [role="status"]');
     statuses.forEach(status => {
+      if (status.tagName === 'LI') {
+        status.setAttribute('role', 'listitem');
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        while (status.firstChild) announcement.append(status.firstChild);
+        status.append(announcement);
+        return;
+      }
       const item = document.createElement('li');
       item.style.listStyle = 'none';
       status.replaceWith(item);
