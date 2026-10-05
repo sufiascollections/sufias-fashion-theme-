@@ -2,7 +2,7 @@
   Preloads the first eager slideshow image using its rendered responsive sources.
 {% enddoc %}
 {%- if request.page_type == 'index' -%}
-  {%- assign rendered_images = content_for_layout | split: '<img ' -%}
+  {%- assign rendered_images = page_content | split: '<img ' -%}
   {%- for rendered_image in rendered_images -%}
     {%- assign image_attributes = rendered_image | split: '>' | first -%}
     {%- if image_attributes contains 'class="t4s-img-as-bg' and image_attributes contains 'loading="eager"' and image_attributes contains ' srcset="' -%}
