@@ -74,6 +74,9 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
     
     <script src="{{ 'lazysizes.min.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.min.js' | asset_url }}" defer="defer"></script>
+    {%- if request.page_type == 'index' -%}
+      <script src="{{ 'homepage-image-loading.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     {{ content_for_header }}
     {%- render 'head_assets', t_name: t_name, isRTL: isRTL -%}
     <meta name="google-site-verification" content="IA23PKsoDr65ErTQL2Tzve26aVKG4r_ZtH0q5oUfwMc" />

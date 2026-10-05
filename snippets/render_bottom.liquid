@@ -239,7 +239,7 @@
     wis_atc_added : {{ settings.wis_atc_added | json }},
     platform_email: {{ settings.platform_email | json }},
     currency_type : {{ settings.currency_type | json }}, auto_currency: {{ settings.auto_currency | json }}, round_currency: {{ settings.round_currency | json }}, hover_currency: {{ settings.hover_currency | json }},
-    img2: `<img data-sizes-scale="1.1" data-src="image_src" data-pr-img2 class="t4s-product-hover-img lazyloadt4s" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-widths="[100,200,360,400,500,600,700,800,900,1000]" data-optimumx="2" data-sizes="auto" alt="image_alt">`,
+    img2: `<img data-sizes-scale="1.1" data-src="image_src" data-pr-img2 class="t4s-product-hover-img {% if request.page_type == 'index' %}t4s-hover-pending{% else %}lazyloadt4s{% endif %}" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-widths="[100,200,360,400,500,600,700,800,900,1000]" data-optimumx="2" data-sizes="auto" alt="image_alt">`,
     cp_icon : {{ '<svg class="t4s-svg-cp" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-cp"></use></svg>' | json }},
     cp_icon_added : {{ '<svg class="t4s-svg-cp is-ic--added" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-cp-added"></use></svg>' | json }},
     wis_icon : {{ '<svg class="t4s-svg-wis" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-wis"></use></svg>' | json }},
