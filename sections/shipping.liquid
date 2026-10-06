@@ -1,8 +1,28 @@
 <!-- sections/shipping.liquid -->
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'section.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'section.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'shipping.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'shipping.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'shipping.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'slider-settings.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'slider-settings.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'pre_flickityt4s.min.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'pre_flickityt4s.min.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'pre_flickityt4s.min.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 <link href="{{ 't4s-animation.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
 {%- liquid
   assign sid = section.id
