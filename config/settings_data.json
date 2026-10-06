@@ -744,7 +744,7 @@
               "title": "wholesale",
               "url": "shopify://pages/booking",
               "open_link": "_self",
-              "menu": "",
+              "menu": "main-menu",
               "icon": "",
               "cus_cl": false,
               "cl": "#0a0000",
@@ -1455,6 +1455,7 @@
         "blocks": {
           "menu_Dg8hwd": {
             "type": "menu",
+            "disabled": true,
             "settings": {
               "title": "NEW IN",
               "url": "shopify://collections/new-arrivals",
@@ -1507,6 +1508,7 @@
           },
           "mb_nav-0": {
             "type": "menu",
+            "disabled": true,
             "settings": {
               "title": "PARTY WEAR",
               "url": "shopify://collections/party-wear",
@@ -1529,6 +1531,19 @@
               "lb_cl": "",
               "icons_op": "2",
               "icon": ""
+            }
+          },
+          "menu_4j8pPA": {
+            "type": "menu",
+            "settings": {
+              "title": "wholesale",
+              "url": "shopify://pages/booking",
+              "open_link": "_self",
+              "menu": "",
+              "lb": "10%off",
+              "lb_cl": "",
+              "icons_op": "2",
+              "icon": "las la-chair"
             }
           },
           "mb_nav-4": {
@@ -1559,6 +1574,7 @@
           "mb_nav-3",
           "mb_nav-0",
           "menu_3tezMb",
+          "menu_4j8pPA",
           "mb_nav-4",
           "mb_nav-5",
           "mb_nav-6",
