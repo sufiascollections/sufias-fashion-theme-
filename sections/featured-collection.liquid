@@ -1,9 +1,29 @@
 <!-- sections/featured-collection.liquid -->
 {% # theme-check-disable %}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'section.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'section.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'collection-products.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'collection-products.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'collection-products.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'slider-settings.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'slider-settings.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'pre_flickityt4s.min.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'pre_flickityt4s.min.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'pre_flickityt4s.min.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 <link href="{{ 'loading.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
 {%- liquid
   assign sid = section.id
@@ -102,13 +122,23 @@
 
 
   {%- if layout_des == "1" -%} 
-    {{ 'button-style.css' | asset_url | stylesheet_tag }}
+    {%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'button-style.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'button-style.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
+{{ 'button-style.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
     <link href="{{ 'custom-effect.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
     <div data-collection-url="{{ collection.url }}" data-contentlm-replace class="t4s_box_pr_grid t4s-products t4s-justify-content-center t4s-text-{{ se_stts.content_align }} t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-row t4s-row-cols-lg-{{ se_stts.col_dk }} t4s-row-cols-md-{{ se_stts.col_tb }} t4s-row-cols-{{ se_stts.col_mb }} t4s-gx-md-{{ se_stts.space_h_item }} t4s-gy-md-{{ se_stts.space_v_item }} t4s-gx-{{ se_stts.space_h_item_mb }} t4s-gy-{{ se_stts.space_v_item_mb }}">
   {%- elsif layout_des == "2" -%} 
     <div data-collection-url="{{ collection.url }}" data-t4s-resizeobserver class="t4s-flicky-slider t4s_box_pr_slider t4s-products t4s-text-{{ se_stts.content_align }} t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {% if se_stts.nav_btn %}  t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-pos-{{ se_stts.btns_pos }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %} {% if se_stts.nav_dot == true %}   t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}  t4s-row t4s-row-cols-lg-{{ se_stts.col_dk }} t4s-row-cols-md-{{ se_stts.col_tb }} t4s-row-cols-{{ se_stts.col_mb }} t4s-gx-md-{{ se_stts.space_h_item }} t4s-gy-md-{{ se_stts.space_v_item }} t4s-gx-{{ se_stts.space_h_item_mb }} t4s-gy-{{ se_stts.space_v_item_mb }} {% if section.settings.center_slide %} is-carousel-center{% endif %} flickityt4s" data-flickityt4s-js='{"setPrevNextButtons":true,"arrowIcon":"{{ arrow_icon }}","imagesLoaded": 0,"adaptiveHeight": 0, "contain": 1, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": {{ se_stts.loop }},"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": {{ se_stts.nav_dot }}, "autoPlay" : {{ se_stts.au_time | times: 1000 }}, "pauseAutoPlayOnHover" : {{ se_stts.au_hover }},"centerSlide": {{ se_stts.center_slide }} }' style="--space-dots: {{ se_stts.dots_space }}px;--flickity-btn-pos: {{ se_stts.space_h_item }}px;--flickity-btn-pos-mb: {{ se_stts.space_h_item_mb }}px;--tophead_mb: {{ se_stts.tophead_mb }}px;">
   {%- else -%} 
-    {{ 'button-style.css' | asset_url | stylesheet_tag }}
+    {%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'button-style.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'button-style.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
+{{ 'button-style.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
     <link href="{{ 'custom-effect.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
     <div data-collection-url="{{ collection.url }}" data-t4s-resizeobserver data-contentlm-replace class="isotopet4s t4s_box_pr_masonry t4s-products t4s-text-{{ se_stts.content_align }} t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-row t4s-row-cols-lg-{{ se_stts.col_dk }} t4s-row-cols-md-{{ se_stts.col_tb }} t4s-row-cols-{{ se_stts.col_mb }} t4s-gx-md-{{ se_stts.space_h_item }} t4s-gy-md-{{ se_stts.space_v_item }} t4s-gx-{{ se_stts.space_h_item_mb }} t4s-gy-{{ se_stts.space_v_item_mb }}" data-isotopet4s-js='{ "itemSelector": ".t4s-product", "layoutMode": "masonry" }'>
   {%- endif -%} 
