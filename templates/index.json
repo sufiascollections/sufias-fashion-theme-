@@ -102,12 +102,12 @@
             "open_link": "_blank",
             "animate_slide": "none",
             "text_align": "start",
-            "text_align_mb": "start",
+            "text_align_mb": "center",
             "content_width": "container",
             "cv_pos": 50,
             "ch_pos": 0,
             "cv_pos_mb": 50,
-            "ch_pos_mb": 0,
+            "ch_pos_mb": 50,
             "bg_overlay": "#000000",
             "bg_opacity": 18,
             "bg_content_cl": "rgba(0,0,0,0)",
@@ -147,10 +147,10 @@
             "font_italic": false,
             "text_shadow": true,
             "hidden_mobile": false,
-            "text_fs_mb": 26,
-            "text_lh_mb": 20,
+            "text_fs_mb": 40,
+            "text_lh_mb": 44,
             "text_ls_mb": 0,
-            "text_mgb_mobile": 6,
+            "text_mgb_mobile": 16,
             "animation": "fadeInUp"
           }
         },
@@ -175,14 +175,45 @@
             "button_bdr": 15,
             "button_pd_lr": 18,
             "button_mgb": 80,
-            "hidden_mobile": false,
+            "hidden_mobile": true,
             "button_icon_w_mb": 0,
-            "fsbutton_mb": 10,
-            "button_mh_mb": 36,
+            "fsbutton_mb": 14,
+            "button_mh_mb": 44,
             "button_pd_lr_mb": 15,
             "button_ls_mb": 0,
             "button_mgb_mb": 40,
             "animation": "fadeInDown"
+          }
+        },
+        "custom_button_mobile_order": {
+          "type": "custom_button",
+          "settings": {
+            "button_text": "Shop now",
+            "button_link": "shopify://collections/winter-collection",
+            "target_link": "_self",
+            "fontf": "3",
+            "button_icon_w": 0,
+            "button_style": "default",
+            "button_effect": "default",
+            "pri_cl": "#f8f6f6",
+            "second_cl": "#0a0000",
+            "pri_cl_hover": "#0a0000",
+            "second_cl_hover": "#f8f6f6",
+            "fsbutton": 14,
+            "fwbutton": 500,
+            "button_ls": 1.2,
+            "button_mh": 37,
+            "button_bdr": 15,
+            "button_pd_lr": 18,
+            "button_mgb": 80,
+            "hidden_mobile": false,
+            "button_icon_w_mb": 0,
+            "fsbutton_mb": 16,
+            "button_mh_mb": 48,
+            "button_pd_lr_mb": 28,
+            "button_ls_mb": 0,
+            "button_mgb_mb": 0,
+            "animation": "none"
           }
         }
       },
@@ -191,7 +222,8 @@
         "image_parent_DbAXJf",
         "image_parent_GrfgRi",
         "custom_text_4f4kY7",
-        "custom_button_3Enka4"
+        "custom_button_3Enka4",
+        "custom_button_mobile_order"
       ],
       "settings": {
         "se_height": "t4s_ratioadapt_f",
@@ -229,8 +261,8 @@
         "pd_tb": "",
         "mg_mb": ",,10px,",
         "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+        "use_cus_css": true,
+        "code_cus_css": "@media (max-width: 767px) {\n  .SectionID .t4s-slideshow-inner { height: 300px; }\n  .SectionID .t4s-slideshow-inner::before { padding-top: 0; }\n  .SectionID .t4s-slideshow-inner::after {\n    content: \"\";\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42));\n    z-index: 1;\n    pointer-events: none;\n  }\n  .SectionID .t4s-content-position { width: 100%; max-width: none; padding-left: 0 !important; padding-right: 0 !important; }\n  .SectionID #b_custom_text_4f4kY7 { width: 100%; font-size: clamp(38px, 15.5vw, 62px); line-height: 1.05 !important; }\n  .SectionID #b_custom_text_4f4kY7 { font-weight: 300; text-shadow: 0 2px 8px rgba(0,0,0,.7); animation: none; opacity: 1; }\n  .SectionID #b_custom_button_mobile_order { animation: none; opacity: 1; background: transparent; color: #ffffff; border: 1px solid #ffffff; }\n}\n@media (min-width: 768px) {\n  .SectionID #b_custom_button_mobile_order { display: none; }\n}"
       }
     },
     "categories_section_i4cq3z": {
