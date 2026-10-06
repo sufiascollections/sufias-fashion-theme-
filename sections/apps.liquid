@@ -1,6 +1,16 @@
 <div class="{% if section.settings.include_margins %}t4s-container{% endif %}"{% if settings.animations_reveal_on_scroll %} hdt-reveal="fade-in"{% endif %}>
   {%- for block in section.blocks -%}
-    {%- render block -%}
+    {%- capture app_content -%}{%- render block -%}{%- endcapture -%}
+    {%- if app_content contains 'instafeed_app_block' and request.design_mode == false -%}
+      <div data-sufias-instafeed aria-busy="true" style="min-height: 240px">
+        <template data-sufias-instafeed-template>
+          {{- app_content -}}
+        </template>
+        <noscript>{{- app_content -}}</noscript>
+      </div>
+    {%- else -%}
+      {{- app_content -}}
+    {%- endif -%}
   {%- endfor -%}
 </div>
 
@@ -29,3 +39,5 @@
   ]
 }
 {% endschema %}
+
+
