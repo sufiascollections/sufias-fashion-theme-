@@ -1,6 +1,16 @@
 <!-- sections/collections-list-manual.liquid -->
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'section.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'section.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' and section.index > 2 -%}
+<link rel="stylesheet" href="{{ 'collection.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'collection.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'collection.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {%- liquid
   assign image_fix = image_nt | image_tag
   assign sid = section.id
