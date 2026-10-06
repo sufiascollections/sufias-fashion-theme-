@@ -103,6 +103,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
         <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
       </ul>
     {%- liquid
+      render 'sufias-widget-loading'
       render 'render_bottom'
       render 'structured-data'
       render 'theme-accessibility'
