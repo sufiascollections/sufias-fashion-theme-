@@ -11,6 +11,15 @@
   assign se_stts = section.settings
   assign stt_layout = se_stts.layout
   assign stt_image_bg = se_stts.image_bg
+  capture category_sizes
+    echo '(min-width: 1025px) '
+    echo se_stts.item_size
+    echo 'px, (min-width: 768px) '
+    echo se_stts.item_size_tablet
+    echo 'px, '
+    echo se_stts.item_size_mobile
+    echo 'px'
+  endcapture
 
   if stt_layout == 't4s-se-container'
     assign html_layout = '<div class="t4s-container">__</div></div>' | split: '__'
@@ -87,8 +96,8 @@
                 width: image_item.width,
                 height: image_item.height,
                 class: 't4s-collection-item-image t4s-oh',
-                sizes: '(min-width: 768px) 160px, 135px',
-                widths: '100,135,160,200,270,320'
+                sizes: category_sizes,
+                widths: '80,100,140,160,200,240,280,320,400'
             }}
           {%- elsif block.settings.collection.image -%}
             {{
@@ -99,8 +108,8 @@
                 width: block.settings.collection.image.width,
                 height: block.settings.collection.image.height,
                 class: 't4s-collection-item-image t4s-oh',
-                sizes: '(min-width: 768px) 160px, 135px',
-                widths: '100,135,160,200,270,320'
+                sizes: category_sizes,
+                widths: '80,100,140,160,200,240,280,320,400'
             }}
           {%- else -%}
             {{ 'hero-apparel-1' | placeholder_svg_tag: 't4s-collection-item-image t4s-oh' }}
