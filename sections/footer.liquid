@@ -1,9 +1,34 @@
 <!-- sections/footer1.liquid -->
+{%- if request.page_type == 'index' -%}
+<link rel="stylesheet" href="{{ 'section.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'section.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' -%}
+<link rel="stylesheet" href="{{ 'general-block.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'general-block.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'general-block.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' -%}
+<link rel="stylesheet" href="{{ 'newsletter.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'newsletter.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'newsletter.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' -%}
+<link rel="stylesheet" href="{{ 'icon-social.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'icon-social.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'icon-social.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if request.page_type == 'index' -%}
+<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'footer.css' | asset_url | stylesheet_tag }}</noscript>
+{%- else -%}
 {{ 'footer.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {%- liquid 
   assign sid = section.id
   assign se_stts = section.settings 
