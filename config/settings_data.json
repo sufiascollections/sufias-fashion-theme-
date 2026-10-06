@@ -2365,7 +2365,7 @@
       },
       "1232542678405107163": {
         "type": "shopify://apps/instafeed/blocks/head-block/c447db20-095d-4a10-9725-b5977662c9d5",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       },
       "17754088914158789468": {
@@ -2380,7 +2380,7 @@
       },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "widget_position": "LEFT_BOTTOM",
           "side_margin": 36,
