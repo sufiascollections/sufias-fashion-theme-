@@ -19,6 +19,20 @@
     const toast = root.querySelector('[data-booking-toast]');
     const form = root.querySelector('.sfbc-request-form');
     const request = [];
+    const loggedIn = root.dataset.customerLoggedIn === 'true';
+    const storageKey = 'sufias-booking-selection-v1';
+    function rememberSelection() {
+      try {
+        sessionStorage.setItem(storageKey, JSON.stringify({
+          savedAt: Date.now(),
+          items: request.map((item) => ({ productId: item.productId, variantId: item.variantId, quantity: item.pieces }))
+        }));
+      } catch (_) {}
+    }
+    function continueToLogin() {
+      rememberSelection();
+      window.location.assign(root.dataset.bookingLoginUrl);
+    }
     let submitting = false;
     let product = null;
     let variants = [];
@@ -165,13 +179,16 @@
       if (event.target.closest('[data-add-request]')) {
         if (!selectedVariant) { showToast('Choose a product option first.'); return; }
         request.push({
+          productId: product.dataset.productId, variantId: String(selectedVariant.id),
           name: product.dataset.productName,
           image: product.dataset.productImage || '',
           details: `${selectedVariant.title} × ${quantity} @ ${money(selectedVariant.price)}`,
           pieces: quantity, total: selectedVariant.price * quantity,
           emailLines: `  ${selectedVariant.title}: ${quantity} × ${money(selectedVariant.price)}`
         });
-        renderRequest(); closeModal(quickModal); showToast('Added to your request list.');
+        renderRequest(); closeModal(quickModal);
+        if (!loggedIn) { continueToLogin(); return; }
+        openModal(requestModal);
       }
     });
 
@@ -210,6 +227,7 @@
         event.preventDefault();
         const error = root.querySelector('[data-submit-error]'); error.hidden = false; error.focus(); return;
       }
+      if (!loggedIn) { event.preventDefault(); continueToLogin(); return; }
       root.querySelector('[data-submit-error]').hidden = true;
       const lines = request.map((item) => `- ${item.name}\n${item.emailLines}\n  Subtotal: ${money(item.total)}`).join('\n\n');
       const name = form.querySelector('[name="contact[name]"]').value;
@@ -224,6 +242,31 @@
       const submitButton = form.querySelector('[data-submit-request]');
       submitButton.disabled = true; submitButton.setAttribute('aria-busy', 'true'); submitButton.textContent = 'Sending request…';
     });
+    if (root.querySelector('[data-request-success]')) {
+      try { sessionStorage.removeItem(storageKey); } catch (_) {}
+    } else if (loggedIn) {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
+        sessionStorage.removeItem(storageKey);
+        if (saved && Date.now() - saved.savedAt < 30 * 60 * 1000 && Array.isArray(saved.items)) {
+          saved.items.slice(0, 50).forEach((item) => {
+            const card = archiveCards.find((entry) => entry.dataset.productId === String(item.productId));
+            if (!card || !Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 100) return;
+            const available = JSON.parse(card.dataset.productVariants || '[]');
+            const variant = available.find((entry) => String(entry.id) === String(item.variantId));
+            if (!variant) return;
+            request.push({
+              productId: card.dataset.productId, variantId: String(variant.id),
+              name: card.dataset.productName, image: card.dataset.productImage || '',
+              details: `${variant.title} × ${item.quantity} @ ${money(variant.price)}`,
+              pieces: item.quantity, total: variant.price * item.quantity,
+              emailLines: `  ${variant.title}: ${item.quantity} × ${money(variant.price)}`
+            });
+          });
+        }
+      } catch (_) {}
+      if (request.length) openModal(requestModal);
+    }
     renderRequest();
   });
 })();
