@@ -453,7 +453,7 @@
       "settings": {
         "design_heading": "3",
         "heading_align": "t4s-text-center",
-        "top_heading": "Hot Sellings",
+        "top_heading": "abaya collection",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
@@ -465,7 +465,7 @@
         "head_btn_cl": "dark",
         "head_btn_effect": "default",
         "head_btn_hidden_mb": false,
-        "collection": "3-piece",
+        "collection": "abaya-collections",
         "product_des": "1",
         "show_vendor": false,
         "use_cdt": false,
