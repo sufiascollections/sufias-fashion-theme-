@@ -785,6 +785,14 @@
     }
   },
   "booking": {
+    "account": {
+  "signed_in": "Hi, {{ name }}",
+  "login": "Log in to book",
+  "book_now": "Book now",
+  "email": "Email address",
+  "send": "Send booking request",
+  "login_book": "Log in and continue booking"
+},
     "nav": {
       "label": "Booking navigation",
       "details": "What to expect",
