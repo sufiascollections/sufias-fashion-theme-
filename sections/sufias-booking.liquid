@@ -1,4 +1,5 @@
 {%- liquid
+  assign booking_login_url = routes.storefront_login_url
   assign sid = section.id
   assign request_form_id = 'SufiasBookingRequest-' | append: sid
 -%}
@@ -8,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-<div id="SufiasBookingCatalog-{{ sid }}" class="sf-booking-catalog" data-booking-catalog>
+<div id="SufiasBookingCatalog-{{ sid }}" class="sf-booking-catalog" data-booking-catalog data-customer-logged-in="{% if customer %}true{% else %}false{% endif %}" data-booking-login-url="{{ booking_login_url | escape }}">
   <nav class="sfbc-toolbar" aria-label="Booking collection navigation">
     <div class="sfbc-menu">
       <a href="#sfbc-coming-{{ sid }}">Coming Soon</a>
@@ -20,7 +21,11 @@
     </label>
     <div class="sfbc-nav-actions">
       <a class="sfbc-navlink" href="{{ routes.account_url }}">Orders</a>
-      <a class="sfbc-icon-link" href="{{ routes.account_login_url }}" aria-label="Account">&#9786;</a>
+      {% if customer %}
+        <a class="sfbc-navlink" href="{{ routes.account_url }}">{{ 'booking.account.signed_in' | t: name: customer.name | escape }}</a>
+      {% else %}
+        <a class="sfbc-navlink" href="{{ booking_login_url | escape }}">{{ 'booking.account.login' | t }}</a>
+      {% endif %}
       <a class="sfbc-icon-link" href="{{ routes.cart_url }}" aria-label="Store cart">&#128722;<span class="sfbc-badge">{{ cart.item_count }}</span></a>
       <button class="sfbc-request-bag" type="button" data-open-request aria-label="Open request list">
         Request list <span class="sfbc-badge" data-request-count>0</span>
@@ -89,7 +94,7 @@
           <div class="sfbc-total"><span>Subtotal</span><strong data-quick-total></strong></div>
           <button class="sfbc-button sfbc-button--full" type="submit" name="add">Add to cart</button>
         </form>
-        <button class="sfbc-request-secondary" type="button" data-add-request>Add to booking request list</button>
+        <button class="sfbc-request-secondary" type="button" data-add-request>{{ 'booking.account.book_now' | t }}</button>
       </div>
     </div>
   </div>
@@ -109,15 +114,15 @@
         <input type="hidden" name="contact[tags]" value="booking page, order request">
         <textarea class="sfbc-hidden-message" name="contact[body]" data-request-message hidden></textarea>
         <div class="sfbc-form-grid">
-          <div><label for="sfbc-name-{{ sid }}">Full name</label><input id="sfbc-name-{{ sid }}" name="contact[name]" type="text" autocomplete="name" required></div>
-          <div><label for="sfbc-phone-{{ sid }}">Phone number</label><input id="sfbc-phone-{{ sid }}" name="contact[phone]" type="tel" autocomplete="tel" required></div>
-          <div><label for="sfbc-email-{{ sid }}">Email address (optional)</label><input id="sfbc-email-{{ sid }}" name="contact[email]" type="email" autocomplete="email"></div>
-          <div><label for="sfbc-city-{{ sid }}">City</label><input id="sfbc-city-{{ sid }}" name="contact[city]" type="text" autocomplete="address-level2"></div>
+          <div><label for="sfbc-name-{{ sid }}">Full name</label><input id="sfbc-name-{{ sid }}" name="contact[name]" value="{{ form.name | default: customer.name | escape }}" type="text" autocomplete="name" required></div>
+          <div><label for="sfbc-phone-{{ sid }}">Phone number</label><input id="sfbc-phone-{{ sid }}" name="contact[phone]" value="{{ form.phone | default: customer.phone | default: customer.default_address.phone | escape }}" type="tel" autocomplete="tel" required></div>
+          <div><label for="sfbc-email-{{ sid }}">{{ 'booking.account.email' | t }}</label><input id="sfbc-email-{{ sid }}" name="contact[email]" value="{{ form.email | default: customer.email | escape }}" type="email" autocomplete="email" required></div>
+          <div><label for="sfbc-city-{{ sid }}">City</label><input id="sfbc-city-{{ sid }}" name="contact[city]" value="{{ customer.default_address.city | escape }}" type="text" autocomplete="address-level2"></div>
           <div><label for="sfbc-date-{{ sid }}">Preferred booking date</label><input id="sfbc-date-{{ sid }}" name="booking[preferred_date]" type="date"></div>
           <div><label for="sfbc-time-{{ sid }}">Preferred booking time</label><input id="sfbc-time-{{ sid }}" name="booking[preferred_time]" type="time"></div>
-          <div class="sfbc-form-wide"><label for="sfbc-address-{{ sid }}">Address / notes</label><textarea id="sfbc-address-{{ sid }}" name="contact[address]" rows="3" autocomplete="street-address"></textarea></div>
+          <div class="sfbc-form-wide"><label for="sfbc-address-{{ sid }}">Address / notes</label><textarea id="sfbc-address-{{ sid }}" name="contact[address]" rows="3" autocomplete="street-address">{{ customer.default_address.address1 | escape }}{% if customer.default_address.address2 != blank %}, {{ customer.default_address.address2 | escape }}{% endif %}</textarea></div>
         </div>
-        <button class="sfbc-button sfbc-button--full" type="submit" data-submit-request>Send order request</button>
+        <button class="sfbc-button sfbc-button--full" type="submit" data-submit-request>{% if customer %}{{ 'booking.account.send' | t }}{% else %}{{ 'booking.account.login_book' | t }}{% endif %}</button>
         <p class="sfbc-form-note">This sends an inquiry to Sufias Fashion. It does not take payment or place a confirmed order.</p>
       {% endform %}
     </div>
@@ -141,3 +146,4 @@
   ]
 }
 {% endschema %}
+
