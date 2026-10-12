@@ -1,0 +1,31 @@
+{{ 'sufias-ledger.css' | asset_url | stylesheet_tag }}
+<section class="sf-ledger" data-ledger data-endpoint="/apps/sufias-ledger/entries">
+  <p class="sf-ledger-kicker">{{ 'ledger.portal.brand' | t }}</p>
+  <h1>{{ 'ledger.portal.title' | t }}</h1>
+  {% if customer %}
+    <p>{{ customer.name | escape }}</p>
+    <a href="/pages/booking">{{ 'ledger.portal.booking' | t }}</a>
+    <div class="sf-ledger-summary">
+      <article><span>{{ 'ledger.portal.charges' | t }}</span><strong data-charges>—</strong></article>
+      <article><span>{{ 'ledger.portal.paid' | t }}</span><strong data-paid>—</strong></article>
+      <article><span>{{ 'ledger.portal.balance' | t }}</span><strong data-balance>—</strong></article>
+    </div>
+    <p>{{ 'ledger.portal.pending_note' | t }}</p>
+    <p data-ledger-status role="status" aria-live="polite"></p>
+    <button type="button" data-ledger-refresh>{{ 'ledger.portal.refresh' | t }}</button>
+    <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
+    <form data-ledger-payment>
+      <h2>{{ 'ledger.portal.payment' | t }}</h2>
+      <label>{{ 'ledger.portal.amount' | t }} (PKR)<input name="amount" type="number" min="0.01" max="1000000000" step="0.01" required></label>
+      <label>{{ 'ledger.portal.reference' | t }}<input name="reference" minlength="3" maxlength="150" required></label>
+      <label>{{ 'ledger.portal.method' | t }}<select name="method"><option>Bank transfer</option><option>Easypaisa</option><option>JazzCash</option><option>Cash</option></select></label>
+      <button type="submit">{{ 'ledger.portal.submit' | t }}</button>
+    </form>
+    <script src="{{ 'sufias-ledger.js' | asset_url }}" defer></script>
+  {% else %}
+    <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p><a class="sf-ledger-button" href="{{ routes.storefront_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
+  {% endif %}
+</section>
+{% schema %}
+{"name":"Sufias customer khata","settings":[],"presets":[{"name":"Sufias customer khata"}]}
+{% endschema %}

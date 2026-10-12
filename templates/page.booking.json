@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "booking": {
+      "type": "sufias-booking",
+      "settings": {
+        "ledger_enabled": true
+      }
+    }
+  },
+  "order": [
+    "booking"
+  ]
+}
