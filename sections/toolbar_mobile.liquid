@@ -53,7 +53,7 @@
                 </div>
             {%- when 'account' -%}{%- unless shop.customer_accounts_enabled %}{% continue %}{% endunless -%} 
                 <div class="t4s-toolbart-{{ block_type }} t4s-toolbar-item">
-                    <a href="{{ routes.account_url }}" {% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}>
+                    <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}" >
                         <span class="t4s-toolbar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                         </span>

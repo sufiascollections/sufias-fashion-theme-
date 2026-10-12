@@ -85,12 +85,12 @@ t4s_group_btns_split
 		   {%- endif -%}
 		   	{%- if shop.customer_accounts_enabled and se_stts.show_acc -%}
 				<div class="t4s-site-nav__icon t4s-site-nav__account t4s-pr t4s-d-none t4s-d-md-inline-block">
-					<a class="t4s-pr" href="{{ routes.account_url }}"{% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}>
+					<a class="t4s-pr" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">
 						<svg class="t4s-icon t4s-icon--account" aria-hidden="true" focusable="false" role="presentation"><use href="#icon-h-account"></use></svg>
 					</a>
 					{%- if customer -%}
 						<ul class="t4s-my-account-split">
-							<li><a class="t4s-d-block" href="{{ routes.account_url }}">{{ 'customer.account.dashboard' | t }}</a></li>
+							<li><a class="t4s-d-block" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">{{ 'customer.account.dashboard' | t }}</a></li>
 							<li><a class="t4s-d-block" href="{{ routes.account_addresses_url }}">{{ 'customer.menu.addresses' | t }}</a></li>
 							<li><a class="t4s-d-block" href="{{ routes.account_logout_url }}" data-no-instant>{{ 'customer.account.log_out' | t }}</a></li>
 						</ul>
@@ -151,12 +151,12 @@ t4s_group_btns_split
 		   {%- endif -%}
 		   	{%- if shop.customer_accounts_enabled and se_stts.show_acc -%}
 				<div class="t4s-site-nav__icon t4s-site-nav__account t4s-pr t4s-d-none t4s-d-md-inline-block t4s-d-lg-none">
-					<a class="t4s-pr" href="{{ routes.account_url }}"{% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}>
+					<a class="t4s-pr" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">
 						<svg class="t4s-icon t4s-icon--account" aria-hidden="true" focusable="false" role="presentation"><use href="#icon-h-account"></use></svg>
 					</a>
 					{%- if customer -%}
 						<ul class="t4s-my-account">
-							<li><a class="t4s-d-block" href="{{ routes.account_url }}">{{ 'customer.account.dashboard' | t }}</a></li>
+							<li><a class="t4s-d-block" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">{{ 'customer.account.dashboard' | t }}</a></li>
 							<li><a class="t4s-d-block" href="{{ routes.account_addresses_url }}">{{ 'customer.menu.addresses' | t }}</a></li>
 							<li><a class="t4s-d-block" href="{{ routes.account_logout_url }}" data-no-instant>{{ 'customer.account.log_out' | t }}</a></li>
 						</ul>

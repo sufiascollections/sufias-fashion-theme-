@@ -149,15 +149,15 @@ endif -%}
                  {%- if the_snippet_auth contains 'Liquid error' or settings.growave_social_login == false or settings.enable_growave == false %}
                     {%- if customer -%}
                       <li id="item_mb_acc" class="t4s-menu-item t4s-item-level-0 t4s-menu-item-btns t4s-menu-item-acount t4s-menu-item-has-children t4s-only_icon_false">
-                         <a href="{{ routes.account_url }}"><span class="t4s-d-inline-block"><svg width="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>{{ 'general.mobile_menu.my_account' | t }}</span><span class="t4s-mb-nav__icon"></span></a>
+                         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"><span class="t4s-d-inline-block"><svg width="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>{{ 'general.mobile_menu.my_account' | t }}</span><span class="t4s-mb-nav__icon"></span></a>
                          <ul class="t4s-sub-menu">
-                            <li><a href="{{ routes.account_url }}">{{ 'customer.menu.dashboard' | t }}</a></li>
+                            <li><a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">{{ 'customer.menu.dashboard' | t }}</a></li>
                             <li><a href="{{ routes.account_addresses_url }}">{{ 'customer.menu.addresses' | t }}</a></li>
                             <li><a href="{{ routes.account_logout_url }}" data-no-instant>{{ 'customer.menu.logout' | t }}</a></li>
                          </ul>
                       </li>
                     {%- else -%}
-                      <li id="item_mb_acc" class="t4s-menu-item t4s-item-level-0 t4s-menu-item-btns t4s-menu-item-acount"><a href="{{ routes.account_login_url }}" {% unless customer or request.page_type contains 'customers' or settings.login_side == false %} data-drawer-delay- data-drawer-options='{ "id":"#t4s-login-sidebar" }' {% endunless %}><svg width="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="t4s-d-inline-block">{{ 'general.mobile_menu.login_register' | t }}</span></a></li>
+                      <li id="item_mb_acc" class="t4s-menu-item t4s-item-level-0 t4s-menu-item-btns t4s-menu-item-acount"><a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}" ><svg width="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="t4s-d-inline-block">{{ 'general.mobile_menu.login_register' | t }}</span></a></li>
                     {%- endif -%}
 
                  {%- else -%}
@@ -173,7 +173,7 @@ endif -%}
                         <i class="ssw-icon-down-open-big"></i>
                       </a>
                       <ul class="ssw-dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <li id="customer_myorders_li"><a tabindex="-1" href="{{ routes.account_url }}">{{ 'socialshopwave.my_orders' | t }}</a></li>
+                        <li id="customer_myorders_li"><a tabindex="-1" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}">{{ 'socialshopwave.my_orders' | t }}</a></li>
                         {% render 'ssw-widget-dropdown' %}
                         <li class="ssw-divider"></li>
                         <li><a id="customer_logout_link" tabindex="-1" href="{{ routes.account_logout_url }}" data-no-instant>{{ 'socialshopwave.logout' | t }}</a></li>
