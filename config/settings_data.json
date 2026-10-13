@@ -90,14 +90,6 @@
       "bottom-bar": {
         "type": "bottom-bar",
         "blocks": {
-          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08": {
-            "type": "copyR",
-            "settings": {
-              "text": "Copyright © [year] <span class=\"t4s-cp\">Sufias Collection</span> all rights reserved. <a href=\"https://the4.co\"></a>",
-              "mgb": 0,
-              "mgb_mb": 0
-            }
-          },
           "47f5eb4c-1063-495d-bfc4-a54c62d219aa": {
             "type": "bl_col",
             "settings": {
@@ -113,8 +105,17 @@
               "padding_inner_mb": ""
             }
           },
+          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08": {
+            "type": "copyR",
+            "settings": {
+              "text": "Copyright © [year] <span class=\"t4s-cp\">Sufias Collection</span>. All rights reserved. Developed by <a href=\"https://hizonmedia.com\" target=\"_blank\" rel=\"noopener\">Hizon Media</a>.",
+              "mgb": 0,
+              "mgb_mb": 0
+            }
+          },
           "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3": {
             "type": "bl_col",
+            "disabled": true,
             "settings": {
               "col_heading": "",
               "menu": "",
@@ -127,12 +128,22 @@
               "content_align_mb": "t4s-text-center",
               "padding_inner_mb": ""
             }
+          },
+          "copy_r_NTQWk9": {
+            "type": "copyR",
+            "disabled": true,
+            "settings": {
+              "text": "Copyright © [year] <span class=\"t4s-cp\">Sufias Collection</span> all rights reserved. <a href=\"https://the4.co\"></a>",
+              "mgb": 0,
+              "mgb_mb": 0
+            }
           }
         },
         "block_order": [
-          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08",
           "47f5eb4c-1063-495d-bfc4-a54c62d219aa",
-          "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3"
+          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08",
+          "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3",
+          "copy_r_NTQWk9"
         ],
         "settings": {
           "hidden_bottombar": false,
