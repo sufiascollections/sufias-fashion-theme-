@@ -112,43 +112,16 @@
               "mgb": 0,
               "mgb_mb": 0
             }
-          },
-          "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3": {
-            "type": "bl_col",
-            "disabled": true,
-            "settings": {
-              "col_heading": "",
-              "menu": "",
-              "col_dk": "7",
-              "col_tb": "6",
-              "col_mb": "12",
-              "content_align": "t4s-text-md-start",
-              "padding_inner": "",
-              "col_heading_mobile": "",
-              "content_align_mb": "t4s-text-center",
-              "padding_inner_mb": ""
-            }
-          },
-          "copy_r_NTQWk9": {
-            "type": "copyR",
-            "disabled": true,
-            "settings": {
-              "text": "Copyright © [year] <span class=\"t4s-cp\">Sufias Collection</span> all rights reserved. <a href=\"https://the4.co\"></a>",
-              "mgb": 0,
-              "mgb_mb": 0
-            }
           }
         },
         "block_order": [
           "47f5eb4c-1063-495d-bfc4-a54c62d219aa",
-          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08",
-          "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3",
-          "copy_r_NTQWk9"
+          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08"
         ],
         "settings": {
           "hidden_bottombar": false,
           "border_top": false,
-          "border_pos": "in",
+          "border_pos": "full",
           "space_h_item": "30",
           "space_v_item": "0",
           "space_h_item_mb": "0",
