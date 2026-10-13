@@ -151,7 +151,7 @@
           "mgb_mb": 20,
           "text_fs": 14,
           "text_fw": 400,
-          "heading_cl": "#222222",
+          "heading_cl": "#FFFFFF",
           "text_cl": "#ffffff",
           "link_cl": "#ffffff",
           "link_hover_cl": "#56cfe1",
@@ -2365,7 +2365,7 @@
       },
       "1232542678405107163": {
         "type": "shopify://apps/instafeed/blocks/head-block/c447db20-095d-4a10-9725-b5977662c9d5",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       },
       "17754088914158789468": {
@@ -2380,7 +2380,7 @@
       },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "widget_position": "LEFT_BOTTOM",
           "side_margin": 36,
