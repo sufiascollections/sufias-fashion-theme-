@@ -16,9 +16,12 @@
     <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
     <form data-ledger-payment>
       <h2>{{ 'ledger.portal.payment' | t }}</h2>
+      <p>{{ 'ledger.portal.proof_note' | t }}</p>
+      <label>{{ 'ledger.portal.target' | t }}<select name="targetId" required data-payment-target><option value="">Select an order or booking</option></select></label>
       <label>{{ 'ledger.portal.amount' | t }} (PKR)<input name="amount" type="number" min="0.01" max="1000000000" step="0.01" required></label>
-      <label>{{ 'ledger.portal.reference' | t }}<input name="reference" minlength="3" maxlength="150" required></label>
+      <label>{{ 'ledger.portal.reference' | t }}<input name="reference" minlength="6" maxlength="64" required></label>
       <label>{{ 'ledger.portal.method' | t }}<select name="method"><option>Bank transfer</option><option>Easypaisa</option><option>JazzCash</option><option>Cash</option></select></label>
+      <label>{{ 'ledger.portal.receipt' | t }}<input name="receipt" type="file" accept="image/jpeg,image/png,application/pdf" required></label>
       <button type="submit">{{ 'ledger.portal.submit' | t }}</button>
     </form>
     <script src="{{ 'sufias-ledger.js' | asset_url }}" defer></script>

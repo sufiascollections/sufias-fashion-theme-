@@ -838,24 +838,27 @@
       "brand": "SUFIAS FASHION / WHOLESALE",
       "title": "ledgers",
       "booking": "Book more styles",
-      "charges": "Confirmed bookings",
-      "paid": "Approved payments",
+      "charges": "Confirmed orders & bookings",
+      "paid": "Verified payments",
       "balance": "Remaining balance",
-      "pending_note": "Pending bookings and payments affect your balance only after admin approval. A negative balance means account credit.",
-      "refresh": "Refresh khata",
+      "pending_note": "Checkout orders appear after order sync. Unpaid checkout orders show an amount due. Booking requests and receipts awaiting review do not count as verified payments.",
+      "refresh": "Refresh ledger",
       "history": "Booking & payment history",
       "date": "Date",
       "type": "Type",
       "details": "Details",
       "amount": "Amount",
       "status": "Status",
-      "payment": "Submit a payment for approval",
+      "payment": "Submit payment proof",
       "reference": "Transaction ID / receipt reference",
       "method": "Payment method",
       "submit": "Send for approval",
       "login_title": "Wholesale booking login",
       "login_note": "Sign in with your Sufias customer account to view your own bookings, payments and balance.",
-      "login": "Login to ledgers"
+      "login": "Login to ledgers",
+      "proof_note": "A reference alone does not verify payment. Attach your receipt for accounts review. Checkout payments update from Shopify's payment status.",
+      "target": "Order or booking",
+      "receipt": "Payment receipt (JPG, PNG or PDF, up to 1 MB)"
     }
   }
 }
