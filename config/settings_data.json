@@ -135,7 +135,7 @@
           "mgb_mb": 20,
           "text_fs": 14,
           "text_fw": 400,
-          "heading_cl": "#FFFFFF",
+          "heading_cl": "#ffffff",
           "text_cl": "#ffffff",
           "link_cl": "#ffffff",
           "link_hover_cl": "#56cfe1",
@@ -725,7 +725,7 @@
           "drop_X6hEGj": {
             "type": "drop",
             "settings": {
-              "title": "wholesale",
+              "title": "WHOLESALE",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "main-menu",
