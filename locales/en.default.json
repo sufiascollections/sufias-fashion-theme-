@@ -836,7 +836,7 @@
   "ledger": {
     "portal": {
       "brand": "SUFIAS FASHION / WHOLESALE",
-      "title": "Mera Khata",
+      "title": "leadgers",
       "booking": "Book more styles",
       "charges": "Confirmed bookings",
       "paid": "Approved payments",
@@ -855,7 +855,7 @@
       "submit": "Send for approval",
       "login_title": "Wholesale booking login",
       "login_note": "Sign in with your Sufias customer account to view your own bookings, payments and balance.",
-      "login": "Login to my khata"
+      "login": "Login to leadgers"
     }
   }
 }
