@@ -4,7 +4,7 @@
   assign request_form_id = 'SufiasBookingRequest-' | append: sid
 -%}
 
-{{ 'sufias-booking.css' | asset_url | stylesheet_tag }}
+{{ 'sufias-booking-launch.css' | asset_url | stylesheet_tag }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -141,7 +141,7 @@
   <div class="sfbc-toast" role="status" aria-live="polite" data-booking-toast></div>
 </div>
 
-<script src="{{ 'sufias-booking.js' | asset_url }}" defer></script>
+<script src="{{ 'sufias-booking-launch.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
