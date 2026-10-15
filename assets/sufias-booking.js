@@ -51,15 +51,26 @@
 
     function updateCountdowns() {
       upcomingCards.forEach((card) => {
+        if (card.dataset.launched === 'true') return;
         const end = Date.parse(card.dataset.releaseAt || '');
         const release = card.querySelector('.sfbc-release');
         if (!Number.isFinite(end)) return;
-        const remaining = Math.max(0, Math.floor((end - Date.now()) / 1000));
+        const remaining = Math.max(0, Math.ceil((end - Date.now()) / 1000));
         if (remaining === 0) {
-          if (release) release.textContent = 'AVAILABLE NOW';
-          const timer = card.querySelector('.sfbc-timer');
-          if (timer) timer.hidden = true;
+          const template = root.querySelector(`template[data-launched-product="${card.dataset.productId}"]`);
+          const archiveGrid = root.querySelector('[data-previous-grid]');
+          const launchedCard = template?.content.querySelector('[data-product-card]')?.cloneNode(true);
+          if (!launchedCard || !archiveGrid) return;
+          const query = root.querySelector('[data-booking-search]').value.trim().toLocaleLowerCase();
+          launchedCard.hidden = !launchedCard.dataset.productName.toLocaleLowerCase().includes(query);
+          archiveGrid.insertBefore(launchedCard, noResults);
+          archiveCards.push(launchedCard);
+          if (previousEmpty) previousEmpty.hidden = true;
+          if (noResults) noResults.hidden = archiveCards.some((entry) => !entry.hidden);
+          card.dataset.launched = 'true';
           card.hidden = true;
+          card.remove();
+          template.remove();
           if (comingEmpty && upcomingCards.every((upcomingCard) => upcomingCard.hidden)) comingEmpty.hidden = false;
           return;
         }
