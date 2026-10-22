@@ -5,15 +5,31 @@
   {% if customer %}
     <p>{{ customer.name | escape }}</p>
     <a href="/pages/booking">{{ 'ledger.portal.booking' | t }}</a>
+    <p data-ledger-status role="status" aria-live="polite"></p>
+    <form data-ledger-unlock>
+      <h2>Open your private ledger</h2>
+      <p>Enter the PIN provided by Sufias Fashion. This PIN opens only the ledger linked to your logged-in email.</p>
+      <label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
+      <button type="submit">Unlock my ledger</button>
+    </form>
+    <div data-ledger-content hidden>
+    <button type="button" data-ledger-lock>Lock my ledger</button>
     <div class="sf-ledger-summary">
       <article><span>{{ 'ledger.portal.charges' | t }}</span><strong data-charges>—</strong></article>
       <article><span>{{ 'ledger.portal.paid' | t }}</span><strong data-paid>—</strong></article>
       <article><span>{{ 'ledger.portal.balance' | t }}</span><strong data-balance>—</strong></article>
     </div>
     <p>{{ 'ledger.portal.pending_note' | t }}</p>
-    <p data-ledger-status role="status" aria-live="polite"></p>
+    <label>Month <input type="month" data-ledger-month></label>
+    <p>Leave month blank for all saved history. Monthly figures use Pakistan time; current balances include all saved entries.</p>
+    <div class="sf-ledger-summary">
+      <article>Suits purchased<strong data-quantity>—</strong></article><article>Returned units<strong data-returned>—</strong></article>
+      <article>Return credits<strong data-credits>—</strong></article><article>Refunds paid<strong data-refunded>—</strong></article>
+      <article>Customer owes Sufias (all time)<strong data-customer-due>—</strong></article><article>Sufias owes customer / credit (all time)<strong data-company-due>—</strong></article>
+      <article>Opening balance<strong data-opening>—</strong></article><article>Closing balance<strong data-closing>—</strong></article>
+    </div>
     <button type="button" data-ledger-refresh>{{ 'ledger.portal.refresh' | t }}</button>
-    <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
+    <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th><th>Running balance</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
     <form data-ledger-payment>
       <h2>{{ 'ledger.portal.payment' | t }}</h2>
       <p>{{ 'ledger.portal.proof_note' | t }}</p>
@@ -24,7 +40,9 @@
       <label>{{ 'ledger.portal.receipt' | t }}<input name="receipt" type="file" accept="image/jpeg,image/png,application/pdf" required></label>
       <button type="submit">{{ 'ledger.portal.submit' | t }}</button>
     </form>
-    <script src="{{ 'sufias-ledger.js' | asset_url }}" defer></script>
+    </div>
+    <style>.sf-ledger [hidden]{display:none!important}.sf-ledger [data-ledger-unlock]{max-width:480px;margin:24px auto}.sf-ledger [data-ledger-unlock] input{display:block;padding:12px;width:100%;margin:12px 0}.sf-ledger button{cursor:pointer}</style>
+    <script src="{{ 'sufias-ledger-private.js' | asset_url }}" defer></script>
   {% else %}
     <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p><a class="sf-ledger-button" href="{{ routes.storefront_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
   {% endif %}
@@ -32,3 +50,5 @@
 {% schema %}
 {"name":"Sufias customer khata","settings":[],"presets":[{"name":"Sufias customer khata"}]}
 {% endschema %}
+
+
