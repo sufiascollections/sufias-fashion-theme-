@@ -1,0 +1,35 @@
+document.querySelectorAll('[data-ledger]').forEach(root=>{
+ const status=root.querySelector('[data-ledger-status]');if(!status)return;
+ const money=v=>new Intl.NumberFormat('en-PK',{style:'currency',currency:'PKR'}).format(v/100);
+ const form=root.querySelector('[data-ledger-payment]');let key=crypto.randomUUID(),unlock='',lockTimer;
+ const gate=root.querySelector('[data-ledger-unlock]'),content=root.querySelector('[data-ledger-content]'),month=root.querySelector('[data-ledger-month]');
+ function lock(){clearTimeout(lockTimer);unlock='';content.hidden=true;gate.hidden=false;root.querySelector('[data-ledger-rows]').replaceChildren();for(const node of content.querySelectorAll('strong'))node.textContent='—';}
+ root.querySelector('[data-ledger-lock]').onclick=()=>{lock();status.textContent='Ledger locked.';};
+ gate.addEventListener('submit',async event=>{event.preventDefault();const button=gate.querySelector('button');button.disabled=true;try{const response=await fetch('/apps/sufias-ledger/unlock',{method:'POST',headers:{'Content-Type':'application/json','X-Ledger-Request':'1'},body:JSON.stringify({pin:new FormData(gate).get('pin')})});const data=await response.json();if(!response.ok)throw Error(data.error||'Unable to unlock ledger');unlock=data.token;clearTimeout(lockTimer);lockTimer=setTimeout(()=>{lock();status.textContent="For your privacy, enter your PIN again.";},15*60*1000);gate.reset();await load();}catch(error){status.textContent=error.message;}finally{button.disabled=false;}});
+ month.onchange=load;
+ async function api(options){const response=await fetch(root.dataset.endpoint+(month.value?'?month='+encodeURIComponent(month.value):''),{...options,headers:{...options?.headers,'X-Ledger-Unlock':unlock}});if(!response.headers.get('content-type')?.includes('application/json'))throw Error('Ledger is temporarily unavailable. Please contact Sufias Fashion.');const result=await response.json();if(!response.ok){if(result.code==='PIN_REQUIRED')lock();throw Error(result.error||'Unable to load ledger');}return result;}
+ async function load(){try{
+  status.textContent='Loading your ledger…';const {entries,history,orderSync,summary,monthly,fullHistory}=await api();gate.hidden=true;content.hidden=false;const selectedSummary=monthly||summary;let charges=0,paid=0;const rows=root.querySelector('[data-ledger-rows]');rows.replaceChildren();
+  const targets=form.querySelector('[data-payment-target]'),selected=targets.value;targets.replaceChildren(new Option('Select an order or booking',''));
+  for(const e of entries){const details=JSON.parse(e.details);
+   if(e.kind==='booking'&&e.status!=='rejected')targets.add(new Option(details.orderName||'Booking '+new Date(e.created).toLocaleDateString('en-PK')+' • '+money(e.amount),e.id));
+  }
+  for(const row of history||[]){if(month.value&&new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi',year:'numeric',month:'2-digit'}).format(new Date(row.date)).replace('/','-')!==month.value)continue;const tr=document.createElement('tr');for(const value of [new Date(row.date).toLocaleDateString('en-PK',{timeZone:'Asia/Karachi'}),row.type.replaceAll('_',' '),row.description+(row.quantity?' • '+row.quantity+' suits':''),money(row.amount),row.status,money(row.balance)]){const td=document.createElement('td');td.textContent=value;tr.append(td);}rows.append(tr);}
+  targets.value=selected;root.querySelector('[data-charges]').textContent=money(selectedSummary.charges);root.querySelector('[data-paid]').textContent=money(selectedSummary.paid);root.querySelector('[data-balance]').textContent=money(summary.balance);
+  for(const [selector,field] of [['credits','credits'],['refunded','refunded'],['customer-due','customerDue'],['company-due','companyDue'],['opening','opening'],['closing','closing']])root.querySelector('[data-'+selector+']').textContent=money(selectedSummary[field]);
+  root.querySelector('[data-quantity]').textContent=String(selectedSummary.quantity);root.querySelector('[data-returned]').textContent=String(selectedSummary.returnedQuantity);
+  status.textContent=orderSync==='unavailable'?'Checkout orders are temporarily unavailable. Saved bookings and receipts are shown below. Please contact Sufias Fashion.':entries.length?'Ledger updated.':'No orders, bookings or payments yet.';if(!fullHistory)status.textContent+=' Older Shopify orders may be outside the app access window; contact Sufias for missing history.';
+ }catch(error){status.textContent=error.message;}}
+ form.addEventListener('input',()=>{key=crypto.randomUUID();});
+ const readFile=file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('Unable to read receipt'));reader.readAsDataURL(file);});
+ form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('button');button.disabled=true;try{
+  const data=new FormData(form),file=data.get('receipt');if(!file||!file.size)throw Error('Upload your payment receipt');if(file.size>1048576)throw Error('Receipt must be no larger than 1 MB');
+  await api({method:'POST',headers:{'Content-Type':'application/json','X-Ledger-Request':'1'},body:JSON.stringify({kind:'payment',amount:Math.round(Number(data.get('amount'))*100),key,details:{reference:data.get('reference'),method:data.get('method'),targetId:data.get('targetId')},proof:{type:file.type,base64:await readFile(file)}})});
+  form.reset();key=crypto.randomUUID();await load();status.textContent='Receipt submitted for review. This is not a verified payment. Checkout orders update when Shopify confirms payment.';
+ }catch(error){status.textContent=error.message;}finally{button.disabled=false;}});
+ root.querySelector('[data-ledger-refresh]').onclick=load;
+ fetch('/apps/sufias-ledger/access').then(async response=>{const data=await response.json();if(!response.ok)throw Error(data.error||'Please log in');status.textContent=data.pinConfigured?'Enter your PIN to open your ledger.':'Please ask Sufias Fashion to set your personal ledger PIN.';}).catch(error=>status.textContent=error.message);
+
+});
+
+
