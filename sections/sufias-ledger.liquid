@@ -11,14 +11,15 @@
       <p>Enter the PIN provided by Sufias Fashion. This PIN opens only the ledger linked to your logged-in email.</p>
       <label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
       <button type="submit">Unlock my ledger</button>
-      <button type="button" data-ledger-forgot hidden>Forgot PIN?</button>
+      <button type="button" data-ledger-forgot>Forgot PIN?</button>
     </form>
 
     <form data-ledger-recovery hidden>
       <h2>Forgot your PIN?</h2>
       <p>We will send a 6-digit code to the email linked to your logged-in Shopify account.</p>
       <p data-recovery-status role="status" aria-live="polite"></p>
-      <button type="button" data-recovery-send>Send email code</button>
+      <button type="button" data-recovery-send disabled>Send email code</button>
+      <p data-recovery-contact hidden>Email reset is temporarily unavailable. <a href="mailto:sufiasfashionofficial@gmail.com?subject=Ledger%20PIN%20reset%20request">Contact Sufias Fashion to reset your PIN</a>.</p>
       <div data-recovery-fields hidden>
         <label>Email code<input name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code"></label>
         <label>New PIN (6–12 digits)<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
