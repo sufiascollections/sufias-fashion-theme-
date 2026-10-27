@@ -11,6 +11,21 @@
       <p>Enter the PIN provided by Sufias Fashion. This PIN opens only the ledger linked to your logged-in email.</p>
       <label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
       <button type="submit">Unlock my ledger</button>
+      <button type="button" data-ledger-forgot hidden>Forgot PIN?</button>
+    </form>
+
+    <form data-ledger-recovery hidden>
+      <h2>Forgot your PIN?</h2>
+      <p>We will send a 6-digit code to the email linked to your logged-in Shopify account.</p>
+      <p data-recovery-status role="status" aria-live="polite"></p>
+      <button type="button" data-recovery-send>Send email code</button>
+      <div data-recovery-fields hidden>
+        <label>Email code<input name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code"></label>
+        <label>New PIN (6–12 digits)<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
+        <label>Confirm new PIN<input name="confirm" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
+        <button type="submit">Save new PIN</button>
+      </div>
+      <button type="button" data-recovery-cancel>Back to PIN login</button>
     </form>
     <div data-ledger-content hidden>
     <button type="button" data-ledger-lock>Lock my ledger</button>
@@ -42,7 +57,7 @@
     </form>
     </div>
     <style>.sf-ledger [hidden]{display:none!important}.sf-ledger [data-ledger-unlock]{max-width:480px;margin:24px auto}.sf-ledger [data-ledger-unlock] input{display:block;padding:12px;width:100%;margin:12px 0}.sf-ledger button{cursor:pointer}</style>
-    <script src="{{ 'sufias-ledger-private.js' | asset_url }}" defer></script>
+    <script src="{{ 'sufias-ledger-recovery.js' | asset_url }}" defer></script>
   {% else %}
     <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p><a class="sf-ledger-button" href="{{ routes.storefront_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
   {% endif %}
