@@ -1,6 +1,6 @@
 {{ 'sufias-booking-launch.css' | asset_url | stylesheet_tag }}
 {{ 'sufias-ledger-cream.css' | asset_url | stylesheet_tag }}
-<section class="sf-booking-catalog" data-wholesale><nav aria-label="Wholesale account" style="padding:16px 24px;text-align:right"><a class="sf-ledger-button" href="/pages/ledger" style="display:inline-block;background:#e8dcc6;color:#332a1e;padding:12px 24px;border-radius:8px;text-decoration:none">My Ledger / Mera Khata</a></nav>
+<section class="sf-booking-catalog" data-wholesale><nav aria-label="Wholesale account" style="padding:16px 24px;text-align:right"><a class="sf-ledger-button" href="/pages/ledger" style="display:inline-block;background:#e8dcc6;color:#332a1e;padding:12px 24px;border-radius:8px;text-decoration:none">Ledger</a></nav>
   <div class="sf-ledger" data-wholesale-gate>
     <p class="sf-ledger-kicker">SUFIAS FASHION / WHOLESALE</p><h1>Wholesale collection</h1>
     {% if customer %}
@@ -13,7 +13,7 @@
   </div>
   {% if customer %}
   <div data-wholesale-content hidden>
-    <nav class="sfbc-toolbar"><a href="/pages/ledger">My ledger</a><a href="#wholesale-bag">Bulk request list</a><button type="button" data-wholesale-lock>Lock wholesale</button></nav>
+    <nav class="sfbc-toolbar"><a href="/pages/ledger">Ledger</a><a href="#wholesale-bag">Bulk request list</a><button type="button" data-wholesale-lock>Lock wholesale</button></nav>
     <section class="sfbc-upcoming" data-upcoming-section hidden><div class="sfbc-section-head"><div><div class="sfbc-kicker">The Next Drops</div><h1>Coming Soon</h1></div></div><div class="sfbc-grid" data-wholesale-upcoming></div></section>
     <section class="sfbc-archive"><div class="sfbc-section-head"><div><div class="sfbc-kicker">Wholesale collection</div><h2>Previous Article</h2></div><p>Choose a design, colours and quantities for your bulk request.</p></div><div class="sfbc-grid" data-wholesale-products></div></section>
     <div class="sf-ledger" id="wholesale-bag"><h2>Your bulk request</h2><p data-wholesale-bag>Choose products above.</p><p>Minimum 2 suits per design; mix colours within a design. Stock and delivery are confirmed by Sufias Fashion.</p><label>Notes<textarea data-wholesale-note maxlength="1000" rows="3"></textarea></label><button type="button" data-wholesale-submit>Send bulk request</button><p data-wholesale-order-status role="status" aria-live="polite"></p></div>
