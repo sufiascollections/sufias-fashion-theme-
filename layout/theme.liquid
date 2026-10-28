@@ -80,6 +80,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
     {{ content_for_header }}
     {%- render 'head_assets', t_name: t_name, isRTL: isRTL -%}
     <meta name="google-site-verification" content="IA23PKsoDr65ErTQL2Tzve26aVKG4r_ZtH0q5oUfwMc" />
+  {{ 'sufias-mobile.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="template-{{ request.page_type | handle }} {{ class_lazy }}{% if sufias_launch_locked %} sufias-launch-locked{% endif %}"{% if body_img != blank %} data-bgset="{{ body_img | image_url: width: 1 }}" data-optimumx="2" data-sizes="auto"{% endif -%}>{% if isRTL %}<script type="text/javascript" id="t4s-flicker-fix">// Flicker fix.</script>{% endif -%}
