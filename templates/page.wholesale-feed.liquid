@@ -1,0 +1,5 @@
+{% layout none %}
+{% paginate collections.all.products by 250 %}
+{"products":[{% assign feed_comma = false %}{% for p in collections.all.products %}{% if p.tags contains 'booking' %}{% if feed_comma %},{% endif %}{% assign feed_comma = true %}{"id":{{ p.id | append: '' | json }},"title":{{ p.title | json }},"handle":{{ p.handle | json }},"image":{% if p.featured_image %}{{ p.featured_image | image_url: width: 700 | json }}{% else %}null{% endif %},"preview":{% if p.tags contains 'preview' %}true{% else %}false{% endif %},"launchAt":{{ p.metafields.custom.launch_date_time.value | json }},"variants":[{% for v in p.variants %}{"id":{{ v.id | append: '' | json }},"title":{{ v.title | json }},"available":{{ v.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% endif %}{% endfor %}],"hasNextPage":{% if paginate.next %}true{% else %}false{% endif %}}
+{% endpaginate %}
+
