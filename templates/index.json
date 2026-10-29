@@ -1012,6 +1012,7 @@
     },
     "main_pagebrands_hRaJnx": {
       "type": "main-pagebrands",
+      "disabled": true,
       "name": "Page Brands",
       "settings": {
         "options": "shop_vendor",
