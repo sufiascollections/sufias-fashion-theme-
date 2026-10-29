@@ -76,6 +76,7 @@
 .sw-cardp__title{font-size:17px;line-height:1.25;border:0;background:none;padding:0;text-align:left;cursor:pointer}
 .sw-cardp__price{margin:0;font-weight:700}
 .sw-cardp__price small{font-weight:400;color:var(--sw-muted)}
+.sw-was{font-weight:400;color:var(--sw-muted);text-decoration:line-through}
 .sw-cardp__meta{margin:0;font-size:12px;color:var(--sw-muted)}
 .sw-cardp__dots{display:flex;gap:5px;flex-wrap:wrap}
 .sw-dot{width:14px;height:14px;border-radius:50%;border:1px solid rgb(0 0 0 / 15%);background:var(--sw-dot,#ddd)}

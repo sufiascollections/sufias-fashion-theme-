@@ -162,6 +162,12 @@
       if (SHADES[value]) return SHADES[value];
       return window.CSS && CSS.supports && CSS.supports('color', value) ? value : '';
     }
+    /* Optional struck-through "was" price, from the product's custom.wholesale_compare_price metafield. */
+    const priceInto = (node, p, suffix) => {
+      node.textContent = money(p.unitPrice) + ' ';
+      if (p.wholesaleCompareAt > p.unitPrice) { node.append(el('s', 'sw-was', money(p.wholesaleCompareAt)), ' '); }
+      node.append(el('small', '', suffix));
+    };
     const qtyFor = p => p.variants.reduce((sum, v) => sum + (selected.get(v.id) || 0), 0);
     const imagesFor = p => (p.images && p.images.length ? p.images : (p.image ? [p.image] : []));
 
@@ -177,7 +183,7 @@
       const body = el('div', 'sw-cardp__body');
       const title = el(p.upcoming ? 'h3' : 'button', 'sw-cardp__title', p.title);
       if (!p.upcoming) { title.type = 'button'; title.addEventListener('click', () => openDetail(p)); }
-      const price = el('p', 'sw-cardp__price', money(p.unitPrice) + ' '); price.append(el('small', '', '/ suit'));
+      const price = el('p', 'sw-cardp__price'); priceInto(price, p, '/ suit');
       body.append(title, price);
       if (p.upcoming) {
         const launch = el('p', 'sw-cardp__launch', p.launchAt ? 'Launch: ' + new Date(p.launchAt).toLocaleString('en-PK') : 'Coming soon');
@@ -244,7 +250,7 @@
       thumbs.hidden = images.length < 2;
       $('[data-wholesale-detail-type]').textContent = p.type || 'Wholesale design';
       $('[data-wholesale-detail-title]').textContent = p.title;
-      const price = $('[data-wholesale-detail-price]'); price.textContent = money(p.unitPrice) + ' '; price.append(el('small', '', 'per suit'));
+      priceInto($('[data-wholesale-detail-price]'), p, 'per suit');
       $('[data-wholesale-detail-min]').textContent = 'Min. ' + p.minQuantity + ' suits per design';
 
       const rows = $('[data-wholesale-detail-rows]'); rows.replaceChildren();
