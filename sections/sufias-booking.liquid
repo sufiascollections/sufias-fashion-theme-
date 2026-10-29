@@ -1,26 +1,118 @@
-{{ 'sufias-booking-launch.css' | asset_url | stylesheet_tag }}
-{{ 'sufias-ledger-cream.css' | asset_url | stylesheet_tag }}
-<section class="sf-booking-catalog" data-wholesale><nav aria-label="Wholesale account" style="padding:16px 24px;text-align:right"><a class="sf-ledger-button" href="/pages/ledger" style="display:inline-block;background:#e8dcc6;color:#332a1e;padding:12px 24px;border-radius:8px;text-decoration:none">Ledger</a></nav>
-  <div class="sf-ledger" data-wholesale-gate>
-    <p class="sf-ledger-kicker">SUFIAS FASHION / WHOLESALE</p><h1>Wholesale collection</h1>
-    {% if customer %}
-      <p>{{ customer.name | escape }}</p><p data-wholesale-status role="status" aria-live="polite">Checking wholesale access…</p>
-      <form data-wholesale-apply hidden><h2>Request wholesale access</h2><p>Wholesale is for bulk buyers approved by Sufias Fashion.</p><label>Your name<input name="name" value="{{ customer.name | escape }}" maxlength="150" required></label><label>Business / shop name<input name="business" maxlength="200" minlength="2" required></label><label>Phone / WhatsApp<input name="phone" value="{{ customer.phone | escape }}" maxlength="40" minlength="6" required></label><button type="submit">Request owner approval</button></form>
-      <form data-wholesale-unlock hidden><h2>Open wholesale collection</h2><label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" autocomplete="current-password" required></label><button type="submit">Unlock wholesale</button><a class="sf-ledger-button" href="/pages/ledger">Forgot PIN?</a></form>
-    {% else %}
-      <p>Log in to request wholesale access. Registration alone does not unlock wholesale prices.</p><a class="sf-ledger-button" href="{{ routes.storefront_login_url | escape }}">Log in / Register</a>
-    {% endif %}
+{{ 'sufias-wholesale.css' | asset_url | stylesheet_tag }}
+<section class="sw" data-wholesale{% if customer %} data-customer="{{ customer.id }}"{% endif %}>
+  <header class="sw-hero">
+    <div class="sw-wrap sw-hero__inner">
+      <div>
+        <p class="sw-kicker">Sufias Fashion · Wholesale</p>
+        <h1 class="sw-hero__title">Wholesale collection</h1>
+        <p class="sw-hero__lead">Bulk orders for approved retailers. Choose a design, set quantities per colour and send your request — we confirm stock and delivery.</p>
+      </div>
+      <nav class="sw-hero__actions" aria-label="Wholesale account">
+        <a class="sw-btn sw-btn--ghost-light" href="/pages/ledger">Ledger</a>
+        {% if customer %}<button type="button" class="sw-btn sw-btn--ghost-light" data-wholesale-lock hidden>Lock</button>{% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="sw-gate sw-wrap" data-wholesale-gate>
+    <div class="sw-card sw-gate__card">
+      {% if customer %}
+        <p class="sw-gate__hello">Assalam o Alaikum, {{ customer.first_name | default: customer.name | escape }}</p>
+        <p class="sw-status" data-wholesale-status role="status" aria-live="polite">Checking wholesale access…</p>
+        <form class="sw-form" data-wholesale-apply method="post" action="#" hidden>
+          <h2 class="sw-h2">Request wholesale access</h2>
+          <p class="sw-muted">Wholesale is for bulk buyers approved by Sufias Fashion.</p>
+          <label class="sw-field"><span>Your name</span><input name="name" value="{{ customer.name | escape }}" maxlength="150" autocomplete="name" required></label>
+          <label class="sw-field"><span>Business / shop name</span><input name="business" maxlength="200" minlength="2" autocomplete="organization" required></label>
+          <label class="sw-field"><span>Phone / WhatsApp</span><input name="phone" type="tel" value="{{ customer.phone | escape }}" maxlength="40" minlength="6" autocomplete="tel" required></label>
+          <button class="sw-btn sw-btn--primary sw-btn--block" type="submit">Request owner approval</button>
+        </form>
+        <form class="sw-form" data-wholesale-unlock method="post" action="#" hidden>
+          <h2 class="sw-h2">Enter your monthly PIN</h2>
+          <p class="sw-muted">Enter your PIN once — wholesale stays open on this device until the end of the month.</p>
+          <label class="sw-field"><span>PIN</span><input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
+          <button class="sw-btn sw-btn--primary sw-btn--block" type="submit">Unlock wholesale</button>
+          <a class="sw-link" href="/pages/ledger">Forgot PIN?</a>
+        </form>
+      {% else %}
+        {%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}
+        <h2 class="sw-h2">Log in to continue</h2>
+        <p class="sw-muted">Log in to request wholesale access. Registration alone does not unlock wholesale prices.</p>
+        <a class="sw-btn sw-btn--primary sw-btn--block" href="{{ sufias_login_url | escape }}">Log in / Register</a>
+      {% endif %}
+    </div>
   </div>
+
   {% if customer %}
-  <div data-wholesale-content hidden>
-    <nav class="sfbc-toolbar"><a href="/pages/ledger">Ledger</a><a href="#wholesale-bag">Bulk request list</a><button type="button" data-wholesale-lock>Lock wholesale</button></nav>
-    <section class="sfbc-upcoming" data-upcoming-section hidden><div class="sfbc-section-head"><div><div class="sfbc-kicker">The Next Drops</div><h1>Coming Soon</h1></div></div><div class="sfbc-grid" data-wholesale-upcoming></div></section>
-    <section class="sfbc-archive"><div class="sfbc-section-head"><div><div class="sfbc-kicker">Wholesale collection</div><h2>Previous Article</h2></div><p>Choose a design, colours and quantities for your bulk request.</p></div><div class="sfbc-grid" data-wholesale-products></div></section>
-    <div class="sf-ledger" id="wholesale-bag"><h2>Your bulk request</h2><p data-wholesale-bag>Choose products above.</p><p>Minimum 2 suits per design; mix colours within a design. Stock and delivery are confirmed by Sufias Fashion.</p><label>Notes<textarea data-wholesale-note maxlength="1000" rows="3"></textarea></label><button type="button" data-wholesale-submit>Send bulk request</button><p data-wholesale-order-status role="status" aria-live="polite"></p></div>
+  <div class="sw-content" data-wholesale-content hidden>
+    <div class="sw-toolbar">
+      <div class="sw-wrap sw-toolbar__inner">
+        <label class="sw-search"><span class="sw-visually-hidden">Search designs</span><input type="search" placeholder="Search designs" data-wholesale-search autocomplete="off"></label>
+        <p class="sw-toolbar__meta" data-wholesale-unlocked></p>
+        <a class="sw-btn sw-btn--primary sw-toolbar__bag" href="#wholesale-bag">Bulk request <span class="sw-badge" data-wholesale-count>0</span></a>
+      </div>
+    </div>
+
+    <section class="sw-section sw-section--dark" data-upcoming-section hidden>
+      <div class="sw-wrap">
+        <div class="sw-section__head"><div><p class="sw-kicker">The next drops</p><h2 class="sw-h2">Coming soon</h2></div></div>
+        <div class="sw-grid" data-wholesale-upcoming></div>
+      </div>
+    </section>
+
+    <section class="sw-section">
+      <div class="sw-wrap">
+        <div class="sw-section__head">
+          <div><p class="sw-kicker">Available now</p><h2 class="sw-h2">Wholesale designs</h2></div>
+          <p class="sw-muted">Tap a design to see full details and order by colour. Minimum <strong data-wholesale-min>2</strong> suits per design — mix colours freely.</p>
+        </div>
+        <div class="sw-grid" data-wholesale-products></div>
+      </div>
+    </section>
+
+    <section class="sw-section sw-section--soft" id="wholesale-bag">
+      <div class="sw-wrap sw-bag">
+        <div>
+          <p class="sw-kicker">Your order</p>
+          <h2 class="sw-h2">Bulk request</h2>
+          <p class="sw-muted">Stock and delivery are confirmed by Sufias Fashion after you send the request.</p>
+        </div>
+        <div class="sw-card sw-bag__card">
+          <div data-wholesale-bag></div>
+          <label class="sw-field"><span>Notes for Sufias (optional)</span><textarea data-wholesale-note maxlength="1000" rows="3" placeholder="Delivery city, packing, timing…"></textarea></label>
+          <button class="sw-btn sw-btn--primary sw-btn--block" type="button" data-wholesale-submit>Send bulk request</button>
+          <p class="sw-status" data-wholesale-order-status role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <a class="sw-jump" href="#wholesale-bag" data-wholesale-jump hidden></a>
+  </div>
+
+  <div class="sw-modal" data-wholesale-modal hidden>
+    <div class="sw-modal__backdrop" data-wholesale-close></div>
+    <div class="sw-modal__sheet" role="dialog" aria-modal="true" aria-labelledby="sw-modal-title" tabindex="-1">
+      <button type="button" class="sw-modal__close" data-wholesale-close aria-label="Close">&times;</button>
+      <div class="sw-gallery">
+        <div class="sw-gallery__track" data-wholesale-gallery></div>
+        <div class="sw-gallery__thumbs" data-wholesale-thumbs></div>
+      </div>
+      <div class="sw-detail">
+        <p class="sw-kicker" data-wholesale-detail-type></p>
+        <h2 class="sw-detail__title" id="sw-modal-title" data-wholesale-detail-title></h2>
+        <p class="sw-detail__price" data-wholesale-detail-price></p>
+        <div class="sw-detail__colours">
+          <div class="sw-detail__colours-head"><h3>Quantity by colour</h3><span class="sw-muted" data-wholesale-detail-min></span></div>
+          <div data-wholesale-detail-rows></div>
+        </div>
+        <div class="sw-detail__total"><span data-wholesale-detail-count>0 suits</span><strong data-wholesale-detail-total></strong></div>
+        <p class="sw-status" data-wholesale-detail-status role="status" aria-live="polite"></p>
+        <button type="button" class="sw-btn sw-btn--primary sw-btn--block" data-wholesale-detail-done>Done</button>
+        <div class="sw-detail__desc" data-wholesale-detail-desc></div>
+      </div>
+    </div>
   </div>
   <script src="{{ 'sufias-wholesale-secure.js' | asset_url }}" defer></script>
   {% endif %}
 </section>
-<style>[data-wholesale] [hidden]{display:none!important}[data-wholesale] img{width:100%;aspect-ratio:4/5;object-fit:cover}[data-wholesale] .sfbc-card-body input{max-width:95px;padding:8px;border:1px solid #b8ad9b}[data-wholesale] .sfbc-card-body label{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}[data-wholesale] .sfbc-card-body label span{overflow-wrap:anywhere}[data-wholesale] .sfbc-toolbar button{background:#e8dcc6;border:0;padding:12px;color:#332a1e}[data-wholesale] textarea{width:100%;box-sizing:border-box;border:1px solid #b8ad9b;padding:12px}</style>
 {% schema %}{"name":"Sufias Booking","tag":"section","class":"t4s-section sufias-booking-section","settings":[{"type":"checkbox","id":"ledger_enabled","label":"Save bookings to connected khata backend","default":true}],"presets":[{"name":"Sufias Booking"}]}{% endschema %}
-

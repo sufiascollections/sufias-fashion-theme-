@@ -1,20 +1,20 @@
 {{ 'sufias-ledger-cream.css' | asset_url | stylesheet_tag }}
-<section class="sf-ledger" data-ledger data-endpoint="/apps/sufias-ledger/entries">
+<section class="sf-ledger" data-ledger data-endpoint="/apps/sufias-ledger/entries"{% if customer %} data-customer="{{ customer.id }}"{% endif %}>
   <p class="sf-ledger-kicker">{{ 'ledger.portal.brand' | t }}</p>
   <h1>{{ 'ledger.portal.title' | t }}</h1>
   {% if customer %}
     <p>{{ customer.name | escape }}</p>
     <a href="/pages/booking">{{ 'ledger.portal.booking' | t }}</a>
     <p data-ledger-status role="status" aria-live="polite"></p>
-    <form data-ledger-unlock>
+    <form data-ledger-unlock method="post" action="#">
       <h2>Open your private ledger</h2>
-      <p>Enter the PIN provided by Sufias Fashion. This PIN opens only the ledger linked to your logged-in email.</p>
+      <p>Enter the PIN provided by Sufias Fashion once — your ledger and wholesale stay open on this device until the end of the month.</p>
       <label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
       <button type="submit">Unlock my ledger</button>
       <button type="button" data-ledger-forgot>Forgot PIN?</button>
     </form>
 
-    <form data-ledger-recovery hidden>
+    <form data-ledger-recovery method="post" action="#" hidden>
       <h2>Forgot your PIN?</h2>
       <p>We will send a 6-digit code to the email linked to your logged-in Shopify account.</p>
       <p data-recovery-status role="status" aria-live="polite"></p>
@@ -46,7 +46,7 @@
     </div>
     <button type="button" data-ledger-refresh>{{ 'ledger.portal.refresh' | t }}</button>
     <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th><th>Running balance</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
-    <form data-ledger-payment>
+    <form data-ledger-payment method="post" action="#">
       <h2>{{ 'ledger.portal.payment' | t }}</h2>
       <p>{{ 'ledger.portal.proof_note' | t }}</p>
       <label>{{ 'ledger.portal.target' | t }}<select name="targetId" required data-payment-target><option value="">Select an order or booking</option></select></label>
@@ -60,7 +60,7 @@
     <style>.sf-ledger [hidden]{display:none!important}.sf-ledger [data-ledger-unlock]{max-width:480px;margin:24px auto}.sf-ledger [data-ledger-unlock] input{display:block;padding:12px;width:100%;margin:12px 0}.sf-ledger button{cursor:pointer}</style>
     <script src="{{ 'sufias-ledger-recovery.js' | asset_url }}" defer></script>
   {% else %}
-    <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p><a class="sf-ledger-button" href="{{ routes.storefront_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
+    <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p>{%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}<a class="sf-ledger-button" href="{{ sufias_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
   {% endif %}
 </section>
 {% schema %}
