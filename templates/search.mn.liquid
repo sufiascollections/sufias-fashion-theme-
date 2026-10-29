@@ -1,3 +1,6 @@
+{%- comment -%} Mobile menu fragment, injected into the drawer by the theme. If a visitor lands on it directly
+(for example when login returns to the last requested URL), send them back to the last real page. {%- endcomment -%}
+<script>if(!document.documentElement.classList.contains('t4sp-theme')){var sufiasBack='/';try{var s=sessionStorage.getItem('sufias-last-page');if(s&&s.indexOf('view=mn')<0)sufiasBack=s;}catch(e){}location.replace(sufiasBack);}</script>
 {%- liquid
  layout none
  assign mobile_nav_type = settings.mobile_nav_type -%}

@@ -109,6 +109,22 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       render 'structured-data'
       render 'theme-accessibility'
     -%}
+    <script>
+      /* Remember the last real page, and make login links return the customer to it. */
+      (function () {
+        var here = location.pathname + location.search;
+        try { sessionStorage.setItem('sufias-last-page', here); } catch (e) {}
+        document.addEventListener('click', function (event) {
+          var link = event.target.closest && event.target.closest('a[href*="customer_authentication"], a[href*="/account/login"]');
+          if (!link) return;
+          var url = new URL(link.href, location.origin);
+          if (url.searchParams.has('return_to') && url.searchParams.get('return_to').indexOf('/search') !== 0) return;
+          url.searchParams.set('return_to', here);
+          url.searchParams.set('return_url', here);
+          link.href = url.toString();
+        }, true);
+      })();
+    </script>
   </body>
 </html>
 
