@@ -1,70 +1,100 @@
-{{ 'sufias-ledger-cream.css' | asset_url | stylesheet_tag }}
-<section class="sf-ledger" data-ledger data-endpoint="/apps/sufias-ledger/entries"{% if customer %} data-customer="{{ customer.id }}"{% endif %}>
-  <p class="sf-ledger-kicker">{{ 'ledger.portal.brand' | t }}</p>
-  <h1>{{ 'ledger.portal.title' | t }}</h1>
+{{ 'sufias-ledger-pro.css' | asset_url | stylesheet_tag }}
+<section class="sl" data-ledger data-endpoint="/apps/sufias-ledger/entries"{% if customer %} data-customer="{{ customer.id }}"{% endif %}>
+  <header class="sl-hero">
+    <div class="sl-wrap sl-hero__inner">
+      <div>
+        <p class="sl-kicker">Sufias Fashion · Khata</p>
+        <h1 class="sl-hero__title">Your ledger</h1>
+        {% if customer %}<p class="sl-hero__lead">{{ customer.name | escape }}</p>{% endif %}
+      </div>
+      <nav class="sl-hero__actions" aria-label="Ledger">
+        <a class="sl-btn sl-btn--ghost-light" href="/pages/booking">Wholesale</a>
+        {% if customer %}<button type="button" class="sl-btn sl-btn--ghost-light" data-ledger-lock>Lock</button>{% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="sl-wrap sl-body">
   {% if customer %}
-    <p>{{ customer.name | escape }}</p>
-    <a href="/pages/booking">{{ 'ledger.portal.booking' | t }}</a>
-    <p data-ledger-status role="status" aria-live="polite"></p>
-    <form data-ledger-unlock method="post" action="#">
-      <h2>Open your private ledger</h2>
-      <p>Enter the PIN provided by Sufias Fashion once — your ledger and wholesale stay open on this device until the end of the month.</p>
-      <label>Your PIN<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
-      <button type="submit">Unlock my ledger</button>
-      <button type="button" data-ledger-forgot>Forgot PIN?</button>
+    <p class="sl-status" data-ledger-status role="status" aria-live="polite"></p>
+
+    <form class="sl-card sl-gate" data-ledger-unlock method="post" action="#">
+      <h2 class="sl-h2">Open your private ledger</h2>
+      <p class="sl-muted">Enter the PIN provided by Sufias Fashion once — your ledger and wholesale stay open on this device until the end of the month.</p>
+      <label class="sl-field"><span>PIN</span><input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="current-password" required></label>
+      <button class="sl-btn sl-btn--primary sl-btn--block" type="submit">Unlock my ledger</button>
+      <button class="sl-btn sl-btn--text" type="button" data-ledger-forgot>Forgot PIN?</button>
     </form>
 
-    <form data-ledger-recovery method="post" action="#" hidden>
-      <h2>Forgot your PIN?</h2>
-      <p>We will send a 6-digit code to the email linked to your logged-in Shopify account.</p>
-      <p data-recovery-status role="status" aria-live="polite"></p>
-      <button type="button" data-recovery-send disabled>Send email code</button>
-      <p data-recovery-contact hidden>Email reset is temporarily unavailable. <a href="mailto:sufiasfashionofficial@gmail.com?subject=Ledger%20PIN%20reset%20request">Contact Sufias Fashion to reset your PIN</a>.</p>
-      <div data-recovery-fields hidden>
-        <label>Email code<input name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code"></label>
-        <label>New PIN (6–12 digits)<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
-        <label>Confirm new PIN<input name="confirm" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
-        <button type="submit">Save new PIN</button>
+    <form class="sl-card sl-gate" data-ledger-recovery method="post" action="#" hidden>
+      <h2 class="sl-h2">Forgot your PIN?</h2>
+      <p class="sl-muted">We will send a 6-digit code to the email linked to your logged-in Shopify account.</p>
+      <p class="sl-status" data-recovery-status role="status" aria-live="polite"></p>
+      <button class="sl-btn sl-btn--primary sl-btn--block" type="button" data-recovery-send disabled>Send email code</button>
+      <p class="sl-muted" data-recovery-contact hidden>Email reset is temporarily unavailable. <a href="mailto:sufiasfashionofficial@gmail.com?subject=Ledger%20PIN%20reset%20request">Contact Sufias Fashion to reset your PIN</a>.</p>
+      <div class="sl-form" data-recovery-fields hidden>
+        <label class="sl-field"><span>Email code</span><input name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code"></label>
+        <label class="sl-field"><span>New PIN (6–12 digits)</span><input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
+        <label class="sl-field"><span>Confirm new PIN</span><input name="confirm" type="password" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" autocomplete="new-password"></label>
+        <button class="sl-btn sl-btn--primary sl-btn--block" type="submit">Save new PIN</button>
       </div>
-      <button type="button" data-recovery-cancel>Back to PIN login</button>
+      <button class="sl-btn sl-btn--text" type="button" data-recovery-cancel>Back to PIN login</button>
     </form>
-    <div data-ledger-content hidden>
-    <button type="button" data-ledger-lock>Lock my ledger</button>
-    <div class="sf-ledger-summary">
-      <article><span>{{ 'ledger.portal.charges' | t }}</span><strong data-charges>—</strong></article>
-      <article><span>{{ 'ledger.portal.paid' | t }}</span><strong data-paid>—</strong></article>
-      <article><span>{{ 'ledger.portal.balance' | t }}</span><strong data-balance>—</strong></article>
+
+    <div class="sl-content" data-ledger-content hidden>
+      <div class="sl-toolbar">
+        <label class="sl-month"><span>Month</span><input type="month" data-ledger-month></label>
+        <button class="sl-btn sl-btn--outline" type="button" data-ledger-refresh>{{ 'ledger.portal.refresh' | t }}</button>
+      </div>
+
+      <div class="sl-kpis">
+        <article class="sl-kpi"><span>{{ 'ledger.portal.charges' | t }}</span><strong data-charges>—</strong></article>
+        <article class="sl-kpi"><span>{{ 'ledger.portal.paid' | t }}</span><strong data-paid>—</strong></article>
+        <article class="sl-kpi sl-kpi--dark"><span>{{ 'ledger.portal.balance' | t }}</span><strong data-balance>—</strong></article>
+      </div>
+      <p class="sl-note">{{ 'ledger.portal.pending_note' | t }} Leave month blank for all saved history; monthly figures use Pakistan time.</p>
+
+      <div class="sl-stats">
+        <article><span>Suits purchased</span><strong data-quantity>—</strong></article>
+        <article><span>Returned units</span><strong data-returned>—</strong></article>
+        <article><span>Return credits</span><strong data-credits>—</strong></article>
+        <article><span>Refunds paid</span><strong data-refunded>—</strong></article>
+        <article class="sl-stat--due"><span>You owe Sufias (all time)</span><strong data-customer-due>—</strong></article>
+        <article class="sl-stat--credit"><span>Sufias owes you / credit (all time)</span><strong data-company-due>—</strong></article>
+        <article><span>Opening balance</span><strong data-opening>—</strong></article>
+        <article><span>Closing balance</span><strong data-closing>—</strong></article>
+      </div>
+
+      <div class="sl-card sl-history">
+        <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th><th>Running balance</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
+      </div>
+
+      <form class="sl-card sl-pay" data-ledger-payment method="post" action="#">
+        <div class="sl-pay__head">
+          <h2 class="sl-h2">{{ 'ledger.portal.payment' | t }}</h2>
+          <p class="sl-muted">{{ 'ledger.portal.proof_note' | t }}</p>
+        </div>
+        <div class="sl-pay__grid">
+          <label class="sl-field sl-field--wide"><span>{{ 'ledger.portal.target' | t }}</span><select name="targetId" required data-payment-target><option value="">Select an order or booking</option></select></label>
+          <label class="sl-field"><span>{{ 'ledger.portal.amount' | t }} (PKR)</span><input name="amount" type="number" min="0.01" max="1000000000" step="0.01" inputmode="decimal" required></label>
+          <label class="sl-field"><span>{{ 'ledger.portal.method' | t }}</span><select name="method"><option>Bank transfer</option><option>Easypaisa</option><option>JazzCash</option><option>Cash</option></select></label>
+          <label class="sl-field sl-field--wide"><span>{{ 'ledger.portal.reference' | t }}</span><input name="reference" minlength="6" maxlength="64" required></label>
+          <label class="sl-field sl-field--wide"><span>{{ 'ledger.portal.receipt' | t }}</span><input name="receipt" type="file" accept="image/jpeg,image/png,application/pdf" required></label>
+        </div>
+        <button class="sl-btn sl-btn--primary sl-btn--block" type="submit">{{ 'ledger.portal.submit' | t }}</button>
+      </form>
     </div>
-    <p>{{ 'ledger.portal.pending_note' | t }}</p>
-    <label>Month <input type="month" data-ledger-month></label>
-    <p>Leave month blank for all saved history. Monthly figures use Pakistan time; current balances include all saved entries.</p>
-    <div class="sf-ledger-summary">
-      <article>Suits purchased<strong data-quantity>—</strong></article><article>Returned units<strong data-returned>—</strong></article>
-      <article>Return credits<strong data-credits>—</strong></article><article>Refunds paid<strong data-refunded>—</strong></article>
-      <article>Customer owes Sufias (all time)<strong data-customer-due>—</strong></article><article>Sufias owes customer / credit (all time)<strong data-company-due>—</strong></article>
-      <article>Opening balance<strong data-opening>—</strong></article><article>Closing balance<strong data-closing>—</strong></article>
-    </div>
-    <button type="button" data-ledger-refresh>{{ 'ledger.portal.refresh' | t }}</button>
-    <div class="sf-ledger-table"><table><caption>{{ 'ledger.portal.history' | t }}</caption><thead><tr><th>{{ 'ledger.portal.date' | t }}</th><th>{{ 'ledger.portal.type' | t }}</th><th>{{ 'ledger.portal.details' | t }}</th><th>{{ 'ledger.portal.amount' | t }}</th><th>{{ 'ledger.portal.status' | t }}</th><th>Running balance</th></tr></thead><tbody data-ledger-rows></tbody></table></div>
-    <form data-ledger-payment method="post" action="#">
-      <h2>{{ 'ledger.portal.payment' | t }}</h2>
-      <p>{{ 'ledger.portal.proof_note' | t }}</p>
-      <label>{{ 'ledger.portal.target' | t }}<select name="targetId" required data-payment-target><option value="">Select an order or booking</option></select></label>
-      <label>{{ 'ledger.portal.amount' | t }} (PKR)<input name="amount" type="number" min="0.01" max="1000000000" step="0.01" required></label>
-      <label>{{ 'ledger.portal.reference' | t }}<input name="reference" minlength="6" maxlength="64" required></label>
-      <label>{{ 'ledger.portal.method' | t }}<select name="method"><option>Bank transfer</option><option>Easypaisa</option><option>JazzCash</option><option>Cash</option></select></label>
-      <label>{{ 'ledger.portal.receipt' | t }}<input name="receipt" type="file" accept="image/jpeg,image/png,application/pdf" required></label>
-      <button type="submit">{{ 'ledger.portal.submit' | t }}</button>
-    </form>
-    </div>
-    <style>.sf-ledger [hidden]{display:none!important}.sf-ledger [data-ledger-unlock]{max-width:480px;margin:24px auto}.sf-ledger [data-ledger-unlock] input{display:block;padding:12px;width:100%;margin:12px 0}.sf-ledger button{cursor:pointer}</style>
     <script src="{{ 'sufias-ledger-recovery.js' | asset_url }}" defer></script>
   {% else %}
-    <div class="sf-ledger-login"><h2>{{ 'ledger.portal.login_title' | t }}</h2><p>{{ 'ledger.portal.login_note' | t }}</p>{%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}<a class="sf-ledger-button" href="{{ sufias_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a></div>
+    {%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}
+    <div class="sl-card sl-gate">
+      <h2 class="sl-h2">{{ 'ledger.portal.login_title' | t }}</h2>
+      <p class="sl-muted">{{ 'ledger.portal.login_note' | t }}</p>
+      <a class="sl-btn sl-btn--primary sl-btn--block" href="{{ sufias_login_url | escape }}">{{ 'ledger.portal.login' | t }}</a>
+    </div>
   {% endif %}
+  </div>
 </section>
 {% schema %}
 {"name":"Sufias customer khata","settings":[],"presets":[{"name":"Sufias customer khata"}]}
 {% endschema %}
-
-
