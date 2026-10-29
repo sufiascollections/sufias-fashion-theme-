@@ -48,7 +48,7 @@
         "9c516f81-c531-4ce6-903a-a0493715b39a": {
           "type": "3",
           "settings": {
-            "breadcrumb_color": "#f2f2f2",
+            "breadcrumb_color": "#f3ece0",
             "brc_mgb": 5
           }
         }
@@ -61,7 +61,7 @@
       "disabled": true,
       "settings": {
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,
@@ -93,8 +93,8 @@
         "img_effect": "zoom",
         "b_effect": "pervasive-circle",
         "cl": "#ffffff",
-        "cl2": "#878787",
-        "bg": "#000000",
+        "cl2": "#6e685f",
+        "bg": "#1d1c1a",
         "overlay": 80,
         "loop": true,
         "au_time": 0,
@@ -210,7 +210,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }

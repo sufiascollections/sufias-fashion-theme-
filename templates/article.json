@@ -38,7 +38,7 @@
       "settings": {
         "use_specify_image": true,
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,
@@ -94,7 +94,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }
@@ -126,7 +126,7 @@
             "social_size": "small",
             "bd_radius": 30,
             "use_color_set": true,
-            "icon_cl": "#000000",
+            "icon_cl": "#1d1c1a",
             "bg_cl": "#ffffff",
             "space_h_item": "20",
             "space_v_item": "5",

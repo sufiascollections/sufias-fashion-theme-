@@ -27,7 +27,7 @@
         "cc993342-0dd0-41d6-a6c4-a5f3c87e6f96": {
           "type": "3",
           "settings": {
-            "breadcrumb_color": "#f2f2f2",
+            "breadcrumb_color": "#f3ece0",
             "brc_mgb": 5
           }
         }
@@ -39,7 +39,7 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/bg-heading.jpg",
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,
@@ -73,7 +73,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }

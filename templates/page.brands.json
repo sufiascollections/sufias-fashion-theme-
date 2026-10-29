@@ -57,7 +57,7 @@
         "image": "shopify:\/\/shop_images\/slide4_1950x_03e744aa-de55-4806-88a3-57cbc24d355d.jpg",
         "use_specify_image": true,
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,

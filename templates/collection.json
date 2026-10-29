@@ -106,8 +106,8 @@
         "hidden_mobile": false,
         "space_item": 30,
         "fontf": "inherit",
-        "text_cl": "#222222",
-        "text_cl_hover": "#56cfe1",
+        "text_cl": "#1d1c1a",
+        "text_cl_hover": "#8b6b3d",
         "text_fs": 14,
         "text_lh": 45,
         "text_fw": 400,
@@ -158,7 +158,7 @@
             "view_more": false,
             "viewm_txt": "View more",
             "fontf": "inherit",
-            "text_cl": "#ededed",
+            "text_cl": "#ece5d8",
             "text_fs": 14,
             "text_lh": 24,
             "text_fw": 400,
@@ -177,7 +177,7 @@
         "ce2a8456-1d79-4523-8329-3afa244c8b98": {
           "type": "3",
           "settings": {
-            "breadcrumb_color": "#f2f2f2",
+            "breadcrumb_color": "#f3ece0",
             "brc_mgb": 5
           }
         }
@@ -192,7 +192,7 @@
         "image": "shopify://shop_images/r.jpg",
         "use_specify_image": true,
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 80,
         "paddingmb": 50,
@@ -309,9 +309,9 @@
             "bd_width": 0,
             "space_item": 10,
             "number_cl": "#ffffff",
-            "text_cl": "#222222",
-            "border_cl": "#000000",
-            "bg_cl": "#000000"
+            "text_cl": "#1d1c1a",
+            "border_cl": "#1d1c1a",
+            "bg_cl": "#1d1c1a"
           }
         }
       },
@@ -326,7 +326,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 0,
         "sidebar_pd": 15
       }

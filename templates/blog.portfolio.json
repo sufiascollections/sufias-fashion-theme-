@@ -31,7 +31,7 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/bg-heading_2afcfe30-9436-4439-bebb-09f4c602eae5.jpg",
         "parallax": false,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,
@@ -87,7 +87,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }

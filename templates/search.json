@@ -96,8 +96,8 @@
         "hidden_mobile": false,
         "space_item": 30,
         "fontf": "inherit",
-        "text_cl": "#222222",
-        "text_cl_hover": "#56cfe1",
+        "text_cl": "#1d1c1a",
+        "text_cl_hover": "#8b6b3d",
         "text_fs": 14,
         "text_lh": 45,
         "text_fw": 400,
@@ -144,7 +144,7 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/shop-banner.jpg",
         "parallax": false,
-        "color": "#222222",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 50,
         "paddingmb": 50,
@@ -251,7 +251,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 0,
         "sidebar_pd": 5
       }

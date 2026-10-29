@@ -13,8 +13,8 @@
             "fw_pr": 600,
             "lh_pr": 0,
             "ls_pr": 0,
-            "pr_title_color": "#222222",
-            "pr_title_color_hover": "#56cfe1"
+            "pr_title_color": "#1d1c1a",
+            "pr_title_color_hover": "#8b6b3d"
           }
         },
         "main-qv-1": {
@@ -27,8 +27,8 @@
             "review_liquid": "",
             "size_price_pr": 22,
             "fw_price_pr": 400,
-            "price_color": "#696969",
-            "price_sale_color": "#ec0101"
+            "price_color": "#6e685f",
+            "price_sale_color": "#9b2c2c"
           }
         },
         "main-qv-2": {
@@ -58,12 +58,12 @@
             "button_style": "default",
             "button_color": "primary",
             "button_effect": "sweep-to-bottom",
-            "wishlist_color": "#222222",
-            "wishlist_color_hover": "#56cfe1",
-            "wishlist_color_active": "#e81e1e",
-            "compare_color": "#222222",
-            "compare_color_hover": "#56cfe1",
-            "compare_color_active": "#222222",
+            "wishlist_color": "#1d1c1a",
+            "wishlist_color_hover": "#8b6b3d",
+            "wishlist_color_active": "#9b2c2c",
+            "compare_color": "#1d1c1a",
+            "compare_color_hover": "#8b6b3d",
+            "compare_color_active": "#1d1c1a",
             "show_dynamic_checkout": true,
             "btn_txt2": "3",
             "button_color_payment": "dark",
@@ -115,8 +115,8 @@
             "social_size": "extra_small",
             "bd_radius": 0,
             "use_color_set": true,
-            "icon_cl": "#222222",
-            "bg_cl": "#56cfe1",
+            "icon_cl": "#1d1c1a",
+            "bg_cl": "#8b6b3d",
             "space_h_item": "20",
             "space_v_item": "5",
             "space_h_item_mb": "6",
@@ -168,8 +168,8 @@
             "fw_pr": 600,
             "lh_pr": 0,
             "ls_pr": 0,
-            "pr_title_color": "#222222",
-            "pr_title_color_hover": "#56cfe1"
+            "pr_title_color": "#1d1c1a",
+            "pr_title_color_hover": "#8b6b3d"
           }
         },
         "main-qs-1": {
@@ -179,8 +179,8 @@
             "type_sale": "2",
             "size_price_pr": 22,
             "fw_price_pr": 400,
-            "price_color": "#696969",
-            "price_sale_color": "#ec0101"
+            "price_color": "#6e685f",
+            "price_sale_color": "#9b2c2c"
           }
         },
         "main-qs-2": {
@@ -201,12 +201,12 @@
             "button_style": "default",
             "button_color": "primary",
             "button_effect": "sweep-to-top",
-            "wishlist_color": "#222222",
-            "wishlist_color_hover": "#56cfe1",
-            "wishlist_color_active": "#e81e1e",
-            "compare_color": "#222222",
-            "compare_color_hover": "#56cfe1",
-            "compare_color_active": "#222222",
+            "wishlist_color": "#1d1c1a",
+            "wishlist_color_hover": "#8b6b3d",
+            "wishlist_color_active": "#9b2c2c",
+            "compare_color": "#1d1c1a",
+            "compare_color_hover": "#8b6b3d",
+            "compare_color_active": "#1d1c1a",
             "show_dynamic_checkout": true,
             "btn_txt2": "3",
             "button_color_payment": "dark"

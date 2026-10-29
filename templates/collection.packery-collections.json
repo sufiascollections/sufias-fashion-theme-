@@ -96,8 +96,8 @@
         "hidden_mobile": false,
         "space_item": 30,
         "fontf": "inherit",
-        "text_cl": "#222222",
-        "text_cl_hover": "#56cfe1",
+        "text_cl": "#1d1c1a",
+        "text_cl_hover": "#8b6b3d",
         "text_fs": 14,
         "text_lh": 45,
         "text_fw": 400,
@@ -144,7 +144,7 @@
             "view_more": true,
             "viewm_txt": "View more",
             "fontf": "inherit",
-            "text_cl": "#ededed",
+            "text_cl": "#ece5d8",
             "text_fs": 14,
             "text_lh": 24,
             "text_fw": 400,
@@ -169,7 +169,7 @@
         "image": "shopify:\/\/shop_images\/shop-banner.jpg",
         "use_specify_image": false,
         "parallax": true,
-        "color": "#000000",
+        "color": "#1d1c1a",
         "overlay": 54,
         "padding": 100,
         "paddingmb": 50,
@@ -271,9 +271,9 @@
             "bd_width": 0,
             "space_item": 10,
             "number_cl": "#ffffff",
-            "text_cl": "#222222",
-            "border_cl": "#000000",
-            "bg_cl": "#000000"
+            "text_cl": "#1d1c1a",
+            "border_cl": "#1d1c1a",
+            "bg_cl": "#1d1c1a"
           }
         }
       },
@@ -288,7 +288,7 @@
         "space": 50,
         "size": "medium",
         "br_style": "none",
-        "brcolor": "#222222",
+        "brcolor": "#1d1c1a",
         "sidebar_bdr": 0,
         "sidebar_pd": 15
       }
