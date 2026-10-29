@@ -17,7 +17,7 @@
     const c = new AbortController(); setTimeout(() => c.abort(), ms); return c.signal;
   };
 
-  /* The unlock token is valid until the end of the month (Pakistan time); keep it on this device until then.
+  /* The unlock token is valid for one month from the day the PIN is entered; keep it on this device until then.
      Shared with the ledger page, so one PIN opens both. */
   const tokenExpiry = token => {
     try {
@@ -84,7 +84,7 @@
       if (!response.ok) {
         if (data.code === 'PIN_REQUIRED') {
           store.clear(customerId);
-          lock('Your monthly access has ended. Enter your PIN to unlock wholesale again.');
+          lock('Your one-month access has ended. Enter your PIN to unlock wholesale for another month.');
         } else if (data.code === 'WHOLESALE_APPROVAL_REQUIRED') {
           store.clear(customerId); lock(); unlockForm.hidden = true; apply.hidden = false;
         }
@@ -108,7 +108,7 @@
         apply.hidden = data.approval !== 'none';
         unlockForm.hidden = data.approval !== 'approved' || !data.pinConfigured;
         status.textContent = data.approval === 'approved'
-          ? (data.pinConfigured ? 'Enter your PIN once to open wholesale for this month.' : 'Your account is approved. Ask Sufias Fashion for your first PIN.')
+          ? (data.pinConfigured ? 'Enter your PIN once to open wholesale for one month.' : 'Your account is approved. Ask Sufias Fashion for your first PIN.')
           : data.approval === 'pending' ? 'Your wholesale request is awaiting owner approval.'
           : data.approval === 'revoked' ? 'Your wholesale access is blocked. Please contact Sufias Fashion.'
           : 'Request approval below to become a wholesale customer.';
@@ -358,7 +358,7 @@
     setInterval(async () => {
       if (token && tokenExpiry(token) <= Date.now()) {
         store.clear(customerId);
-        lock('A new month has started. Enter your PIN once to unlock wholesale again.');
+        lock('Your one-month access has ended. Enter your PIN to unlock wholesale for another month.');
         return;
       }
       for (const node of root.querySelectorAll('[data-launch]')) {
