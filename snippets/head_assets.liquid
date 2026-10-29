@@ -16,9 +16,9 @@
     assign fm_gg3 = settings.fnt_fm_gg3 | default: fm_gg1 -%}
 
     {%- capture font_var -%}
-      {{ fm_gg1 | strip | replace: ' ', '+' }}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
-      {%- if fm_gg1 != fm_gg2 -%}|{{ fm_gg2 | strip | replace: ' ', '+' }}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i{%- endif -%}
-      {%- if fm_gg3 != fm_gg1 and fm_gg3 != fm_gg2 -%}|{{ fm_gg3 | strip | replace: ' ', '+' }}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i{%- endif -%}
+      {{ fm_gg1 | strip | replace: ' ', '+' }}:400,400i,500,600,700
+      {%- if fm_gg1 != fm_gg2 -%}|{{ fm_gg2 | strip | replace: ' ', '+' }}:400,400i,500,600,700{%- endif -%}
+      {%- if fm_gg3 != fm_gg1 and fm_gg3 != fm_gg2 -%}|{{ fm_gg3 | strip | replace: ' ', '+' }}:400,400i,500,600,700{%- endif -%}
     {%- endcapture -%}
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{ font_var }}&display=swap" media="print" onload="this.media='all'">
