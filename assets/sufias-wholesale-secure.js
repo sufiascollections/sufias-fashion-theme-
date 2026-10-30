@@ -337,7 +337,7 @@
       $('[data-wholesale-count]').textContent = String(count);
       const jump = $('[data-wholesale-jump]');
       jump.hidden = !count || !modal.hidden;
-      jump.textContent = count + ' suits · ' + money(total) + ' — Review request';
+      jump.textContent = count + ' suits · ' + money(total) + ' — Review order';
     }
 
     note.addEventListener('input', () => { key = uuid(); });
@@ -348,11 +348,13 @@
         const q = qtyFor(p);
         if (q > 0 && q < p.minQuantity) { orderStatus.textContent = 'Choose at least ' + p.minQuantity + ' suits for ' + p.title + '. You can mix colours.'; return; }
       }
-      button.disabled = true; orderStatus.textContent = 'Sending your bulk request…';
+      button.disabled = true; orderStatus.textContent = 'Placing your order…';
       try {
-        const result = await api('wholesale/order', 'POST', { items: [...selected].map(([variantId, quantity]) => ({ variantId, quantity })), note: note.value, key });
+        const result = await api('wholesale/order', 'POST', { items: [...selected].map(([variantId, quantity]) => ({ variantId, quantity })), note: note.value, key, checkout: true });
         selected.clear(); key = uuid(); note.value = ''; render();
         orderStatus.textContent = result.message;
+        /* Shopify checkout for the wholesale draft order: shipping address and bank transfer payment. */
+        if (result.invoiceUrl && /^https:\/\//.test(result.invoiceUrl)) { window.location.assign(result.invoiceUrl); return; }
       } catch (error) {
         orderStatus.textContent = error.message;
         if (!gate.hidden) status.textContent = error.message;
