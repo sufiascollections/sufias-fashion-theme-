@@ -34,8 +34,16 @@
       window.setTimeout(startGoogle, 0);
     }
   }
-  if (document.readyState === 'complete') scheduleGoogle();
-  else window.addEventListener('load', scheduleGoogle, {once: true});
+  function afterLoad() {
+    if (document.readyState === 'complete') scheduleGoogle();
+    else window.addEventListener('load', scheduleGoogle, {once: true});
+  }
+  /* Wait for the shopper's first scroll or tap when app scripts are being held back (sufias-app-delay). */
+  if (!editor && typeof window.sufiasAppsReleased === 'function' && !window.sufiasAppsReleased()) {
+    document.addEventListener('sufias:interacted', afterLoad, {once: true});
+  } else {
+    afterLoad();
+  }
 
   const observed = new WeakSet();
   async function mountFeed(host) {

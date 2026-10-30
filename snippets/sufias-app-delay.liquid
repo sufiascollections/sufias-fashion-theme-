@@ -1,0 +1,49 @@
+{% doc %}
+  Holds back non-essential app scripts (reviews, Instagram feed, WhatsApp cart) until the shopper first
+  scrolls, taps or types, so the page paints before they run. Cash-on-delivery and cart scripts are never held.
+  Must render near the top of <head>, before Shopify adds the app embed tags.
+{% enddoc %}
+{%- unless request.design_mode -%}
+<script>
+  (function () {
+    var HOLD = /\/extensions\/[^\/]+\/(judgeme|whatsapp-abandoned-cart)[^\/]*\/|\/\/cdn\.nfcube\.com\/instafeed/;
+    var held = [];
+    var released = false;
+    function hold(script) {
+      if (released || !script.src || !HOLD.test(script.src)) return;
+      script.setAttribute('data-sufias-src', script.src);
+      script.removeAttribute('src');
+      script.type = 'text/sufias-held';
+      held.push(script);
+    }
+    var observer = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var nodes = mutations[i].addedNodes;
+        for (var j = 0; j < nodes.length; j++) if (nodes[j].tagName === 'SCRIPT') hold(nodes[j]);
+      }
+    });
+    observer.observe(document.documentElement, {childList: true, subtree: true});
+
+    var EVENTS = ['scroll', 'touchstart', 'pointerdown', 'mousemove', 'keydown', 'wheel'];
+    function release() {
+      if (released) return;
+      released = true;
+      observer.disconnect();
+      EVENTS.forEach(function (name) { window.removeEventListener(name, release, {passive: true}); });
+      held.forEach(function (inert) {
+        var script = document.createElement('script');
+        for (var k = 0; k < inert.attributes.length; k++) {
+          var attribute = inert.attributes[k];
+          if (attribute.name !== 'type' && attribute.name !== 'data-sufias-src' && attribute.name !== 'defer') script.setAttribute(attribute.name, attribute.value);
+        }
+        script.async = false;
+        script.src = inert.getAttribute('data-sufias-src');
+        inert.replaceWith(script);
+      });
+      document.dispatchEvent(new CustomEvent('sufias:interacted'));
+    }
+    window.sufiasAppsReleased = function () { return released; };
+    EVENTS.forEach(function (name) { window.addEventListener(name, release, {passive: true}); });
+  })();
+</script>
+{%- endunless -%}
