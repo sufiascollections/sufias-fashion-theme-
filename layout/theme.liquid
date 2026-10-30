@@ -45,14 +45,15 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
     <meta name="theme-color" content="{{ settings.body_bg }}">
     <link rel="canonical" href="{{ canonical_url }}">
     {%- render 'homepage-image-preload', page_content: content_for_layout -%}
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.shopify.com">
     
     {%- if settings.favicon != blank %}<link rel="shortcut icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">{% endif -%}
     {%- if settings.favicon_apple != blank %}<link rel="apple-touch-icon-precomposed" type="image/png" sizes="152x152" href="{{ settings.favicon_apple | image_url: width: 152 }}">{% endif -%}
 
-    {%- if settings.font_source == '1' and settings.fnt_fm_sp1.system? == false or settings.fnt_fm_sp2.system? == false or settings.fnt_fm_sp3.system? == false -%}
+    {%- comment -%} Only Shopify-hosted fonts need this connection; Google fonts open their own in head_assets. {%- endcomment -%}
+    {%- if settings.font_source == '1' -%}{%- if settings.fnt_fm_sp1.system? == false or settings.fnt_fm_sp2.system? == false or settings.fnt_fm_sp3.system? == false -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endif -%}
+    {%- endif -%}{%- endif -%}
     
     {%- capture sufias_seo_description -%}{%- render 'sufias-seo-description' -%}{%- endcapture -%}
     {%- capture sufias_page_title -%}{%- render 'sufias-seo-title' -%}{%- endcapture -%}

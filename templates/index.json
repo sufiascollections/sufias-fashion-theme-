@@ -218,12 +218,12 @@
         }
       },
       "block_order": [
-        "image_parent_afrRAp",
-        "image_parent_DbAXJf",
         "image_parent_GrfgRi",
         "custom_text_4f4kY7",
         "custom_button_3Enka4",
-        "custom_button_mobile_order"
+        "custom_button_mobile_order",
+        "image_parent_afrRAp",
+        "image_parent_DbAXJf"
       ],
       "settings": {
         "se_height": "t4s_ratioadapt_f",

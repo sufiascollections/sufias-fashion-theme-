@@ -231,6 +231,8 @@
      after the effect stylesheets load, which pushed back Largest Contentful Paint. */
   @media (max-width: 767px) {
     #SufiasSlideshow-{{ sid }} .t4s-bl-item { opacity: 1; animation: none; }
+    /* The slider does not run on phones, so the hidden slides' images are never downloaded. */
+    #SufiasSlideshow-{{ sid }}.flickityt4s-later > .t4s-slideshow-item:not(:first-child) { display: none; }
   }
 </style>
 {%- endif -%}
