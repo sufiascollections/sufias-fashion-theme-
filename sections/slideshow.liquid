@@ -225,6 +225,15 @@
     </div>  
     {{- html_layout[1] -}} 
 </div>
+{%- if section.index < 3 -%}
+<style>
+  /* Speed: the hero text and buttons are painted straight away on phones instead of hiding and fading in
+     after the effect stylesheets load, which pushed back Largest Contentful Paint. */
+  @media (max-width: 767px) {
+    #SufiasSlideshow-{{ sid }} .t4s-bl-item { opacity: 1; animation: none; }
+  }
+</style>
+{%- endif -%}
 {%- if section.index < 3 and arr_blocks_img.size > 1 -%}
 <script>
   /* Speed: on phones the first (above-the-fold) slideshow shows only its first slide and does not start the
