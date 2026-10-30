@@ -106,18 +106,16 @@
       try {
         const data = await api('access');
         apply.hidden = data.approval !== 'none';
-        unlockForm.hidden = data.approval !== 'approved' || !data.pinConfigured;
-        status.textContent = data.approval === 'approved'
-          ? (data.pinConfigured ? 'Enter your PIN once to open wholesale for one month.' : 'Your account is approved. Ask Sufias Fashion for your first PIN.')
-          : data.approval === 'pending' ? 'Your wholesale request is awaiting owner approval.'
+        /* Owner approval is the only gate: an approved, logged-in customer goes straight in, no PIN. */
+        unlockForm.hidden = true;
+        status.textContent = data.approval === 'approved' ? 'Opening wholesale collection…'
+          : data.approval === 'pending' ? 'Your wholesale request is awaiting owner approval. This page opens automatically once Sufias Fashion approves your account.'
           : data.approval === 'revoked' ? 'Your wholesale access is blocked. Please contact Sufias Fashion.'
           : 'Request approval below to become a wholesale customer.';
-        if (data.approval === 'approved' && data.pinConfigured) {
-          const saved = store.read(customerId);
-          if (saved) {
-            token = saved; status.textContent = 'Opening wholesale collection…'; unlockForm.hidden = true;
-            try { await openCatalog(); } catch (error) { if (error.code !== 'PIN_REQUIRED') { unlockForm.hidden = false; status.textContent = error.message; } }
-          }
+        if (data.approval === 'approved') {
+          await openCatalog();
+          status.textContent = '';
+          lockBtn.hidden = true;
         }
       } catch (error) { status.textContent = error.message; }
     }
