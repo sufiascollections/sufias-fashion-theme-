@@ -2386,7 +2386,7 @@
     "secondary_color": "#1d1c1a",
     "border_color": "#e6e0d6",
     "border_primary_color": "#1d1c1a",
-    "price_secondary": "#8a847a",
+    "price_secondary": "#6e685f",
     "link_color": "#57524a",
     "link_color_hover": "#8b6b3d",
     "btn_bg": "#1d1c1a",
@@ -2400,7 +2400,7 @@
     "sw_border": "#e6e0d6",
     "new_badge_color": "#1d1c1a",
     "preorder_badge_color": "#8b6b3d",
-    "soldout_badge_color": "#9a948a",
+    "soldout_badge_color": "#6e685f",
     "custom_badge_color": "#2f6b4f"
   }
 }

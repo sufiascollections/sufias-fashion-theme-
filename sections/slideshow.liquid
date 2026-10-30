@@ -73,7 +73,7 @@
 {%- endif %}
 <div class="t4s-section-inner {{ t4s_se_class }} t4s_nt_se_{{ sid }}" {% render 'section_style', se_stts: se_stts, append_style: append_style -%}>       
     {{- html_layout[0] -}}    
-    <div class="t4s-slideshow t4s-row t4s-row-cols-1 t4s-gx-0{% if arr_blocks_img.size > 1 %} t4s-flicky-slider{% endif %} t4s_position_8 t4s_cover {{ se_height }} t4s-slide-eff-{{ slide_eff }} t4scuspx1_{{ se_stts.custom_mb }} t4scuspx2_{{ se_stts.custom_tb }} t4scuspx3_{{ se_stts.custom_dk }}{% if se_stts.nav_btn == true %}  t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}{% if se_stts.nav_dot %} t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-{{ se_stts.dots_position }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}{% if arr_blocks_img.size > 1 %} flickityt4s{% endif %}"{% if arr_blocks_img.size > 1 %} data-flickityt4s-js='{{ data_flickityt4s }}'{% endif %}  style="--space-dots: {{ se_stts.dots_space }}px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;" >
+    <div id="SufiasSlideshow-{{ sid }}" class="t4s-slideshow t4s-row t4s-row-cols-1 t4s-gx-0{% if arr_blocks_img.size > 1 %} t4s-flicky-slider{% endif %} t4s_position_8 t4s_cover {{ se_height }} t4s-slide-eff-{{ slide_eff }} t4scuspx1_{{ se_stts.custom_mb }} t4scuspx2_{{ se_stts.custom_tb }} t4scuspx3_{{ se_stts.custom_dk }}{% if se_stts.nav_btn == true %}  t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}{% if se_stts.nav_dot %} t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-{{ se_stts.dots_position }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}{% if arr_blocks_img.size > 1 %} flickityt4s{% endif %}"{% if arr_blocks_img.size > 1 %} data-flickityt4s-js='{{ data_flickityt4s }}'{% endif %}  style="--space-dots: {{ se_stts.dots_space }}px;--flickity-btn-pos: 30px;--flickity-btn-pos-mb: 30px;" >
         {%- for block in arr_blocks_img -%}            
             {%- liquid  
             	assign bk_stts = block.settings
@@ -225,6 +225,17 @@
     </div>  
     {{- html_layout[1] -}} 
 </div>
+{%- if section.index < 3 and arr_blocks_img.size > 1 -%}
+<script>
+  /* Speed: on phones the first (above-the-fold) slideshow shows only its first slide and does not start the
+     slider. Starting it re-paints the hero image after the theme JS loads, which delays Largest Contentful Paint. */
+  (function (slider) {
+    if (!slider || !window.matchMedia('(max-width: 767px)').matches) return;
+    slider.classList.add('flickityt4s-later');
+    if (slider.firstElementChild) slider.firstElementChild.classList.add('is-selected');
+  })(document.getElementById('SufiasSlideshow-{{ sid }}'));
+</script>
+{%- endif -%}
 {%- if general_block -%}
     {{ 'general-block.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
