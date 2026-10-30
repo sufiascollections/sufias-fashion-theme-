@@ -95,7 +95,7 @@
         "image_parent_GrfgRi": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Sep_30_2026_01_29_18_PM.png",
+            "image": "shopify://shop_images/winter_collection.png",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
@@ -771,7 +771,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "3-piece",
-            "image": "shopify://shop_images/ChatGPT_Image_Sep_29_2026_01_09_51_PM.png",
+            "image": "shopify://shop_images/deep-plum-floral-embroidered-3-piece-lawn-suit.png",
             "collection_title": "Hot-Collections",
             "collection_link": ""
           }
@@ -780,7 +780,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "3-piece",
-            "image": "shopify://shop_images/ChatGPT_Image_Sep_30_2026_02_33_39_PM.png",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-10-29_at_11.45.43_PM.jpg",
             "collection_title": "3-Piece",
             "collection_link": ""
           }
