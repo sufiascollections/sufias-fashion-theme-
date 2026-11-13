@@ -1,0 +1,99 @@
+{{ 'sufias-wholesale.css' | asset_url | stylesheet_tag }}
+<section class="sw ss" data-seller{% if customer %} data-customer="{{ customer.id }}"{% endif %}>
+  <header class="sw-hero">
+    <div class="sw-wrap sw-hero__inner">
+      <div>
+        <p class="sw-kicker">Sufias Fashion · Wholesale marketplace</p>
+        <h1 class="sw-hero__title">{{ section.settings.heading | escape }}</h1>
+        <p class="sw-hero__lead">{{ section.settings.lead | escape }}</p>
+      </div>
+      <nav class="sw-hero__actions" aria-label="Wholesale">
+        <a class="sw-btn sw-btn--ghost-light" href="/pages/booking">Wholesale page</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="sw-wrap ss-body">
+    {%- unless customer -%}
+      <div class="ss-card">
+        <h2 class="sw-h2">Log in to sell</h2>
+        <p class="sw-muted">Log in with your Sufias Fashion account. Once Sufias Fashion approves you as a seller, you can list your designs here.</p>
+        <p><a class="sw-btn sw-btn--primary" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">Log in</a>
+        <a class="sw-btn sw-btn--outline" href="{{ routes.account_register_url }}">Create account</a></p>
+      </div>
+    {%- else -%}
+      <p class="sw-status" data-seller-status role="status" aria-live="polite">Checking your seller account…</p>
+
+      <div class="ss-card" data-seller-pending hidden>
+        <h2 class="sw-h2">Seller approval needed</h2>
+        <p class="sw-muted">Your account is not approved for selling yet. Send your shop name and a few sample designs to Sufias Fashion on WhatsApp. Once approved, this page opens your seller dashboard automatically.</p>
+        {%- assign wa = section.settings.whatsapp | remove: ' ' | remove: '-' | remove: '+' -%}
+        {%- if wa != blank -%}
+          <p><a class="sw-btn sw-btn--primary" href="https://wa.me/{{ wa }}?text={{ 'Assalam o Alaikum, I want to sell on the Sufias Fashion wholesale marketplace. My account email: ' | append: customer.email | url_encode }}" target="_blank" rel="noopener">Request seller access</a></p>
+        {%- endif -%}
+      </div>
+
+      <div data-seller-dashboard hidden>
+        <form class="ss-card ss-form" data-seller-form novalidate>
+          <h2 class="sw-h2">List a new design</h2>
+          <p class="sw-muted">Your design appears on the wholesale page as soon as you publish it. Buyers pay Sufias Fashion; Sufias Fashion confirms the order with you and pays you for every sale.</p>
+          <label class="sw-field"><span>Design name</span><input name="title" maxlength="120" required placeholder="e.g. Embroidered lawn 3-piece suit D101"></label>
+          <div class="ss-row">
+            <label class="sw-field"><span>Wholesale price per suit (Rs)</span><input name="price" type="number" inputmode="numeric" min="100" step="1" required placeholder="3000"></label>
+            <label class="sw-field"><span>Was price (Rs, optional)</span><input name="compareAt" type="number" inputmode="numeric" min="0" step="1" placeholder="3500"></label>
+          </div>
+          <label class="sw-field"><span>Colours (separate with commas)</span><input name="colours" maxlength="600" required placeholder="Black, Maroon, Teal Blue"></label>
+          <label class="sw-field"><span>Details: fabric, pieces, size</span><textarea name="description" rows="5" maxlength="3000" placeholder="Shirt: embroidered cotton&#10;Dupatta: chiffon&#10;Trouser: dyed cotton&#10;Unstitched, free size"></textarea></label>
+          <div class="sw-field">
+            <span>Photos (up to 8, the first one is the cover)</span>
+            <input type="file" accept="image/jpeg,image/png,image/webp" multiple data-seller-files>
+            <div class="ss-thumbs" data-seller-thumbs></div>
+          </div>
+          <p class="sw-muted ss-note">Minimum order for buyers is 2 suits per design. Only list designs you have in stock.</p>
+          <p class="sw-status" data-seller-form-status role="status" aria-live="polite"></p>
+          <button type="submit" class="sw-btn sw-btn--primary sw-btn--block" data-seller-submit>Publish design</button>
+        </form>
+
+        <section class="ss-card">
+          <div class="sw-section__head"><div><p class="sw-kicker" data-seller-name></p><h2 class="sw-h2">Your designs</h2></div></div>
+          <div class="ss-list" data-seller-list></div>
+        </section>
+      </div>
+      <script src="{{ 'sufias-seller.js' | asset_url }}" defer></script>
+    {%- endunless -%}
+  </div>
+  <style>
+    .ss-body{padding-block:28px 56px;display:grid;gap:20px;max-width:760px}
+    .ss-card{background:var(--sw-surface);border:1px solid var(--sw-line);border-radius:var(--sw-radius);box-shadow:var(--sw-shadow);padding:22px}
+    .ss-card .sw-h2{margin:0 0 8px}
+    .ss-form{display:grid;gap:14px}
+    .ss-form .sw-field{display:grid;gap:6px}
+    .ss-form .sw-field>span{font-size:13px;font-weight:600}
+    .ss-form input:not([type=file]),.ss-form textarea{width:100%;box-sizing:border-box;border:1px solid var(--sw-line);border-radius:10px;padding:11px 12px;font:inherit;background:#fff;color:var(--sw-ink)}
+    .ss-row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width:560px){.ss-row{grid-template-columns:1fr}}
+    .ss-thumbs{display:flex;flex-wrap:wrap;gap:8px}
+    .ss-thumb{position:relative;width:76px;height:96px;border-radius:8px;overflow:hidden;background:var(--sw-accent-soft)}
+    .ss-thumb img{width:100%;height:100%;object-fit:cover}
+    .ss-thumb button{position:absolute;top:3px;right:3px;width:24px;height:24px;border:0;border-radius:50%;background:rgb(0 0 0 / 65%);color:#fff;cursor:pointer;line-height:1}
+    .ss-note{font-size:13px}
+    .ss-list{display:grid;gap:10px}
+    .ss-item{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--sw-line);padding-top:10px}
+    .ss-item img{width:60px;height:76px;object-fit:cover;border-radius:6px;background:var(--sw-accent-soft)}
+    .ss-item p{margin:0}
+    .ss-item .sw-btn{min-height:38px;padding:0 14px}
+  </style>
+</section>
+{% schema %}
+{
+  "name": "Sufias Seller",
+  "tag": "section",
+  "class": "t4s-section sufias-seller-section",
+  "settings": [
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Sell on Sufias wholesale"},
+    {"type": "textarea", "id": "lead", "label": "Intro", "default": "Approved sellers list their designs on the Sufias Fashion wholesale page. We take the orders and payments and pay you for every sale."},
+    {"type": "text", "id": "whatsapp", "label": "WhatsApp number for seller requests (with country code)", "default": "923228118115"}
+  ],
+  "presets": [{"name": "Sufias Seller"}]
+}
+{% endschema %}

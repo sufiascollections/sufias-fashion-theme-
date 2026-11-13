@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "seller": {
+      "type": "sufias-seller",
+      "settings": {}
+    }
+  },
+  "order": [
+    "seller"
+  ]
+}

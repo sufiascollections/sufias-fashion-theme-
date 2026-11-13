@@ -183,6 +183,7 @@
       if (!p.upcoming) { title.type = 'button'; title.addEventListener('click', () => openDetail(p)); }
       const price = el('p', 'sw-cardp__price'); priceInto(price, p, '/ suit');
       body.append(title, price);
+      if (p.seller) body.append(el('p', 'sw-cardp__meta', 'Sold by ' + p.seller));
       if (p.upcoming) {
         const launch = el('p', 'sw-cardp__launch', p.launchAt ? 'Launch: ' + new Date(p.launchAt).toLocaleString('en-PK') : 'Coming soon');
         launch.dataset.launch = p.launchAt || '';
