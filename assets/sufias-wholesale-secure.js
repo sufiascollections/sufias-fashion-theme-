@@ -187,7 +187,7 @@
       };
       if (img.complete && img.naturalWidth) show(); else img.addEventListener('load', show, { once: true });
     }
-    function slideshow(media, p) {
+    function slideshow(media, p, frame) {
       const first = media.querySelector('img');
       const list = imagesFor(p).slice(0, 8).map(cardSrc);
       if (!first || list.length < 2) return;
@@ -208,6 +208,16 @@
         const s = media._slides; goTo(media, (s.n + (dx < 0 ? 1 : s.list.length - 1)) % s.list.length); s.due = Date.now() + 6000;
       });
       media.addEventListener('click', e => { if (swiped) { e.stopImmediatePropagation(); e.preventDefault(); swiped = false; } }, true);
+      /* ‹ › arrows on the photo show the previous or next photo; tapping the photo itself still opens the design. */
+      if (frame) {
+        const step = dir => { const s = media._slides; goTo(media, (s.n + dir + s.list.length) % s.list.length); s.due = Date.now() + 6000; };
+        [['prev', -1, '‹', 'Previous photo'], ['next', 1, '›', 'Next photo']].forEach(([cls, dir, icon, label]) => {
+          const b = el('button', 'sw-cardp__arrow sw-cardp__arrow--' + cls, icon);
+          b.type = 'button'; b.setAttribute('aria-label', label + ' of ' + p.title);
+          b.addEventListener('click', e => { e.stopPropagation(); step(dir); });
+          frame.append(b);
+        });
+      }
       shows.add(media); if (watcher) watcher.observe(media);
     }
     /* Photos change on their own every few seconds on every device (the owner wants a live, moving catalogue). */
@@ -230,7 +240,8 @@
       if (!p.upcoming) { media.type = 'button'; media.setAttribute('aria-label', 'View ' + p.title); media.addEventListener('click', () => openDetail(p)); }
       if (p.image) { const img = el('img'); img.src = p.image; img.alt = p.upcoming ? '' : p.title; img.loading = 'lazy'; media.append(img); }
       if (p.upcoming) media.append(el('span', 'sw-cardp__tag', 'Coming soon'));
-      if (!p.upcoming) slideshow(media, p);
+      const frame = el('div', 'sw-cardp__photo'); frame.append(media);
+      if (!p.upcoming) slideshow(media, p, frame);
       const q = qtyFor(p);
       if (q) media.append(el('span', 'sw-cardp__tag sw-cardp__tag--sel', q + ' in request'));
       const body = el('div', 'sw-cardp__body');
@@ -254,7 +265,7 @@
         btn.type = 'button'; btn.addEventListener('click', () => openDetail(p));
         body.append(btn);
       }
-      art.append(media, body);
+      art.append(frame, body);
       return art;
     }
 
@@ -274,11 +285,48 @@
     search.addEventListener('input', render);
 
     /* ---------- detail sheet ---------- */
-    function showImage(index) {
+    /* Detail gallery: photos change on their own every few seconds; arrows, thumbnails, swipes and colour picks
+       take over and pause the changing for a while. */
+    let galIndex = 0, galTimer = null, galPausedUntil = 0;
+    const gallery = $('[data-wholesale-gallery]').parentElement;
+    const galCount = el('span', 'sw-gallery__count');
+    const galArrows = [['prev', -1, '‹', 'Previous photo'], ['next', 1, '›', 'Next photo']].map(([cls, dir, icon, label]) => {
+      const b = el('button', 'sw-gallery__arrow sw-gallery__arrow--' + cls, icon);
+      b.type = 'button'; b.setAttribute('aria-label', label);
+      b.addEventListener('click', () => { const n = $('[data-wholesale-gallery]').children.length; if (n) showImage((galIndex + dir + n) % n); });
+      return b;
+    });
+    gallery.append(galArrows[0], galArrows[1], galCount);
+    function markImage(index) {
+      const n = $('[data-wholesale-gallery]').children.length;
+      galIndex = index;
+      $('[data-wholesale-thumbs]').querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', String(i === index)));
+      galCount.textContent = n > 1 ? (index + 1) + ' / ' + n : '';
+    }
+    function showImage(index, auto) {
       const track = $('[data-wholesale-gallery]');
       const target = track.children[index];
       if (target) track.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
-      $('[data-wholesale-thumbs]').querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', String(i === index)));
+      if (!auto) galPausedUntil = Date.now() + 8000;
+      markImage(index);
+    }
+    (() => {
+      const track = $('[data-wholesale-gallery]');
+      let settle;
+      track.addEventListener('scroll', () => { clearTimeout(settle); settle = setTimeout(() => { if (track.clientWidth) { const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== galIndex) markImage(i); } }, 120); }, { passive: true });
+      ['pointerdown', 'touchstart', 'wheel'].forEach(n => track.addEventListener(n, () => { galPausedUntil = Date.now() + 8000; }, { passive: true }));
+    })();
+    function startGallery() {
+      clearInterval(galTimer);
+      const n = $('[data-wholesale-gallery]').children.length;
+      galArrows.forEach(b => { b.hidden = n < 2; });
+      if (n < 2) return;
+      galPausedUntil = Date.now() + 3000;
+      galTimer = setInterval(() => {
+        if (document.hidden || Date.now() < galPausedUntil) return;
+        showImage((galIndex + 1) % n, true);
+        galPausedUntil = Date.now() + 3500;
+      }, 500);
     }
 
     function detailTotals(p) {
@@ -347,13 +395,14 @@
 
       detailTotals(p);
       modal.hidden = false; document.documentElement.classList.add('sw-lock');
-      track.scrollLeft = 0; showImage(0);
+      track.scrollLeft = 0; markImage(0); startGallery();
       sheet.scrollTop = 0; sheet.focus();
     }
 
     function closeDetail() {
       if (modal.hidden) return;
       modal.hidden = true; document.documentElement.classList.remove('sw-lock');
+      clearInterval(galTimer);
       openProduct = null;
       render();
       if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
