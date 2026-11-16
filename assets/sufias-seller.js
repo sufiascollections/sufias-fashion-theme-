@@ -236,6 +236,39 @@
   $$('[data-seller-cancel]').forEach(b => b.addEventListener('click', () => closeEditor(false)));
   window.addEventListener('beforeunload', e => { if (!form.hidden && dirty) { e.preventDefault(); e.returnValue = ''; } });
 
+  /* ---------- earnings: paid sales minus Sufias commission, and payments received ---------- */
+  async function loadEarnings() {
+    const box = $('[data-seller-earnings]');
+    let data;
+    try { data = await api('earnings'); } catch (e) { return; }
+    const s = data.summary; if (!s) return;
+    const rs = v => money(v / 100);
+    box.querySelector('[data-earn="due"]').textContent = rs(s.due);
+    box.querySelector('[data-earn="earned"]').textContent = rs(s.earned);
+    box.querySelector('[data-earn="paid"]').textContent = rs(s.paid);
+    box.querySelector('[data-earn="suits"]').textContent = String(s.suits);
+    $('[data-seller-commission]').textContent = s.commissionPercent + '% commission';
+    $('[data-earn-pending]').textContent = (s.pendingSuits ? s.pendingSuits + (s.pendingSuits === 1 ? ' suit is' : ' suits are') + ' awaiting the buyer\'s payment (' + rs(s.pendingEarnings) + ' for you once paid). ' : '')
+      + 'You earn each paid sale minus ' + s.commissionPercent + '% Sufias commission. Sufias Fashion pays you the amount due.';
+    const sales = $('[data-earn-sales]'), pays = $('[data-earn-payouts]');
+    sales.replaceChildren(); pays.replaceChildren();
+    const day = d => new Date(d).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
+    data.sales.slice(0, 50).forEach(l => {
+      const row = el('div', 'ss-line'), amt = el('span', 'ss-line__amt', rs(l.earning));
+      amt.append(el('small', l.status === 'Paid' ? 'is-paid' : l.status === 'Awaiting payment' ? 'is-wait' : 'is-off', l.status));
+      row.append(el('span', '', l.title + (l.variant ? ' · ' + l.variant : '')), amt, el('span', 'ss-line__sub', day(l.date) + ' · ' + l.order + ' · ' + l.quantity + (l.quantity === 1 ? ' suit' : ' suits')));
+      sales.append(row);
+    });
+    if (!data.sales.length) sales.append(el('p', 'ss-hint', 'No sales yet. Your earnings appear here once buyers order your designs.'));
+    data.payouts.forEach(p => {
+      const row = el('div', 'ss-line');
+      row.append(el('span', '', p.method + (p.reference ? ' · ' + p.reference : '')), el('span', 'ss-line__amt', rs(p.amount)), el('span', 'ss-line__sub', day(p.date) + (p.note ? ' · ' + p.note : '')));
+      pays.append(row);
+    });
+    if (!data.payouts.length) pays.append(el('p', 'ss-hint', 'No payments yet.'));
+    box.hidden = false;
+  }
+
   async function load() {
     try {
       const data = await api('status');
@@ -245,6 +278,7 @@
       products = data.products || [];
       drawList();
       if (form.hidden) dashboard.hidden = false;
+      loadEarnings();
     } catch (e) { status.hidden = false; status.textContent = e.message; }
   }
 
