@@ -171,7 +171,6 @@
 
     /* ---------- card photo slideshow: every photo of a design, changing every few seconds ---------- */
     const cardSrc = u => String(u).replace(/([?&])width=\d+/, '$1width=700');
-    const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     const shows = new Set(), visible = new WeakSet();
     const watcher = 'IntersectionObserver' in window
       ? new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) visible.add(e.target); else visible.delete(e.target); }), { rootMargin: '100px' })
@@ -211,7 +210,8 @@
       media.addEventListener('click', e => { if (swiped) { e.stopImmediatePropagation(); e.preventDefault(); swiped = false; } }, true);
       shows.add(media); if (watcher) watcher.observe(media);
     }
-    if (!still) setInterval(() => {
+    /* Photos change on their own every few seconds on every device (the owner wants a live, moving catalogue). */
+    setInterval(() => {
       if (document.hidden) return;
       const now = Date.now();
       for (const media of shows) {

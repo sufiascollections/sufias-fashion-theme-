@@ -172,7 +172,7 @@
     disc.hidden = !(was > price && price);
     if (!disc.hidden) disc.textContent = Math.round((1 - price / was) * 100) + '% off';
     clearInterval(previewTimer);
-    if (imgs.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (imgs.length > 1) {
       let n = 0; const img = media.querySelector('img');
       previewTimer = setInterval(() => { if (!img.isConnected) return clearInterval(previewTimer); n = (n + 1) % imgs.length; img.src = imgs[n]; }, 2500);
     }
