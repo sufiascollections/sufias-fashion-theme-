@@ -74,6 +74,7 @@
       {%- liquid
         assign image_item = block.settings.image | default: collection.metafields.theme.featured_image_collection.value | default: collection.image | default: collection.products.first.featured_image
         assign link_item = block.settings.collection | default: collection.url
+        assign link_url = block.settings.link | default: link_item.url
         
       -%}
 
@@ -84,7 +85,7 @@
       <div class="t4s-categories-inner t4s-col-item">
         <a
           class="t4s-d-flex t4s-flex-column t4s-align-items-center"
-          href="{{ link_item.url | default: '#' }}"
+          href="{{ link_url | default: '#' }}"
           data-cacl-slide
         >
           {%- if  image_item != blank -%}
@@ -115,9 +116,9 @@
             {{ 'hero-apparel-1' | placeholder_svg_tag: 't4s-collection-item-image t4s-oh' }}
           {%- endif -%}
             <div class="t4s-text-center t4s-item-title" style="font-size: {{ se_stts.font_size_item | plus: 0.00 | divided_by: 10 }}rem;">{{ block.settings.title | default: block.settings.collection.title }}</div>
-          {%- unless block.settings.collection.title -%}
-            <div class="t4s-text-center t4s-item-title" style="font-size: {{ se_stts.font_size_item | plus: 0.00 | divided_by: 10 }}rem;">{{ block.settings.title | default: "Title" }}</div>
-          {%- endunless -%} 
+          {%- if block.settings.collection.title == blank and block.settings.title == blank -%}
+            <div class="t4s-text-center t4s-item-title" style="font-size: {{ se_stts.font_size_item | plus: 0.00 | divided_by: 10 }}rem;">Title</div>
+          {%- endif -%} 
         </a>
       </div>
     {%- endfor -%}
@@ -550,6 +551,12 @@
           "type": "text",
           "label": "Collection Label",
         },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Custom link (optional)",
+          "info": "Opens this link instead of the collection, e.g. the wholesale page."
+        }
       ]
     },
     {

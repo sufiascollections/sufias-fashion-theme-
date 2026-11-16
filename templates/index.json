@@ -268,6 +268,14 @@
     "categories_section_i4cq3z": {
       "type": "categories_section",
       "blocks": {
+        "collection_item_wholesale": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/sufias-d4780-mauve-1.jpg",
+            "title": "Wholesale",
+            "link": "shopify://pages/booking"
+          }
+        },
         "collection_item_VPKPzj": {
           "type": "collection_item",
           "settings": {
@@ -334,6 +342,7 @@
         }
       },
       "block_order": [
+        "collection_item_wholesale",
         "collection_item_VPKPzj",
         "collection_item_P6gCHF",
         "collection_item_jW4XmY",
