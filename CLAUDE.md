@@ -11,3 +11,6 @@ Every website change must also work well on phones. Most Sufias customers shop o
 
 ## Git
 Work directly on `main`: `git pull --ff-only origin main`, commit, then push to `main`. The live theme syncs from GitHub `main`.
+
+## Google Search Console
+`layout/theme.liquid` has two `google-site-verification` meta tags. Search Console ownership of https://sufias.com depends on them: never remove or change them.
