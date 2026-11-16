@@ -5,9 +5,30 @@
       "settings": {
         "ledger_enabled": true
       }
+    },
+    "seo": {
+      "type": "sufias-wholesale-seo",
+      "blocks": {
+        "p1": {"type": "point", "settings": {"title": "From 2 suits per design", "text": "Low minimum order. Mix colours of the same design freely."}},
+        "p2": {"type": "point", "settings": {"title": "New designs every season", "text": "Winter cotton, khaddar, lawn, chiffon and organza embroidered suits."}},
+        "p3": {"type": "point", "settings": {"title": "Delivery across Pakistan", "text": "Packed and shipped from Lahore to Karachi, Islamabad, Rawalpindi, Faisalabad and every city."}},
+        "p4": {"type": "point", "settings": {"title": "Pay by bank transfer", "text": "Secure checkout, a clear invoice and your own account ledger."}},
+        "s1": {"type": "step", "settings": {"title": "Create a free account", "text": "Register on sufias.com with your name, shop name and WhatsApp number."}},
+        "s2": {"type": "step", "settings": {"title": "Get approved", "text": "Request wholesale access on this page. Sufias Fashion reviews and approves retailers."}},
+        "s3": {"type": "step", "settings": {"title": "Choose designs and colours", "text": "See wholesale prices, pick quantities per colour, minimum 2 suits per design."}},
+        "s4": {"type": "step", "settings": {"title": "Pay and receive", "text": "Pay by bank transfer at checkout. We confirm stock and ship to your city."}},
+        "f1": {"type": "faq", "settings": {"question": "What is the minimum wholesale order?", "answer": "The minimum is 2 suits per design. You can mix different colours of the same design to reach the minimum, and order as many designs as you like."}},
+        "f2": {"type": "faq", "settings": {"question": "Who can buy wholesale from Sufias Fashion?", "answer": "Boutiques, shop owners, online sellers and resellers in Pakistan. Create a free account and request wholesale access on this page; once approved you see wholesale prices and can order directly."}},
+        "f3": {"type": "faq", "settings": {"question": "Which fabrics and embroidery do you offer?", "answer": "Embroidered 3-piece suits in winter cotton, khaddar, lawn, chiffon, organza and sheesha silk, with chikankari, thread, cutwork and sequin embroidery. New designs are added every season."}},
+        "f4": {"type": "faq", "settings": {"question": "Do you deliver wholesale orders across Pakistan?", "answer": "Yes. Wholesale orders are packed in Lahore and shipped to all cities in Pakistan, including Karachi, Islamabad, Rawalpindi, Faisalabad, Multan and Peshawar."}},
+        "f5": {"type": "faq", "settings": {"question": "How do I pay for a wholesale order?", "answer": "Pay by bank transfer at checkout. After paying, send the payment screenshot on WhatsApp. Your orders and payments are recorded in your own account ledger on sufias.com."}}
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "s1", "s2", "s3", "s4", "f1", "f2", "f3", "f4", "f5"],
+      "settings": {}
     }
   },
   "order": [
-    "booking"
+    "booking",
+    "seo"
   ]
 }

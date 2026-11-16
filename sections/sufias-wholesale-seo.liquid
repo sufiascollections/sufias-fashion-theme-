@@ -1,0 +1,188 @@
+{%- comment -%}
+  Public part of the wholesale page: what Google and first-time visitors see without logging in.
+  Wholesale prices stay hidden; designs link to their retail pages.
+{%- endcomment -%}
+{{ 'sufias-wholesale.css' | asset_url | stylesheet_tag }}
+<section class="sw wseo" aria-labelledby="wseo-h">
+  <div class="sw-section">
+    <div class="sw-wrap">
+      <div class="wseo-intro">
+        <p class="sw-kicker">{{ section.settings.kicker | escape }}</p>
+        <h2 class="sw-h2" id="wseo-h">{{ section.settings.heading | escape }}</h2>
+        <div class="wseo-text">{{ section.settings.intro }}</div>
+      </div>
+
+      <ul class="wseo-points" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'point' -%}
+            <li {{ block.shopify_attributes }}><strong>{{ block.settings.title | escape }}</strong><span>{{ block.settings.text | escape }}</span></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+
+  {%- liquid
+    assign shown = 0
+    assign max_designs = section.settings.designs | default: 12
+  -%}
+  <div class="sw-section sw-section--soft">
+    <div class="sw-wrap">
+      <div class="wseo-head">
+        <div><p class="sw-kicker">Latest designs</p><h2 class="sw-h2">{{ section.settings.designs_heading | escape }}</h2></div>
+        <p class="sw-muted">{{ section.settings.designs_note | escape }}</p>
+      </div>
+      <ul class="wseo-grid" role="list">
+        {%- paginate collections.all.products by 250 -%}
+          {%- for p in collections.all.products -%}
+            {%- if shown >= max_designs -%}{%- break -%}{%- endif -%}
+            {%- unless p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+            {%- if p.tags contains 'preview' or p.featured_image == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign shown = shown | plus: 1 -%}
+            {%- assign alt = p.title | append: ' – wholesale embroidered suit' -%}
+            <li class="wseo-card">
+              <a href="{{ p.url }}" class="wseo-card__link">
+                <span class="wseo-card__img">
+                  {{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', alt: alt }}
+                </span>
+                <span class="wseo-card__title">{{ p.title | escape }}</span>
+                <span class="wseo-card__meta">{{ p.variants.size }} colour{% if p.variants.size != 1 %}s{% endif %} · Min. 2 suits per design</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endpaginate -%}
+      </ul>
+      <p class="wseo-cta">
+        {%- if customer -%}
+          <a class="sw-btn sw-btn--primary" href="#">See wholesale prices above</a>
+        {%- else -%}
+          <a class="sw-btn sw-btn--primary" href="{{ routes.account_register_url }}">Create a free account</a>
+          <a class="sw-btn sw-btn--outline" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">Log in for wholesale prices</a>
+        {%- endif -%}
+      </p>
+    </div>
+  </div>
+
+  <div class="sw-section">
+    <div class="sw-wrap wseo-cols">
+      <div>
+        <p class="sw-kicker">How it works</p>
+        <h2 class="sw-h2">{{ section.settings.steps_heading | escape }}</h2>
+        <ol class="wseo-steps">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'step' -%}
+              <li {{ block.shopify_attributes }}><strong>{{ block.settings.title | escape }}</strong><span>{{ block.settings.text | escape }}</span></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ol>
+      </div>
+      <div>
+        <p class="sw-kicker">Questions</p>
+        <h2 class="sw-h2">Wholesale FAQ</h2>
+        <div class="wseo-faq">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq' -%}
+              <details {{ block.shopify_attributes }}>
+                <summary>{{ block.settings.question | escape }}</summary>
+                <p>{{ block.settings.answer | escape }}</p>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Structured data so search engines understand the business and the FAQ. {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["ClothingStore", "WholesaleStore"],
+        "@id": {{ shop.url | append: '/#wholesale' | json }},
+        "name": {{ shop.name | strip | json }},
+        "url": {{ shop.url | append: page.url | json }},
+        "description": {{ section.settings.intro | strip_html | strip | json }},
+        "telephone": {{ section.settings.phone | json }},
+        "email": {{ shop.email | json }},
+        "priceRange": "Rs",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": {{ section.settings.street | json }},
+          "addressLocality": "Lahore",
+          "postalCode": "54000",
+          "addressCountry": "PK"
+        },
+        "areaServed": "PK"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {%- assign first = true -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq' -%}
+              {%- unless first -%},{%- endunless -%}{%- assign first = false -%}
+              {"@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ block.settings.answer | json }}}}
+            {%- endif -%}
+          {%- endfor -%}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    .wseo .sw-h2{margin:0 0 12px}
+    .wseo-intro{max-width:780px}
+    .wseo-text{color:var(--sw-ink-2);font-size:16px;line-height:1.7}
+    .wseo-text p{margin:0 0 12px}
+    .wseo-points{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr))}
+    .wseo-points li{display:grid;gap:4px;padding:16px;border:1px solid var(--sw-line);border-radius:var(--sw-radius);background:var(--sw-surface)}
+    .wseo-points span{color:var(--sw-muted);font-size:14px}
+    .wseo-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-bottom:20px}
+    .wseo-head .sw-muted{max-width:420px}
+    .wseo-grid{list-style:none;margin:0;padding:0;display:grid;gap:clamp(12px,2vw,20px);grid-template-columns:repeat(4,minmax(0,1fr))}
+    .wseo-card__link{display:grid;gap:6px;color:inherit;text-decoration:none}
+    .wseo-card__img{display:block;aspect-ratio:4/5;border-radius:var(--sw-radius);overflow:hidden;background:#ece7df}
+    .wseo-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .wseo-card__link:hover img{transform:scale(1.04)}
+    .wseo-card__title{font-weight:600;line-height:1.3}
+    .wseo-card__meta{font-size:13px;color:var(--sw-muted)}
+    .wseo-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:28px 0 0}
+    .wseo-cols{display:grid;gap:32px;grid-template-columns:repeat(2,minmax(0,1fr))}
+    .wseo-steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:14px}
+    .wseo-steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:2px 12px}
+    .wseo-steps li::before{content:counter(s);grid-row:1/3;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--sw-ink);color:#fff;font-weight:700}
+    .wseo-steps span{color:var(--sw-muted)}
+    .wseo-faq details{border-bottom:1px solid var(--sw-line)}
+    .wseo-faq summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:600;padding:8px 0}
+    .wseo-faq p{margin:0 0 14px;color:var(--sw-ink-2)}
+    @media (max-width:989px){.wseo-points,.wseo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wseo-cols{grid-template-columns:1fr}}
+    @media (max-width:560px){.wseo-points{grid-template-columns:1fr}.wseo-cta .sw-btn{flex:1 1 100%}}
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Wholesale SEO content",
+  "tag": "div",
+  "settings": [
+    {"type": "text", "id": "kicker", "label": "Small heading", "default": "Wholesale from Lahore"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Wholesale embroidered suits for boutiques and resellers"},
+    {"type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Sufias Fashion supplies wholesale embroidered 3-piece suits to boutiques, online sellers and retailers across Pakistan. Choose from winter cotton, khaddar, lawn, chiffon and organza designs with chikankari, thread and cutwork embroidery, in every colour of each design.</p><p>Order as few as 2 suits per design, mix colours freely, and pay by bank transfer. We pack and ship from Lahore to every city in Pakistan.</p>"},
+    {"type": "range", "id": "designs", "label": "Designs to show", "min": 4, "max": 24, "step": 4, "default": 12},
+    {"type": "text", "id": "designs_heading", "label": "Designs heading", "default": "Embroidered suits available in wholesale"},
+    {"type": "text", "id": "designs_note", "label": "Designs note", "default": "Wholesale prices are shown to approved buyers after logging in."},
+    {"type": "text", "id": "steps_heading", "label": "Steps heading", "default": "Order wholesale suits in 4 steps"},
+    {"type": "text", "id": "phone", "label": "Business phone (for Google)", "default": "+92 301 4509210"},
+    {"type": "text", "id": "street", "label": "Street address (for Google)", "default": "Plot 500, Pindi Stop, Maulana Shaukat Ali Road, Kot Lakhpat"}
+  ],
+  "blocks": [
+    {"type": "point", "name": "Highlight", "settings": [{"type": "text", "id": "title", "label": "Title"}, {"type": "text", "id": "text", "label": "Text"}]},
+    {"type": "step", "name": "Step", "settings": [{"type": "text", "id": "title", "label": "Title"}, {"type": "text", "id": "text", "label": "Text"}]},
+    {"type": "faq", "name": "FAQ", "settings": [{"type": "text", "id": "question", "label": "Question"}, {"type": "textarea", "id": "answer", "label": "Answer"}]}
+  ],
+  "presets": [{"name": "Wholesale SEO content"}]
+}
+{% endschema %}
