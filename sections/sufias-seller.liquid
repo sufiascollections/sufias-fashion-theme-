@@ -15,74 +15,228 @@
 
   <div class="sw-wrap ss-body">
     {%- unless customer -%}
-      <div class="ss-card">
+      <div class="ss-card ss-narrow">
         <h2 class="sw-h2">Log in to sell</h2>
         <p class="sw-muted">Log in with your Sufias Fashion account. Once Sufias Fashion approves you as a seller, you can list your designs here.</p>
-        <p><a class="sw-btn sw-btn--primary" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">Log in</a>
-        <a class="sw-btn sw-btn--outline" href="{{ routes.account_register_url }}">Create account</a></p>
+        <div class="ss-actions">
+          <a class="sw-btn sw-btn--primary" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">Log in</a>
+          <a class="sw-btn sw-btn--outline" href="{{ routes.account_register_url }}">Create account</a>
+        </div>
       </div>
     {%- else -%}
-      <p class="sw-status" data-seller-status role="status" aria-live="polite">Checking your seller account…</p>
+      <p class="sw-status ss-narrow" data-seller-status role="status" aria-live="polite">Checking your seller account…</p>
 
-      <div class="ss-card" data-seller-pending hidden>
+      <div class="ss-card ss-narrow" data-seller-pending hidden>
         <h2 class="sw-h2">Seller approval needed</h2>
         <p class="sw-muted">Your account is not approved for selling yet. Send your shop name and a few sample designs to Sufias Fashion on WhatsApp. Once approved, this page opens your seller dashboard automatically.</p>
         {%- assign wa = section.settings.whatsapp | remove: ' ' | remove: '-' | remove: '+' -%}
         {%- if wa != blank -%}
-          <p><a class="sw-btn sw-btn--primary" href="https://wa.me/{{ wa }}?text={{ 'Assalam o Alaikum, I want to sell on the Sufias Fashion wholesale marketplace. My account email: ' | append: customer.email | url_encode }}" target="_blank" rel="noopener">Request seller access</a></p>
+          <div class="ss-actions"><a class="sw-btn sw-btn--primary" href="https://wa.me/{{ wa }}?text={{ 'Assalam o Alaikum, I want to sell on the Sufias Fashion wholesale marketplace. My account email: ' | append: customer.email | url_encode }}" target="_blank" rel="noopener">Request seller access</a></div>
         {%- endif -%}
       </div>
 
+      {%- comment -%} Dashboard: the seller's designs {%- endcomment -%}
       <div data-seller-dashboard hidden>
-        <form class="ss-card ss-form" data-seller-form novalidate>
-          <h2 class="sw-h2">List a new design</h2>
-          <p class="sw-muted">Your design appears on the wholesale page as soon as you publish it. Buyers pay Sufias Fashion; Sufias Fashion confirms the order with you and pays you for every sale.</p>
-          <label class="sw-field"><span>Design name</span><input name="title" maxlength="120" required placeholder="e.g. Embroidered lawn 3-piece suit D101"></label>
-          <div class="ss-row">
-            <label class="sw-field"><span>Wholesale price per suit (Rs)</span><input name="price" type="number" inputmode="numeric" min="100" step="1" required placeholder="3000"></label>
-            <label class="sw-field"><span>Was price (Rs, optional)</span><input name="compareAt" type="number" inputmode="numeric" min="0" step="1" placeholder="3500"></label>
+        <div class="ss-dash-head">
+          <div>
+            <p class="sw-kicker" data-seller-name></p>
+            <h2 class="sw-h2">Your designs</h2>
+            <p class="sw-muted" data-seller-count></p>
           </div>
-          <label class="sw-field"><span>Colours (separate with commas)</span><input name="colours" maxlength="600" required placeholder="Black, Maroon, Teal Blue"></label>
-          <label class="sw-field"><span>Details: fabric, pieces, size</span><textarea name="description" rows="5" maxlength="3000" placeholder="Shirt: embroidered cotton&#10;Dupatta: chiffon&#10;Trouser: dyed cotton&#10;Unstitched, free size"></textarea></label>
-          <div class="sw-field">
-            <span>Photos (up to 8, the first one is the cover)</span>
-            <input type="file" accept="image/jpeg,image/png,image/webp" multiple data-seller-files>
-            <div class="ss-thumbs" data-seller-thumbs></div>
-          </div>
-          <p class="sw-muted ss-note">Minimum order for buyers is 2 suits per design. Only list designs you have in stock.</p>
-          <p class="sw-status" data-seller-form-status role="status" aria-live="polite"></p>
-          <button type="submit" class="sw-btn sw-btn--primary sw-btn--block" data-seller-submit>Publish design</button>
-        </form>
-
-        <section class="ss-card">
-          <div class="sw-section__head"><div><p class="sw-kicker" data-seller-name></p><h2 class="sw-h2">Your designs</h2></div></div>
-          <div class="ss-list" data-seller-list></div>
-        </section>
+          <button type="button" class="sw-btn sw-btn--primary" data-seller-new>+ Add new design</button>
+        </div>
+        <p class="sw-status" data-seller-list-status role="status" aria-live="polite"></p>
+        <div class="ss-grid" data-seller-list></div>
       </div>
+
+      {%- comment -%} Editor: list or edit one design {%- endcomment -%}
+      <form class="ss-editor" data-seller-form novalidate hidden>
+        <div class="ss-editor__head">
+          <button type="button" class="ss-back" data-seller-cancel aria-label="Back to your designs">&larr; Your designs</button>
+          <h2 class="sw-h2" data-seller-form-title>New design</h2>
+        </div>
+
+        <div class="ss-editor__cols">
+          <div class="ss-editor__main">
+            <section class="ss-card" aria-labelledby="ss-photos-h">
+              <div class="ss-card__head"><h3 id="ss-photos-h">Photos</h3><span class="ss-pill" data-seller-photo-count>0 / 10</span></div>
+              <label class="ss-drop" data-seller-drop>
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple data-seller-files>
+                <span class="ss-drop__icon" aria-hidden="true">＋</span>
+                <span class="ss-drop__text"><strong>Add photos</strong><span>Tap to choose from your phone or drag photos here. JPG or PNG, up to 10.</span></span>
+              </label>
+              <div class="ss-photos" data-seller-thumbs></div>
+              <p class="ss-hint">The first photo is the cover. Use the arrows to change the order. Add a photo of every colour so buyers can see each shade.</p>
+            </section>
+
+            <section class="ss-card" aria-labelledby="ss-details-h">
+              <div class="ss-card__head"><h3 id="ss-details-h">Design details</h3></div>
+              <label class="sw-field"><span>Design name <em>*</em></span><input name="title" maxlength="110" required placeholder="e.g. Embroidered lawn 3-piece suit" autocomplete="off"></label>
+              <div class="ss-row">
+                <label class="sw-field"><span>Design code</span><input name="code" maxlength="20" placeholder="e.g. D101" autocomplete="off" autocapitalize="characters"></label>
+                <label class="sw-field"><span>Category</span>
+                  <select name="category">
+                    <option>3-Piece Suit</option><option>2-Piece Suit</option><option>Shirt / Kurti</option><option>Abaya</option><option>Shawl / Stole</option><option>Other</option>
+                  </select>
+                </label>
+              </div>
+              <div class="ss-row">
+                <label class="sw-field"><span>Stitching</span>
+                  <select name="stitching"><option>Unstitched</option><option>Stitched</option><option>Ready to wear</option></select>
+                </label>
+                <label class="sw-field"><span>Size</span><input name="size" maxlength="40" value="Free size" list="ss-sizes"></label>
+              </div>
+            </section>
+
+            <section class="ss-card" aria-labelledby="ss-fabric-h">
+              <div class="ss-card__head"><h3 id="ss-fabric-h">Fabric &amp; work</h3></div>
+              <div class="ss-row ss-row--3">
+                <label class="sw-field"><span>Shirt</span><input name="shirt" maxlength="60" list="ss-fabrics" placeholder="e.g. Cotton"></label>
+                <label class="sw-field"><span>Dupatta</span><input name="dupatta" maxlength="60" list="ss-fabrics" placeholder="e.g. Chiffon"></label>
+                <label class="sw-field"><span>Trouser</span><input name="trouser" maxlength="60" list="ss-fabrics" placeholder="e.g. Dyed cotton"></label>
+              </div>
+              <label class="sw-field"><span>Embroidery / work</span><input name="work" maxlength="80" list="ss-works" placeholder="e.g. Chikankari embroidery"></label>
+              <label class="sw-field"><span>About this design</span><textarea name="about" rows="4" maxlength="2000" placeholder="What makes this design special: the look, the occasion, the finishing."></textarea></label>
+            </section>
+
+            <section class="ss-card" aria-labelledby="ss-price-h">
+              <div class="ss-card__head"><h3 id="ss-price-h">Wholesale price</h3><span class="ss-pill ss-pill--sale" data-seller-discount hidden></span></div>
+              <div class="ss-row">
+                <label class="sw-field"><span>Price per suit (Rs) <em>*</em></span><span class="ss-money"><b>Rs</b><input name="price" type="number" inputmode="numeric" min="100" step="1" required placeholder="3000"></span></label>
+                <label class="sw-field"><span>Was price (Rs)</span><span class="ss-money"><b>Rs</b><input name="compareAt" type="number" inputmode="numeric" min="0" step="1" placeholder="Optional"></span></label>
+              </div>
+              <p class="ss-hint">Buyers order at least 2 suits of each design and pay Sufias Fashion. Sufias Fashion confirms each order with you and pays you for every sale.</p>
+            </section>
+
+            <section class="ss-card" aria-labelledby="ss-colour-h">
+              <div class="ss-card__head"><h3 id="ss-colour-h">Colours</h3><span class="ss-pill" data-seller-colour-count>0</span></div>
+              <div class="ss-colour-add">
+                <input type="text" maxlength="40" placeholder="Type a colour, e.g. Maroon" data-seller-colour-input aria-label="Colour name" enterkeyhint="done">
+                <button type="button" class="sw-btn sw-btn--outline" data-seller-colour-add>Add</button>
+              </div>
+              <div class="ss-presets" data-seller-presets aria-label="Quick colours"></div>
+              <div class="ss-colours" data-seller-colours></div>
+              <p class="ss-hint">Pick the photo that shows each colour. Buyers see that photo when they choose the colour.</p>
+            </section>
+          </div>
+
+          <aside class="ss-editor__side" aria-label="Preview">
+            <div class="ss-card ss-preview">
+              <div class="ss-card__head"><h3>Preview</h3><span class="ss-hint">How buyers see it</span></div>
+              <div data-seller-preview></div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="ss-bar">
+          <p class="sw-status ss-bar__status" data-seller-form-status role="status" aria-live="polite"></p>
+          <div class="ss-bar__btns">
+            <button type="button" class="sw-btn sw-btn--outline" data-seller-cancel>Cancel</button>
+            <button type="submit" class="sw-btn sw-btn--primary" data-seller-submit>Publish design</button>
+          </div>
+        </div>
+
+        <datalist id="ss-fabrics"><option>Lawn</option><option>Cotton</option><option>Cambric</option><option>Khaddar</option><option>Karandi</option><option>Linen</option><option>Marina</option><option>Dhanak</option><option>Jacquard</option><option>Chiffon</option><option>Organza</option><option>Net</option><option>Silk</option><option>Raw silk</option><option>Velvet</option><option>Dyed cotton</option><option>Wool shawl</option></datalist>
+        <datalist id="ss-works"><option>Chikankari embroidery</option><option>Thread embroidery</option><option>Sequin work</option><option>Cutwork</option><option>Mirror work</option><option>Digital print</option><option>Printed</option><option>Pearl &amp; tassel work</option></datalist>
+        <datalist id="ss-sizes"><option>Free size</option><option>S, M, L</option><option>S, M, L, XL</option><option>One size</option></datalist>
+      </form>
+
       <script src="{{ 'sufias-seller.js' | asset_url }}" defer></script>
     {%- endunless -%}
   </div>
   <style>
-    .ss-body{padding-block:28px 56px;display:grid;gap:20px;max-width:760px}
-    .ss-card{background:var(--sw-surface);border:1px solid var(--sw-line);border-radius:var(--sw-radius);box-shadow:var(--sw-shadow);padding:22px}
-    .ss-card .sw-h2{margin:0 0 8px}
-    .ss-form{display:grid;gap:14px}
-    .ss-form .sw-field{display:grid;gap:6px}
-    .ss-form .sw-field>span{font-size:13px;font-weight:600}
-    .ss-form input:not([type=file]),.ss-form textarea{width:100%;box-sizing:border-box;border:1px solid var(--sw-line);border-radius:10px;padding:11px 12px;font:inherit;background:#fff;color:var(--sw-ink)}
-    .ss-row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
-    @media (max-width:560px){.ss-row{grid-template-columns:1fr}}
-    .ss-thumbs{display:flex;flex-wrap:wrap;gap:8px}
-    .ss-thumb{position:relative;width:76px;height:96px;border-radius:8px;overflow:hidden;background:var(--sw-accent-soft)}
-    .ss-thumb img{width:100%;height:100%;object-fit:cover}
-    .ss-thumb button{position:absolute;top:3px;right:3px;width:24px;height:24px;border:0;border-radius:50%;background:rgb(0 0 0 / 65%);color:#fff;cursor:pointer;line-height:1}
-    .ss-note{font-size:13px}
-    .ss-list{display:grid;gap:10px}
-    .ss-item{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--sw-line);padding-top:10px}
-    .ss-item img{width:60px;height:76px;object-fit:cover;border-radius:6px;background:var(--sw-accent-soft)}
-    .ss-item p{margin:0}
-    .ss-item .sw-btn{min-height:38px;padding:0 14px}
-    @media (max-width:560px){.ss-item{grid-template-columns:60px 1fr;align-items:start}.ss-item .sw-btn{grid-column:2;justify-self:start}}
+    .ss [hidden]{display:none!important}
+    .ss-body{padding-block:28px 56px;display:grid;gap:20px}
+    .ss-narrow{max-width:760px}
+    .ss-card{background:var(--sw-surface);border:1px solid var(--sw-line);border-radius:var(--sw-radius);box-shadow:var(--sw-shadow);padding:20px;display:grid;gap:14px;min-width:0}
+    .ss-card .sw-h2{margin:0}
+    .ss-card__head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .ss-card__head h3{margin:0;font-size:16px;font-weight:700;letter-spacing:.01em}
+    .ss-actions{display:flex;flex-wrap:wrap;gap:10px}
+    .ss-pill{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;background:var(--sw-accent-soft);color:var(--sw-accent-ink);font-size:12px;font-weight:700}
+    .ss-pill--sale{background:#fde8e8;color:var(--sw-danger)}
+    .ss-hint{margin:0;font-size:13px;color:var(--sw-muted)}
+    .ss .sw-field em{color:var(--sw-danger);font-style:normal}
+    .ss .sw-field select{width:100%;min-height:48px;padding:0 12px;border:1px solid var(--sw-line);border-radius:10px;background:#fff;color:var(--sw-ink);font:inherit;font-size:16px}
+    .ss-row{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+    .ss-row--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .ss .sw-field>.ss-money{display:flex;align-items:center;border:1px solid var(--sw-line);border-radius:10px;background:#fff;overflow:hidden;font-size:16px;font-weight:400}
+    .ss-money b{flex:none;padding:0 0 0 14px;font-weight:600;white-space:nowrap;color:var(--sw-muted)}
+    .ss .ss-money input{flex:1}
+    .ss .ss-money input{border:0;border-radius:0;min-width:0}
+
+    .ss-dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .ss-dash-head .sw-muted{margin-top:4px}
+    .ss-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+    .ss-item{display:flex;flex-direction:column;background:var(--sw-surface);border:1px solid var(--sw-line);border-radius:var(--sw-radius);overflow:hidden;min-width:0}
+    .ss-item__img{aspect-ratio:4/5;background:var(--sw-accent-soft);overflow:hidden}
+    .ss-item__img img{width:100%;height:100%;object-fit:cover}
+    .ss-item__body{display:grid;gap:4px;padding:12px}
+    .ss-item__title{margin:0;font-weight:600;line-height:1.3}
+    .ss-item__meta{margin:0;font-size:13px;color:var(--sw-muted)}
+    .ss-item__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 12px}
+    .ss-item__btns .sw-btn{min-height:42px;padding:0 10px;font-size:13px}
+    .ss-empty{grid-column:1/-1;padding:36px 20px;text-align:center;border:1px dashed var(--sw-line);border-radius:var(--sw-radius);background:var(--sw-surface)}
+
+    .ss-editor{display:grid;gap:16px}
+    .ss-editor__head{display:grid;gap:6px}
+    .ss-back{justify-self:start;border:0;background:none;padding:6px 0;font:inherit;font-size:14px;font-weight:600;color:var(--sw-accent-ink);cursor:pointer}
+    .ss-editor__cols{display:grid;gap:16px;grid-template-columns:minmax(0,1fr) 320px;align-items:start}
+    .ss-editor__main{display:grid;gap:16px;min-width:0}
+    .ss-editor__side{position:sticky;top:90px}
+    .ss-preview .sw-cardp{pointer-events:none}
+
+    .ss-drop{position:relative;display:flex;align-items:center;gap:14px;padding:18px;border:2px dashed var(--sw-line);border-radius:12px;background:var(--sw-paper);cursor:pointer;transition:border-color .2s,background .2s}
+    .ss-drop:hover,.ss-drop.is-over{border-color:var(--sw-accent);background:var(--sw-accent-soft)}
+    .ss-drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+    .ss-drop__icon{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--sw-ink);color:#fff;font-size:22px}
+    .ss-drop__text{display:grid;gap:2px;font-size:13px;color:var(--sw-muted)}
+    .ss-drop__text strong{font-size:15px;color:var(--sw-ink)}
+    .ss-photos{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}
+    .ss-photos:empty{display:none}
+    .ss-photo{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:var(--sw-accent-soft);border:1px solid var(--sw-line)}
+    .ss-photo img{width:100%;height:100%;object-fit:cover}
+    .ss-photo__no{position:absolute;top:6px;left:6px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:rgb(255 255 255 / 92%);font-size:11px;font-weight:700;display:grid;place-items:center}
+    .ss-photo__cover{position:absolute;left:6px;right:6px;bottom:44px;padding:3px 0;border-radius:6px;background:var(--sw-ink);color:#fff;font-size:11px;font-weight:700;text-align:center}
+    .ss-photo__tools{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);background:rgb(29 28 26 / 78%)}
+    .ss-photo__tools button{min-height:38px;border:0;background:none;color:#fff;font-size:16px;cursor:pointer}
+    .ss-photo__tools button:disabled{opacity:.3;cursor:default}
+
+    .ss-colour-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+    .ss .ss-colour-add input{width:100%;min-height:48px;padding:0 14px;border:1px solid var(--sw-line);border-radius:10px;font:inherit;font-size:16px}
+    .ss-colour-add .sw-btn{min-height:48px}
+    .ss-presets{display:flex;flex-wrap:wrap;gap:8px}
+    .ss-preset{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px 0 8px;border:1px solid var(--sw-line);border-radius:999px;background:#fff;font:inherit;font-size:13px;cursor:pointer}
+    .ss-preset[aria-pressed=true]{border-color:var(--sw-ink);background:var(--sw-ink);color:#fff}
+    .ss-colours{display:grid;gap:8px}
+    .ss-colours:empty{display:none}
+    .ss-colour{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,140px) auto;gap:10px;align-items:center;padding:8px 8px 8px 12px;border:1px solid var(--sw-line);border-radius:10px}
+    .ss-colour .sw-dot{width:20px;height:20px}
+    .ss-colour__name{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ss .ss-colour select{width:100%;min-height:40px;padding:0 8px;border:1px solid var(--sw-line);border-radius:8px;background:#fff;font:inherit;font-size:16px}
+    .ss-colour__x{width:40px;height:40px;border:0;border-radius:8px;background:var(--sw-paper);font-size:18px;cursor:pointer}
+
+    .ss-bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;margin:0 -4px;border:1px solid var(--sw-line);border-radius:14px;background:rgb(255 255 255 / 96%);box-shadow:0 -6px 24px rgb(29 28 26 / 8%)}
+    .ss-bar__status{flex:1;min-width:0}
+    .ss-bar__btns{display:flex;gap:8px;margin-left:auto}
+
+    @media (max-width:900px){
+      .ss-editor__cols{grid-template-columns:minmax(0,1fr)}
+      .ss-editor__side{position:static}
+      .ss-preview [data-seller-preview]{max-width:260px}
+    }
+    @media (max-width:560px){
+      .ss-card{padding:16px}
+      .ss-row,.ss-row--3{grid-template-columns:minmax(0,1fr)}
+      .ss-dash-head .sw-btn{width:100%}
+      .ss-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .ss-item__btns{grid-template-columns:1fr;gap:6px}
+      .ss-colour{grid-template-columns:auto minmax(0,1fr) auto;row-gap:8px}
+      .ss-colour select{grid-column:1/-1;grid-row:2}
+      .ss-bar{flex-direction:column;align-items:stretch;padding:10px;margin:0 -8px;border-radius:14px 14px 0 0}
+      .ss-bar__btns{display:grid;grid-template-columns:1fr 2fr;margin:0}
+      .ss-preview [data-seller-preview]{max-width:none}
+    }
   </style>
 </section>
 {% schema %}

@@ -166,3 +166,11 @@ html.sw-lock,html.sw-lock body{overflow:hidden}
 }
 @media(max-width:359px){.sw-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.sw *{transition:none!important}}
+/* Card photo slideshow */
+.sw-cardp__media--slides{touch-action:pan-y}
+.sw-cardp__media--slides img{position:absolute;inset:0;opacity:0;transition:opacity .7s ease,transform .5s}
+.sw-cardp__media--slides img.is-on{opacity:1}
+.sw-cardp__tag{z-index:2}
+.sw-cardp__slides{position:absolute;left:0;right:0;bottom:8px;z-index:2;display:flex;justify-content:center;gap:4px;pointer-events:none}
+.sw-cardp__slides i{width:6px;height:6px;border-radius:3px;background:rgb(255 255 255 / 60%);box-shadow:0 0 2px rgb(0 0 0 / 35%);transition:width .3s,background .3s}
+.sw-cardp__slides i.is-on{width:16px;background:#fff}

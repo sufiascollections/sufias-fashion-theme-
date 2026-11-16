@@ -169,6 +169,60 @@
     const qtyFor = p => p.variants.reduce((sum, v) => sum + (selected.get(v.id) || 0), 0);
     const imagesFor = p => (p.images && p.images.length ? p.images : (p.image ? [p.image] : []));
 
+    /* ---------- card photo slideshow: every photo of a design, changing every few seconds ---------- */
+    const cardSrc = u => String(u).replace(/([?&])width=\d+/, '$1width=700');
+    const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shows = new Set(), visible = new WeakSet();
+    const watcher = 'IntersectionObserver' in window
+      ? new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) visible.add(e.target); else visible.delete(e.target); }), { rootMargin: '100px' })
+      : null;
+    function goTo(media, next) {
+      const s = media._slides;
+      if (next === s.n) return;
+      let img = s.imgs[next];
+      if (!img) { img = el('img'); img.alt = ''; img.decoding = 'async'; img.src = s.list[next]; s.imgs[next] = img; media.insertBefore(img, s.dots); }
+      const show = () => {
+        s.imgs[s.n].classList.remove('is-on'); img.classList.add('is-on');
+        s.dots.children[s.n].className = ''; s.dots.children[next].className = 'is-on';
+        s.n = next;
+      };
+      if (img.complete && img.naturalWidth) show(); else img.addEventListener('load', show, { once: true });
+    }
+    function slideshow(media, p) {
+      const first = media.querySelector('img');
+      const list = imagesFor(p).slice(0, 8).map(cardSrc);
+      if (!first || list.length < 2) return;
+      list[0] = first.src;
+      media.classList.add('sw-cardp__media--slides'); first.classList.add('is-on');
+      const dots = el('span', 'sw-cardp__slides');
+      list.forEach((_, i) => dots.append(el('i', i ? '' : 'is-on')));
+      media.append(dots);
+      media._slides = { list, imgs: [first], dots, n: 0, due: Date.now() + 2500 + Math.random() * 2000 };
+      /* Swipe left or right on a photo to see the next one; a tap still opens the design. */
+      let x0 = null, swiped = false;
+      media.addEventListener('pointerdown', e => { x0 = e.clientX; swiped = false; });
+      media.addEventListener('pointerup', e => {
+        if (x0 == null) return;
+        const dx = e.clientX - x0; x0 = null;
+        if (Math.abs(dx) < 40) return;
+        swiped = true;
+        const s = media._slides; goTo(media, (s.n + (dx < 0 ? 1 : s.list.length - 1)) % s.list.length); s.due = Date.now() + 6000;
+      });
+      media.addEventListener('click', e => { if (swiped) { e.stopImmediatePropagation(); e.preventDefault(); swiped = false; } }, true);
+      shows.add(media); if (watcher) watcher.observe(media);
+    }
+    if (!still) setInterval(() => {
+      if (document.hidden) return;
+      const now = Date.now();
+      for (const media of shows) {
+        if (!media.isConnected) { shows.delete(media); if (watcher) watcher.unobserve(media); continue; }
+        const s = media._slides;
+        if ((watcher && !visible.has(media)) || now < s.due) continue;
+        s.due = now + 3200 + Math.random() * 800;
+        goTo(media, (s.n + 1) % s.list.length);
+      }
+    }, 500);
+
     /* ---------- grid ---------- */
     function card(p) {
       const art = el('article', 'sw-cardp' + (p.upcoming ? ' sw-cardp--upcoming' : ''));
@@ -176,6 +230,7 @@
       if (!p.upcoming) { media.type = 'button'; media.setAttribute('aria-label', 'View ' + p.title); media.addEventListener('click', () => openDetail(p)); }
       if (p.image) { const img = el('img'); img.src = p.image; img.alt = p.upcoming ? '' : p.title; img.loading = 'lazy'; media.append(img); }
       if (p.upcoming) media.append(el('span', 'sw-cardp__tag', 'Coming soon'));
+      if (!p.upcoming) slideshow(media, p);
       const q = qtyFor(p);
       if (q) media.append(el('span', 'sw-cardp__tag sw-cardp__tag--sel', q + ' in request'));
       const body = el('div', 'sw-cardp__body');
