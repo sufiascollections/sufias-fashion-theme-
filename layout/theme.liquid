@@ -56,7 +56,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endif -%}{%- endif -%}
     
-    {%- capture sufias_seo_description -%}{%- render 'sufias-seo-description' -%}{%- endcapture -%}
+    {%- capture sufias_seo_description -%}{%- render 'sufias-seo-description' -%}{%- endcapture -%}{%- assign sufias_seo_description = sufias_seo_description | strip -%}
     {%- capture sufias_page_title -%}{%- render 'sufias-seo-title' -%}{%- endcapture -%}
     {%- assign sufias_shop_name = shop.name | strip -%}
     {%- if t_name != 'list-collections' -%}
