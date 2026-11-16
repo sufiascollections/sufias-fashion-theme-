@@ -26,7 +26,7 @@
     assign shown = 0
     assign max_designs = section.settings.designs | default: 12
   -%}
-  <div class="sw-section sw-section--soft">
+  <div class="sw-section sw-section--soft" data-wseo-designs>
     <div class="sw-wrap">
       <div class="wseo-head">
         <div><p class="sw-kicker">Latest designs</p><h2 class="sw-h2">{{ section.settings.designs_heading | escape }}</h2></div>

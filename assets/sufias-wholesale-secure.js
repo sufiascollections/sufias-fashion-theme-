@@ -114,6 +114,8 @@
           : 'Request approval below to become a wholesale customer.';
         if (data.approval === 'approved') {
           await openCatalog();
+          /* The public design list lower on the page repeats the catalogue for approved buyers. */
+          document.querySelectorAll('[data-wseo-designs]').forEach(n => { n.hidden = true; });
           status.textContent = '';
           lockBtn.hidden = true;
         }
