@@ -2243,50 +2243,10 @@
               "cl_gradient": "",
               "color_img": false
             }
-          },
-          "zoya-brown": {
-            "type": "bg_color",
-            "settings": {
-              "title": "Brown",
-              "color": "#7b3f30",
-              "cl_gradient": "",
-              "color_img": false
-            }
-          },
-          "zoya-zinc-teal": {
-            "type": "bg_color",
-            "settings": {
-              "title": "Zinc Teal",
-              "color": "#0e5a6e",
-              "cl_gradient": "",
-              "color_img": false
-            }
-          },
-          "zoya-skin-beige": {
-            "type": "bg_color",
-            "settings": {
-              "title": "Skin Beige",
-              "color": "#e3d3bd",
-              "cl_gradient": "",
-              "color_img": false
-            }
-          },
-          "zoya-steel-grey": {
-            "type": "bg_color",
-            "settings": {
-              "title": "Steel Grey",
-              "color": "#6f93b8",
-              "cl_gradient": "",
-              "color_img": false
-            }
           }
         },
         "block_order": [
-          "06eaa184-e59c-4525-ac5d-eac6fc91f3e8",
-          "zoya-brown",
-          "zoya-zinc-teal",
-          "zoya-skin-beige",
-          "zoya-steel-grey"
+          "06eaa184-e59c-4525-ac5d-eac6fc91f3e8"
         ],
         "settings": {}
       },
