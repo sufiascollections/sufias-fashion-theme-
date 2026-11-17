@@ -1,7 +1,7 @@
 /* Sufias: product cards across the store cycle through every photo of the product on their own.
    Photos load only for cards on screen, one photo ahead, so mobile pages stay light. */
 (() => {
-  const STEP = 2200;
+  const STEP = 2000;
   const cache = new Map();
   const seen = new WeakSet();
 
@@ -69,6 +69,7 @@
     const run = () => { if (!timer) timer = setInterval(tick, STEP); };
     const stop = () => { clearInterval(timer); timer = null; };
     layer.classList.add('is-ready');
+    setTimeout(tick, 900);
     new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? run() : stop()));
     }, { threshold: 0.35 }).observe(box);
@@ -80,7 +81,7 @@
       if (!e.isIntersecting) return;
       watcher.unobserve(e.target);
       // Stagger the cards so a row does not change all at once.
-      setTimeout(() => start(e.target), Math.random() * STEP);
+      setTimeout(() => start(e.target), Math.random() * 500);
     });
   }, { rootMargin: '200px 0px' });
 
@@ -108,6 +109,27 @@
     '@media (max-width:560px){.sf-cardshow__dots{bottom:6px;gap:3px}.sf-cardshow__dots span{width:5px;height:5px}}',
   ].join('');
   document.head.appendChild(css);
+
+  // iPhones can treat the first tap on a card as "hover" (the theme shows buttons and a second photo on hover),
+  // so the product only opened on a second tap. A short, still tap on the card photo now opens the product.
+  let touch = null;
+  document.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    touch = e.touches.length === 1 ? { x: t.clientX, y: t.clientY, at: Date.now() } : null;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (!touch) return;
+    const t = e.changedTouches[0];
+    const still = Math.abs(t.clientX - touch.x) < 10 && Math.abs(t.clientY - touch.y) < 10 && Date.now() - touch.at < 600;
+    touch = null;
+    if (!still) return;
+    const inner = e.target.closest && e.target.closest('.t4s-product-inner');
+    if (!inner || e.target.closest('button, input, select, .t4s-pr-item-btn, .t4s-product-btns, .t4s-product-btns2, [data-swatch-item], .t4s-product-sizes')) return;
+    const link = inner.querySelector('a.t4s-full-width-link[href]');
+    if (!link) return;
+    e.preventDefault();
+    location.href = link.href;
+  }, { passive: false });
 
   const boot = () => {
     scan(document);
