@@ -34,7 +34,8 @@
       </div>
       <ul class="wseo-grid" role="list">
         {%- paginate collections.all.products by 250 -%}
-          {%- for p in collections.all.products -%}
+          {%- assign wseo_newest = collections.all.products | sort: 'created_at' | reverse -%}
+          {%- for p in wseo_newest -%}
             {%- if shown >= max_designs -%}{%- break -%}{%- endif -%}
             {%- unless p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
             {%- if p.tags contains 'preview' or p.featured_image == blank -%}{%- continue -%}{%- endif -%}
