@@ -3432,20 +3432,3 @@ border-radius: 50% !important;
         transform: translateX(-100%)
     }
 } */
-/* Sufias: swatch colours for product colour names the theme does not know */
-.bg_color_brown{--t4s-bg-color:#7b3f30}
-.bg_color_zinc-teal{--t4s-bg-color:#0e5a6e}
-.bg_color_skin-beige{--t4s-bg-color:#e3d3bd}
-.bg_color_steel-grey{--t4s-bg-color:#6f93b8}
-.bg_color_deep-teal{--t4s-bg-color:#0b5563}
-.bg_color_taupe{--t4s-bg-color:#8b7d70}
-.bg_color_camel{--t4s-bg-color:#c19a6b}
-.bg_color_mauve{--t4s-bg-color:#a47a8c}
-.bg_color_dusty-rose{--t4s-bg-color:#c9a0a0}
-.bg_color_chocolate-brown{--t4s-bg-color:#5a3324}
-.bg_color_mocha-brown{--t4s-bg-color:#6f4e37}
-.bg_color_navy-blue{--t4s-bg-color:#1f2a5a}
-.bg_color_deep-navy{--t4s-bg-color:#141b3c}
-.bg_color_burgundy{--t4s-bg-color:#7a1f2b}
-.bg_color_sky-blue{--t4s-bg-color:#87bde3}
-.bg_color_charcoal-grey{--t4s-bg-color:#3f4247}
