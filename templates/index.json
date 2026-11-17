@@ -9,6 +9,139 @@
  */
 {
   "sections": {
+    "home_blog": {
+  "type": "blog-post",
+  "settings": {
+    "design_heading": "1",
+    "heading_align": "t4s-text-center",
+    "top_heading": "From our blog",
+    "icon_heading": "las la-gem",
+    "top_subheading": "Style guides, winter fabric tips and wholesale buying advice",
+    "tophead_mb": 30,
+    "blog": "news",
+    "post_des": "1",
+    "show_cate": false,
+    "show_tags": false,
+    "show_cnt": true,
+    "show_au": false,
+    "show_dt": true,
+    "show_cm": false,
+    "show_rm": true,
+    "show_irm": false,
+    "date": "date",
+    "content_align": "t4s-text-start",
+    "limit": 3,
+    "img_effect": "none",
+    "b_effect": "none",
+    "image_ratio": "ratio4_3",
+    "image_size": "cover",
+    "image_position": "8",
+    "col_dk": "3",
+    "col_tb": "2",
+    "col_mb": "1",
+    "space_h_item": "30",
+    "space_v_item": "30",
+    "space_h_item_mb": "10",
+    "space_v_item_mb": "10",
+    "layout_des": "2",
+    "loop": false,
+    "nav_dot": true,
+    "layout": "t4s-container-wrap",
+    "mg": ",,50px,",
+    "mg_mb": ",,30px,"
+  }
+},
+    "home_faq": {
+  "type": "accordion",
+  "blocks": {
+    "faq_1": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "Is delivery free?",
+        "content": "<p>Yes. Standard shipping is free on all orders across Pakistan.</p>"
+      }
+    },
+    "faq_2": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "How long does delivery take?",
+        "content": "<p>Orders are processed within 24 hours (except Sundays and public holidays) and usually delivered in 3 to 5 business days. Remote areas can take 1 to 2 extra business days. You receive a tracking number by SMS or email once your order is dispatched.</p>"
+      }
+    },
+    "faq_3": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "Which payment methods can I use?",
+        "content": "<p>You can pay cash on delivery (COD) or by bank transfer at checkout.</p>"
+      }
+    },
+    "faq_4": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "Can I return or exchange a suit?",
+        "content": "<p>Yes, within 14 days of delivery. The item must be unused, unwashed, unaltered and in its original packaging with tags. Sale or discounted items can be exchanged only, unless defective. Your first exchange is shipped free.</p>"
+      }
+    },
+    "faq_5": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "How do I choose the right size?",
+        "content": "<p>Check the size options on each product page and our <a href=\"/pages/size-guide\">Size Guide</a>. If you are unsure, message us on WhatsApp with your measurements and we will help you choose.</p>"
+      }
+    },
+    "faq_6": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "Do you sell wholesale to boutiques?",
+        "content": "<p>Yes. Boutiques, shops and online sellers can buy embroidered suits wholesale from 2 suits per design. Create a free account and request access on our <a href=\"/pages/booking\">wholesale page</a>.</p>"
+      }
+    },
+    "faq_7": {
+      "type": "accor_item",
+      "settings": {
+        "icon": "none",
+        "title": "How can I contact Sufias Fashion?",
+        "content": "<p>Call or WhatsApp +92 301 4509210, or email sufiasfashionofficial@gmail.com. Our store is at Plot 500, Pindi Stop, Maulana Shaukat Ali Road, Kot Lakhpat, Lahore.</p>"
+      }
+    }
+  },
+  "block_order": [
+    "faq_1",
+    "faq_2",
+    "faq_3",
+    "faq_4",
+    "faq_5",
+    "faq_6",
+    "faq_7"
+  ],
+  "settings": {
+    "design_heading": "1",
+    "heading_align": "t4s-text-center",
+    "top_heading": "Frequently asked questions",
+    "icon_heading": "las la-gem",
+    "top_subheading": "Delivery, payment, returns and wholesale",
+    "tophead_mb": 30,
+    "accor_des": "1",
+    "title_cl": "#222222",
+    "bg_title_cl": "#f6f6f8",
+    "title_active_cl": "#000000",
+    "bg_title_active_cl": "#f6f6f8",
+    "content_cl": "#555555",
+    "bg_content_cl": "#ffffff",
+    "content_align": "t4s-text-start",
+    "auto_active": false,
+    "layout": "t4s-cus-width",
+    "custom_width": 900,
+    "mg": ",,50px,",
+    "mg_mb": ",,30px,"
+  }
+},
     "slideshow_KMf3zM": {
       "type": "slideshow",
       "blocks": {
@@ -1047,6 +1180,8 @@
     "1646028739ae283905",
     "featured_collection_f86ECd",
     "164603504020ce33da",
+    "home_blog",
+    "home_faq",
     "164620932069107a3a",
     "contact_form_8wCgc4",
     "176859285929332e05",
