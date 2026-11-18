@@ -10,12 +10,37 @@
         {{ section.settings.hero_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '', class: 'sw-hero__wide' }}
       {%- else -%}
         {%- assign shown = 0 -%}
+        {%- assign used_fams = '' -%}
         {%- paginate collections.all.products by 250 -%}
           {%- assign newest = collections.all.products | sort: 'created_at' | reverse -%}
           {%- for p in newest -%}
             {%- if shown >= 5 -%}{%- break -%}{%- endif -%}
             {%- unless p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
             {%- if p.tags contains 'preview' or p.featured_image == blank or p.type == 'Abaya' or p.tags contains 'abaya' or p.tags contains 'Abaya' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign c = p.variants.first.title | downcase
+              assign fam = 'other'
+              if c contains 'blue' or c contains 'teal' or c contains 'navy' or c contains 'zinc'
+                assign fam = 'blue'
+              elsif c contains 'purple' or c contains 'plum' or c contains 'mauve' or c contains 'lilac'
+                assign fam = 'purple'
+              elsif c contains 'pink' or c contains 'magenta'
+                assign fam = 'pink'
+              elsif c contains 'green' or c contains 'olive' or c contains 'emerald'
+                assign fam = 'green'
+              elsif c contains 'mustard' or c contains 'yellow' or c contains 'gold' or c contains 'orange'
+                assign fam = 'yellow'
+              elsif c contains 'beige' or c contains 'brown' or c contains 'cream' or c contains 'champagne' or c contains 'taupe'
+                assign fam = 'brown'
+              elsif c contains 'black' or c contains 'grey' or c contains 'charcoal'
+                assign fam = 'black'
+              elsif c contains 'red' or c contains 'maroon' or c contains 'burgundy'
+                assign fam = 'red'
+              endif
+              assign fam_key = '|' | append: fam | append: '|'
+            -%}
+            {%- if fam != 'other' and used_fams contains fam_key -%}{%- continue -%}{%- endif -%}
+            {%- assign used_fams = used_fams | append: fam_key -%}
             {%- assign shown = shown | plus: 1 -%}
             <span class="sw-hero__tile">{{ p.featured_image | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(min-width: 750px) 20vw, 34vw', loading: 'eager', alt: '' }}</span>
           {%- endfor -%}
