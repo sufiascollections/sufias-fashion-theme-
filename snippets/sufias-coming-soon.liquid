@@ -11,6 +11,9 @@
           unless p.tags contains 'booking' and p.tags contains 'preview'
             continue
           endunless
+          if p.type == 'Abaya' or p.tags contains 'abaya' or p.tags contains 'Abaya'
+            continue
+          endif
           assign launch_at = p.metafields.custom.launch_date_time.value
           if launch_at != blank
             assign launch_epoch = launch_at | date: '%s' | plus: 0

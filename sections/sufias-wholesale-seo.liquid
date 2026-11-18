@@ -39,6 +39,7 @@
           {%- for p in wseo_newest -%}
             {%- if shown >= max_designs -%}{%- break -%}{%- endif -%}
             {%- unless p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+            {%- if p.type == 'Abaya' or p.tags contains 'abaya' or p.tags contains 'Abaya' -%}{%- continue -%}{%- endif -%}
             {%- if p.tags contains 'preview' or p.featured_image == blank -%}{%- continue -%}{%- endif -%}
             {%- assign shown = shown | plus: 1 -%}
             {%- assign alt = p.title | append: ' – wholesale embroidered suit' -%}

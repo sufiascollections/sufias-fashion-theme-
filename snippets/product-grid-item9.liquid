@@ -99,7 +99,7 @@ endif -%}
   assign booking_launch_epoch = booking_launch_at | date: '%s' | plus: 0
   assign booking_now_epoch = 'now' | date: '%s' | plus: 0
   assign booking_launch_locked = false
-  if product.tags contains 'booking' and product.tags contains 'preview'
+  if product.tags contains 'preview'
     if booking_launch_at == blank or booking_launch_epoch > booking_now_epoch
       assign booking_launch_locked = true
     endif
