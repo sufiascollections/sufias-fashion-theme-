@@ -104,10 +104,15 @@ endif -%}
       assign booking_launch_locked = true
     endif
   endif
+  # Coming-soon designs show in collections with a blurred photo, but stay out of search results.
+  assign booking_hide = false
+  if booking_launch_locked and request.page_type == 'search'
+    assign booking_hide = true
+  endif
 -%}
-{%- unless booking_launch_locked -%}
+{%- unless booking_hide -%}
 
-<div class="t4s-product t4s-pr-grid t4s-pr-style6 t4s-pr-style7 t4s-pr-{{ pid }} {{ col }} t4s-col-item" data-product-options='{ "id":"{{ pid }}","cusQty":"{{ cus_qty }}","available":{{ product.available }}, "handle":"{{ product.handle }}", "isDefault": {{ isDefault }}, "VariantFirstID": {{ current_variant.id }}, "customBadge":{{ arr_badge | json }}, "customBadgeHandle":{{ arr_badge_handle | json }},"dateStart":{{ product.created_at | date: "%s" }}, "compare_at_price":{{ current_variant.compare_at_price | json }},"price":{{ current_variant.price | json }}, "isPreoder":{{ isPreoder }},"isExternal":{{ isExternal }}{% if isExternal %},"external_title":{{ external_title | json }},"external_link":"{{ external_link | escape }}"{% endif %},"image2":{% if product.media[1] != blank %}{{ product.media[1] | image_url: width: 1 | json }},"alt":{{ product.media[1].alt | escape | json }}{% else %}false{% endif %},"isGrouped":{{ isGrouped }},"maxQuantity":{% if isDefault and isPreoder == false %}{{ max_qty }}{% else %}9999{% endif %} }'>
+<div {% if booking_launch_locked %}data-sf-launch="{{ booking_launch_epoch }}" {% endif %}class="t4s-product t4s-pr-grid {% if booking_launch_locked %}sf-soon {% endif %}t4s-pr-style6 t4s-pr-style7 t4s-pr-{{ pid }} {{ col }} t4s-col-item" data-product-options='{ "id":"{{ pid }}","cusQty":"{{ cus_qty }}","available":{{ product.available }}, "handle":"{{ product.handle }}", "isDefault": {{ isDefault }}, "VariantFirstID": {{ current_variant.id }}, "customBadge":{{ arr_badge | json }}, "customBadgeHandle":{{ arr_badge_handle | json }},"dateStart":{{ product.created_at | date: "%s" }}, "compare_at_price":{{ current_variant.compare_at_price | json }},"price":{{ current_variant.price | json }}, "isPreoder":{{ isPreoder }},"isExternal":{{ isExternal }}{% if isExternal %},"external_title":{{ external_title | json }},"external_link":"{{ external_link | escape }}"{% endif %},"image2":{% if product.media[1] != blank %}{{ product.media[1] | image_url: width: 1 | json }},"alt":{{ product.media[1].alt | escape | json }}{% else %}false{% endif %},"isGrouped":{{ isGrouped }},"maxQuantity":{% if isDefault and isPreoder == false %}{{ max_qty }}{% else %}9999{% endif %} }'>
   <div class="t4s-product-wrapper t4s-pr t4s-oh" data-cacl-slide timeline hdt-reveal="slide-in">
     <div class="t4s-product-inner t4s-pr t4s-oh">
       {%- if image.media_type == 'video' -%}

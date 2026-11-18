@@ -23,6 +23,7 @@
   };
 
   const start = async (card) => {
+    if (card.classList.contains('sf-soon')) return; // photos stay blurred until launch
     const box = card.querySelector('.t4s-product-img');
     let handle;
     try { handle = JSON.parse(card.getAttribute('data-product-options')).handle; } catch (e) { return; }
@@ -85,6 +86,31 @@
     });
   }, { rootMargin: '200px 0px' });
 
+  /* Coming-soon designs: "Coming soon" label and a countdown to the launch time. */
+  const soon = new Set();
+  const pad = (n) => (n < 10 ? '0' : '') + n;
+  const markSoon = (card) => {
+    const inner = card.querySelector('.t4s-product-inner');
+    if (!inner || inner.querySelector('.sf-soon__tag')) return;
+    const tag = document.createElement('span'); tag.className = 'sf-soon__tag'; tag.textContent = 'Coming soon';
+    const count = document.createElement('span'); count.className = 'sf-soon__count';
+    inner.append(tag, count);
+    const at = Number(card.getAttribute('data-sf-launch')) || 0;
+    if (at > 0) { soon.add({ at, count }); countdown(); }
+  };
+  let ticking = null;
+  const countdown = () => {
+    const now = Date.now() / 1000;
+    soon.forEach((s) => {
+      const left = Math.floor(s.at - now);
+      if (left <= 0) { s.count.textContent = 'Live now'; soon.delete(s); return; }
+      const d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600), m = Math.floor(left % 3600 / 60);
+      s.count.textContent = (d ? d + 'd ' : '') + pad(h) + 'h ' + pad(m) + 'm ' + pad(left % 60) + 's';
+    });
+    if (soon.size && !ticking) ticking = setInterval(countdown, 1000);
+    if (!soon.size && ticking) { clearInterval(ticking); ticking = null; }
+  };
+
   const SELECTOR = '.t4s-product[data-product-options]';
   const scan = (root) => {
     if (!watcher) return;
@@ -93,6 +119,7 @@
     cards.forEach((card) => {
       if (seen.has(card)) return;
       seen.add(card);
+      if (card.classList.contains('sf-soon')) { markSoon(card); return; }
       watcher.observe(card);
     });
   };
