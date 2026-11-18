@@ -42,7 +42,7 @@
             {%- if p.tags contains 'preview' or p.featured_image == blank -%}{%- continue -%}{%- endif -%}
             {%- assign shown = shown | plus: 1 -%}
             {%- assign alt = p.title | append: ' – wholesale embroidered suit' -%}
-            <li class="wseo-card">
+            <li class="wseo-card" data-colour="{{ p.variants.first.title | escape }} {{ p.title | escape }}">
               <a href="{{ p.url }}" class="wseo-card__link">
                 <span class="wseo-card__img">
                   {{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', alt: alt }}
@@ -54,6 +54,25 @@
           {%- endfor -%}
         {%- endpaginate -%}
       </ul>
+      <script>
+        /* Mix colours so designs of the same colour family do not sit next to or above each other. */
+        (function () {
+          var grid = document.currentScript && document.currentScript.previousElementSibling;
+          if (!grid || !grid.children.length) return;
+          var fams = [['blue',/blue|teal|navy|zinc|sky|royal|turquoise|sea|steel/],['green',/green|olive|emerald|sage|mint|pista|bottle/],['red',/red|maroon|burgundy|mehroon|mahroon|wine/],['purple',/purple|plum|lilac|mauve|violet|lavender/],['pink',/pink|magenta|rose|fuchsia|coral|peach/],['yellow',/mustard|yellow|gold|orange/],['brown',/brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude/],['black',/black|charcoal|grey|gray/],['white',/white|ivory/]];
+          function fam(li, i) { var t = (li.getAttribute('data-colour') || '').toLowerCase(); for (var k = 0; k < fams.length; k++) if (fams[k][1].test(t)) return fams[k][0]; return 'other' + i; }
+          var left = Array.prototype.slice.call(grid.children).map(function (li, i) { return { li: li, f: fam(li, i) }; }), out = [];
+          while (left.length) {
+            var pick = -1;
+            for (var w = 4; w > 0 && pick < 0; w--) {
+              var recent = out.slice(-w).map(function (x) { return x.f; });
+              for (var j = 0; j < left.length; j++) if (recent.indexOf(left[j].f) < 0) { pick = j; break; }
+            }
+            out.push(left.splice(pick < 0 ? 0 : pick, 1)[0]);
+          }
+          out.forEach(function (x) { grid.appendChild(x.li); });
+        })();
+      </script>
       <p class="wseo-cta">
         {%- if customer -%}
           <a class="sw-btn sw-btn--primary" href="#">See wholesale prices above</a>

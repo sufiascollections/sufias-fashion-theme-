@@ -156,7 +156,7 @@
       }
       return { colour: v.title === 'Default Title' ? 'Standard' : v.title, extra: '' };
     }
-    const SHADES = { navyblue: '#1f2a44', navy: '#1f2a44', deepnavy: '#14213d', olivegreen: '#556b2f', deepteal: '#0f5257', tealblue: '#367588', deepplum: '#5b2a4a', champagnebeige: '#e8d6b3', emeraldgreen: '#047857', sagegreen: '#9caf88', mustard: '#d4a017', mustardorange: '#e0a030', dustyrose: '#c08081', chocolatebrown: '#5c3a21', charcoalgrey: '#36454f', mochabrown: '#6f4e37', camel: '#c19a6b', taupe: '#8b7d6b', mauve: '#b784a7', burgundy: '#800020', maroon: '#6b1d2a', lightgrey: '#d3d3d3', blue: '#2c5aa0' };
+    const SHADES = { navyblue: '#1f2a44', navy: '#1f2a44', deepnavy: '#14213d', olivegreen: '#556b2f', deepteal: '#0f5257', tealblue: '#367588', deepplum: '#5b2a4a', champagnebeige: '#e8d6b3', emeraldgreen: '#047857', sagegreen: '#9caf88', mustard: '#d4a017', mustardorange: '#e0a030', dustyrose: '#c08081', chocolatebrown: '#5c3a21', charcoalgrey: '#36454f', mochabrown: '#6f4e37', camel: '#c19a6b', taupe: '#8b7d6b', mauve: '#b784a7', burgundy: '#800020', maroon: '#6b1d2a', lightgrey: '#d3d3d3', blue: '#2c5aa0', lilac: '#c49ad8', plum: '#6e1f5c', hotpink: '#e0157a', shockingpink: '#e0157a', zincteal: '#0e5a6e', zinc: '#0e5a6e', skinbeige: '#e3d3bd', steelgrey: '#6f93b8', bottlegreen: '#0b4d34', mintgreen: '#a8e0c5', pista: '#b5cf8a', pistachiogreen: '#b5cf8a', cream: '#f3e9d2', mahroon: '#7b1e2b', mehroon: '#7b1e2b', royalblue: '#2a4fb5', skyblue: '#87bde3', dustypink: '#d4a5a5', teapink: '#f1c4c4', coralpeach: '#f6a68a', goldyellow: '#e2b33c', mustardyellow: '#e3b021', taupebrown: '#7d6a5a', lightseagreen: '#20b2aa' };
     function swatch(name) {
       const value = String(name || '').toLowerCase().replace(/[^a-z]/g, '');
       if (SHADES[value]) return SHADES[value];
@@ -271,10 +271,43 @@
       return art;
     }
 
+    /* ---------- mix colours: designs of the same colour family do not sit next to or above each other ---------- */
+    const FAMILIES = [
+      ['blue', /blue|teal|navy|zinc|sky|royal|turquoise|sea|steel/],
+      ['green', /green|olive|emerald|sage|mint|pista|bottle/],
+      ['red', /red|maroon|burgundy|mehroon|mahroon|wine/],
+      ['purple', /purple|plum|lilac|mauve|violet|lavender/],
+      ['pink', /pink|magenta|rose|fuchsia|coral|peach/],
+      ['yellow', /mustard|yellow|gold|orange/],
+      ['brown', /brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude/],
+      ['black', /black|charcoal|grey|gray/],
+      ['white', /white|ivory/],
+    ];
+    function familyOf(p) {
+      const first = p.variants && p.variants[0] ? variantLabel(p, p.variants[0]).colour : '';
+      for (const text of [first, p.title]) {
+        const t = String(text || '').toLowerCase();
+        for (const [name, re] of FAMILIES) if (re.test(t)) return name;
+      }
+      return 'other:' + p.id;
+    }
+    function mixColours(list) {
+      const left = list.slice(), out = [], fam = list.map(familyOf), famOf = new Map(list.map((p, i) => [p, fam[i]]));
+      while (left.length) {
+        let pick = -1;
+        for (let w = 4; w > 0 && pick < 0; w--) {
+          const recent = new Set(out.slice(-w).map(p => famOf.get(p)));
+          pick = left.findIndex(p => !recent.has(famOf.get(p)));
+        }
+        out.push(left.splice(pick < 0 ? 0 : pick, 1)[0]);
+      }
+      return out;
+    }
+
     function render() {
       const term = (search.value || '').trim().toLowerCase();
       grid.replaceChildren(); upcomingGrid.replaceChildren();
-      for (const p of products) {
+      for (const p of mixColours(products)) {
         if (term && !p.title.toLowerCase().includes(term)) continue;
         (p.upcoming ? upcomingGrid : grid).append(card(p));
       }
