@@ -125,7 +125,7 @@
             "icon": "2",
             "icon_name": "las la-truck",
             "ani": "bounce is--infinite",
-            "txt": "Order in the next 24 Hours to get it between 2-3 working days",
+            "txt": "Order in the next 24 hours to get it within 2-3 working days",
             "ds": 10,
             "de": 15,
             "mode": "1",
