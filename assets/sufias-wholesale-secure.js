@@ -279,6 +279,7 @@
         (p.upcoming ? upcomingGrid : grid).append(card(p));
       }
       $('[data-upcoming-section]').hidden = !upcomingGrid.children.length;
+      if (upcomingGrid.children.length) document.querySelectorAll('[data-wseo-upcoming]').forEach(n => { n.hidden = true; });
       if (!grid.children.length) grid.append(el('p', 'sw-empty', term ? 'No designs match "' + search.value + '".' : 'No wholesale designs available right now.'));
       const min = products.find(p => p.minQuantity);
       if (min) $('[data-wholesale-min]').textContent = min.minQuantity;
