@@ -3,9 +3,7 @@
     "booking": {
       "type": "sufias-booking",
       "settings": {
-        "ledger_enabled": true,
-        "hero_image": "shopify://shop_images/sufias-wholesale-banner.jpg",
-        "hero_image_mobile": "shopify://shop_images/sufias-wholesale-banner-mobile.jpg"
+        "ledger_enabled": true
       }
     },
     "seo": {
