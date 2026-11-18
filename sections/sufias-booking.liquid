@@ -31,6 +31,7 @@
           {%- endfor -%}
         {%- else -%}
           {%- assign shown = 0 -%}
+          {%- paginate collections.all.products by 250 -%}
           {%- assign newest = collections.all.products | sort: 'created_at' | reverse -%}
           {%- for p in newest -%}
             {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
@@ -39,6 +40,7 @@
             {%- assign shown = shown | plus: 1 -%}
             <span class="sw-hero__photo">{{ p.featured_image | image_url: width: 520 | image_tag: widths: '260, 390, 520', sizes: '(min-width: 990px) 200px, 30vw', loading: 'eager', alt: '' }}</span>
           {%- endfor -%}
+          {%- endpaginate -%}
         {%- endif -%}
       </div>
     </div>
