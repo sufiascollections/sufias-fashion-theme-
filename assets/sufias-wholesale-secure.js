@@ -273,15 +273,15 @@
 
     /* ---------- mix colours: designs of the same colour family do not sit next to or above each other ---------- */
     const FAMILIES = [
-      ['blue', /blue|teal|navy|zinc|sky|royal|turquoise|sea|steel/],
-      ['green', /green|olive|emerald|sage|mint|pista|bottle/],
-      ['red', /red|maroon|burgundy|mehroon|mahroon|wine/],
-      ['purple', /purple|plum|lilac|mauve|violet|lavender/],
-      ['pink', /pink|magenta|rose|fuchsia|coral|peach/],
-      ['yellow', /mustard|yellow|gold|orange/],
-      ['brown', /brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude/],
-      ['black', /black|charcoal|grey|gray/],
-      ['white', /white|ivory/],
+      ['blue', /\b(?:blue|teal|navy|zinc|sky|royal|turquoise|sea|steel)\b/],
+      ['green', /\b(?:green|olive|emerald|sage|mint|pista|bottle)\b/],
+      ['red', /\b(?:red|maroon|burgundy|mehroon|mahroon|wine)\b/],
+      ['purple', /\b(?:purple|plum|lilac|mauve|violet|lavender)\b/],
+      ['pink', /\b(?:pink|magenta|rose|fuchsia|coral|peach)\b/],
+      ['yellow', /\b(?:mustard|yellow|gold|orange)\b/],
+      ['brown', /\b(?:brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude)\b/],
+      ['black', /\b(?:black|charcoal|grey|gray)\b/],
+      ['white', /\b(?:white|ivory)\b/],
     ];
     function familyOf(p) {
       const first = p.variants && p.variants[0] ? variantLabel(p, p.variants[0]).colour : '';

@@ -42,7 +42,7 @@
             {%- if p.tags contains 'preview' or p.featured_image == blank -%}{%- continue -%}{%- endif -%}
             {%- assign shown = shown | plus: 1 -%}
             {%- assign alt = p.title | append: ' – wholesale embroidered suit' -%}
-            <li class="wseo-card" data-colour="{{ p.variants.first.title | escape }} {{ p.title | escape }}">
+            <li class="wseo-card" data-colour="{{ p.variants.first.title | escape }}" data-title="{{ p.title | escape }}">
               <a href="{{ p.url }}" class="wseo-card__link">
                 <span class="wseo-card__img">
                   {{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', alt: alt }}
@@ -59,8 +59,8 @@
         (function () {
           var grid = document.currentScript && document.currentScript.previousElementSibling;
           if (!grid || !grid.children.length) return;
-          var fams = [['blue',/blue|teal|navy|zinc|sky|royal|turquoise|sea|steel/],['green',/green|olive|emerald|sage|mint|pista|bottle/],['red',/red|maroon|burgundy|mehroon|mahroon|wine/],['purple',/purple|plum|lilac|mauve|violet|lavender/],['pink',/pink|magenta|rose|fuchsia|coral|peach/],['yellow',/mustard|yellow|gold|orange/],['brown',/brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude/],['black',/black|charcoal|grey|gray/],['white',/white|ivory/]];
-          function fam(li, i) { var t = (li.getAttribute('data-colour') || '').toLowerCase(); for (var k = 0; k < fams.length; k++) if (fams[k][1].test(t)) return fams[k][0]; return 'other' + i; }
+          var fams = [['blue',/\b(?:blue|teal|navy|zinc|sky|royal|turquoise|sea|steel)\b/],['green',/\b(?:green|olive|emerald|sage|mint|pista|bottle)\b/],['red',/\b(?:red|maroon|burgundy|mehroon|mahroon|wine)\b/],['purple',/\b(?:purple|plum|lilac|mauve|violet|lavender)\b/],['pink',/\b(?:pink|magenta|rose|fuchsia|coral|peach)\b/],['yellow',/\b(?:mustard|yellow|gold|orange)\b/],['brown',/\b(?:brown|beige|camel|taupe|mocha|skin|champagne|cream|chocolate|nude)\b/],['black',/\b(?:black|charcoal|grey|gray)\b/],['white',/\b(?:white|ivory)\b/]];
+          function fam(li, i) { var texts = [li.getAttribute('data-colour') || '', li.getAttribute('data-title') || '']; for (var n = 0; n < texts.length; n++) { var t = texts[n].toLowerCase(); for (var k = 0; k < fams.length; k++) if (fams[k][1].test(t)) return fams[k][0]; } return 'other' + i; }
           var left = Array.prototype.slice.call(grid.children).map(function (li, i) { return { li: li, f: fam(li, i) }; }), out = [];
           while (left.length) {
             var pick = -1;
