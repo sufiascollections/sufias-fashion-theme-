@@ -92,14 +92,24 @@
     @keyframes swSweep{0%,55%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
     @keyframes swGlow{0%,100%{opacity:.75}50%{opacity:1}}
     @keyframes swShine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+    /* Phones: the same photos fill the banner side by side under a dark overlay, heading centred. */
     @media (max-width:749px){
+      .sw-hero--fan{padding:56px 0 52px}
+      .sw-hero--fan::before{display:none}
+      .sw-hero--fan .sw-wrap,.sw-hero--fan .sw-hero__inner{position:static!important}
       .sw-hero--fan .sw-hero__inner{grid-template-columns:1fr}
-      .sw-hero__fan{order:-1;min-height:0;padding:8px 0 10px}
-      .sw-hero__card{width:31%;max-width:150px}
-      .sw-hero__card:nth-of-type(2){width:35%;max-width:168px}
-      .sw-hero__card:nth-of-type(1){--x:14px}
-      .sw-hero__card:nth-of-type(3){--x:-14px}
-        .sw-hero--fan::before{mask-image:none;-webkit-mask-image:none;opacity:.5}
+      .sw-hero--fan .sw-hero__fan{position:absolute;inset:0;display:flex;align-items:stretch;min-height:0;padding:0}
+      .sw-hero__fan::after{content:"";position:absolute;inset:0;z-index:4;background:linear-gradient(180deg,rgb(20 18 15 / 55%) 0%,rgb(20 18 15 / 68%) 100%)}
+      .sw-hero__glow{display:none}
+      .sw-hero--fan .sw-hero__fan .sw-hero__card{flex:1 1 0;width:auto;max-width:none;height:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;animation:none;transform:none}
+      .sw-hero--fan .sw-hero__fan .sw-hero__card::after{display:none}
+      .sw-hero__card img{object-position:center 25%}
+      .sw-hero__text{position:relative;z-index:5;text-align:center}
+      .sw-hero--fan .sw-hero__title{text-shadow:0 2px 18px rgb(0 0 0 / 45%)}
+      .sw-hero--fan .sw-hero__shine{animation:none;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+      .sw-hero--fan .sw-hero__lead{margin-left:auto;margin-right:auto;color:#eee7dc;text-shadow:0 1px 10px rgb(0 0 0 / 50%)}
+      .sw-hero--fan .sw-hero__actions{justify-content:center}
+      .sw-hero--fan .sw-btn--ghost-light{background:rgb(20 18 15 / 35%);backdrop-filter:blur(4px)}
     }
   </style>
 
