@@ -1,0 +1,116 @@
+  {%- comment -%}
+    Coming soon: designs tagged booking + preview whose launch time is still ahead. Photos stay blurred and a
+    countdown runs to the launch. With nothing scheduled, a "next drop" panel invites buyers to get notified.
+  {%- endcomment -%}
+  {%- liquid
+    assign now_epoch = 'now' | date: '%s' | plus: 0
+    assign soon_count = 0
+    capture soon_cards
+      paginate collections.all.products by 250
+        for p in collections.all.products
+          unless p.tags contains 'booking' and p.tags contains 'preview'
+            continue
+          endunless
+          assign launch_at = p.metafields.custom.launch_date_time.value
+          if launch_at != blank
+            assign launch_epoch = launch_at | date: '%s' | plus: 0
+            if launch_epoch <= now_epoch
+              continue
+            endif
+          endif
+          if soon_count >= 8
+            break
+          endif
+          assign soon_count = soon_count | plus: 1
+          echo '<li class="wseo-soon__card">'
+          echo '<span class="wseo-soon__img">'
+          if p.featured_image != blank
+            echo p.featured_image | image_url: width: 360 | image_tag: loading: 'lazy', alt: '', width: 360
+          endif
+          echo '<span class="wseo-soon__tag">Coming soon</span></span>'
+          echo '<span class="wseo-soon__title">'
+          echo p.title | escape
+          echo '</span>'
+          echo '<span class="wseo-soon__meta">'
+          echo p.variants.size | append: ' colours'
+          echo '</span>'
+          if launch_at != blank
+            echo '<span class="wseo-soon__when">Launch ' | append: launch_at | date: '%d %b, %l:%M %p' | append: '</span>'
+            echo '<span class="wseo-soon__count" data-wseo-countdown="' | append: launch_epoch | append: '"></span>'
+          endif
+          echo '</li>'
+        endfor
+      endpaginate
+    endcapture
+    assign wa_text = 'Assalam o Alaikum, please send me the next wholesale design drop from Sufias Fashion.' | url_encode
+  -%}
+  <div class="sw-section sw-section--dark wseo-soon" data-wseo-upcoming aria-labelledby="wseo-soon-h">
+    <div class="sw-wrap">
+      <div class="wseo-soon__head">
+        <div><p class="sw-kicker">The next drop</p><h2 class="sw-h2" id="wseo-soon-h">Coming soon</h2></div>
+        <p class="wseo-soon__lead">{% if soon_count > 0 %}New designs launching shortly. Approved buyers can order the moment each one goes live.{% else %}Fresh embroidered designs are added every week. Get the next drop on WhatsApp before it goes live.{% endif %}</p>
+      </div>
+      {%- if soon_count > 0 -%}
+        <ul class="wseo-soon__grid" role="list">{{ soon_cards }}</ul>
+      {%- else -%}
+        <div class="wseo-soon__empty">
+          <ul class="wseo-soon__steps" role="list">
+            <li><strong>Every week</strong><span>New winter, lawn and abaya designs</span></li>
+            <li><strong>First look</strong><span>Approved buyers see each drop before launch</span></li>
+            <li><strong>Every colour</strong><span>Order 10 to 24 suits per design, colours mixed</span></li>
+          </ul>
+        </div>
+      {%- endif -%}
+      <p class="wseo-soon__cta">
+        <a class="sw-btn wseo-soon__wa" href="https://wa.me/923014509210?text={{ wa_text }}" target="_blank" rel="noopener">Notify me on WhatsApp</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var items = document.querySelectorAll('[data-wseo-countdown]');
+      if (!items.length) return;
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function tick() {
+        var now = Date.now() / 1000, pending = 0;
+        items.forEach(function (el) {
+          var left = Math.floor(Number(el.getAttribute('data-wseo-countdown')) - now);
+          if (left <= 0) { el.textContent = 'Live now'; return; }
+          pending++;
+          var d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600), m = Math.floor(left % 3600 / 60), s = left % 60;
+          el.textContent = (d ? d + 'd ' : '') + pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's';
+        });
+        if (pending) setTimeout(tick, 1000);
+      }
+      tick();
+    })();
+  </script>
+
+<style>
+    .wseo-soon .wseo-soon__head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-bottom:20px}
+    .wseo-soon .sw-h2{margin:0}
+    .wseo-soon[hidden]{display:none!important}
+    .wseo-soon{position:relative;overflow:hidden;background:radial-gradient(120% 140% at 85% 0%,#3a2f22 0%,var(--sw-ink-2) 55%,#171613 100%)}
+    .wseo-soon .sw-h2{color:#fff}
+    .wseo-soon__lead{max-width:440px;margin:0;color:rgb(255 255 255 / 72%);font-size:15px;line-height:1.6}
+    .wseo-soon__grid{list-style:none;margin:0;padding:0;display:grid;gap:clamp(12px,2vw,20px);grid-template-columns:repeat(4,minmax(0,1fr))}
+    .wseo-soon__card{display:grid;gap:6px;min-width:0}
+    .wseo-soon__img{position:relative;display:block;aspect-ratio:4/5;border-radius:var(--sw-radius);overflow:hidden;background:#2f2a23;border:1px solid rgb(201 169 110 / 35%)}
+    .wseo-soon__img img{width:100%;height:100%;object-fit:cover;filter:blur(14px) saturate(1.1);transform:scale(1.15)}
+    .wseo-soon__tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:8px 14px;border-radius:999px;background:rgb(23 22 19 / 72%);border:1px solid rgb(201 169 110 / 60%);color:#e7d3a8;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+    .wseo-soon__title{font-weight:600;line-height:1.3;color:#fff;overflow-wrap:anywhere}
+    .wseo-soon__meta,.wseo-soon__when{font-size:13px;color:rgb(255 255 255 / 65%)}
+    .wseo-soon__count{display:inline-flex;justify-self:start;padding:4px 10px;border-radius:999px;background:#c9a96e;color:#1d1c1a;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+    .wseo-soon__count:empty{display:none}
+    .wseo-soon__empty{border:1px solid rgb(201 169 110 / 30%);border-radius:16px;background:rgb(255 255 255 / 4%);padding:clamp(16px,3vw,28px)}
+    .wseo-soon__steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr))}
+    .wseo-soon__steps li{display:grid;gap:4px;padding-left:14px;border-left:2px solid #c9a96e}
+    .wseo-soon__steps strong{color:#fff;font-size:16px}
+    .wseo-soon__steps span{color:rgb(255 255 255 / 70%);font-size:14px;line-height:1.5}
+    .wseo-soon__cta{margin:24px 0 0;display:flex;justify-content:center}
+    .wseo-soon__wa{min-height:48px;padding:0 24px;background:#c9a96e;color:#1d1c1a;border-color:#c9a96e;font-weight:700}
+    .wseo-soon__wa:hover{background:#fff;border-color:#fff;color:#1d1c1a}
+    @media (max-width:989px){.wseo-soon__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:560px){.wseo-soon__steps{grid-template-columns:1fr}.wseo-soon__wa{flex:1 1 100%}.wseo-soon__tag{font-size:10px;padding:6px 10px}}
+</style>
