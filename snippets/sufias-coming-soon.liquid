@@ -35,7 +35,8 @@
           echo p.variants.size | append: ' colours'
           echo '</span>'
           if launch_at != blank
-            echo '<span class="wseo-soon__when">Launch ' | append: launch_at | date: '%d %b, %l:%M %p' | append: '</span>'
+            assign launch_label = launch_at | date: '%d %b, %l:%M %p'
+            echo '<span class="wseo-soon__when">Launch: ' | append: launch_label | append: '</span>'
             echo '<span class="wseo-soon__count" data-wseo-countdown="' | append: launch_epoch | append: '"></span>'
           endif
           echo '</li>'
