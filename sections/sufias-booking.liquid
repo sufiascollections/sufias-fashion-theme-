@@ -64,7 +64,6 @@
             {%- endfor -%}
           {%- endpaginate -%}
         {%- endif -%}
-        <b class="sw-hero__badge">New designs every week</b>
       </div>
     </div>
   </header>
@@ -84,7 +83,6 @@
     .sw-hero__card:nth-of-type(3){--r:7deg;--x:-34px;--y:8px;z-index:2;animation:swFloat 6s ease-in-out -4s infinite}
     .sw-hero__card:nth-of-type(2)::after{animation-delay:1.2s}
     .sw-hero__card:nth-of-type(3)::after{animation-delay:2.4s}
-    .sw-hero__badge{position:absolute;right:6%;bottom:6px;z-index:4;padding:8px 14px;border-radius:999px;background:#c9a96e;color:#1d1c1a;font-size:12px;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 24px rgb(0 0 0 / 40%)}
     @media (hover:hover){
       .sw-hero__fan:hover .sw-hero__card:nth-of-type(1){--x:6px;--r:-10deg}
       .sw-hero__fan:hover .sw-hero__card:nth-of-type(3){--x:-6px;--r:10deg}
@@ -96,13 +94,12 @@
     @keyframes swShine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
     @media (max-width:749px){
       .sw-hero--fan .sw-hero__inner{grid-template-columns:1fr}
-      .sw-hero__fan{order:-1;min-height:0;padding:8px 0 22px}
+      .sw-hero__fan{order:-1;min-height:0;padding:8px 0 10px}
       .sw-hero__card{width:31%;max-width:150px}
       .sw-hero__card:nth-of-type(2){width:35%;max-width:168px}
       .sw-hero__card:nth-of-type(1){--x:14px}
       .sw-hero__card:nth-of-type(3){--x:-14px}
-      .sw-hero__badge{right:50%;transform:translateX(50%);bottom:0;font-size:11px;padding:6px 12px}
-      .sw-hero--fan::before{mask-image:none;-webkit-mask-image:none;opacity:.5}
+        .sw-hero--fan::before{mask-image:none;-webkit-mask-image:none;opacity:.5}
     }
   </style>
 
