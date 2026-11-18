@@ -7,7 +7,11 @@
   <header class="sw-hero sw-hero--banner">
     <div class="sw-hero__bg" aria-hidden="true">
       {%- if section.settings.hero_image != blank -%}
-        {{ section.settings.hero_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '', class: 'sw-hero__wide' }}
+        {%- assign hero_m = section.settings.hero_image_mobile | default: section.settings.hero_image -%}
+        <picture>
+          <source media="(max-width: 749px)" srcset="{{ hero_m | image_url: width: 600 }} 600w, {{ hero_m | image_url: width: 900 }} 900w, {{ hero_m | image_url: width: 1200 }} 1200w" sizes="100vw">
+          {{ section.settings.hero_image | image_url: width: 2400 | image_tag: widths: '1100, 1500, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '', class: 'sw-hero__wide' }}
+        </picture>
       {%- else -%}
         {%- assign shown = 0 -%}
         {%- assign used_fams = '' -%}
@@ -180,4 +184,4 @@
   <script src="{{ 'sufias-wholesale-secure.js' | asset_url }}" defer></script>
   {% endif %}
 </section>
-{% schema %}{"name":"Sufias Booking","tag":"section","class":"t4s-section sufias-booking-section","settings":[{"type":"checkbox","id":"ledger_enabled","label":"Save bookings to connected khata backend","default":true},{"type":"header","content":"Banner"},{"type":"image_picker","id":"hero_image","label":"Wide banner photo","info":"Leave empty to show photos of the newest wholesale designs side by side."}],"presets":[{"name":"Sufias Booking"}]}{% endschema %}
+{% schema %}{"name":"Sufias Booking","tag":"section","class":"t4s-section sufias-booking-section","settings":[{"type":"checkbox","id":"ledger_enabled","label":"Save bookings to connected khata backend","default":true},{"type":"header","content":"Banner"},{"type":"image_picker","id":"hero_image","label":"Wide banner photo","info":"Leave empty to show photos of the newest wholesale designs side by side."},{"type":"image_picker","id":"hero_image_mobile","label":"Mobile banner photo","info":"Optional. A taller photo for phones; the wide photo is used when empty."}],"presets":[{"name":"Sufias Booking"}]}{% endschema %}
