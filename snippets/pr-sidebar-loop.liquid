@@ -1,4 +1,16 @@
 {%- liquid
+    assign sf_launch_at = product.metafields.custom.launch_date_time.value
+    assign sf_locked = false
+    if product.tags contains 'booking' and product.tags contains 'preview'
+      assign sf_launch_epoch = sf_launch_at | date: '%s' | plus: 0
+      assign sf_now_epoch = 'now' | date: '%s' | plus: 0
+      if sf_launch_at == blank or sf_launch_epoch > sf_now_epoch
+        assign sf_locked = true
+      endif
+    endif
+-%}
+{%- unless sf_locked -%}
+{%- liquid
     assign pr_url = product.url
     assign placeholder_img = settings.placeholder_img
 	assign image = product.featured_media | default: placeholder_img
@@ -17,3 +29,4 @@
 	</div>
 </div>
  
+{%- endunless -%}

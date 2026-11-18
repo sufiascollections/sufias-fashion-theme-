@@ -78,6 +78,15 @@
     {%- form 'product', product, id: product_form_id, data-productid: product.id, class: class_frm, novalidate: 'novalidate', data-type: 'add-to-cart-form', data-disable-swatch: isProductDefault -%}
 
       {%- if booking_launch_locked -%}
+        <style>
+          [data-product-single-media-group] img,[data-product-single-media-group] video,.t4s-product__media-item img,
+          .t4s-product__media-wrapper img,.t4s-product__media-wrapper video,.t4s-product__thumb img,.t4s-carousel__nav-item img,
+          .t4s-product-thumb img,[data-thumb-item] img{filter:blur(18px)!important;transform:scale(1.08)}
+          [data-product-single-media-group],.t4s-product__media-wrapper,.t4s-product__media-item,.t4s-product__thumb,.t4s-carousel__nav-item{overflow:hidden}
+          .pswp,.t4s-pswp{display:none!important}
+          .t4s-product__media-wrapper .t4s-pswp-btn,.t4s-product__media-wrapper [data-pswp-btn-triger],.t4s-product__media-wrapper .t4s-product__zoom-wrapper{display:none!important}
+        </style>
+
         <div class="sufias-launch-lock" role="status">
           <strong>Coming soon</strong>
           {% if booking_launch_at != blank %}
