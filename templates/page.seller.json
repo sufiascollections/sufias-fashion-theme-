@@ -3,9 +3,25 @@
     "seller": {
       "type": "sufias-seller",
       "settings": {}
+    },
+    "seller_info": {
+      "type": "sufias-seller-info",
+      "blocks": {
+        "step_1": {"type": "step", "settings": {"title": "Create a free account", "text": "Register on sufias.com with your name and email, then log in."}},
+        "step_2": {"type": "step", "settings": {"title": "Request seller access", "text": "Send your shop name and a few sample designs to Sufias Fashion on WhatsApp."}},
+        "step_3": {"type": "step", "settings": {"title": "Get approved", "text": "Sufias Fashion reviews your designs. Once approved, this page opens your seller dashboard."}},
+        "step_4": {"type": "step", "settings": {"title": "List designs and get paid", "text": "Add photos, colours and your wholesale price. You are paid for every suit that sells."}},
+        "benefit_1": {"type": "benefit", "settings": {"title": "Buyers across Pakistan", "text": "Your designs appear on the Sufias Fashion wholesale page, where boutiques and resellers already order."}},
+        "benefit_2": {"type": "benefit", "settings": {"title": "Orders and payments handled", "text": "Sufias Fashion takes the orders and collects the payments, so you don't chase buyers."}},
+        "benefit_3": {"type": "benefit", "settings": {"title": "Your own seller dashboard", "text": "Add and update your designs yourself, and see what has sold and what is due to you."}},
+        "faq_1": {"type": "faq", "settings": {"question": "Who can sell on Sufias wholesale?", "answer": "<p>Manufacturers, embroidery units and brands that make 3-piece suits and similar wear in Pakistan. Every seller is approved by Sufias Fashion first.</p>"}},
+        "faq_2": {"type": "faq", "settings": {"question": "How do I get approved?", "answer": "<p>Log in, then send your shop name and a few sample designs on WhatsApp. We review them and approve your account.</p>"}},
+        "faq_3": {"type": "faq", "settings": {"question": "How and when do I get paid?", "answer": "<p>You are paid for every sale. Your dashboard shows what has sold and what is due. Payment details are shared when your account is approved.</p>"}},
+        "faq_4": {"type": "faq", "settings": {"question": "Can I change my prices and designs later?", "answer": "<p>Yes. Approved sellers can edit their designs, colours and wholesale prices from the seller dashboard on this page.</p>"}}
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4", "benefit_1", "benefit_2", "benefit_3", "faq_1", "faq_2", "faq_3", "faq_4"],
+      "settings": {}
     }
   },
-  "order": [
-    "seller"
-  ]
+  "order": ["seller", "seller_info"]
 }

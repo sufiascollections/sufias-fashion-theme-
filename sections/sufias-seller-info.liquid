@@ -1,0 +1,158 @@
+{%- comment -%}
+  Sufias Seller info: how selling on the Sufias wholesale marketplace works.
+  Sits under the "Sufias Seller" section on /pages/sell. Uses the shared
+  sufias-wholesale.css design tokens (--sw-*). All copy is editable in the theme editor.
+{%- endcomment -%}
+{%- liquid
+  assign hide_section = false
+  if section.settings.visibility == 'guests' and customer
+    assign hide_section = true
+  endif
+-%}
+{%- unless hide_section -%}
+{{ 'sufias-wholesale.css' | asset_url | stylesheet_tag }}
+<div class="sw si" aria-labelledby="si-title-{{ section.id }}">
+  <div class="sw-wrap si-body">
+    <div class="si-intro">
+      {%- if section.settings.kicker != blank -%}<p class="sw-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+      <h2 class="sw-h2" id="si-title-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.intro != blank -%}<div class="sw-muted si-lead">{{ section.settings.intro }}</div>{%- endif -%}
+    </div>
+
+    {%- assign steps = section.blocks | where: 'type', 'step' -%}
+    {%- if steps.size > 0 -%}
+      <div class="si-group">
+        <h3 class="si-title">{{ section.settings.steps_title | escape }}</h3>
+        <ol class="si-grid si-steps">
+          {%- for block in steps -%}
+            <li class="si-card" {{ block.shopify_attributes }}>
+              <span class="si-num" aria-hidden="true">{{ forloop.index }}</span>
+              <h4>{{ block.settings.title | escape }}</h4>
+              <p>{{ block.settings.text | escape }}</p>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+
+    {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
+    {%- if benefits.size > 0 -%}
+      <div class="si-group">
+        <h3 class="si-title">{{ section.settings.benefits_title | escape }}</h3>
+        <ul class="si-grid si-benefits">
+          {%- for block in benefits -%}
+            <li class="si-card" {{ block.shopify_attributes }}>
+              <h4>{{ block.settings.title | escape }}</h4>
+              <p>{{ block.settings.text | escape }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- assign faqs = section.blocks | where: 'type', 'faq' -%}
+    {%- if faqs.size > 0 -%}
+      <div class="si-group si-faq">
+        <h3 class="si-title">{{ section.settings.faq_title | escape }}</h3>
+        {%- for block in faqs -%}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.question | escape }}</summary>
+            <div class="sw-muted si-answer">{{ block.settings.answer }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="si-cta">
+      <h3 class="sw-h2">{{ section.settings.cta_heading | escape }}</h3>
+      {%- if section.settings.cta_text != blank -%}<p>{{ section.settings.cta_text | escape }}</p>{%- endif -%}
+      <div class="si-actions">
+        {%- unless customer -%}
+          <a class="sw-btn si-btn-light" href="{{ routes.account_register_url }}">{{ section.settings.register_label | escape }}</a>
+          <a class="sw-btn sw-btn--ghost-light" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">{{ section.settings.login_label | escape }}</a>
+        {%- endunless -%}
+        {%- assign wa = section.settings.whatsapp | remove: ' ' | remove: '-' | remove: '+' -%}
+        {%- if wa != blank -%}
+          <a class="sw-btn si-btn-wa" href="https://wa.me/{{ wa }}?text={{ section.settings.whatsapp_message | url_encode }}" target="_blank" rel="noopener">{{ section.settings.whatsapp_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <style>
+    .si-body{padding-block:8px 64px;display:grid;gap:44px}
+    .si-intro{max-width:760px}
+    .si-intro .sw-h2{margin:0 0 10px}
+    .si-lead p{margin:0}
+    .si-title{margin:0 0 16px;font-size:20px;color:var(--sw-ink)}
+    .si-grid{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+    .si-steps{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .si-benefits{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .si-card{background:var(--sw-surface);border:1px solid var(--sw-line);border-radius:var(--sw-radius);box-shadow:var(--sw-shadow);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+    .si-card h4{margin:0;font-size:16px;color:var(--sw-ink)}
+    .si-card p{margin:0;font-size:14px;line-height:1.55;color:var(--sw-muted)}
+    .si-num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sw-ink);color:#fff;font-weight:700;font-size:14px}
+    .si-faq{max-width:760px}
+    .si-faq details{border-bottom:1px solid var(--sw-line);padding:14px 0}
+    .si-faq summary{display:flex;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;font-weight:600;color:var(--sw-ink)}
+    .si-faq summary::-webkit-details-marker{display:none}
+    .si-faq summary::after{content:'+';font-size:20px;line-height:1;color:var(--sw-accent-ink)}
+    .si-faq details[open] summary::after{content:'\2013'}
+    .si-faq summary:focus-visible,.si .sw-btn:focus-visible{outline:2px solid var(--sw-accent);outline-offset:3px}
+    .si-answer{margin-top:8px;line-height:1.6}
+    .si-answer p{margin:0}
+    .si-cta{background:var(--sw-ink-2);color:#fff;border-radius:var(--sw-radius);padding:clamp(24px,4vw,40px);text-align:center;display:grid;gap:12px;justify-items:center}
+    .si-cta .sw-h2{margin:0;color:#fff}
+    .si-cta p{margin:0;max-width:560px;color:rgb(255 255 255 / 80%)}
+    .si-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:6px}
+    .si-btn-light{background:#fff;color:var(--sw-ink)}
+    .si-btn-wa{background:#1f8f4e;color:#fff}
+    @media (max-width:749px){
+      .si-body{gap:32px;padding-bottom:48px}
+      .si-actions{display:grid;grid-template-columns:1fr;width:100%}
+      .si-actions .sw-btn{min-height:46px}
+    }
+  </style>
+</div>
+{%- endunless -%}
+{% schema %}
+{
+  "name": "Sufias Seller info",
+  "tag": "section",
+  "class": "t4s-section sufias-seller-info-section",
+  "settings": [
+    {"type": "select", "id": "visibility", "label": "Show this section to", "options": [{"value": "guests", "label": "Logged-out visitors only"}, {"value": "all", "label": "Everyone"}], "default": "guests"},
+    {"type": "header", "content": "Intro"},
+    {"type": "text", "id": "kicker", "label": "Small label", "default": "How selling works"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Sell your designs to boutiques across Pakistan"},
+    {"type": "richtext", "id": "intro", "label": "Intro text", "default": "<p>List your embroidered suits on the Sufias Fashion wholesale page. Boutiques and resellers order from the page, Sufias Fashion handles the orders and payments, and you are paid for every sale.</p>"},
+    {"type": "header", "content": "Group titles"},
+    {"type": "text", "id": "steps_title", "label": "Steps title", "default": "Start selling in 4 steps"},
+    {"type": "text", "id": "benefits_title", "label": "Benefits title", "default": "What Sufias Fashion does for you"},
+    {"type": "text", "id": "faq_title", "label": "FAQ title", "default": "Seller questions"},
+    {"type": "header", "content": "Call to action"},
+    {"type": "text", "id": "cta_heading", "label": "Heading", "default": "Ready to sell with us?"},
+    {"type": "text", "id": "cta_text", "label": "Text", "default": "Create a free account, then send us your shop name and a few sample designs on WhatsApp."},
+    {"type": "text", "id": "register_label", "label": "Register button", "default": "Create free account"},
+    {"type": "text", "id": "login_label", "label": "Log in button", "default": "Log in"},
+    {"type": "header", "content": "WhatsApp"},
+    {"type": "text", "id": "whatsapp", "label": "WhatsApp number (with country code)", "info": "Leave empty to hide the WhatsApp button.", "default": "923228118115"},
+    {"type": "text", "id": "whatsapp_label", "label": "WhatsApp button", "default": "Ask on WhatsApp"},
+    {"type": "text", "id": "whatsapp_message", "label": "Pre-filled message", "default": "Assalam o Alaikum, I want to sell my designs on the Sufias Fashion wholesale marketplace."}
+  ],
+  "blocks": [
+    {"type": "step", "name": "Step", "settings": [
+      {"type": "text", "id": "title", "label": "Title", "default": "Step"},
+      {"type": "textarea", "id": "text", "label": "Text"}
+    ]},
+    {"type": "benefit", "name": "Benefit", "settings": [
+      {"type": "text", "id": "title", "label": "Title", "default": "Benefit"},
+      {"type": "textarea", "id": "text", "label": "Text"}
+    ]},
+    {"type": "faq", "name": "FAQ", "settings": [
+      {"type": "text", "id": "question", "label": "Question", "default": "Question"},
+      {"type": "richtext", "id": "answer", "label": "Answer"}
+    ]}
+  ],
+  "presets": [{"name": "Sufias Seller info"}]
+}
+{% endschema %}
