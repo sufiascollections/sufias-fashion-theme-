@@ -92,13 +92,13 @@
     .si-card p{margin:0;font-size:14px;line-height:1.55;color:var(--sw-muted)}
     .si-num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sw-ink);color:#fff;font-weight:700;font-size:14px}
     .si-faq{max-width:760px}
-    .si-faq details{border-bottom:1px solid var(--sw-line);padding:14px 0}
-    .si-faq summary{display:flex;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;font-weight:600;color:var(--sw-ink)}
+    .si-faq details{border-bottom:1px solid var(--sw-line)}
+    .si-faq summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:12px 0;cursor:pointer;list-style:none;font-weight:600;color:var(--sw-ink)}
     .si-faq summary::-webkit-details-marker{display:none}
     .si-faq summary::after{content:'+';font-size:20px;line-height:1;color:var(--sw-accent-ink)}
     .si-faq details[open] summary::after{content:'\2013'}
     .si-faq summary:focus-visible,.si .sw-btn:focus-visible{outline:2px solid var(--sw-accent);outline-offset:3px}
-    .si-answer{margin-top:8px;line-height:1.6}
+    .si-answer{padding:0 0 16px;line-height:1.6}
     .si-answer p{margin:0}
     .si-cta{background:var(--sw-ink-2);color:#fff;border-radius:var(--sw-radius);padding:clamp(24px,4vw,40px);text-align:center;display:grid;gap:12px;justify-items:center}
     .si-cta .sw-h2{margin:0;color:#fff}
@@ -110,6 +110,10 @@
       .si-body{gap:32px;padding-bottom:48px}
       .si-actions{display:grid;grid-template-columns:1fr;width:100%}
       .si-actions .sw-btn{min-height:46px}
+      .si-steps .si-card{grid-template-columns:34px minmax(0,1fr);column-gap:14px;row-gap:4px;padding:16px}
+      .si-steps .si-num{grid-row:span 2}
+      .si-steps .si-card h4{align-self:center}
+      .si-benefits .si-card{padding:16px}
     }
   </style>
 </div>
