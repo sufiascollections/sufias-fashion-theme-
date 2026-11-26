@@ -196,7 +196,7 @@ assign use_link_vendor = settings.use_link_vendor
 
 assign isSticky = false
 assign isMarketplace = false
-if product.tags contains 'marketplace'
+if product.tags contains 'marketplace' or settings.sufias_wholesale_only
    assign isMarketplace = true
 endif
 assign isStickyMB = false

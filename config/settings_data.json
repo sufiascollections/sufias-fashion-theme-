@@ -21,7 +21,7 @@
     "logo_tr": "shopify://shop_images/header-logo-01.png",
     "logo_tr_width": 160,
     "mobile_nav_type": "1",
-    "price_primary": "#6f5530",
+    "price_primary": "#0F4D3A",
     "font_source": "2",
     "fnt_fm_sp2": "poppins_n4",
     "fnt_fm_sp3": "libre_baskerville_n4",
@@ -686,7 +686,7 @@
           "556a85dc-041d-4d44-8c22-263ed70a8b48": {
             "type": "drop",
             "settings": {
-              "title": "ISLAMIC WEAR",
+              "title": "ABAYAS",
               "url": "shopify://collections/abaya-collections",
               "open_link": "_self",
               "menu": "",
@@ -725,7 +725,7 @@
           "drop_X6hEGj": {
             "type": "drop",
             "settings": {
-              "title": "WHOLESALE",
+              "title": "SHOP WHOLESALE",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "main-menu",
@@ -740,16 +740,56 @@
               "item_fsize": 13,
               "sp_bettewn_item": 20
             }
+          },
+          "drop_swh_sellers": {
+            "type": "drop",
+            "settings": {
+              "title": "SELLERS",
+              "url": "/#sellers",
+              "open_link": "_self",
+              "menu": "",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#9b2c2c",
+              "lb": "",
+              "lb_cl": "",
+              "lazy_mn": true,
+              "pos_sub": "bottom",
+              "pos": "left",
+              "item_fsize": 13,
+              "sp_bettewn_item": 20
+            }
+          },
+          "drop_swh_sell": {
+            "type": "drop",
+            "settings": {
+              "title": "SELL WITH US",
+              "url": "shopify://pages/sell",
+              "open_link": "_self",
+              "menu": "",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#9b2c2c",
+              "lb": "",
+              "lb_cl": "",
+              "lazy_mn": true,
+              "pos_sub": "bottom",
+              "pos": "left",
+              "item_fsize": 13,
+              "sp_bettewn_item": 20
+            }
           }
         },
         "block_order": [
+          "drop_X6hEGj",
           "334013b4-82f3-4046-8371-eaf3c3340153",
           "drop_YBQRzm",
           "drop_awyTQR",
           "drop_JD8UT4",
           "556a85dc-041d-4d44-8c22-263ed70a8b48",
           "drop_YXhthE",
-          "drop_X6hEGj"
+          "drop_swh_sellers",
+          "drop_swh_sell"
         ],
         "custom_css": [
           ".header__heading-logo {max-width: 260px !important; /* Adjust size */ height: auto !important;}"
@@ -1026,18 +1066,18 @@
           "btn_config-0": {
             "type": "custom1",
             "settings": {
-              "color_primary": "#1d1c1a",
+              "color_primary": "#0F4D3A",
               "color_second": "#ffffff",
-              "color_primary_hover": "#6f5530",
+              "color_primary_hover": "#0A3528",
               "color_second_hover": "#ffffff"
             }
           },
           "btn_config-1": {
             "type": "custom2",
             "settings": {
-              "color_primary": "#f6f2ea",
+              "color_primary": "#F2E7CF",
               "color_second": "#1d1c1a",
-              "color_primary_hover": "#ffffff",
+              "color_primary_hover": "#E3C98F",
               "color_second_hover": "#1d1c1a"
             }
           }
@@ -1049,7 +1089,7 @@
         "settings": {
           "fnt_fm_button": "--font-family-1",
           "btn_fw": 600,
-          "btn_bdr": 60,
+          "btn_bdr": 8,
           "other_radius": 0,
           "button_effect": "default"
         }
@@ -1488,7 +1528,8 @@
               "lb_cl": "",
               "icons_op": "0",
               "icon": ""
-            }
+            },
+            "disabled": true
           },
           "mb_nav-0": {
             "type": "menu",
@@ -1507,7 +1548,7 @@
           "menu_3tezMb": {
             "type": "menu",
             "settings": {
-              "title": "ISLAMIC WEAR",
+              "title": "ABAYAS",
               "url": "shopify://collections/abaya-collections",
               "open_link": "_self",
               "menu": "",
@@ -1520,7 +1561,7 @@
           "menu_4j8pPA": {
             "type": "menu",
             "settings": {
-              "title": "wholesale",
+              "title": "SHOP WHOLESALE",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "",
@@ -1549,16 +1590,44 @@
           "mb_nav-9": {
             "type": "cur",
             "settings": {}
+          },
+          "menu_swh_sellers": {
+            "type": "menu",
+            "settings": {
+              "title": "SELLERS",
+              "url": "/#sellers",
+              "open_link": "_self",
+              "menu": "",
+              "lb": "",
+              "lb_cl": "",
+              "icons_op": "2",
+              "icon": ""
+            }
+          },
+          "menu_swh_sell": {
+            "type": "menu",
+            "settings": {
+              "title": "SELL WITH US",
+              "url": "shopify://pages/sell",
+              "open_link": "_self",
+              "menu": "",
+              "lb": "",
+              "lb_cl": "",
+              "icons_op": "2",
+              "icon": ""
+            }
           }
         },
         "block_order": [
+          "menu_4j8pPA",
           "menu_Dg8hwd",
           "mb_nav-1",
           "menu_ecD4UE",
           "mb_nav-3",
           "mb_nav-0",
           "menu_3tezMb",
-          "menu_4j8pPA",
+          "menu_swh_sellers",
+          "menu_swh_sell",
           "mb_nav-4",
           "mb_nav-5",
           "mb_nav-6",
@@ -2379,26 +2448,26 @@
         "settings": {}
       }
     },
-    "body_bg": "#faf8f4",
-    "heading_color": "#1d1c1a",
+    "body_bg": "#FBF8F2",
+    "heading_color": "#1E2420",
     "text_color": "#57524a",
-    "accent_color": "#8b6b3d",
+    "accent_color": "#0F4D3A",
     "secondary_color": "#1d1c1a",
-    "border_color": "#e6e0d6",
+    "border_color": "#E8E1D3",
     "border_primary_color": "#1d1c1a",
     "price_secondary": "#6e685f",
     "link_color": "#57524a",
-    "link_color_hover": "#8b6b3d",
-    "btn_bg": "#1d1c1a",
+    "link_color_hover": "#0F4D3A",
+    "btn_bg": "#0F4D3A",
     "btn_color": "#ffffff",
-    "cl_lazyload": "#8b6b3d",
+    "cl_lazyload": "#0F4D3A",
     "bg_lazyload": "#f3ece0",
     "bg_tooltip": "#1d1c1a",
     "cl_tooltip": "#ffffff",
     "sw_primary": "#1d1c1a",
     "sw_secondary": "#6e685f",
-    "sw_border": "#e6e0d6",
-    "new_badge_color": "#1d1c1a",
+    "sw_border": "#E8E1D3",
+    "new_badge_color": "#0F4D3A",
     "preorder_badge_color": "#8b6b3d",
     "soldout_badge_color": "#6e685f",
     "custom_badge_color": "#2f6b4f"

@@ -1,5 +1,5 @@
 {%- comment -%} Seller marketplace designs: wholesale only, no add to cart. {%- endcomment -%}
-{%- if product.tags contains 'marketplace' -%}
+{%- if product.tags contains 'marketplace' or settings.sufias_wholesale_only -%}
   {%- render 'sufias-marketplace-cta', product: product, type: type -%}
 {%- else -%}
 {%- assign product_form_id = 'product-form-' | append: pr_se_id -%}

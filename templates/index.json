@@ -48,7 +48,7 @@
         "cat_4"
       ],
       "settings": {
-        "show_topbar": true,
+        "show_topbar": false,
         "min_suits": 12,
         "collection": "new-arrivals",
         "products_limit": 8,

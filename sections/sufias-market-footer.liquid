@@ -1,0 +1,45 @@
+{%- comment -%} Sufias Wholesale Marketplace footer (replaces the old retail footer + bottom bar). {%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="sfm-footer">
+  <div class="sfm-footer__in">
+    <div class="sfm-footer__brand">
+      <div class="sfm-footer__logo">Sufias</div>
+      <div class="sfm-footer__tag">WHOLESALE MARKETPLACE</div>
+      <p>{{ s.about }}</p>
+    </div>
+    <nav class="sfm-footer__col" aria-label="Buyers">
+      <div class="sfm-footer__h">Buyers</div>
+      <a href="/pages/booking">Shop wholesale</a>
+      <a href="/#how">How it works</a>
+      <a href="/policies/refund-policy">Return policy (3 days)</a>
+      <a href="/pages/ledger">My khata</a>
+      <a href="/account">My account</a>
+    </nav>
+    <nav class="sfm-footer__col" aria-label="Sellers">
+      <div class="sfm-footer__h">Sellers</div>
+      <a href="/pages/sell">Sell with us</a>
+      <a href="/pages/sell">Seller rules (10% commission)</a>
+      <a href="/account/login">Seller login</a>
+      <a href="/#sellers">All sellers</a>
+    </nav>
+    <div class="sfm-footer__col">
+      <div class="sfm-footer__h">Contact</div>
+      {%- if s.whatsapp != blank -%}<a href="https://wa.me/{{ s.whatsapp | remove: '+' | remove: ' ' }}" rel="noopener">WhatsApp {{ s.whatsapp_label }}</a>{%- endif -%}
+      {%- if s.email != blank -%}<a href="mailto:{{ s.email }}">{{ s.email }}</a>{%- endif -%}
+      {%- if s.address != blank -%}<p>{{ s.address }}</p>{%- endif -%}
+    </div>
+  </div>
+  <div class="sfm-footer__bottom">© {{ 'now' | date: '%Y' }} Sufias Fashion · Wholesale suits marketplace, Lahore</div>
+</div>
+{% schema %}
+{
+  "name": "Marketplace footer",
+  "settings": [
+    { "type": "textarea", "id": "about", "label": "About text", "default": "Pakistan ka wholesale suits marketplace. Embroidered suits and abayas from Sufias and verified sellers, for boutiques and online sellers." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp number (with 92)", "default": "923014509210" },
+    { "type": "text", "id": "whatsapp_label", "label": "WhatsApp number as shown", "default": "+92 301 4509210" },
+    { "type": "text", "id": "email", "label": "Email", "default": "sufiasfashionofficial@gmail.com" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Plot 500, Pindi Stop, Maulana Shaukat Ali Road, Kot Lakhpat, Lahore" }
+  ]
+}
+{% endschema %}

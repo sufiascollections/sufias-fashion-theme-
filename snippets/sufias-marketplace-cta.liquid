@@ -6,24 +6,26 @@
 {%- unless type == 'main_sticky' -%}
 {%- assign mk_colours = product.options_with_values | where: 'name', 'Color' | first -%}
 <div class="sufias-mk-cta">
-  <p class="sufias-mk-cta__seller">Sold by <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor | escape }}</a> · Sufias Wholesale Marketplace</p>
+  {%- assign mk_vendor = product.vendor | downcase -%}
+  <p class="sufias-mk-cta__seller">Sold by {% if mk_vendor contains 'sufias' or mk_vendor == blank %}<strong>Sufias Fashion</strong> · Official store{% else %}<a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor | escape }}</a> · Verified seller{% endif %}</p>
   <ul class="sufias-mk-cta__facts">
-    <li><strong>Minimum 12 suits</strong> per design. Mix colours as you like.</li>
+    <li><strong>Minimum {{ settings.sufias_min_suits | default: 12 }} suits</strong> per design. Mix colours as you like.</li>
     {%- if mk_colours.values.size > 0 -%}<li>{{ mk_colours.values.size }} colour{% if mk_colours.values.size > 1 %}s{% endif %}: {{ mk_colours.values | join: ', ' | escape }}</li>{%- endif -%}
-    <li>Shipped by Sufias Fashion with PostEx. Pay in advance or cash on delivery.</li>
+    <li>Free delivery across Pakistan with PostEx. Pay in advance or cash on delivery.</li>
+    <li>3-day returns if the suit is not worn or damaged.</li>
   </ul>
   <a class="sufias-mk-cta__btn" href="/pages/booking?design={{ product.id }}">See wholesale price &amp; order</a>
   <p class="sufias-mk-cta__note">Wholesale prices are shown to approved buyers after logging in.</p>
 </div>
 <style>
   .sufias-mk-cta,.sufias-mk-cta *{box-sizing:border-box}
-  .sufias-mk-cta{margin:14px 0 18px;padding:16px;border:1px solid #e6dcd3;border-radius:12px;background:#fbf8f4;color:#1d1c1a}
+  .sufias-mk-cta{margin:14px 0 18px;padding:16px;border:1px solid #E8E1D3;border-radius:12px;background:#FBF8F2;color:#1d1c1a}
   .sufias-mk-cta__seller{margin:0 0 10px;font-size:15px}
   .sufias-mk-cta__seller a{font-weight:600;text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
   .sufias-mk-cta__facts{margin:0 0 14px;padding-left:18px;font-size:15px;line-height:1.5}
   .sufias-mk-cta__facts li{margin:0 0 4px}
-  .sufias-mk-cta__btn{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;padding:12px 16px;border-radius:8px;background:#6b284c;color:#fff !important;font-size:16px;font-weight:600;text-align:center;text-decoration:none}
-  .sufias-mk-cta__btn:hover,.sufias-mk-cta__btn:focus-visible{background:#561f3d}
+  .sufias-mk-cta__btn{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;padding:12px 16px;border-radius:8px;background:#0F4D3A;color:#fff !important;font-size:16px;font-weight:600;text-align:center;text-decoration:none}
+  .sufias-mk-cta__btn:hover,.sufias-mk-cta__btn:focus-visible{background:#0A3528}
   .sufias-mk-cta__note{margin:10px 0 0;font-size:13px;color:#6e685f}
   .sufias-mk-price{font-size:14px;color:#6e685f}
 </style>
