@@ -12,8 +12,8 @@
         "p1": {
           "type": "point",
           "settings": {
-            "title": "10 to 24 suits per design",
-            "text": "Minimum 10 suits per design. Mix colours of the same design freely."
+            "title": "12 to 24 suits per design",
+            "text": "Minimum 12 suits per design. Mix colours of the same design freely."
           }
         },
         "p2": {
@@ -55,7 +55,7 @@
           "type": "step",
           "settings": {
             "title": "Choose designs and colours",
-            "text": "See wholesale prices, pick quantities per colour, minimum 10 suits per design."
+            "text": "See wholesale prices, pick quantities per colour, minimum 12 suits per design."
           }
         },
         "s4": {
@@ -69,7 +69,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the minimum wholesale order?",
-            "answer": "The minimum is 10 suits per design, and most boutiques order 10 to 24 suits per design. You can mix different colours of the same design to reach the minimum, and order as many designs as you like."
+            "answer": "The minimum is 12 suits per design, and most boutiques order 12 to 24 suits per design. You can mix different colours of the same design to reach the minimum, and order as many designs as you like."
           }
         },
         "f2": {
