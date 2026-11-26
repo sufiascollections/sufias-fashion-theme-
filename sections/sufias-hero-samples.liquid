@@ -13,7 +13,7 @@
 <style>
   {{ section.settings.hf | font_face: font_display: 'swap' }}
   {{ section.settings.bf | font_face: font_display: 'swap' }}
-  {{ section.settings.bf | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {%- assign bfb = section.settings.bf | font_modify: 'weight', 'bold' -%}{{ bfb | font_face: font_display: 'swap' }}
   .hs{font-family:Inter,system-ui,sans-serif;color:#1E2420;background:#FBF8F2}
   .hs *{box-sizing:border-box}.hs a{text-decoration:none}
   .hs img{display:block;width:100%;height:100%;object-fit:cover}
@@ -102,8 +102,8 @@
     <p class="hs-p">Suits, abayas aur winter cotton, sab wholesale price par. Min. {{ min }} suits per design.</p>
     <form class="hsC__search" action="/search"><input type="search" name="q" placeholder="Suit, rang ya design number" aria-label="Search"><button type="submit">Search</button></form>
     <div class="hsC__cats">
-      {%- for h in 'winter-collection,3-piece,abaya-collections,2-piece' | split: ',' -%}{%- assign cc = collections[h] -%}
-      <a class="hsC__cat" href="{{ cc.url }}">{{ cc.featured_image | default: cc.products[0].featured_media.preview_image | image_url: width: 600 | image_tag: alt: '', loading: 'lazy' }}<span>{{ cc.title }}</span></a>
+      {%- assign hs_cats = 'winter-collection,3-piece,abaya-collections,2-piece' | split: ',' -%}{%- for h in hs_cats -%}{%- assign cc = collections[h] -%}{%- assign ci = cc.featured_image | default: cc.products[0].featured_media.preview_image -%}
+      <a class="hsC__cat" href="{{ cc.url }}">{{ ci | image_url: width: 600 | image_tag: alt: '', loading: 'lazy' }}<span>{{ cc.title }}</span></a>
       {%- endfor -%}
     </div>
   </div></section>
