@@ -243,20 +243,31 @@
     try { data = await api('earnings'); } catch (e) { return; }
     const s = data.summary; if (!s) return;
     const rs = v => money(v / 100);
-    box.querySelector('[data-earn="due"]').textContent = rs(s.due);
-    box.querySelector('[data-earn="earned"]').textContent = rs(s.earned);
+    box.querySelector('[data-earn="due"]').textContent = rs(Math.max(0, s.due));
+    box.querySelector('[data-earn="hold"]').textContent = rs(s.holdEarnings || 0);
     box.querySelector('[data-earn="paid"]').textContent = rs(s.paid);
     box.querySelector('[data-earn="suits"]').textContent = String(s.suits);
     $('[data-seller-commission]').textContent = s.commissionPercent + '% commission';
-    $('[data-earn-pending]').textContent = (s.pendingSuits ? s.pendingSuits + (s.pendingSuits === 1 ? ' suit is' : ' suits are') + ' awaiting the buyer\'s payment (' + rs(s.pendingEarnings) + ' for you once paid). ' : '')
-      + 'You earn each paid sale minus ' + s.commissionPercent + '% Sufias commission. Sufias Fashion pays you after the order is delivered and the 3-day return time has passed.';
+    const day = d => new Date(d).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Karachi' });
+    const days = s.returnDays ?? 3, notes = [];
+    if (s.holdSuits) notes.push(s.holdSuits + (s.holdSuits === 1 ? ' suit is' : ' suits are') + ' on hold (' + rs(s.holdEarnings) + ') until delivery and the ' + days + '-day return time are done' + (s.nextPayableOn ? '. Next amount becomes due on ' + day(s.nextPayableOn) : '') + '.');
+    if (s.pendingSuits) notes.push(s.pendingSuits + (s.pendingSuits === 1 ? ' suit is' : ' suits are') + ' awaiting the buyer\'s payment (' + rs(s.pendingEarnings) + ' for you once paid).');
+    if (s.returnCosts) notes.push('Return costs taken from your due: ' + rs(s.returnCosts) + '.');
+    if (s.due < 0) notes.push('You owe Sufias Fashion ' + rs(-s.due) + ' for return costs. It comes off your next payment.');
+    notes.push('You earn each sale minus ' + s.commissionPercent + '% Sufias commission. An amount becomes due once the order is delivered, the buyer has paid and the ' + days + '-day return time has passed.');
+    $('[data-earn-pending]').textContent = notes.join(' ');
     const sales = $('[data-earn-sales]'), pays = $('[data-earn-payouts]');
     sales.replaceChildren(); pays.replaceChildren();
-    const day = d => new Date(d).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
+    const tone = { ready: 'is-paid', return_time: 'is-wait', shipping: 'is-wait', cod_pending: 'is-wait', awaiting_payment: 'is-wait' };
     data.sales.slice(0, 50).forEach(l => {
       const row = el('div', 'ss-line'), amt = el('span', 'ss-line__amt', rs(l.earning));
-      amt.append(el('small', l.status === 'Paid' ? 'is-paid' : l.status === 'Awaiting payment' ? 'is-wait' : 'is-off', l.status));
-      row.append(el('span', '', l.title + (l.variant ? ' · ' + l.variant : '')), amt, el('span', 'ss-line__sub', day(l.date) + ' · ' + l.order + ' · ' + l.quantity + (l.quantity === 1 ? ' suit' : ' suits')));
+      amt.append(el('small', tone[l.code] || (l.status === 'Paid' ? 'is-paid' : l.status === 'Awaiting payment' ? 'is-wait' : 'is-off'), l.status));
+      const sub = [day(l.date), l.order, l.quantity + (l.quantity === 1 ? ' suit' : ' suits')];
+      if (l.deliveredAt) sub.push('delivered ' + day(l.deliveredAt));
+      if (l.code === 'return_time' && l.payableOn) sub.push('due on ' + day(l.payableOn));
+      if (l.returned) sub.push(l.returned + ' returned');
+      if (l.returnCost) sub.push('return cost ' + rs(l.returnCost));
+      row.append(el('span', '', l.title + (l.variant ? ' · ' + l.variant : '')), amt, el('span', 'ss-line__sub', sub.join(' · ')));
       sales.append(row);
     });
     if (!data.sales.length) sales.append(el('p', 'ss-hint', 'No sales yet. Your earnings appear here once buyers order your designs.'));
