@@ -17,12 +17,12 @@
     assign hero_img_2 = shop_coll.products[1].featured_media.preview_image
   endif
 -%}
-{{ s.heading_font | font_face: font_display: 'swap' }}
-{{ s.body_font | font_face: font_display: 'swap' }}
 {%- assign body_bold = s.body_font | font_modify: 'weight', 'bold' -%}
-{{ body_bold | font_face: font_display: 'swap' }}
 {{ 'sufias-home.css' | asset_url | stylesheet_tag }}
 <style>
+  {{ s.heading_font | font_face: font_display: 'swap' }}
+  {{ s.body_font | font_face: font_display: 'swap' }}
+  {{ body_bold | font_face: font_display: 'swap' }}
   #swh-{{ section.id }}{--swh-head:{{ s.heading_font.family }},{{ s.heading_font.fallback_families }};--swh-body:{{ s.body_font.family }},{{ s.body_font.fallback_families }}}
 </style>
 
