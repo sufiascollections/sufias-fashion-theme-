@@ -11,6 +11,9 @@
   assign min = settings.sufias_min_suits | default: 12
 -%}
 <style>
+  {{ section.settings.hf | font_face: font_display: 'swap' }}
+  {{ section.settings.bf | font_face: font_display: 'swap' }}
+  {{ section.settings.bf | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   .hs{font-family:Inter,system-ui,sans-serif;color:#1E2420;background:#FBF8F2}
   .hs *{box-sizing:border-box}.hs a{text-decoration:none}
   .hs img{display:block;width:100%;height:100%;object-fit:cover}
@@ -120,5 +123,5 @@
   <div style="height:40px"></div>
 </div>
 {% schema %}
-{ "name": "Hero samples", "settings": [] }
+{ "name": "Hero samples", "settings": [ { "type": "font_picker", "id": "hf", "label": "Heading font", "default": "playfair_display_n6" }, { "type": "font_picker", "id": "bf", "label": "Text font", "default": "inter_n4" } ] }
 {% endschema %}
