@@ -182,16 +182,21 @@
   /* ---------- dashboard ---------- */
   function drawList() {
     const list = $('[data-seller-list]'); list.replaceChildren();
-    $('[data-seller-count]').textContent = products.length ? products.length + (products.length === 1 ? ' design live on the wholesale page' : ' designs live on the wholesale page') : '';
+    /* review: approved (live on the website + wholesale page), pending (waiting for Sufias), rejected (sent back). */
+    const live = products.filter(p => (p.review || 'approved') === 'approved').length, waiting = products.filter(p => p.review === 'pending').length;
+    $('[data-seller-count]').textContent = products.length ? [live ? live + ' live' : '', waiting ? waiting + ' waiting for approval' : ''].filter(Boolean).join(' · ') : '';
     if (!products.length) {
       const empty = el('div', 'ss-empty');
-      empty.append(el('h3', '', 'No designs yet'), el('p', 'sw-muted', 'Add your first design. It goes live on the Sufias wholesale page as soon as you publish it.'));
+      empty.append(el('h3', '', 'No designs yet'), el('p', 'sw-muted', 'Add your first design. Sufias Fashion checks it, then puts it live on the website and the wholesale page.'));
       list.append(empty); return;
     }
     products.forEach(p => {
       const card = el('article', 'ss-item'), pic = el('div', 'ss-item__img'), body = el('div', 'ss-item__body'), btns = el('div', 'ss-item__btns');
       if (p.image) { const img = el('img'); img.src = p.image; img.alt = ''; img.loading = 'lazy'; pic.append(img); }
-      body.append(el('p', 'ss-item__title', p.title), el('p', 'ss-item__meta', money(p.unitPrice / 100) + ' / suit · ' + p.variants.length + (p.variants.length === 1 ? ' colour' : ' colours')));
+      const review = p.review || 'approved';
+      const badge = el('span', 'ss-badge ss-badge--' + review, review === 'approved' ? 'Live' : review === 'pending' ? 'Waiting for approval' : 'Needs changes');
+      body.append(badge, el('p', 'ss-item__title', p.title), el('p', 'ss-item__meta', money(p.unitPrice / 100) + ' / suit · ' + p.variants.length + (p.variants.length === 1 ? ' colour' : ' colours')));
+      if (review === 'rejected') body.append(el('p', 'ss-item__note', (p.reviewNote ? 'Sufias Fashion: ' + p.reviewNote + ' ' : '') + 'Edit and save to send it again.'));
       const edit = el('button', 'sw-btn sw-btn--primary', 'Edit'), remove = el('button', 'sw-btn sw-btn--outline', 'Remove');
       edit.type = remove.type = 'button';
       edit.addEventListener('click', () => openEditor(p));
@@ -221,7 +226,7 @@
       f.size.value = e.size || 'Free size';
     }
     $('[data-seller-form-title]').textContent = p ? 'Edit design' : 'New design';
-    $('[data-seller-submit]').textContent = p ? 'Save changes' : 'Publish design';
+    $('[data-seller-submit]').textContent = p ? 'Save changes' : 'Send for approval';
     drawPhotos(); drawColours(); drawPreview();
     dashboard.hidden = true; form.hidden = false;
     root.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -314,7 +319,7 @@
         }
         images.push({ url: p.url });
       }
-      formStatus.textContent = editing ? 'Saving changes…' : 'Publishing your design…';
+      formStatus.textContent = editing ? 'Saving changes…' : 'Sending your design…';
       const result = await api('product', 'POST', {
         id: editing ? editing.id : null,
         title: f.title.value, code: f.code.value, category: f.category.value, stitching: f.stitching.value, size: f.size.value,

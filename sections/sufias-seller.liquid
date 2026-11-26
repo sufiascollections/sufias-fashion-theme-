@@ -149,7 +149,7 @@
           <p class="sw-status ss-bar__status" data-seller-form-status role="status" aria-live="polite"></p>
           <div class="ss-bar__btns">
             <button type="button" class="sw-btn sw-btn--outline" data-seller-cancel>Cancel</button>
-            <button type="submit" class="sw-btn sw-btn--primary" data-seller-submit>Publish design</button>
+            <button type="submit" class="sw-btn sw-btn--primary" data-seller-submit>Send for approval</button>
           </div>
         </div>
 
@@ -190,6 +190,10 @@
     .ss-item__img img{width:100%;height:100%;object-fit:cover}
     .ss-item__body{display:grid;gap:4px;padding:12px}
     .ss-item__title{margin:0;font-weight:600;line-height:1.3}
+    .ss-badge{justify-self:start;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;background:#e8f3ea;color:#1f5b2c}
+    .ss-badge--pending{background:#fbf0d9;color:#7a5200}
+    .ss-badge--rejected{background:#fbe4e4;color:#8a1f1f}
+    .ss-item__note{margin:2px 0 0;font-size:13px;line-height:1.4;color:#8a1f1f}
     .ss-item__meta{margin:0;font-size:13px;color:var(--sw-muted)}
     .ss-item__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 12px}
     .ss-item__btns .sw-btn{min-height:42px;padding:0 10px;font-size:13px}
