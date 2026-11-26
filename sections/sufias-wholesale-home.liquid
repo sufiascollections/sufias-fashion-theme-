@@ -16,6 +16,8 @@
   if hero_img_2 == blank
     assign hero_img_2 = shop_coll.products[1].featured_media.preview_image
   endif
+  assign col_img_3 = shop_coll.products[2].featured_media.preview_image
+  assign col_img_4 = shop_coll.products[3].featured_media.preview_image
 -%}
 {%- assign body_bold = s.body_font | font_modify: 'weight', 'bold' -%}
 {{ 'sufias-home.css' | asset_url | stylesheet_tag }}
@@ -33,27 +35,15 @@
   </div>
   {%- endif -%}
 
-  <section class="swh-hero">
-    <div class="swh-wrap swh-hero__in">
-      <div class="swh-hero__text">
-        <p class="swh-eyebrow">B2B · WHOLESALE ONLY</p>
-        <h1 class="swh-h1">{{ s.hero_title }}</h1>
-        <p class="swh-hero__lead">{{ s.hero_text }}</p>
-        <div class="swh-hero__btns">
-          <a class="swh-btn swh-btn--gold" href="{{ s.shop_url | default: '/pages/booking' }}">Shop Wholesale</a>
-          <a class="swh-btn swh-btn--line" href="{{ s.sell_url | default: '/pages/sell' }}">Become a Seller</a>
-        </div>
-      </div>
-      <div class="swh-hero__pics">
-        {%- for img in (1..2) -%}
-          {%- if forloop.first -%}{%- assign im = hero_img_1 -%}{%- else -%}{%- assign im = hero_img_2 -%}{%- endif -%}
-          <div class="swh-hero__pic{% if forloop.last %} swh-hero__pic--low{% endif %}">
-            {%- if im != blank -%}
-              {{ im | image_url: width: 700 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '300,450,600,700', sizes: '(min-width: 990px) 280px, 45vw', alt: im.alt | default: 'Sufias wholesale suit' }}
-            {%- endif -%}
-          </div>
-        {%- endfor -%}
-      </div>
+  {%- comment -%} A: full photo hero {%- endcomment -%}
+  <section class="hsA">
+    <div class="hsA__bg">{%- if hero_img_1 != blank -%}{{ hero_img_1 | image_url: width: 1600 | image_tag: alt: '', loading: 'eager', fetchpriority: 'high', widths: '600,900,1200,1600', sizes: '100vw' }}{%- endif -%}</div>
+    <div class="hsA__in">
+      <p class="hs-eb">WHOLESALE ONLY · LAHORE</p>
+      <h1 class="hs-h">{{ s.hero_title }}</h1>
+      <p class="hs-p">{{ s.hero_text }}</p>
+      <div class="hs-btns"><a class="hs-btn hs-gold" href="{{ s.shop_url | default: '/pages/booking' }}">Shop Wholesale</a><a class="hs-btn hs-line hs-line--w" href="{{ s.sell_url | default: '/pages/sell' }}">Become a Seller</a></div>
+      <div class="hs-trust"><span>Min. {{ min_suits }} suits</span><span>Free PostEx delivery</span><span>Advance or COD</span><span>3-day returns</span></div>
     </div>
   </section>
 
@@ -66,23 +56,51 @@
     </div>
   </section>
 
-  {%- if section.blocks.size > 0 -%}
-  <section class="swh-wrap swh-sec">
-    <h2 class="swh-h2">Shop by category</h2>
-    <div class="swh-cats">
+  {%- comment -%} C: search + categories {%- endcomment -%}
+  <section class="hsC swh-mt"><div class="hsC__in">
+    <p class="hs-eb">PAKISTAN'S WHOLESALE MARKETPLACE</p>
+    <h2 class="hs-h">What are you looking for?</h2>
+    <p class="hs-p">Suits, abayas and winter cotton, all at wholesale prices. Min. {{ min_suits }} suits per design.</p>
+    <form class="hsC__search" action="{{ routes.search_url }}" role="search"><input type="search" name="q" placeholder="Suit, colour or design number" aria-label="Search designs"><button type="submit">Search</button></form>
+    {%- if section.blocks.size > 0 -%}
+    <div class="hsC__cats">
       {%- for block in section.blocks -%}
         {%- assign c = block.settings.collection -%}
         {%- assign cimg = block.settings.image | default: c.featured_image | default: c.products[0].featured_media.preview_image -%}
-        <a class="swh-card swh-cat" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
-          <div class="swh-cat__img">
-            {%- if cimg != blank -%}{{ cimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 990px) 280px, 45vw', alt: '' }}{%- endif -%}
-          </div>
-          <div class="swh-cat__t">{{ block.settings.title | default: c.title | escape }}</div>
-        </a>
+        <a class="hsC__cat" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>{%- if cimg != blank -%}{{ cimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 750px) 280px, 45vw', alt: '' }}{%- endif -%}<span>{{ block.settings.title | default: c.title | escape }}</span></a>
       {%- endfor -%}
     </div>
-  </section>
-  {%- endif -%}
+    {%- endif -%}
+  </div></section>
+
+  {%- comment -%} D: new drop with prices {%- endcomment -%}
+  <section class="hsD"><div class="hsD__in">
+    <p class="hs-eb">NEW WHOLESALE DROP</p>
+    <h2 class="hs-h">New winter designs are here</h2>
+    <p class="hs-p">Wholesale rate shown on every design. Order from {{ min_suits }} suits with free PostEx delivery.</p>
+    <div class="hs-btns"><a class="hs-btn hs-gold" href="{{ s.shop_url | default: '/pages/booking' }}">See all designs</a></div>
+    <div class="hsD__row">
+      {%- for p in shop_coll.products limit: 4 -%}
+      <a class="hsD__card" href="{{ p.url }}"><div>{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}</div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}</p></a>
+      {%- endfor -%}
+    </div>
+  </div></section>
+
+  {%- comment -%} B: split text + photo collage {%- endcomment -%}
+  <section class="hsB"><div class="hsB__in">
+    <div>
+      <p class="hs-eb">B2B WHOLESALE MARKETPLACE</p>
+      <h2 class="hs-h">Suits for your boutique, at wholesale rates</h2>
+      <p class="hs-p">New designs from Sufias and verified sellers. Start from {{ min_suits }} suits per design and mix colours freely.</p>
+      <div class="hs-btns"><a class="hs-btn hs-green" href="{{ s.shop_url | default: '/pages/booking' }}">Shop Wholesale</a><a class="hs-btn hs-line hs-line--g" href="{{ s.sell_url | default: '/pages/sell' }}">Sell on Sufias</a></div>
+      <div class="hsB__stats"><div><b>{{ min_suits }}</b>suits minimum</div><div><b>Free</b>PostEx delivery</div><div><b>3 days</b>to return</div></div>
+    </div>
+    <div class="hsB__pics">
+      <div>{%- if hero_img_2 != blank -%}{{ hero_img_2 | image_url: width: 900 | image_tag: alt: '', loading: 'lazy', widths: '450,700,900', sizes: '(min-width: 750px) 330px, 55vw' }}{%- endif -%}</div>
+      <div>{%- if col_img_3 != blank -%}{{ col_img_3 | image_url: width: 600 | image_tag: alt: '', loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 750px) 250px, 42vw' }}{%- endif -%}</div>
+      <div>{%- if col_img_4 != blank -%}{{ col_img_4 | image_url: width: 600 | image_tag: alt: '', loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 750px) 250px, 42vw' }}{%- endif -%}</div>
+    </div>
+  </div></section>
 
   <section class="swh-wrap swh-sec" id="shop">
     <div class="swh-head">
@@ -90,7 +108,7 @@
       {%- if shop_coll != blank -%}<a class="swh-more" href="{{ shop_coll.url }}">View all suits</a>{%- endif -%}
     </div>
     <div class="swh-grid">
-      {%- for p in shop_coll.products limit: s.products_limit -%}
+      {%- for p in shop_coll.products offset: 4 limit: s.products_limit -%}
         {%- liquid
           assign is_sufias = false
           assign v = p.vendor | downcase
@@ -167,7 +185,7 @@
   <section class="swh-wrap swh-sec" id="sell">
     <div class="swh-sell">
       <div class="swh-sell__text">
-        <h2 class="swh-h2 swh-h2--tight">Apne suits Sufias pe becho</h2>
+        <h2 class="swh-h2 swh-h2--tight">Sell your suits on Sufias</h2>
         <p>Reach boutiques and online sellers across Pakistan. Pay only 10% commission when you sell. Sufias ships with PostEx, and your payout comes after delivery and the 3-day return time.</p>
       </div>
       <a class="swh-btn swh-btn--green" href="{{ s.sell_url | default: '/pages/sell' }}">Register as a Seller</a>
@@ -184,13 +202,13 @@
     { "type": "number", "id": "min_suits", "label": "Minimum suits per design", "default": 12 },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "playfair_display_n6" },
     { "type": "font_picker", "id": "body_font", "label": "Text font", "default": "inter_n4" },
-    { "type": "text", "id": "hero_title", "label": "Hero heading", "default": "Pakistan ka Wholesale Suits Marketplace" },
+    { "type": "text", "id": "hero_title", "label": "Hero heading", "default": "Pakistan's Wholesale Suits Marketplace" },
     { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "Embroidered 3-piece suits, winter cotton and abayas from Sufias and trusted sellers, all at wholesale prices. One place, many sellers." },
     { "type": "image_picker", "id": "hero_image_1", "label": "Hero photo 1 (empty = first product photo)" },
     { "type": "image_picker", "id": "hero_image_2", "label": "Hero photo 2 (empty = second product photo)" },
     { "type": "url", "id": "shop_url", "label": "Shop Wholesale link" },
     { "type": "url", "id": "sell_url", "label": "Seller link" },
-    { "type": "text", "id": "products_title", "label": "Products heading", "default": "New wholesale arrivals" },
+    { "type": "text", "id": "products_title", "label": "Products heading", "default": "More wholesale designs" },
     { "type": "collection", "id": "collection", "label": "Products from collection" },
     { "type": "range", "id": "products_limit", "label": "Number of products", "min": 2, "max": 16, "step": 2, "default": 8 }
   ],
