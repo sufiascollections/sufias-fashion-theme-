@@ -1,3 +1,6 @@
+{%- if product.tags contains 'marketplace' -%}
+  <div class="t4s-product-price sufias-mk-price">Wholesale · min 12 suits</div>
+{%- else -%}
 {%- comment -%}
     Renders a list of product's price (regular, sale, unit)
     Accompanies product listings (collection page, search result) and not updated dynamically
@@ -100,3 +103,4 @@
       {%- else -%}{{ money_price }}
       {%- endif -%}
 </div>
+{%- endif -%}

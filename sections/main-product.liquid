@@ -195,9 +195,13 @@ endcase
 assign use_link_vendor = settings.use_link_vendor
 
 assign isSticky = false
+assign isMarketplace = false
+if product.tags contains 'marketplace'
+   assign isMarketplace = true
+endif
 assign isStickyMB = false
 assign sticky_mode = se_stts.sticky_mode
-if sticky_mode != '0' and isGrouped == false and isProductAvailable and settings.atc_ajax_enable
+if sticky_mode != '0' and isGrouped == false and isMarketplace == false and isProductAvailable and settings.atc_ajax_enable
    assign isSticky = true
    if sticky_mode == '2'
    assign isStickyMB = true

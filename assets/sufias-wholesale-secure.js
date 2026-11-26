@@ -97,6 +97,10 @@
       const catalog = await api('wholesale/catalog');
       products = catalog.products || [];
       render();
+      /* A link from a seller design's product page (?design=<product id>) opens that design straight away. */
+      const wanted = new URLSearchParams(location.search).get('design');
+      const linked = wanted && products.find(x => String(x.id) === wanted);
+      if (linked && !linked.upcoming) openDetail(linked);
       gate.hidden = true; content.hidden = false; lockBtn.hidden = false;
       const exp = tokenExpiry(token);
       $('[data-wholesale-unlocked]').textContent = exp ? 'Unlocked until ' + untilText(exp) : '';

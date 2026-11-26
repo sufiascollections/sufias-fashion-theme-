@@ -1,3 +1,7 @@
+{%- comment -%} Seller marketplace designs: wholesale only, no add to cart. {%- endcomment -%}
+{%- if product.tags contains 'marketplace' -%}
+  {%- render 'sufias-marketplace-cta', product: product, type: type -%}
+{%- else -%}
 {%- assign product_form_id = 'product-form-' | append: pr_se_id -%}
 {%- liquid
   assign pr_variants = product.variants
@@ -306,3 +310,4 @@
   </div>
 </div>
 {%- if PR_buy_pr and current_variant_available != true and type != 'main_sticky' -%}<style> #t4s-callBackVariant{{ product_form_id }} .shopify-payment-button { display: none;} </style>{% endif -%}
+{%- endif -%}
