@@ -113,12 +113,12 @@
         <p class="sw-gate__hello">Assalam o Alaikum, {{ customer.first_name | default: customer.name | escape }}</p>
         <p class="sw-status" data-wholesale-status role="status" aria-live="polite">Checking wholesale access…</p>
         <form class="sw-form" data-wholesale-apply method="post" action="#" hidden>
-          <h2 class="sw-h2">Request wholesale access</h2>
-          <p class="sw-muted">Wholesale is for bulk buyers approved by Sufias Fashion.</p>
+          <h2 class="sw-h2">Open your wholesale account</h2>
+          <p class="sw-muted">Fill this once. Your wholesale account opens straight away, no waiting.</p>
           <label class="sw-field"><span>Your name</span><input name="name" value="{{ customer.name | escape }}" maxlength="150" autocomplete="name" required></label>
           <label class="sw-field"><span>Business / shop name</span><input name="business" maxlength="200" minlength="2" autocomplete="organization" required></label>
           <label class="sw-field"><span>Phone / WhatsApp</span><input name="phone" type="tel" value="{{ customer.phone | escape }}" maxlength="40" minlength="6" autocomplete="tel" required></label>
-          <button class="sw-btn sw-btn--primary sw-btn--block" type="submit">Request owner approval</button>
+          <button class="sw-btn sw-btn--primary sw-btn--block" type="submit">Open wholesale account</button>
         </form>
         <form class="sw-form" data-wholesale-unlock method="post" action="#" hidden>
           <h2 class="sw-h2">Enter your monthly PIN</h2>

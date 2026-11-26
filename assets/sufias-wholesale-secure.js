@@ -113,9 +113,9 @@
         /* Owner approval is the only gate: an approved, logged-in customer goes straight in, no PIN. */
         unlockForm.hidden = true;
         status.textContent = data.approval === 'approved' ? 'Opening wholesale collection…'
-          : data.approval === 'pending' ? 'Your wholesale request is awaiting owner approval. This page opens automatically once Sufias Fashion approves your account.'
+          : data.approval === 'pending' ? 'Opening your wholesale account…'
           : data.approval === 'revoked' ? 'Your wholesale access is blocked. Please contact Sufias Fashion.'
-          : 'Request approval below to become a wholesale customer.';
+          : 'Fill your shop details below once to open your wholesale account.';
         if (data.approval === 'approved') {
           await openCatalog();
           /* The public design list lower on the page repeats the catalogue for approved buyers. */

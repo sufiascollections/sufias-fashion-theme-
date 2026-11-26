@@ -47,8 +47,8 @@
         "s2": {
           "type": "step",
           "settings": {
-            "title": "Get approved",
-            "text": "Request wholesale access on this page. Sufias Fashion reviews and approves retailers."
+            "title": "Open your account",
+            "text": "Log in and fill your name, shop and phone once on this page. Your wholesale account opens straight away."
           }
         },
         "s3": {
@@ -76,7 +76,7 @@
           "type": "faq",
           "settings": {
             "question": "Who can buy wholesale from Sufias Fashion?",
-            "answer": "Boutiques, shop owners, online sellers and resellers in Pakistan. Create a free account and request wholesale access on this page; once approved you see wholesale prices and can order directly."
+            "answer": "Boutiques, shop owners, online sellers and resellers in Pakistan. Create a free account, fill your shop details once on this page and order directly at wholesale prices."
           }
         },
         "f3": {
