@@ -27,14 +27,14 @@
           "type": "point",
           "settings": {
             "title": "Delivery across Pakistan",
-            "text": "Packed and shipped from Lahore to Karachi, Islamabad, Rawalpindi, Faisalabad and every city."
+            "text": "Shipped with PostEx from Lahore to every city, with a tracking number for each parcel."
           }
         },
         "p4": {
           "type": "point",
           "settings": {
-            "title": "Pay by bank transfer",
-            "text": "Secure checkout, a clear invoice and your own account ledger."
+            "title": "Pay in advance or COD",
+            "text": "Pay in advance by bank transfer, or cash on delivery (COD) when the parcel arrives."
           }
         },
         "s1": {
@@ -62,7 +62,7 @@
           "type": "step",
           "settings": {
             "title": "Pay and receive",
-            "text": "Pay by bank transfer at checkout. We confirm stock and ship to your city."
+            "text": "Pay in advance or choose cash on delivery at checkout. We ship with PostEx and send your tracking number."
           }
         },
         "f1": {
@@ -90,14 +90,28 @@
           "type": "faq",
           "settings": {
             "question": "Do you deliver wholesale orders across Pakistan?",
-            "answer": "Yes. Wholesale orders are packed in Lahore and shipped to all cities in Pakistan, including Karachi, Islamabad, Rawalpindi, Faisalabad, Multan and Peshawar."
+            "answer": "Yes. Wholesale orders are packed in Lahore and shipped with PostEx to all cities in Pakistan, including Karachi, Islamabad, Rawalpindi, Faisalabad, Multan and Peshawar. Once your parcel is booked we send you the PostEx tracking number, and you can track it at postex.pk/tracking."
           }
         },
         "f5": {
           "type": "faq",
           "settings": {
             "question": "How do I pay for a wholesale order?",
-            "answer": "Pay by bank transfer at checkout. After paying, send the payment screenshot on WhatsApp. Your orders and payments are recorded in your own account ledger on sufias.com."
+            "answer": "You can pay in advance by bank transfer, or choose cash on delivery (COD) and pay the PostEx rider when the parcel arrives. For advance payment, send the payment screenshot on WhatsApp. Your orders and payments are recorded in your own account ledger on sufias.com."
+          }
+        },
+        "f6": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "You can return a suit within 3 days of delivery. The suit must not be worn, used or damaged, and must come back in its original packing. Return costs are paid by the owner of the goods, which is the seller of that design. Message us on WhatsApp within 3 days to start a return."
+          }
+        },
+        "f7": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I track my parcel?",
+            "answer": "Every wholesale parcel is sent with PostEx. We share your tracking number on WhatsApp and in your order email. Enter it at postex.pk/tracking to see where your parcel is."
           }
         }
       },
@@ -114,7 +128,9 @@
         "f2",
         "f3",
         "f4",
-        "f5"
+        "f5",
+        "f6",
+        "f7"
       ],
       "settings": {}
     }

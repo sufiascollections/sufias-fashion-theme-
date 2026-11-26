@@ -492,7 +492,7 @@
         const result = await api('wholesale/order', 'POST', { items: [...selected].map(([variantId, quantity]) => ({ variantId, quantity })), note: note.value, key, checkout: true });
         selected.clear(); key = uuid(); note.value = ''; render();
         orderStatus.textContent = result.message;
-        /* Shopify checkout for the wholesale draft order: shipping address and bank transfer payment. */
+        /* Shopify checkout for the wholesale draft order: shipping address, then advance (bank transfer) or COD payment. */
         if (result.invoiceUrl && /^https:\/\//.test(result.invoiceUrl)) { window.location.assign(result.invoiceUrl); return; }
       } catch (error) {
         orderStatus.textContent = error.message;

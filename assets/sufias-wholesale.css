@@ -88,6 +88,9 @@
 /* Bulk request */
 .sw-bag{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(20px,4vw,48px);align-items:start}
 .sw-bag__card{padding:clamp(18px,3vw,28px);display:grid;gap:16px}
+.sw-terms{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px;font-size:14px;line-height:1.55;color:var(--sw-ink-2)}
+.sw-terms li{padding:10px 12px;border:1px solid var(--sw-line);border-radius:10px;background:var(--sw-surface);overflow-wrap:anywhere}
+.sw-terms a{display:flex;width:fit-content;align-items:center;min-height:44px;margin-bottom:-6px;padding:0 2px;color:var(--sw-accent-ink);font-weight:600;text-decoration:underline}
 .sw-line{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--sw-line)}
 .sw-line img{width:52px;height:64px;object-fit:cover;border-radius:6px;background:#eee}
 .sw-line__title{margin:0;font-weight:600;font-size:14px}
