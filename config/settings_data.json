@@ -725,7 +725,7 @@
           "drop_X6hEGj": {
             "type": "drop",
             "settings": {
-              "title": "SHOP WHOLESALE",
+              "title": "WHOLESALE",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "main-menu",
@@ -1561,7 +1561,7 @@
           "menu_4j8pPA": {
             "type": "menu",
             "settings": {
-              "title": "SHOP WHOLESALE",
+              "title": "WHOLESALE",
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "",
