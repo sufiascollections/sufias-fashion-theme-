@@ -1,0 +1,124 @@
+{%- comment -%}
+  Hero samples for the owner to compare (only at /pages/booking?view=hero-samples, not linked anywhere).
+  Four professional hero layouts with real product photos. The chosen one moves into sufias-wholesale-home.
+{%- endcomment -%}
+{%- liquid
+  assign c = collections['new-arrivals']
+  assign p1 = c.products[0].featured_media.preview_image
+  assign p2 = c.products[1].featured_media.preview_image
+  assign p3 = c.products[2].featured_media.preview_image
+  assign p4 = c.products[3].featured_media.preview_image
+  assign min = settings.sufias_min_suits | default: 12
+-%}
+<style>
+  .hs{font-family:Inter,system-ui,sans-serif;color:#1E2420;background:#FBF8F2}
+  .hs *{box-sizing:border-box}.hs a{text-decoration:none}
+  .hs img{display:block;width:100%;height:100%;object-fit:cover}
+  .hs-label{max-width:1200px;margin:0 auto;padding:40px 16px 12px;font-size:22px;font-weight:800;color:#8A6A2F;letter-spacing:.5px}
+  .hs-label small{display:block;font-size:14px;font-weight:400;color:#5A615C;margin-top:4px}
+  .hs-h{font-family:'Playfair Display',Georgia,serif;font-weight:600;line-height:1.1;margin:0}
+  .hs-eb{font-size:12px;letter-spacing:2px;font-weight:700;margin:0 0 12px}
+  .hs-p{font-size:16px;line-height:1.6;margin:14px 0 0}
+  .hs-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .hs-btn{min-height:50px;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;border-radius:8px;font-weight:700;font-size:15px;flex:1 1 150px}
+  .hs-gold{background:#E3C98F;color:#1E2420!important}.hs-green{background:#0F4D3A;color:#fff!important}
+  .hs-line{border:1px solid currentColor}
+  .hs-trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13px}
+  .hs-trust span::before{content:"✓ ";font-weight:700}
+  /* A: full photo banner */
+  .hsA{position:relative;min-height:560px;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hsA__bg{position:absolute;inset:0}.hsA__bg img{object-position:center 20%}
+  .hsA__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,53,40,.95) 0%,rgba(10,53,40,.6) 45%,rgba(10,53,40,.1) 100%)}
+  .hsA__in{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:32px 16px 36px}
+  .hsA .hs-h{font-size:36px}.hsA .hs-eb{color:#E3C98F}.hsA .hs-p{color:#E3EDE8;max-width:560px}
+  /* B: split text + photos */
+  .hsB{background:#FBF8F2}
+  .hsB__in{max-width:1200px;margin:0 auto;padding:32px 16px;display:grid;gap:28px}
+  .hsB .hs-h{font-size:36px;color:#0F4D3A}.hsB .hs-eb{color:#8A6A2F}.hsB .hs-p{color:#5A615C}
+  .hsB__pics{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:1fr 1fr;gap:10px;height:380px}
+  .hsB__pics div{border-radius:14px;overflow:hidden}.hsB__pics div:first-child{grid-row:1/3}
+  .hsB__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+  .hsB__stats div{background:#fff;border:1px solid #E8E1D3;border-radius:10px;padding:10px;text-align:center;font-size:12px;color:#5A615C}
+  .hsB__stats b{display:block;font-size:18px;color:#0F4D3A}
+  /* C: category led */
+  .hsC{background:#0F4D3A;color:#fff}
+  .hsC__in{max-width:1200px;margin:0 auto;padding:36px 16px 28px;text-align:center}
+  .hsC .hs-h{font-size:34px}.hsC .hs-eb{color:#E3C98F}.hsC .hs-p{color:#D9E6DF;max-width:620px;margin-left:auto;margin-right:auto}
+  .hsC__search{display:flex;max-width:560px;margin:22px auto 0}
+  .hsC__search input{flex:1;min-width:0;height:50px;border:0;border-radius:8px 0 0 8px;padding:0 14px;font-size:16px}
+  .hsC__search button{height:50px;border:0;border-radius:0 8px 8px 0;background:#E3C98F;font-weight:700;padding:0 18px;font-size:15px}
+  .hsC__cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:26px}
+  .hsC__cat{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/4;color:#fff!important}
+  .hsC__cat span{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 10px;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);font-weight:700;text-align:left}
+  /* D: new drop products */
+  .hsD{background:linear-gradient(180deg,#0F4D3A 0 62%,#FBF8F2 62% 100%);color:#fff}
+  .hsD__in{max-width:1200px;margin:0 auto;padding:32px 16px}
+  .hsD .hs-h{font-size:34px}.hsD .hs-eb{color:#E3C98F}.hsD .hs-p{color:#D9E6DF;max-width:560px}
+  .hsD__row{display:grid;grid-auto-flow:column;grid-auto-columns:62%;gap:12px;overflow-x:auto;margin-top:26px;padding-bottom:6px;scroll-snap-type:x mandatory}
+  .hsD__card{background:#fff;color:#1E2420;border-radius:12px;overflow:hidden;border:1px solid #E8E1D3;scroll-snap-align:start}
+  .hsD__card div{aspect-ratio:4/5}.hsD__card p{margin:0;padding:10px 12px;font-size:13px}
+  .hsD__card b{display:block;color:#0F4D3A;font-size:16px}
+  @media(min-width:750px){
+    .hs-btn{flex:0 0 auto}
+    .hsA{min-height:620px;align-items:center}.hsA__bg::after{background:linear-gradient(90deg,rgba(10,53,40,.95) 0%,rgba(10,53,40,.75) 40%,rgba(10,53,40,0) 75%)}
+    .hsA__bg img{object-position:right 20%}.hsA .hs-h{font-size:56px;max-width:620px}.hsA__in{padding:64px 24px}
+    .hsB__in{grid-template-columns:1fr 1fr;align-items:center;padding:64px 24px;gap:56px}.hsB .hs-h{font-size:54px}.hsB__pics{height:520px}
+    .hsC .hs-h{font-size:52px}.hsC__cats{grid-template-columns:repeat(4,1fr);gap:16px}.hsC__in{padding:64px 24px 48px}
+    .hsD__in{padding:64px 24px}.hsD .hs-h{font-size:52px}.hsD__row{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible}
+  }
+</style>
+<div class="hs">
+  <div class="hs-label">Option A: Full photo banner<small>Ek bari photo poore hero mein, upar likhai. Fashion brands jaisa (Khaadi, Sapphire style).</small></div>
+  <section class="hsA">
+    <div class="hsA__bg">{{ p1 | image_url: width: 1600 | image_tag: alt: '', loading: 'lazy', widths: '600,900,1200,1600' }}</div>
+    <div class="hsA__in">
+      <p class="hs-eb">WHOLESALE ONLY · LAHORE</p>
+      <h2 class="hs-h">Pakistan ka Wholesale Suits Marketplace</h2>
+      <p class="hs-p">Embroidered 3-piece suits aur abayas, seedha Sufias aur verified sellers se. Boutiques aur online sellers ke liye.</p>
+      <div class="hs-btns"><a class="hs-btn hs-gold" href="/pages/booking">Shop Wholesale</a><a class="hs-btn hs-line" style="color:#fff" href="/pages/sell">Become a Seller</a></div>
+      <div class="hs-trust"><span>Min. {{ min }} suits</span><span>Free PostEx delivery</span><span>Advance ya COD</span><span>3-day returns</span></div>
+    </div>
+  </section>
+
+  <div class="hs-label">Option B: Split, likhai + photo collage<small>Saaf cream background, ek taraf likhai, doosri taraf 3 photos. Professional B2B look.</small></div>
+  <section class="hsB"><div class="hsB__in">
+    <div>
+      <p class="hs-eb">B2B WHOLESALE MARKETPLACE</p>
+      <h2 class="hs-h">Apni boutique ke liye suits, wholesale rate par</h2>
+      <p class="hs-p">Sufias aur verified sellers ke naye designs. Ek design ke {{ min }} suits se order shuru, rang mix kar sakte hain.</p>
+      <div class="hs-btns"><a class="hs-btn hs-green" href="/pages/booking">Shop Wholesale</a><a class="hs-btn hs-line" style="color:#0F4D3A" href="/pages/sell">Sell on Sufias</a></div>
+      <div class="hsB__stats"><div><b>{{ min }}</b>suits minimum</div><div><b>Free</b>PostEx delivery</div><div><b>3 din</b>return</div></div>
+    </div>
+    <div class="hsB__pics"><div>{{ p2 | image_url: width: 900 | image_tag: alt: '', loading: 'lazy' }}</div><div>{{ p3 | image_url: width: 600 | image_tag: alt: '', loading: 'lazy' }}</div><div>{{ p4 | image_url: width: 600 | image_tag: alt: '', loading: 'lazy' }}</div></div>
+  </div></section>
+
+  <div class="hs-label">Option C: Search + categories<small>Marketplace jaisa (Daraz style): bara search box aur categories seedha hero mein.</small></div>
+  <section class="hsC"><div class="hsC__in">
+    <p class="hs-eb">PAKISTAN KA WHOLESALE MARKETPLACE</p>
+    <h2 class="hs-h">Kya dhoond rahe hain?</h2>
+    <p class="hs-p">Suits, abayas aur winter cotton, sab wholesale price par. Min. {{ min }} suits per design.</p>
+    <form class="hsC__search" action="/search"><input type="search" name="q" placeholder="Suit, rang ya design number" aria-label="Search"><button type="submit">Search</button></form>
+    <div class="hsC__cats">
+      {%- for h in 'winter-collection,3-piece,abaya-collections,2-piece' | split: ',' -%}{%- assign cc = collections[h] -%}
+      <a class="hsC__cat" href="{{ cc.url }}">{{ cc.featured_image | default: cc.products[0].featured_media.preview_image | image_url: width: 600 | image_tag: alt: '', loading: 'lazy' }}<span>{{ cc.title }}</span></a>
+      {%- endfor -%}
+    </div>
+  </div></section>
+
+  <div class="hs-label">Option D: New drop, products seedha hero mein<small>Hero mein hi naye designs price ke saath. Customer pehli nazar mein maal aur rate dekhta hai.</small></div>
+  <section class="hsD"><div class="hsD__in">
+    <p class="hs-eb">NEW WHOLESALE DROP</p>
+    <h2 class="hs-h">Naye winter designs aa gaye</h2>
+    <p class="hs-p">Har design ka wholesale rate saamne. {{ min }} suits se order karein, free PostEx delivery.</p>
+    <div class="hs-btns"><a class="hs-btn hs-gold" href="/pages/booking">Saare designs dekhein</a></div>
+    <div class="hsD__row">
+      {%- for p in c.products limit: 4 -%}
+      <a class="hsD__card" href="{{ p.url }}"><div>{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy' }}</div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 40 }}</p></a>
+      {%- endfor -%}
+    </div>
+  </div></section>
+  <div style="height:40px"></div>
+</div>
+{% schema %}
+{ "name": "Hero samples", "settings": [] }
+{% endschema %}
