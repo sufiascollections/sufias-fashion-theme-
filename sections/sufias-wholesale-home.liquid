@@ -98,6 +98,9 @@
             assign is_sufias = true
           endif
           assign fabric = p.type
+          if fabric contains 'Suit'
+            assign fabric = 'Suit'
+          endif
           if p.tags contains 'winter-cotton'
             assign fabric = 'Winter cotton'
           elsif p.type == 'Abaya' or p.tags contains 'Abaya'
@@ -107,8 +110,12 @@
           elsif p.tags contains 'chiffon'
             assign fabric = 'Chiffon'
           endif
-          if p.tags contains '3-piece-suit'
-            assign fabric = fabric | append: ' · 3-piece'
+          if p.tags contains '3-piece-suit' or p.tags contains '3-piece dresses'
+            if fabric == 'Suit'
+              assign fabric = '3-piece suit'
+            else
+              assign fabric = fabric | append: ' · 3-piece'
+            endif
           endif
           assign pimg = p.featured_media.preview_image
         -%}
