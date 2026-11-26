@@ -1,0 +1,204 @@
+{%- comment -%}
+  Sufias Wholesale Marketplace homepage: hero, trust tiles, categories, new wholesale designs
+  (real products, "Sold by" from the product vendor), how it works, sellers (from shop vendors),
+  sell-with-us banner. Rules: minimum 12 suits per design, 10% commission, free PostEx delivery,
+  advance or COD, 3-day returns. Wholesale prices open for approved buyers on /pages/booking.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign shop_coll = s.collection | default: collections['new-arrivals']
+  assign min_suits = s.min_suits | default: 12
+  assign hero_img_1 = s.hero_image_1
+  assign hero_img_2 = s.hero_image_2
+  if hero_img_1 == blank
+    assign hero_img_1 = shop_coll.products[0].featured_media.preview_image
+  endif
+  if hero_img_2 == blank
+    assign hero_img_2 = shop_coll.products[1].featured_media.preview_image
+  endif
+-%}
+{{ s.heading_font | font_face: font_display: 'swap' }}
+{{ s.body_font | font_face: font_display: 'swap' }}
+{%- assign body_bold = s.body_font | font_modify: 'weight', 'bold' -%}
+{{ body_bold | font_face: font_display: 'swap' }}
+{{ 'sufias-home.css' | asset_url | stylesheet_tag }}
+<style>
+  #swh-{{ section.id }}{--swh-head:{{ s.heading_font.family }},{{ s.heading_font.fallback_families }};--swh-body:{{ s.body_font.family }},{{ s.body_font.fallback_families }}}
+</style>
+
+<div class="swh" id="swh-{{ section.id }}">
+  {%- if s.show_topbar -%}
+  <div class="swh-topbar">
+    <span>Minimum order: {{ min_suits }} suits per design</span><span>Wholesale prices for boutiques &amp; online sellers</span><span>Free delivery across Pakistan with PostEx</span>
+  </div>
+  {%- endif -%}
+
+  <section class="swh-hero">
+    <div class="swh-wrap swh-hero__in">
+      <div class="swh-hero__text">
+        <p class="swh-eyebrow">B2B · WHOLESALE ONLY</p>
+        <h1 class="swh-h1">{{ s.hero_title }}</h1>
+        <p class="swh-hero__lead">{{ s.hero_text }}</p>
+        <div class="swh-hero__btns">
+          <a class="swh-btn swh-btn--gold" href="{{ s.shop_url | default: '/pages/booking' }}">Shop Wholesale</a>
+          <a class="swh-btn swh-btn--line" href="{{ s.sell_url | default: '/pages/sell' }}">Become a Seller</a>
+        </div>
+      </div>
+      <div class="swh-hero__pics">
+        {%- for img in (1..2) -%}
+          {%- if forloop.first -%}{%- assign im = hero_img_1 -%}{%- else -%}{%- assign im = hero_img_2 -%}{%- endif -%}
+          <div class="swh-hero__pic{% if forloop.last %} swh-hero__pic--low{% endif %}">
+            {%- if im != blank -%}
+              {{ im | image_url: width: 700 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '300,450,600,700', sizes: '(min-width: 990px) 280px, 45vw', alt: im.alt | default: 'Sufias wholesale suit' }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="swh-wrap swh-sec swh-sec--tiles" aria-label="Wholesale rules">
+    <div class="swh-tiles">
+      <div class="swh-tile"><div class="swh-tile__t">Minimum {{ min_suits }} suits</div><div class="swh-tile__d">Per design. Mix colours of one design to reach {{ min_suits }}.</div></div>
+      <div class="swh-tile"><div class="swh-tile__t">Verified sellers</div><div class="swh-tile__d">Every design is checked by Sufias before it goes live.</div></div>
+      <div class="swh-tile"><div class="swh-tile__t">Free PostEx delivery</div><div class="swh-tile__d">Across Pakistan. Pay in advance or cash on delivery.</div></div>
+      <div class="swh-tile"><div class="swh-tile__t">3-day returns</div><div class="swh-tile__d">If the suit is not worn or damaged. One clear wholesale policy.</div></div>
+    </div>
+  </section>
+
+  {%- if section.blocks.size > 0 -%}
+  <section class="swh-wrap swh-sec">
+    <h2 class="swh-h2">Shop by category</h2>
+    <div class="swh-cats">
+      {%- for block in section.blocks -%}
+        {%- assign c = block.settings.collection -%}
+        {%- assign cimg = block.settings.image | default: c.featured_image | default: c.products[0].featured_media.preview_image -%}
+        <a class="swh-card swh-cat" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
+          <div class="swh-cat__img">
+            {%- if cimg != blank -%}{{ cimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 990px) 280px, 45vw', alt: '' }}{%- endif -%}
+          </div>
+          <div class="swh-cat__t">{{ block.settings.title | default: c.title | escape }}</div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+  {%- endif -%}
+
+  <section class="swh-wrap swh-sec" id="shop">
+    <div class="swh-head">
+      <h2 class="swh-h2">{{ s.products_title }}</h2>
+      {%- if shop_coll != blank -%}<a class="swh-more" href="{{ shop_coll.url }}">View all suits</a>{%- endif -%}
+    </div>
+    <div class="swh-grid">
+      {%- for p in shop_coll.products limit: s.products_limit -%}
+        {%- liquid
+          assign is_sufias = false
+          assign v = p.vendor | downcase
+          if v contains 'sufias'
+            assign is_sufias = true
+          endif
+          assign fabric = p.type
+          if p.tags contains 'winter-cotton'
+            assign fabric = 'Winter cotton'
+          elsif p.type == 'Abaya' or p.tags contains 'Abaya'
+            assign fabric = 'Abaya'
+          elsif p.tags contains 'lawn'
+            assign fabric = 'Lawn'
+          elsif p.tags contains 'chiffon'
+            assign fabric = 'Chiffon'
+          endif
+          if p.tags contains '3-piece-suit'
+            assign fabric = fabric | append: ' · 3-piece'
+          endif
+          assign pimg = p.featured_media.preview_image
+        -%}
+        <article class="swh-card swh-pc">
+          <a class="swh-pc__img" href="{{ p.url }}">
+            {%- if pimg != blank -%}{{ pimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240,360,480,600', sizes: '(min-width: 990px) 280px, 46vw', alt: p.title }}{%- endif -%}
+            <span class="swh-badge">{% if is_sufias %}Sufias{% elsif p.tags contains 'new-arrival' %}New{% else %}Seller{% endif %}</span>
+          </a>
+          <div class="swh-pc__body">
+            <div class="swh-pc__seller">Sold by {% if is_sufias %}Sufias Fashion{% else %}{{ p.vendor | escape }}{% endif %}</div>
+            <h3 class="swh-pc__t"><a href="{{ p.url }}">{{ p.title | escape }}</a></h3>
+            {%- if fabric != blank -%}<div class="swh-pc__m">{{ fabric | escape }}</div>{%- endif -%}
+            <div class="swh-pc__price">Wholesale rate <span>after login</span></div>
+            <div class="swh-pc__m">Min. {{ min_suits }} suits · {% if p.available %}In stock{% else %}Coming soon{% endif %}</div>
+            <a class="swh-btn swh-btn--green swh-pc__btn" href="/pages/booking?design={{ p.id }}">Order wholesale</a>
+          </div>
+        </article>
+      {%- else -%}
+        <p class="swh-empty">New wholesale designs are coming soon.</p>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  <section class="swh-wrap swh-sec" id="how">
+    <h2 class="swh-h2 swh-h2--tight">How wholesale buying works</h2>
+    <p class="swh-sub">Four steps from browsing to delivery.</p>
+    <div class="swh-steps">
+      <div class="swh-tile"><div class="swh-num">1</div><h3>Login &amp; get approved</h3><p>Create a free account and request wholesale access. Then you see every wholesale rate.</p></div>
+      <div class="swh-tile"><div class="swh-num">2</div><h3>Choose {{ min_suits }}+ suits per design</h3><p>Mix colours of a design to reach the minimum of {{ min_suits }} suits.</p></div>
+      <div class="swh-tile"><div class="swh-num">3</div><h3>Pay advance or COD</h3><p>Pay in advance by bank transfer, or cash on delivery.</p></div>
+      <div class="swh-tile"><div class="swh-num">4</div><h3>Free PostEx delivery</h3><p>Sufias ships your order with PostEx. Track it to your door.</p></div>
+    </div>
+  </section>
+
+  <section class="swh-wrap swh-sec" id="sellers">
+    <h2 class="swh-h2">Sellers on Sufias</h2>
+    <div class="swh-sellers">
+      <div class="swh-seller swh-seller--main"><div class="swh-av">S</div><div><div class="swh-seller__n">Sufias Fashion</div><div class="swh-seller__d">Lahore · Official store</div></div></div>
+      {%- for vendor in shop.vendors -%}
+        {%- assign vd = vendor | downcase -%}
+        {%- unless vd contains 'sufias' -%}
+        <a class="swh-seller" href="{{ vendor | url_for_vendor }}"><div class="swh-av swh-av--gold">{{ vendor | strip | slice: 0 | upcase }}</div><div><div class="swh-seller__n">{{ vendor | escape }}</div><div class="swh-seller__d">Verified seller</div></div></a>
+        {%- endunless -%}
+      {%- endfor -%}
+      <a class="swh-seller swh-seller--join" href="{{ s.sell_url | default: '/pages/sell' }}"><div class="swh-av swh-av--gold">+</div><div><div class="swh-seller__n">Your brand here</div><div class="swh-seller__d">Join as a seller</div></div></a>
+    </div>
+  </section>
+
+  <section class="swh-wrap swh-sec" id="sell">
+    <div class="swh-sell">
+      <div class="swh-sell__text">
+        <h2 class="swh-h2 swh-h2--tight">Apne suits Sufias pe becho</h2>
+        <p>Reach boutiques and online sellers across Pakistan. Pay only 10% commission when you sell. Sufias ships with PostEx, and your payout comes after delivery and the 3-day return time.</p>
+      </div>
+      <a class="swh-btn swh-btn--green" href="{{ s.sell_url | default: '/pages/sell' }}">Register as a Seller</a>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Sufias wholesale home",
+  "class": "sufias-wholesale-home-section",
+  "settings": [
+    { "type": "checkbox", "id": "show_topbar", "label": "Show green wholesale bar", "default": true },
+    { "type": "number", "id": "min_suits", "label": "Minimum suits per design", "default": 12 },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "playfair_display_n6" },
+    { "type": "font_picker", "id": "body_font", "label": "Text font", "default": "inter_n4" },
+    { "type": "text", "id": "hero_title", "label": "Hero heading", "default": "Pakistan ka Wholesale Suits Marketplace" },
+    { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "Embroidered 3-piece suits, winter cotton and abayas from Sufias and trusted sellers, all at wholesale prices. One place, many sellers." },
+    { "type": "image_picker", "id": "hero_image_1", "label": "Hero photo 1 (empty = first product photo)" },
+    { "type": "image_picker", "id": "hero_image_2", "label": "Hero photo 2 (empty = second product photo)" },
+    { "type": "url", "id": "shop_url", "label": "Shop Wholesale link" },
+    { "type": "url", "id": "sell_url", "label": "Seller link" },
+    { "type": "text", "id": "products_title", "label": "Products heading", "default": "New wholesale arrivals" },
+    { "type": "collection", "id": "collection", "label": "Products from collection" },
+    { "type": "range", "id": "products_limit", "label": "Number of products", "min": 2, "max": 16, "step": 2, "default": 8 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Name" },
+        { "type": "image_picker", "id": "image", "label": "Photo (empty = collection photo)" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Sufias wholesale home" }]
+}
+{% endschema %}
