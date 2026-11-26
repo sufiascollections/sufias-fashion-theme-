@@ -100,7 +100,15 @@
       /* A link from a seller design's product page (?design=<product id>) opens that design straight away. */
       const wanted = new URLSearchParams(location.search).get('design');
       const linked = wanted && products.find(x => String(x.id) === wanted);
-      if (linked && !linked.upcoming) openDetail(linked);
+      /* Colour quantities picked on the product page arrive as ?qty=<variant id>:<n>,... */
+      if (linked && !linked.upcoming) {
+        String(new URLSearchParams(location.search).get('qty') || '').split(',').forEach(pair => {
+          const [id, n] = pair.split(':'); const q = Math.min(1000, Math.floor(Number(n) || 0));
+          const v = id && q > 0 && linked.variants.find(x => String(x.id) === id || String(x.id).endsWith('/' + id));
+          if (v && v.available) selected.set(v.id, q);
+        });
+        openDetail(linked); bag();
+      }
       gate.hidden = true; content.hidden = false; lockBtn.hidden = false;
       const exp = tokenExpiry(token);
       $('[data-wholesale-unlocked]').textContent = exp ? 'Unlocked until ' + untilText(exp) : '';

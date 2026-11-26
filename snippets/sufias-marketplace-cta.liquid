@@ -1,32 +1,172 @@
 {%- comment -%}
-  Seller (marketplace) designs are sold wholesale only: minimum 12 suits per design, priced for approved buyers.
-  Shown instead of the add-to-cart form on the product page, quick view and quick shop.
+  Wholesale order box on the product page, quick view and quick shop (replaces add to cart).
+  Buyers pick a quantity per colour (minimum 12 suits per design, colours can be mixed), then
+  "Order" opens /pages/booking with the design and colour quantities filled in (?design=<id>&qty=<variant id>:<n>,...).
   Accepts: product, type ('main', 'main_sticky', ...). Renders nothing in the sticky bar.
 {%- endcomment -%}
 {%- unless type == 'main_sticky' -%}
-{%- assign mk_colours = product.options_with_values | where: 'name', 'Color' | first -%}
-<div class="sufias-mk-cta">
-  {%- assign mk_vendor = product.vendor | downcase -%}
-  <p class="sufias-mk-cta__seller">Sold by {% if mk_vendor contains 'sufias' or mk_vendor == blank %}<strong>Sufias Fashion</strong> · Official store{% else %}<a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor | escape }}</a> · Verified seller{% endif %}</p>
-  <ul class="sufias-mk-cta__facts">
-    <li><strong>Minimum {{ settings.sufias_min_suits | default: 12 }} suits</strong> per design. Mix colours as you like.</li>
-    {%- if mk_colours.values.size > 0 -%}<li>{{ mk_colours.values.size }} colour{% if mk_colours.values.size > 1 %}s{% endif %}: {{ mk_colours.values | join: ', ' | escape }}</li>{%- endif -%}
-    <li>Free delivery across Pakistan with PostEx. Pay in advance or cash on delivery.</li>
-    <li>3-day returns if the suit is not worn or damaged.</li>
+{%- liquid
+  assign mk_min = settings.sufias_min_suits | default: 12
+  assign mk_colour_opt = product.options_with_values | where: 'name', 'Color' | first
+  unless mk_colour_opt
+    assign mk_colour_opt = product.options_with_values | where: 'name', 'Colour' | first
+  endunless
+  assign mk_wp = product.metafields.custom.wholesale_price.value | plus: 0
+  if mk_wp <= 0
+    assign mk_wp = settings.sufias_base_wholesale_price | default: 3500
+  endif
+  assign mk_vendor = product.vendor | downcase
+  assign mk_uid = type | default: 'main' | append: '-' | append: product.id
+  assign mk_pos = 0
+  if mk_colour_opt
+    assign mk_pos = mk_colour_opt.position | minus: 1
+  endif
+-%}
+<div class="smk" data-smk data-smk-min="{{ mk_min }}" data-smk-price="{{ mk_wp }}" data-smk-design="{{ product.id }}" id="smk-{{ mk_uid }}">
+  <div class="smk__seller">
+    <span class="smk__av" aria-hidden="true">{% if mk_vendor contains 'sufias' or mk_vendor == blank %}S{% else %}{{ product.vendor | slice: 0 | upcase }}{% endif %}</span>
+    <span>Sold by {% if mk_vendor contains 'sufias' or mk_vendor == blank %}<strong>Sufias Fashion</strong><small>Official store · Lahore</small>{% else %}<a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor | escape }}</a><small>Verified seller</small>{% endif %}</span>
+  </div>
+
+  <div class="smk__head">
+    <p class="smk__h">Choose colours <span>{% if mk_colour_opt %}{{ mk_colour_opt.values.size }} colours{% endif %}</span></p>
+    <p class="smk__sub">Min. {{ mk_min }} suits per design · mix colours as you like</p>
+  </div>
+
+  <div class="smk__rows">
+    {%- for v in product.variants -%}
+      {%- liquid
+        if mk_colour_opt
+          assign mk_name = v.options[mk_pos]
+        else
+          assign mk_name = v.title | replace: 'Default Title', 'Standard'
+        endif
+      -%}
+      <div class="smk__row{% unless v.available %} smk__row--off{% endunless %}" data-smk-row data-variant="{{ v.id }}">
+        <span class="smk__sw" data-smk-sw="{{ mk_name | escape }}">{%- if v.featured_image -%}{{ v.featured_image | image_url: width: 96 | image_tag: alt: '', loading: 'lazy', width: 40, height: 40 }}{%- endif -%}</span>
+        <span class="smk__name">{{ mk_name | escape }}{% unless v.available %}<small>Sold out</small>{% endunless %}</span>
+        <span class="smk__step">
+          <button type="button" data-smk-minus aria-label="Fewer {{ mk_name | escape }}" disabled>−</button>
+          <input type="number" inputmode="numeric" min="0" max="1000" step="1" value="0" aria-label="{{ mk_name | escape }} quantity"{% unless v.available %} disabled{% endunless %}>
+          <button type="button" data-smk-plus aria-label="More {{ mk_name | escape }}"{% unless v.available %} disabled{% endunless %}>+</button>
+        </span>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- assign mk_avail = product.variants | where: 'available' | size -%}
+  {%- if mk_avail > 1 -%}
+    <button type="button" class="smk__quick" data-smk-quick>Quick fill: {{ mk_min }} suits, mixed across all colours</button>
+  {%- endif -%}
+
+  <div class="smk__sum">
+    <div class="smk__bar"><span data-smk-bar></span></div>
+    <p class="smk__count"><strong data-smk-count>0</strong> / {{ mk_min }} suits <span data-smk-total></span></p>
+  </div>
+
+  <a class="smk__btn" data-smk-btn href="/pages/booking?design={{ product.id }}">Order wholesale</a>
+  <p class="smk__hint" data-smk-hint>Pick colours above, or tap Order to choose on the next page.</p>
+
+  <ul class="smk__trust">
+    <li><span aria-hidden="true">🚚</span>Free PostEx delivery all over Pakistan</li>
+    <li><span aria-hidden="true">💵</span>Advance payment or cash on delivery</li>
+    <li><span aria-hidden="true">↩</span>3-day return if unworn and undamaged</li>
+    <li><span aria-hidden="true">🔒</span>Log in with your free Sufias account to order</li>
   </ul>
-  <a class="sufias-mk-cta__btn" href="/pages/booking?design={{ product.id }}">Order wholesale</a>
-  <p class="sufias-mk-cta__note">Log in with your free Sufias account to place a wholesale order.</p>
 </div>
 <style>
-  .sufias-mk-cta,.sufias-mk-cta *{box-sizing:border-box}
-  .sufias-mk-cta{margin:14px 0 18px;padding:16px;border:1px solid #E8E1D3;border-radius:12px;background:#FBF8F2;color:#1d1c1a}
-  .sufias-mk-cta__seller{margin:0 0 10px;font-size:15px}
-  .sufias-mk-cta__seller a{font-weight:600;text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
-  .sufias-mk-cta__facts{margin:0 0 14px;padding-left:18px;font-size:15px;line-height:1.5}
-  .sufias-mk-cta__facts li{margin:0 0 4px}
-  .sufias-mk-cta__btn{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;padding:12px 16px;border-radius:8px;background:#0F4D3A;color:#fff !important;font-size:16px;font-weight:600;text-align:center;text-decoration:none}
-  .sufias-mk-cta__btn:hover,.sufias-mk-cta__btn:focus-visible{background:#0A3528}
-  .sufias-mk-cta__note{margin:10px 0 0;font-size:13px;color:#6e685f}
-  .sufias-mk-price{font-size:14px;color:#6e685f}
+  .smk,.smk *{box-sizing:border-box}
+  .smk{margin:16px 0 20px;padding:18px;border:1px solid #E8E1D3;border-radius:14px;background:#fff;color:#1E2420;box-shadow:0 4px 18px rgba(15,77,58,.06)}
+  .smk p{margin:0}
+  .smk__seller{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #EFE9DD;font-size:15px;line-height:1.3}
+  .smk__seller small{display:block;font-size:13px;color:#5A615C;margin-top:2px}
+  .smk__seller a{font-weight:700;color:#0F4D3A;text-decoration:underline;text-underline-offset:3px}
+  .smk__av{flex:0 0 40px;width:40px;height:40px;border-radius:20px;background:#0F4D3A;color:#E3C98F;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:600}
+  .smk__head{padding:14px 0 10px}
+  .smk__h{font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .smk__h span{font-size:13px;font-weight:600;color:#8A6A2F}
+  .smk__sub{font-size:13px;color:#5A615C;margin-top:3px!important}
+  .smk__rows{display:grid;grid-template-columns:1fr;gap:8px}
+  .smk__row{display:flex;align-items:center;gap:12px;padding:6px 8px 6px 6px;border:1px solid #E8E1D3;border-radius:10px;background:#FBF8F2;transition:border-color .15s,background .15s}
+  .smk__row.is-on{border-color:#0F4D3A;background:#EEF5F1}
+  .smk__row--off{opacity:.5}
+  .smk__sw{flex:0 0 40px;width:40px;height:40px;border-radius:8px;overflow:hidden;background:var(--smk-c,#ddd);box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .smk__sw img{display:block;width:100%;height:100%;object-fit:cover}
+  .smk__name{flex:1;min-width:0;font-size:15px;font-weight:600;line-height:1.25}
+  .smk__name small{display:block;font-size:12px;font-weight:400;color:#9a3b2f}
+  .smk__step{display:flex;align-items:center;border:1px solid #D8CFBD;border-radius:8px;background:#fff;overflow:hidden}
+  .smk__step button{width:44px;height:44px;border:0;background:transparent;font-size:20px;line-height:1;color:#0F4D3A;cursor:pointer;padding:0}
+  .smk__step button:disabled{color:#C9C2B4;cursor:default}
+  .smk__step input{width:44px;height:44px;border:0;border-left:1px solid #EFE9DD;border-right:1px solid #EFE9DD;text-align:center;font-size:16px;font-weight:700;color:#1E2420;padding:0;-moz-appearance:textfield;background:#fff}
+  .smk__step input::-webkit-outer-spin-button,.smk__step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .smk__quick{margin-top:10px;width:100%;min-height:44px;border:1px dashed #B79A5B;border-radius:8px;background:#FFFBF1;color:#6B5426;font-size:14px;font-weight:600;cursor:pointer}
+  .smk__sum{margin:14px 0 10px}
+  .smk__bar{height:8px;border-radius:4px;background:#EFE9DD;overflow:hidden}
+  .smk__bar span{display:block;height:100%;width:0;background:#E3C98F;border-radius:4px;transition:width .2s}
+  .smk__bar span.is-ok{background:#0F4D3A}
+  .smk__count{margin-top:8px!important;font-size:14px;color:#5A615C;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .smk__count strong{color:#1E2420;font-size:16px}
+  .smk__count span{font-weight:700;color:#0F4D3A}
+  .smk__btn{display:flex;align-items:center;justify-content:center;min-height:52px;width:100%;padding:12px 16px;border-radius:10px;background:#0F4D3A;color:#fff!important;font-size:17px;font-weight:700;text-align:center;text-decoration:none!important}
+  .smk__btn:hover,.smk__btn:focus-visible{background:#0A3528}
+  .smk__hint{margin-top:8px!important;font-size:13px;color:#5A615C;text-align:center}
+  .smk__hint.is-warn{color:#9a3b2f}
+  .smk__trust{list-style:none;margin:16px 0 0;padding:14px 0 0;border-top:1px solid #EFE9DD;display:grid;grid-template-columns:1fr;gap:8px;font-size:14px;color:#3E4540}
+  .smk__trust li{display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+  .smk__trust span{flex:0 0 20px;text-align:center}
+  @media (min-width:750px){.smk{padding:22px}.smk__trust{grid-template-columns:1fr 1fr}}
 </style>
+<script>
+(function(){
+  var box = document.getElementById('smk-{{ mk_uid }}');
+  if (!box || box.dataset.ready) return; box.dataset.ready = '1';
+  var SH = {navyblue:'#1f2a44',navy:'#1f2a44',magenta:'#b0175f',black:'#111',white:'#fff',purple:'#5b2a6e',olivegreen:'#6b7b2f',olive:'#6b7b2f',maroon:'#6b1d2a',mehroon:'#7b1e2b',burgundy:'#800020',bottlegreen:'#0b4d34',emeraldgreen:'#047857',sagegreen:'#9caf88',mintgreen:'#a8e0c5',teal:'#0f5257',deepteal:'#0f5257',royalblue:'#2a4fb5',skyblue:'#87bde3',blue:'#2c5aa0',pink:'#e58fb0',hotpink:'#e0157a',teapink:'#f1c4c4',dustyrose:'#c08081',peach:'#f6a68a',mustard:'#d4a017',yellow:'#e9c23a',cream:'#f3e9d2',beige:'#e3d3bd',skinbeige:'#e3d3bd',grey:'#8a8f93',gray:'#8a8f93',lightgrey:'#d3d3d3',charcoalgrey:'#36454f',brown:'#6f4e37',camel:'#c19a6b',lilac:'#c49ad8',mauve:'#b784a7',plum:'#6e1f5c',red:'#b3202a',orange:'#e07a2b',green:'#2f7d4a',rust:'#a5482b',firozi:'#2fb3b3',ferozi:'#2fb3b3',offwhite:'#f4efe4'};
+  box.querySelectorAll('[data-smk-sw]').forEach(function(s){
+    if (s.querySelector('img')) return;
+    var k = String(s.dataset.smkSw).toLowerCase().replace(/[^a-z]/g,'');
+    var c = SH[k] || (window.CSS && CSS.supports('color', k) ? k : '');
+    if (c) s.style.setProperty('--smk-c', c);
+  });
+  var min = +box.dataset.smkMin || 12, price = +box.dataset.smkPrice || 0;
+  var rows = [].slice.call(box.querySelectorAll('[data-smk-row]'));
+  var btn = box.querySelector('[data-smk-btn]'), hint = box.querySelector('[data-smk-hint]'), base = btn.getAttribute('href');
+  function fmt(n){ return 'Rs ' + n.toLocaleString('en-PK'); }
+  function update(){
+    var total = 0, parts = [];
+    rows.forEach(function(r){
+      var i = r.querySelector('input'), q = Math.max(0, Math.min(1000, Math.floor(+i.value || 0)));
+      i.value = q; r.classList.toggle('is-on', q > 0);
+      r.querySelector('[data-smk-minus]').disabled = i.disabled || q === 0;
+      if (q) { total += q; parts.push(r.dataset.variant + ':' + q); }
+    });
+    box.querySelector('[data-smk-count]').textContent = total;
+    box.querySelector('[data-smk-total]').textContent = total ? fmt(total * price) : '';
+    var bar = box.querySelector('[data-smk-bar]'); bar.style.width = Math.min(100, total / min * 100) + '%'; bar.classList.toggle('is-ok', total >= min);
+    btn.setAttribute('href', base + (parts.length ? '&qty=' + parts.join(',') : ''));
+    btn.textContent = total ? 'Order ' + total + ' suits' : 'Order wholesale';
+    hint.classList.toggle('is-warn', total > 0 && total < min);
+    hint.textContent = !total ? 'Pick colours above, or tap Order to choose on the next page.'
+      : total < min ? 'Add ' + (min - total) + ' more suit' + (min - total > 1 ? 's' : '') + ' to reach the minimum of ' + min + '.'
+      : 'Great! Your colours will be filled in on the order page.';
+  }
+  rows.forEach(function(r){
+    var i = r.querySelector('input');
+    r.querySelector('[data-smk-plus]').addEventListener('click', function(){ i.value = (+i.value || 0) + 1; update(); });
+    r.querySelector('[data-smk-minus]').addEventListener('click', function(){ i.value = (+i.value || 0) - 1; update(); });
+    i.addEventListener('input', update); i.addEventListener('focus', function(){ i.select(); });
+  });
+  var quick = box.querySelector('[data-smk-quick]');
+  if (quick) quick.addEventListener('click', function(){
+    var on = rows.filter(function(r){ return !r.querySelector('input').disabled; });
+    var each = Math.floor(min / on.length), extra = min - each * on.length;
+    on.forEach(function(r, n){ r.querySelector('input').value = each + (n < extra ? 1 : 0); });
+    update();
+  });
+  btn.addEventListener('click', function(e){
+    var t = +box.querySelector('[data-smk-count]').textContent;
+    if (t > 0 && t < min) { e.preventDefault(); hint.classList.add('is-warn'); hint.scrollIntoView({block:'nearest'}); }
+  });
+  update();
+})();
+</script>
 {%- endunless -%}
