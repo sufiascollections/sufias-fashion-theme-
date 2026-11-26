@@ -91,3 +91,8 @@ body{color:#4A3826}
 .sw .sw-hero__card{box-shadow:0 16px 32px rgb(90 62 34 / 22%);background:#EFE2CC}
 .sw .sw-section--dark{background:#F3E7D3;color:#3B2A1E}
 .sw .sw-section--dark p,.sw .sw-section--dark .sw-muted{color:#6B5640}
+.sw-hero,.sl-hero{color:#3B2A1E!important}
+.sw-hero__lead,.sl-hero__lead{color:#6B5640!important}
+.sl-hero .sl-kicker,.sw-hero .sw-kicker{color:#A7802F!important}
+.sw-btn--ghost-light,.sl-btn--ghost-light{border-color:#C9A97E!important;color:#5A3E22!important;background:rgba(255,255,255,.5)!important}
+.sw-btn--ghost-light:hover,.sl-btn--ghost-light:hover{background:#5A3E22!important;color:#fff!important}
