@@ -48,3 +48,7 @@
 .sw-btn--primary:hover,.sl-btn--primary:hover{background:var(--sfm-g2)!important}
 .sw.sw{--sw-ink:#0F4D3A;--sw-ink-2:#0A3528;--sw-paper:#FBF8F2;--sw-line:#E8E1D3}
 .sl.sl{--sl-ink:#0F4D3A;--sl-ink-2:#0A3528;--sl-paper:#FBF8F2;--sl-line:#E8E1D3}
+.sfm-wp__was{font-weight:400;color:var(--sfm-mut);font-size:.85em;margin-left:2px}
+.sfm-wp__per{font-weight:400;color:var(--sfm-mut);font-size:12px}
+.sufias-mk-price--single .sufias-mk-price__min{display:block;font-size:14px;font-weight:400;color:var(--sfm-mut);margin-top:2px}
+.swh-pc__price small,.swh-pc__price s{font-weight:400;color:#5A615C;font-size:12px}

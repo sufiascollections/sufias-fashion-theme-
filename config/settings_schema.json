@@ -2708,6 +2708,12 @@
         "id": "sufias_min_suits",
         "label": "Minimum suits per design",
         "default": 12
+      },
+      {
+        "type": "number",
+        "id": "sufias_base_wholesale_price",
+        "label": "Standard wholesale price per suit (Rs), used when a design has no own wholesale price",
+        "default": 3500
       }
     ]
   }

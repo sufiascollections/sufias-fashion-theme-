@@ -129,7 +129,7 @@
     apply.addEventListener('submit', async event => {
       event.preventDefault();
       const button = apply.querySelector('button'); button.disabled = true;
-      try { const data = await api('wholesale/request', 'POST', Object.fromEntries(new FormData(apply))); apply.hidden = true; status.textContent = data.message; }
+      try { const data = await api('wholesale/request', 'POST', Object.fromEntries(new FormData(apply))); apply.hidden = true; status.textContent = data.message; if (data.approval === 'approved') await access(); }
       catch (error) { status.textContent = error.message; }
       finally { button.disabled = false; }
     });

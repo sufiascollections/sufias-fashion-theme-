@@ -1,0 +1,13 @@
+{%- comment -%}
+  Wholesale price of one suit, same rule as the ledger-app catalogue: the product's custom.wholesale_price
+  (rupees), otherwise the standard wholesale rate (Theme settings > Sufias wholesale, Rs 3,500).
+  Accepts: product, suffix (text after the price). Prints e.g. "Rs 3,500 <small>/ suit</small>".
+{%- endcomment -%}
+{%- liquid
+  assign wp = product.metafields.custom.wholesale_price.value | plus: 0
+  if wp <= 0
+    assign wp = settings.sufias_base_wholesale_price | default: 3500
+  endif
+  assign wc = product.metafields.custom.wholesale_compare_price.value | plus: 0
+-%}
+<span class="sfm-wp">Rs {{ wp | times: 100 | money_without_currency | remove: '.00' }}</span>{% if wc > wp %} <s class="sfm-wp__was">Rs {{ wc | times: 100 | money_without_currency | remove: '.00' }}</s>{% endif %} <small class="sfm-wp__per">{{ suffix | default: '/ suit' }}</small>

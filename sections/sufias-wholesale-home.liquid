@@ -128,7 +128,7 @@
             <div class="swh-pc__seller">Sold by {% if is_sufias %}Sufias Fashion{% else %}{{ p.vendor | escape }}{% endif %}</div>
             <h3 class="swh-pc__t"><a href="{{ p.url }}">{{ p.title | escape }}</a></h3>
             {%- if fabric != blank -%}<div class="swh-pc__m">{{ fabric | escape }}</div>{%- endif -%}
-            <div class="swh-pc__price">Wholesale rate <span>after login</span></div>
+            <div class="swh-pc__price">{% render 'sufias-wholesale-price', product: p %}</div>
             <div class="swh-pc__m">Min. {{ min_suits }} suits · {% if p.available %}In stock{% else %}Coming soon{% endif %}</div>
             <a class="swh-btn swh-btn--green swh-pc__btn" href="/pages/booking?design={{ p.id }}">Order wholesale</a>
           </div>

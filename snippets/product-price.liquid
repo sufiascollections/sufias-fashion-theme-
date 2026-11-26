@@ -1,6 +1,6 @@
 {%- if product.tags contains 'marketplace' or settings.sufias_wholesale_only -%}
   {%- assign mk_vendor = product.vendor | downcase -%}
-  <div class="t4s-product-price sufias-mk-price"><span class="sufias-mk-price__by">Sold by {% if mk_vendor contains 'sufias' or mk_vendor == blank %}Sufias Fashion{% else %}{{ product.vendor | escape }}{% endif %}</span><span class="sufias-mk-price__rate">Wholesale rate <small>after login</small></span><span class="sufias-mk-price__min">Min. {{ settings.sufias_min_suits | default: 12 }} suits</span></div>
+  <div class="t4s-product-price sufias-mk-price"><span class="sufias-mk-price__by">Sold by {% if mk_vendor contains 'sufias' or mk_vendor == blank %}Sufias Fashion{% else %}{{ product.vendor | escape }}{% endif %}</span><span class="sufias-mk-price__rate">{% render 'sufias-wholesale-price', product: product %}</span><span class="sufias-mk-price__min">Min. {{ settings.sufias_min_suits | default: 12 }} suits</span></div>
 {%- else -%}
 {%- comment -%}
     Renders a list of product's price (regular, sale, unit)
