@@ -1,4 +1,6 @@
 {
-  "sections": { "main": { "type": "sufias-hero-samples", "settings": {} } },
+  "sections": {
+    "main": { "type": "sufias-hero-samples", "settings": {} }
+  },
   "order": ["main"]
 }
