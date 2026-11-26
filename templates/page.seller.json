@@ -10,17 +10,22 @@
         "step_1": {"type": "step", "settings": {"title": "Create a free account", "text": "Register on sufias.com with your name and email, then log in."}},
         "step_2": {"type": "step", "settings": {"title": "Request seller access", "text": "Send your shop name and a few sample designs to Sufias Fashion on WhatsApp."}},
         "step_3": {"type": "step", "settings": {"title": "Get approved", "text": "Sufias Fashion reviews your designs. Once approved, this page opens your seller dashboard."}},
-        "step_4": {"type": "step", "settings": {"title": "List designs and get paid", "text": "Add photos, colours and your wholesale price. You are paid for every suit that sells."}},
+        "step_4": {"type": "step", "settings": {"title": "List designs and get paid", "text": "Add photos, colours and your wholesale price. For every suit that sells, you get your price minus 10% Sufias commission."}},
         "benefit_1": {"type": "benefit", "settings": {"title": "Buyers across Pakistan", "text": "Your designs appear on the Sufias Fashion wholesale page, where boutiques and resellers already order."}},
-        "benefit_2": {"type": "benefit", "settings": {"title": "Orders and payments handled", "text": "Sufias Fashion takes the orders and collects the payments, so you don't chase buyers."}},
+        "benefit_2": {"type": "benefit", "settings": {"title": "Orders, payments and delivery handled", "text": "Sufias Fashion takes the orders, collects the payments and ships to buyers with PostEx, so you don't chase buyers."}},
+        "benefit_4": {"type": "benefit", "settings": {"title": "Only 10% commission", "text": "No signup or monthly fee. Sufias keeps 10% of each sale and the rest is yours."}},
         "benefit_3": {"type": "benefit", "settings": {"title": "Your own seller dashboard", "text": "Add and update your designs yourself, and see what has sold and what is due to you."}},
         "faq_1": {"type": "faq", "settings": {"question": "Who can sell on Sufias wholesale?", "answer": "<p>Manufacturers, embroidery units and brands that make 3-piece suits and similar wear in Pakistan. Every seller is approved by Sufias Fashion first.</p>"}},
         "faq_2": {"type": "faq", "settings": {"question": "How do I get approved?", "answer": "<p>Log in, then send your shop name and a few sample designs on WhatsApp. We review them and approve your account.</p>"}},
-        "faq_3": {"type": "faq", "settings": {"question": "How and when do I get paid?", "answer": "<p>You are paid for every sale. Your dashboard shows what has sold and what is due. Payment details are shared when your account is approved.</p>"}},
+        "faq_commission": {"type": "faq", "settings": {"question": "How much commission does Sufias take?", "answer": "<p>10% on every sale. Example: if your wholesale price is Rs 2,000 a suit, Sufias keeps Rs 200 and Rs 1,800 is yours. There is no signup or monthly fee.</p>"}},
+        "faq_3": {"type": "faq", "settings": {"question": "How and when do I get paid?", "answer": "<p>You are paid after the order is delivered to the buyer and the 3-day return time has passed. Buyers can return a suit within 3 days only if it is not worn or damaged. Your dashboard shows what has sold and what is due to you.</p>"}},
+        "faq_costs": {"type": "faq", "settings": {"question": "Who pays for costs like returns?", "answer": "<p>Whose goods, their cost. Any cost that comes from your own suits, such as a return of your suit, is paid by you, the seller. Costs from other sellers' goods are never charged to you.</p>"}},
         "faq_4": {"type": "faq", "settings": {"question": "Can I change my prices and designs later?", "answer": "<p>Yes. Approved sellers can edit their designs, colours and wholesale prices from the seller dashboard on this page.</p>"}}
       },
-      "block_order": ["step_1", "step_2", "step_3", "step_4", "benefit_1", "benefit_2", "benefit_3", "faq_1", "faq_2", "faq_3", "faq_4"],
-      "settings": {}
+      "block_order": ["step_1", "step_2", "step_3", "step_4", "benefit_1", "benefit_2", "benefit_3", "benefit_4", "faq_1", "faq_2", "faq_commission", "faq_3", "faq_costs", "faq_4"],
+      "settings": {
+        "intro": "<p>List your embroidered suits on the Sufias Fashion wholesale page. Boutiques and resellers order from the page, Sufias Fashion handles the orders, payments and delivery, and you keep your price minus a 10% commission on every sale.</p>"
+      }
     }
   },
   "order": ["seller", "seller_info"]

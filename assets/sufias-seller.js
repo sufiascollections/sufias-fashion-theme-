@@ -249,7 +249,7 @@
     box.querySelector('[data-earn="suits"]').textContent = String(s.suits);
     $('[data-seller-commission]').textContent = s.commissionPercent + '% commission';
     $('[data-earn-pending]').textContent = (s.pendingSuits ? s.pendingSuits + (s.pendingSuits === 1 ? ' suit is' : ' suits are') + ' awaiting the buyer\'s payment (' + rs(s.pendingEarnings) + ' for you once paid). ' : '')
-      + 'You earn each paid sale minus ' + s.commissionPercent + '% Sufias commission. Sufias Fashion pays you the amount due.';
+      + 'You earn each paid sale minus ' + s.commissionPercent + '% Sufias commission. Sufias Fashion pays you after the order is delivered and the 3-day return time has passed.';
     const sales = $('[data-earn-sales]'), pays = $('[data-earn-payouts]');
     sales.replaceChildren(); pays.replaceChildren();
     const day = d => new Date(d).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
