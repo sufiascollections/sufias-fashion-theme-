@@ -2038,8 +2038,8 @@
         "settings": {
           "image": "shopify://shop_images/shopping-cart-head.jpg",
           "parallax": false,
-          "color": "#1d1c1a",
-          "overlay": 54,
+          "color": "#0F4D3A",
+          "overlay": 88,
           "padding": 50,
           "paddingmb": 50,
           "mg_b": 50,
