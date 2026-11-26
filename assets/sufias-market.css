@@ -80,3 +80,14 @@ body{color:#4A3826}
 .sfm-footer__col a:hover{color:#8B5E34!important}
 .sfm-footer__bottom{border-top:1px solid #E2CFAE;color:#7A6650}
 .t4s-nav__ul>li:last-child>a{background:#EFE2CC}
+/* wholesale page (sections/sufias-booking.liquid) light version */
+.sw.sw{--sw-ink:#5A3E22;--sw-ink-2:#4A3420;--sw-paper:#FBF6EE;--sw-line:#E8DAC3}
+.sl.sl{--sl-ink:#5A3E22;--sl-ink-2:#4A3420;--sl-paper:#FBF6EE;--sl-line:#E8DAC3}
+.sw .sw-hero,.sw .sw-hero--fan{background:radial-gradient(90% 140% at 85% 20%,#FFF8EC 0%,#F3E7D3 60%,#EADBC2 100%);color:#3B2A1E}
+.sw .sw-hero--fan::before{background-image:radial-gradient(rgb(201 162 78 / 22%) 1px,transparent 1px)}
+.sw .sw-hero__shine{background:linear-gradient(100deg,#3B2A1E 0%,#3B2A1E 40%,#C9A24E 50%,#3B2A1E 60%,#3B2A1E 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.sw .sw-hero__lead{color:#6B5640}
+.sw .sw-hero .sw-kicker,.sw .sw-section--dark .sw-kicker{color:#A7802F}
+.sw .sw-hero__card{box-shadow:0 16px 32px rgb(90 62 34 / 22%);background:#EFE2CC}
+.sw .sw-section--dark{background:#F3E7D3;color:#3B2A1E}
+.sw .sw-section--dark p,.sw .sw-section--dark .sw-muted{color:#6B5640}
