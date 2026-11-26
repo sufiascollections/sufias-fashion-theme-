@@ -40,3 +40,4 @@
 }
 .t4s-product-price.sufias-mk-price{font-size:13px!important;line-height:1.35!important;font-weight:400!important}
 .t4s-product-price.sufias-mk-price--single{display:block;font-size:17px!important;line-height:1.4!important;font-weight:700!important;color:var(--sfm-g)!important;margin:6px 0 4px}
+@media (min-width:1025px){.t4s-nav__ul>li>a{font-size:13px!important;padding-right:12px!important;white-space:nowrap}.t4s-nav__ul{flex-wrap:nowrap!important}}
