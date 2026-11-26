@@ -43,7 +43,7 @@
 @media (min-width:1025px){.t4s-nav__ul>li>a{font-size:13px!important;padding-right:12px!important;white-space:nowrap}.t4s-nav__ul{flex-wrap:nowrap!important}}
 
 /* wholesale, seller and khata pages: green instead of black, like the homepage */
-.sw-hero,.sw-hero--fan,.sl-hero{background:var(--sfm-g)!important}
+.sw-hero,.sw-hero--fan,.sl-hero{background:radial-gradient(90% 140% at 85% 20%,#FFF8EC 0%,#F3E7D3 60%,#EADBC2 100%)!important;color:#3B2A1E}
 .sw-btn--primary,.sw-btn--outline:hover,.sw-cardp__tag--sel,.sw-jump:not([hidden]),.sl-btn--primary,.sl-kpi--dark{background:var(--sfm-g)!important;border-color:var(--sfm-g)!important}
 .sw-btn--primary:hover,.sl-btn--primary:hover{background:var(--sfm-g2)!important}
 .sw.sw{--sw-ink:#8B5E34;--sw-ink-2:#6E4826;--sw-paper:#FBF6EE;--sw-line:#EADCCB}
