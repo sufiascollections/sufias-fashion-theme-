@@ -1,5 +1,5 @@
 {%- if product.tags contains 'marketplace' or settings.sufias_wholesale_only -%}
-  <div class="t4s-product-price sufias-mk-price">Wholesale rate for approved buyers · Min. {{ settings.sufias_min_suits | default: 12 }} suits per design</div>
+  <div class="t4s-product-price sufias-mk-price sufias-mk-price--single">Wholesale rate for approved buyers · Min. {{ settings.sufias_min_suits | default: 12 }} suits per design</div>
 {%- else -%}
 {% comment %}
     Renders a list of product's price (regular, sale, unit)

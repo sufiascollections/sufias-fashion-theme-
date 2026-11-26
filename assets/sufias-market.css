@@ -38,3 +38,5 @@
 @media (min-width:990px){
   .sfm-footer__in{grid-template-columns:1.4fr 1fr 1fr 1fr}
 }
+.t4s-product-price.sufias-mk-price{font-size:13px!important;line-height:1.35!important;font-weight:400!important}
+.t4s-product-price.sufias-mk-price--single{display:block;font-size:17px!important;line-height:1.4!important;font-weight:700!important;color:var(--sfm-g)!important;margin:6px 0 4px}
