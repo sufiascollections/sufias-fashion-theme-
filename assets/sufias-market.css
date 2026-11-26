@@ -52,3 +52,20 @@
 .sfm-wp__per{font-weight:400;color:var(--sfm-mut);font-size:12px}
 .sufias-mk-price--single .sufias-mk-price__min{display:block;font-size:14px;font-weight:400;color:var(--sfm-mut);margin-top:2px}
 .swh-pc__price small,.swh-pc__price s{font-weight:400;color:#5A615C;font-size:12px}
+
+/* ---- Site-wide colour scheme: deep green + gold on warm cream, dark ink text (2026-11-26) ---- */
+body{color:#3E4540}
+.t4s-section-header .t4s-header__wrapper{border-bottom:1px solid var(--sfm-line);box-shadow:0 1px 0 rgba(227,201,143,.35)}
+.breadcrumb_pr_wrap{background:transparent!important;padding-top:10px!important;padding-bottom:4px!important;font-size:13px}
+.breadcrumb_pr_wrap,.breadcrumb_pr_wrap a{color:var(--sfm-mut)!important}
+.breadcrumb_pr_wrap a:hover{color:var(--sfm-g)!important}
+
+/* product page: stronger title and price */
+.t4s-product__title{font-family:'Playfair Display',Georgia,serif!important;font-weight:600!important;font-size:24px!important;line-height:1.25!important;color:var(--sfm-ink)!important;margin-bottom:8px!important}
+.t4s-product__info-wrapper .sfm-wp{font-size:24px;font-weight:700}
+.t4s-product__info-wrapper .sfm-wp__was{color:#9A938A;font-size:15px}
+.t4s-pr_delivery{background:#EEF5F1;border-radius:10px;padding:10px 12px;color:var(--sfm-g)!important;font-size:14px}
+.t4s-product__info-wrapper .t4s-socials{opacity:.75}
+@media (min-width:750px){.t4s-product__title{font-size:32px!important}.t4s-product__info-wrapper .sfm-wp{font-size:28px}}
+/* section headings across the site */
+.t4s-section-title h3,.t4s-section-title>span,.t4s-collection-header h1,.t4s-page-title{font-family:'Playfair Display',Georgia,serif!important;color:var(--sfm-ink)!important}
