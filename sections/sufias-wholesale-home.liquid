@@ -38,7 +38,7 @@
     <h1 class="swh-vh">Wholesale embroidered three-piece suits in Pakistan, Sufias wholesale marketplace</h1>
     <a href="{{ shop_link }}" class="swh-banner__link" aria-label="Shop Wholesale: embroidered three-piece suits">
       <picture>
-        <source media="(max-width: 749px)" srcset="{{ 'sufias-hero-banner-mobile.jpg' | asset_url }}" width="1122" height="1402">
+        <source media="(max-width: 749px)" srcset="{{ 'sufias-hero-banner-mobile.jpg' | asset_url }}" width="800" height="1000">
         <img src="{{ 'sufias-hero-banner.jpg' | asset_url }}" width="2172" height="724" alt="Wholesale collection: embroidered three-piece suits" fetchpriority="high" loading="eager">
       </picture>
       <span class="swh-banner__btn" aria-hidden="true"></span>
@@ -179,7 +179,9 @@
           </a>
           <div class="swh-pc__body">
             <div class="swh-pc__seller">Sold by {% if is_sufias %}Sufias Fashion{% else %}{{ p.vendor | escape }}{% endif %}</div>
-            <h3 class="swh-pc__t"><a href="{{ p.url }}">{{ p.title | escape }}</a></h3>
+            {%- assign pc_code = p.title | split: '– ' | last | strip -%}
+            {%- if pc_code.size <= 8 and pc_code != p.title -%}<div class="swh-pc__code">Design {{ pc_code | escape }}</div>{%- assign pc_name = p.title | split: ' – ' | first -%}{%- else -%}{%- assign pc_name = p.title -%}{%- endif -%}
+            <h3 class="swh-pc__t"><a href="{{ p.url }}">{{ pc_name | remove: ' 3-Piece Suit' | escape }}</a></h3>
             {%- if fabric != blank -%}<div class="swh-pc__m">{{ fabric | escape }}</div>{%- endif -%}
             <div class="swh-pc__price">{% render 'sufias-wholesale-price', product: p %}</div>
             <div class="swh-pc__m">Mix with any design · {% if p.available %}In stock{% else %}Coming soon{% endif %}</div>

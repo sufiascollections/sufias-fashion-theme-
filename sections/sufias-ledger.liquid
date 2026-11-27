@@ -86,7 +86,7 @@
     </div>
     <script src="{{ 'sufias-ledger-recovery.js' | asset_url }}" defer></script>
   {% else %}
-    {%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}
+    {%- capture sufias_login_url -%}{{ routes.account_login_url }}{% if routes.account_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}
     <div class="sl-card sl-gate">
       <h2 class="sl-h2">{{ 'ledger.portal.login_title' | t }}</h2>
       <p class="sl-muted">{{ 'ledger.portal.login_note' | t }}</p>
