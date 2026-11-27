@@ -105,3 +105,15 @@ body{color:#4A3826}
   .t4s-site-nav__icons>.t4s-site-nav__icon{margin:0 0 0 2px!important;padding:0!important}
   .t4s-push-menu-btn{min-height:44px;min-width:44px}
 }
+/* Simple content pages (About, Q&A): readable width, tappable questions */
+.t4s-main-page.t4s-rte{max-width:760px;margin-left:auto;margin-right:auto;font-size:16px;line-height:1.7;color:#3B2A1E}
+.t4s-main-page.t4s-rte h1{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:34px;line-height:1.2;margin:8px 0 16px}
+.t4s-main-page.t4s-rte h2{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:24px;margin:28px 0 10px}
+.t4s-main-page.t4s-rte details{border-bottom:1px solid #E6D5B8}
+.t4s-main-page.t4s-rte summary{cursor:pointer;list-style:none;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:600;padding:10px 0}
+.t4s-main-page.t4s-rte summary::-webkit-details-marker{display:none}
+.t4s-main-page.t4s-rte summary::after{content:'+';font-size:22px;color:#8B5E34;flex:none}
+.t4s-main-page.t4s-rte details[open] summary::after{content:'−'}
+.t4s-main-page.t4s-rte details p{margin:0 0 16px;color:#5A4636}
+.t4s-main-page.t4s-rte a{color:#8B5E34;font-weight:600}
+@media (max-width:600px){.t4s-main-page.t4s-rte h1{font-size:28px}}
