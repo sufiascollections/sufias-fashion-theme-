@@ -2706,7 +2706,7 @@
       {
         "type": "number",
         "id": "sufias_min_suits",
-        "label": "Minimum suits per design",
+        "label": "Minimum suits per order (any designs mixed)",
         "default": 12
       },
       {
@@ -2726,7 +2726,7 @@
       {"type":"text","id":"sufias_promo_kicker","label":"Small line above headline","default":"Sufias Wholesale Marketplace"},
       {"type":"text","id":"sufias_promo_title","label":"Headline (gold part)","default":"Wholesale"},
       {"type":"text","id":"sufias_promo_title2","label":"Headline (cream part)","default":"Launch"},
-      {"type":"text","id":"sufias_promo_date","label":"Date / offer line","default":"Starts 1 Dec · Min. 12 suits per design"},
+      {"type":"text","id":"sufias_promo_date","label":"Date / offer line","default":"Starts 1 Dec · Min. 12 suits per order"},
       {"type":"text","id":"sufias_promo_button","label":"Button text","default":"Shop now"},
       {"type":"url","id":"sufias_promo_link","label":"Button link","info":"Empty = wholesale page (/pages/booking)"},
       {"type":"image_picker","id":"sufias_promo_img1","label":"Left photo","info":"Empty = mauve suit photo"},

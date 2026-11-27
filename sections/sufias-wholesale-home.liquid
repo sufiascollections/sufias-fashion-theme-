@@ -1,7 +1,7 @@
 {%- comment -%} v3
   Sufias Wholesale Marketplace homepage: hero, trust tiles, categories, new wholesale designs
   (real products, "Sold by" from the product vendor), how it works, sellers (from shop vendors),
-  sell-with-us banner. Rules: minimum 12 suits per design, 10% commission, free PostEx delivery,
+  sell-with-us banner. Rules: minimum 12 suits per order (any designs mixed), 10% commission, free PostEx delivery,
   advance or COD, 3-day returns. Wholesale prices open for approved buyers on /pages/booking.
 {%- endcomment -%}
 {%- liquid
@@ -50,7 +50,7 @@
   {%- comment -%} 2. Trust numbers {%- endcomment -%}
   <section class="swh-stats" aria-label="Wholesale terms">
     <div class="swh-stats__in">
-      <div><b>{{ min_suits }}</b><span>suits minimum per design</span></div>
+      <div><b>{{ min_suits }}</b><span>suits minimum per order, any designs</span></div>
       <div><b>Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b><span>wholesale price per suit</span></div>
       <div><b>Free</b><span>PostEx delivery, all Pakistan</span></div>
       <div><b>COD</b><span>or advance payment</span></div>
@@ -104,9 +104,9 @@
       </div>
       <div class="swh-calc__box">
         <label class="swh-calc__lab" for="swh-qty-{{ section.id }}">Number of suits <output data-calc-qty>{{ min_suits | times: 2 }}</output></label>
-        <input id="swh-qty-{{ section.id }}" type="range" min="{{ min_suits }}" max="{{ min_suits | times: 20 }}" step="{{ min_suits }}" value="{{ min_suits | times: 2 }}" data-calc-range>
+        <input id="swh-qty-{{ section.id }}" type="range" min="{{ min_suits }}" max="{{ min_suits | times: 20 }}" step="1" value="{{ min_suits | times: 2 }}" data-calc-range>
         <div class="swh-calc__rows">
-          <div><span>Designs (at {{ min_suits }} each)</span><b data-calc-designs>2</b></div>
+          <div><span>Designs</span><b>Mix any designs</b></div>
           <div><span>Price per suit</span><b>Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b></div>
           <div><span>PostEx delivery</span><b>Free</b></div>
           <div class="swh-calc__total"><span>Estimated total</span><b data-calc-total></b></div>
@@ -162,7 +162,7 @@
             <h3 class="swh-pc__t"><a href="{{ p.url }}">{{ p.title | escape }}</a></h3>
             {%- if fabric != blank -%}<div class="swh-pc__m">{{ fabric | escape }}</div>{%- endif -%}
             <div class="swh-pc__price">{% render 'sufias-wholesale-price', product: p %}</div>
-            <div class="swh-pc__m">Min. {{ min_suits }} suits · {% if p.available %}In stock{% else %}Coming soon{% endif %}</div>
+            <div class="swh-pc__m">Mix with any design · {% if p.available %}In stock{% else %}Coming soon{% endif %}</div>
             <a class="swh-btn swh-btn--green swh-pc__btn" href="/pages/booking?design={{ p.id }}">Order wholesale</a>
           </div>
         </article>
@@ -245,7 +245,6 @@
   var box=document.querySelector('#swh-{{ section.id }} [data-swh-calc]'); if(!box) return;
   var r=box.querySelector('[data-calc-range]'), price=+box.dataset.price||0, min=+box.dataset.min||12;
   function upd(){ var q=+r.value; box.querySelector('[data-calc-qty]').textContent=q+' suits';
-    box.querySelector('[data-calc-designs]').textContent=Math.floor(q/min);
     box.querySelector('[data-calc-total]').textContent='Rs '+(q*price).toLocaleString('en-PK');
     r.style.setProperty('--p',((q-r.min)/(r.max-r.min)*100)+'%'); }
   r.addEventListener('input',upd); upd();
@@ -258,7 +257,7 @@
   "class": "sufias-wholesale-home-section",
   "settings": [
     { "type": "checkbox", "id": "show_topbar", "label": "Show green wholesale bar", "default": true },
-    { "type": "number", "id": "min_suits", "label": "Minimum suits per design", "default": 12 },
+    { "type": "number", "id": "min_suits", "label": "Minimum suits per order", "default": 12 },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "playfair_display_n6" },
     { "type": "font_picker", "id": "body_font", "label": "Text font", "default": "inter_n4" },
     { "type": "text", "id": "hero_title", "label": "Hero heading", "default": "Pakistan's Wholesale Suits Marketplace" },

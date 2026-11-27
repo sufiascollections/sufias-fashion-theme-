@@ -99,7 +99,7 @@
   <section class="hsC"><div class="hsC__in">
     <p class="hs-eb">PAKISTAN KA WHOLESALE MARKETPLACE</p>
     <h2 class="hs-h">Kya dhoond rahe hain?</h2>
-    <p class="hs-p">Suits, abayas aur winter cotton, sab wholesale price par. Min. {{ min }} suits per design.</p>
+    <p class="hs-p">Suits, abayas aur winter cotton, sab wholesale price par. Min. {{ min }} suits per order.</p>
     <form class="hsC__search" action="/search"><input type="search" name="q" placeholder="Suit, rang ya design number" aria-label="Search"><button type="submit">Search</button></form>
     <div class="hsC__cats">
       {%- assign hs_cats = 'winter-collection,3-piece,abaya-collections,2-piece' | split: ',' -%}{%- for h in hs_cats -%}{%- assign cc = collections[h] -%}{%- assign ci = cc.featured_image | default: cc.products[0].featured_media.preview_image -%}

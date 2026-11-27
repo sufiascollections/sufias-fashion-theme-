@@ -1,6 +1,6 @@
 {%- comment -%}
   Wholesale order box on the product page, quick view and quick shop (replaces add to cart).
-  Buyers pick a quantity per colour (minimum 12 suits per design, colours can be mixed), then
+  Buyers pick a quantity per colour (minimum 12 suits per order in total, any designs and colours mixed), then
   "Order" opens /pages/booking with the design and colour quantities filled in (?design=<id>&qty=<variant id>:<n>,...).
   Accepts: product, type ('main', 'main_sticky', ...). Renders nothing in the sticky bar.
 {%- endcomment -%}
@@ -30,7 +30,7 @@
 
   <div class="smk__head">
     <p class="smk__h">Choose colours <span>{% if mk_colour_opt %}{{ mk_colour_opt.values.size }} colours{% endif %}</span></p>
-    <p class="smk__sub">Min. {{ mk_min }} suits per design · mix colours as you like</p>
+    <p class="smk__sub">Min. {{ mk_min }} suits per order · mix any designs and colours</p>
   </div>
 
   <div class="smk__rows">
@@ -61,7 +61,7 @@
 
   <div class="smk__sum">
     <div class="smk__bar"><span data-smk-bar></span></div>
-    <p class="smk__count"><em><strong data-smk-count>0</strong> / {{ mk_min }} suits</em> <span data-smk-total></span></p>
+    <p class="smk__count"><em><strong data-smk-count>0</strong> / {{ mk_min }} suits for a full order</em> <span data-smk-total></span></p>
   </div>
 
   <a class="smk__btn" data-smk-btn href="/pages/booking?design={{ product.id }}">Order wholesale</a>
@@ -147,7 +147,7 @@
     btn.textContent = total ? 'Order ' + total + ' suits' : 'Order wholesale';
     hint.classList.toggle('is-warn', total > 0 && total < min);
     hint.textContent = !total ? 'Pick colours above, or tap Order to choose on the next page.'
-      : total < min ? 'Add ' + (min - total) + ' more suit' + (min - total > 1 ? 's' : '') + ' to reach the minimum of ' + min + '.'
+      : total < min ? 'You can order ' + total + ' from this design. Add ' + (min - total) + ' more from this or any other design on the next page (min. ' + min + ' per order).'
       : 'Great! Your colours will be filled in on the order page.';
   }
   rows.forEach(function(r){
@@ -165,7 +165,6 @@
   });
   btn.addEventListener('click', function(e){
     var t = +box.querySelector('[data-smk-count]').textContent;
-    if (t > 0 && t < min) { e.preventDefault(); hint.classList.add('is-warn'); hint.scrollIntoView({block:'nearest'}); }
   });
   update();
 })();

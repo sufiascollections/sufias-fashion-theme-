@@ -377,11 +377,14 @@
       }, 500);
     }
 
+    function orderMin() { const m = products.find(p => p.minQuantity); return m ? Number(m.minQuantity) || 12 : 12; }
+    function totalQty() { let n = 0; for (const v of selected.values()) n += Number(v) || 0; return n; }
+
     function detailTotals(p) {
       const q = qtyFor(p);
       $('[data-wholesale-detail-count]').textContent = q + (q === 1 ? ' suit' : ' suits');
       $('[data-wholesale-detail-total]').textContent = money(q * p.unitPrice);
-      $('[data-wholesale-detail-status]').textContent = q > 0 && q < p.minQuantity ? 'Add at least ' + p.minQuantity + ' suits for this design (you can mix colours).' : '';
+      $('[data-wholesale-detail-status]').textContent = q > 0 && totalQty() < orderMin() ? 'Order total: ' + totalQty() + ' suits. Add ' + (orderMin() - totalQty()) + ' more from any design (min. ' + orderMin() + ' per order).' : '';
     }
 
     function openDetail(p) {
@@ -401,7 +404,7 @@
       $('[data-wholesale-detail-type]').textContent = p.type || 'Wholesale design';
       $('[data-wholesale-detail-title]').textContent = p.title;
       priceInto($('[data-wholesale-detail-price]'), p, 'per suit');
-      $('[data-wholesale-detail-min]').textContent = 'Min. ' + p.minQuantity + ' suits per design';
+      $('[data-wholesale-detail-min]').textContent = 'Min. ' + orderMin() + ' suits per order · mix any designs';
 
       const rows = $('[data-wholesale-detail-rows]'); rows.replaceChildren();
       for (const v of p.variants) {
@@ -476,7 +479,6 @@
         const line = el('div', 'sw-line');
         const img = el('img'); if (p.image) img.src = p.image; img.alt = ''; img.loading = 'lazy';
         const info = el('div'); info.append(el('p', 'sw-line__title', p.title), el('p', 'sw-line__sub', parts.join(', ')));
-        if (q < p.minQuantity) info.append(el('p', 'sw-line__sub', 'Add ' + (p.minQuantity - q) + ' more to reach the minimum.'));
         const amt = el('div', 'sw-line__amt', money(q * p.unitPrice));
         const edit = el('button', 'sw-line__edit', 'Edit'); edit.type = 'button'; edit.addEventListener('click', () => openDetail(p));
         amt.append(edit);
@@ -484,6 +486,7 @@
       }
       if (count) {
         const t = el('div', 'sw-total'); t.append(el('span', '', count + ' suits'), el('strong', '', money(total))); target.append(t);
+        if (count < orderMin()) target.append(el('p', 'sw-line__sub', 'Add ' + (orderMin() - count) + ' more suits from any design to reach the minimum of ' + orderMin() + ' per order.'));
       } else target.append(el('p', 'sw-muted', 'No designs added yet. Tap a design above to choose colours and quantities.'));
       $('[data-wholesale-count]').textContent = String(count);
       const jump = $('[data-wholesale-jump]');
@@ -495,10 +498,7 @@
     $('[data-wholesale-submit]').addEventListener('click', async () => {
       const button = $('[data-wholesale-submit]');
       if (!selected.size) { orderStatus.textContent = 'Choose a design, colour and quantity first.'; return; }
-      for (const p of products) {
-        const q = qtyFor(p);
-        if (q > 0 && q < p.minQuantity) { orderStatus.textContent = 'Choose at least ' + p.minQuantity + ' suits for ' + p.title + '. You can mix colours.'; return; }
-      }
+      if (totalQty() < orderMin()) { orderStatus.textContent = 'Choose at least ' + orderMin() + ' suits in total. You can mix any designs and colours.'; return; }
       button.disabled = true; orderStatus.textContent = 'Placing your order…';
       try {
         const result = await api('wholesale/order', 'POST', { items: [...selected].map(([variantId, quantity]) => ({ variantId, quantity })), note: note.value, key, checkout: true });
