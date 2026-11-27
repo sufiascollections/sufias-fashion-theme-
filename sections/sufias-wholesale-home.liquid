@@ -72,7 +72,7 @@
         {%- assign cimg = block.settings.image | default: c.featured_image | default: c.products[0].featured_media.preview_image -%}
         <a class="swh-catc" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
           <span class="swh-catc__img">{%- if cimg != blank -%}{{ cimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 750px) 280px, 44vw', alt: '' }}{%- endif -%}</span>
-          <span class="swh-catc__t">{{ block.settings.title | default: c.title | escape }}<small>{{ c.products_count }} designs · Min. {{ min_suits }} suits</small></span>
+          <span class="swh-catc__t">{{ block.settings.title | default: c.title | escape }}<small>{{ c.products_count }} designs</small></span>
         </a>
       {%- endfor -%}
     </div>
@@ -83,11 +83,11 @@
   <section class="hsD swh-mt"><div class="hsD__in">
     <p class="hs-eb">NEW WHOLESALE DROP</p>
     <h2 class="hs-h">Fresh winter designs, ready to ship</h2>
-    <p class="hs-p">Wholesale rate on every design. Order from {{ min_suits }} suits and mix colours freely.</p>
+    <p class="hs-p">Just added this week, each with its wholesale rate.</p>
     <div class="hs-btns"><a class="hs-btn hs-gold" href="{{ shop_link }}">See all wholesale designs</a></div>
     <div class="hsD__row">
       {%- for p in shop_coll.products limit: 4 -%}
-      <a class="hsD__card" href="{{ p.url }}"><div>{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}<em>Min. {{ min_suits }} suits</em></p></a>
+      <a class="hsD__card" href="{{ p.url }}"><div>{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}</p></a>
       {%- endfor -%}
     </div>
   </div></section>
@@ -98,7 +98,7 @@
       <div class="swh-calc__text">
         <p class="swh-kick swh-kick--gold">BULK ORDER PLANNER</p>
         <h2 class="swh-h2 swh-h2--tight">Plan your bulk order</h2>
-        <p>Every design starts at {{ min_suits }} suits. Add more designs and see your total before you order. Delivery is free.</p>
+        <p>Move the slider to see what your order will cost before you place it.</p>
       </div>
       <div class="swh-calc__box">
         <label class="swh-calc__lab" for="swh-qty-{{ section.id }}">Number of suits <output data-calc-qty>{{ min_suits | times: 2 }}</output></label>
@@ -177,11 +177,11 @@
       <p class="hs-eb">FOR BOUTIQUES &amp; ONLINE SELLERS</p>
       <h2 class="hs-h">Why shop owners buy from Sufias</h2>
       <ul class="swh-ticks">
-        <li><b>Factory-direct designs</b> from Sufias and checked sellers in Lahore</li>
-        <li><b>Mix colours</b> within one design to reach {{ min_suits }} suits</li>
-        <li><b>Free PostEx delivery</b> with tracking to your door</li>
-        <li><b>Pay your way:</b> cash on delivery or advance</li>
-        <li><b>Account statement</b> online: see orders and payments anytime</li>
+        <li><b>Factory-direct</b> from Sufias and checked sellers in Lahore</li>
+        <li><b>Quality checked</b> before any design goes live</li>
+        <li><b>New designs every week</b> in winter cotton, lawn and chiffon</li>
+        <li><b>Account statement</b> online: every order and payment in one place</li>
+        <li><b>WhatsApp support</b> from a real person in Lahore</li>
       </ul>
       <div class="hs-btns"><a class="hs-btn hs-green" href="{{ shop_link }}">Shop Wholesale</a><a class="hs-btn hs-line hs-line--g" href="{{ sell_link }}">Sell on Sufias</a></div>
     </div>
@@ -197,10 +197,10 @@
     <p class="swh-kick">HOW WHOLESALE BUYING WORKS</p>
     <h2 class="swh-h2">From order to your shop in 4 steps</h2>
     <ol class="swh-time">
-      <li><span>1</span><h3>Open a free account</h3><p>Log in and fill your shop details once. No approval wait.</p></li>
-      <li><span>2</span><h3>Pick designs &amp; colours</h3><p>{{ min_suits }}+ suits per design, colours can be mixed.</p></li>
-      <li><span>3</span><h3>Pay COD or advance</h3><p>Cash on delivery, or bank transfer in advance.</p></li>
-      <li><span>4</span><h3>Free PostEx delivery</h3><p>Track your parcel. 3 days to return if a suit is not right.</p></li>
+      <li><span>1</span><h3>Browse designs</h3><p>Every design and its wholesale price is open to everyone.</p></li>
+      <li><span>2</span><h3>Pick colours</h3><p>Set a quantity for each colour you want.</p></li>
+      <li><span>3</span><h3>Place your order</h3><p>Log in once and choose how to pay.</p></li>
+      <li><span>4</span><h3>Receive with PostEx</h3><p>You get the tracking number on WhatsApp.</p></li>
     </ol>
   </section>
 

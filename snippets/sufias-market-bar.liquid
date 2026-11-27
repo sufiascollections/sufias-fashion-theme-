@@ -1,6 +1,8 @@
 {%- comment -%} Green wholesale bar above the header on every page (Sufias Wholesale Marketplace). {%- endcomment -%}
+{%- unless template.name == 'index' -%}
 <div class="sfm-bar" role="note">
   <span>Wholesale only · Min. {{ settings.sufias_min_suits | default: 12 }} suits per design</span><span>Free delivery across Pakistan with PostEx</span><span>Pay advance or COD · 3-day returns</span>
 </div>
+{%- endunless -%}
 {%- if settings.sufias_wholesale_only -%}<style>.t4s-badge-sale,.t4s-badge-item.t4s-badge-sale{display:none!important}.t4s-product-wrapper .t4s-product-vendor{display:none!important}#es-sticky,.es-sticky-btn,.es-button,.es-form-container{display:none!important}</style>{%- endif -%}
 <style>{{ 'playfair_display_n6' | font_face: font_display: 'swap' }}</style>
