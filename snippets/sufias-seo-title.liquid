@@ -3,6 +3,9 @@ Returns a distinct SEO title for products identified in the duplicate-title repo
 {% enddoc %}
 {%- liquid
   assign resolved_title = page_title
+  if request.page_type == 'index'
+    assign resolved_title = 'Wholesale Embroidered Suits in Pakistan | Sufias Fashion'
+  endif
   if request.page_type == 'product'
     case product.handle
       when 'cotton-embroidered-3-piece-suit'

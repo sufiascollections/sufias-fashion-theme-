@@ -66,8 +66,8 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       {%- if current_page != 1 %} – {{ 'general.meta.page' | t: page: current_page }}{%- endif -%}
       {%- unless sufias_page_title contains sufias_shop_name %} – {{ sufias_shop_name }}{%- endunless -%}
     {%- endcapture -%}
-    <title>{{ seo_title | strip | escape }}</title>
-    <meta name="description" content="{{ sufias_seo_description | escape }}">
+    <title>{{ seo_title | strip | escape_once }}</title>
+    <meta name="description" content="{{ sufias_seo_description | escape_once }}">
     {%- else -%}
     <title>{{ 'list_collections.meta_title' | t | escape }}</title><meta name="description" content="{{ 'list_collections.meta_description' | t | escape }}">
     {%- endif -%}

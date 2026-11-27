@@ -5,7 +5,7 @@ Returns a page-specific SEO description while preserving existing descriptions o
   assign description = page_description
   case request.page_type
     when 'index'
-      assign description = page_description | default: shop.description | default: shop.name
+      assign description = 'Buy embroidered 3-piece suits wholesale from Sufias, Lahore. Min. 12 suits per order, mix any designs. Free PostEx delivery across Pakistan, COD or advance.'
     when 'cart'
       assign description = 'sufias_seo.cart' | t: shop: shop.name
     when 'search'
