@@ -97,6 +97,18 @@ assign se_stts = section.settings -%}
         {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
       </span>
     {%- endif -%}
+    <div class="t4s_field t4s-pr t4s_mb_30">
+      <input class="t4s_frm_input" type="tel" name="customer[note][WhatsApp number]" id="RegisterForm-WhatsApp" autocomplete="tel" placeholder="WhatsApp number (for order updates)" inputmode="tel">
+      <label for="RegisterForm-WhatsApp">WhatsApp number (for order updates)</label>
+    </div>
+    <div class="t4s_field t4s-pr t4s_mb_30">
+      <input class="t4s_frm_input" type="text" name="customer[note][City]" id="RegisterForm-City" autocomplete="address-level2" placeholder="City">
+      <label for="RegisterForm-City">City</label>
+    </div>
+    <div class="t4s_field t4s-pr t4s_mb_30">
+      <input class="t4s_frm_input" type="text" name="customer[note][Shop or brand name]" id="RegisterForm-Shop" autocomplete="organization" placeholder="Shop or brand name (optional)">
+      <label for="RegisterForm-Shop">Shop or brand name (optional)</label>
+    </div>
     <div class="t4s_field t4s-pr t4s_mb_30">     
       <input class="t4s_frm_input" 
         type="password"

@@ -134,3 +134,6 @@ body{color:#2A3544}
 .sfh-links{align-items:center;gap:22px;margin-right:26px;vertical-align:middle}
 .sfh-links a{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A3544!important;text-decoration:none;padding:12px 0;border-bottom:1px solid transparent;transition:border-color .2s}
 .sfh-links a:hover{border-bottom-color:#C9A45C}
+/* Page heading strip (cart, collection, search, pages): navy instead of dark grey, slimmer on phones */
+.header-banner{--bg-cl:#2A3544!important;--op:1!important;background-color:#2A3544}
+@media (max-width:767px){.header-banner{--space-padding-mb:28px!important}}
