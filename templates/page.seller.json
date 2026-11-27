@@ -1,7 +1,12 @@
 {
   "sections": {
-    "seller": {
+    "seller_landing": {
       "type": "sufias-seller-page",
+      "settings": {}
+    },
+    "seller": {
+      "type": "sufias-seller",
+      "disabled": true,
       "settings": {}
     },
     "seller_info": {
@@ -29,5 +34,5 @@
       }
     }
   },
-  "order": ["seller", "seller_info"]
+  "order": ["seller_landing", "seller", "seller_info"]
 }
