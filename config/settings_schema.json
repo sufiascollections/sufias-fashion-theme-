@@ -2729,8 +2729,8 @@
       {"type":"text","id":"sufias_promo_date","label":"Date / offer line","default":"Starts 26 Dec · Min. 12 suits per design"},
       {"type":"text","id":"sufias_promo_button","label":"Button text","default":"Shop now"},
       {"type":"url","id":"sufias_promo_link","label":"Button link","info":"Empty = wholesale page (/pages/booking)"},
-      {"type":"image_picker","id":"sufias_promo_img1","label":"Left photo","info":"Empty = first product photo"},
-      {"type":"image_picker","id":"sufias_promo_img2","label":"Right photo (desktop)","info":"Empty = second product photo"}
+      {"type":"image_picker","id":"sufias_promo_img1","label":"Left photo","info":"Empty = mauve suit photo"},
+      {"type":"image_picker","id":"sufias_promo_img2","label":"Right photo","info":"Empty = green suit photo"}
     ]
   }
 ]
