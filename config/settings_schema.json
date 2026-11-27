@@ -2714,6 +2714,12 @@
         "id": "sufias_base_wholesale_price",
         "label": "Standard wholesale price per suit (Rs), used when a design has no own wholesale price",
         "default": 3500
+      },
+      {
+        "type": "font_picker",
+        "id": "sufias_heading_font",
+        "label": "Marketplace heading font",
+        "default": "playfair_display_n6"
       }
     ]
   }
