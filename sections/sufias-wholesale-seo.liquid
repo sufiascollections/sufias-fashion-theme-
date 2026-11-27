@@ -31,7 +31,7 @@
                 </span>
                 <span class="wseo-card__title">{{ p.title | escape }}</span>
                 <span class="wseo-card__price">{% render 'sufias-wholesale-price', product: p %}</span>
-                <span class="wseo-card__meta">{{ p.variants.size }} colour{% if p.variants.size != 1 %}s{% endif %} · Min. {{ settings.sufias_min_suits | default: 12 }} suits</span>
+                <span class="wseo-card__meta">{{ p.variants.size }} colour{% if p.variants.size != 1 %}s{% endif %}</span>
                 <span class="wseo-card__btn">Choose colours</span>
               </a>
             </li>
@@ -149,7 +149,9 @@
     .wseo-card__price{font-weight:700;color:#8B5E34;font-size:15px}
     .wseo-card__price .sfm-wp__was{color:#9A938A;font-weight:400;font-size:13px}
     .wseo-card__price small{font-weight:400;color:var(--sw-muted);font-size:12px}
-    .wseo-card__btn{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:4px;border-radius:8px;background:#8B5E34;color:#fff;font-weight:600;font-size:14px}
+    .wseo-card{display:flex}.wseo-card__link{display:flex!important;flex-direction:column;width:100%}
+    .wseo-card__title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .wseo-card__btn{margin-top:auto!important;display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:4px;border-radius:8px;background:#8B5E34;color:#fff;font-weight:600;font-size:14px}
     .wseo-card__link:hover .wseo-card__btn{background:#6E4826}
     .wseo-about{padding-top:0}
     .wseo-about .wseo-text{color:var(--sw-muted);font-size:14px;line-height:1.7}
