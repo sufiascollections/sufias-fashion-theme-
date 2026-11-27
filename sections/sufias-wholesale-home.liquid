@@ -206,6 +206,17 @@
     </ol>
   </section>
 
+  {%- liquid
+    assign other_sellers = 0
+    for vendor in shop.vendors
+      assign vd = vendor | downcase
+      unless vd contains 'sufias'
+        assign other_sellers = other_sellers | plus: 1
+      endunless
+    endfor
+  -%}
+  {%- comment -%} Shown once at least one outside seller is live; until then the "Sell on Sufias" banner below covers it. {%- endcomment -%}
+  {%- if other_sellers == 0 -%}<span id="sellers"></span>{%- else -%}
   <section class="swh-wrap swh-sec" id="sellers">
     <h2 class="swh-h2">Sellers on Sufias</h2>
     <div class="swh-sellers">
@@ -219,6 +230,7 @@
       <a class="swh-seller swh-seller--join" href="{{ s.sell_url | default: '/pages/sell' }}"><div class="swh-av swh-av--gold">+</div><div><div class="swh-seller__n">Your brand here</div><div class="swh-seller__d">Join as a seller</div></div></a>
     </div>
   </section>
+  {%- endif -%}
 
 
   {%- comment -%} 10. Sell with us {%- endcomment -%}
