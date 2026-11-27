@@ -29,7 +29,7 @@
         "5ceb80b4-7249-43c6-bab2-723276f6f6a2"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/bg-heading.jpg",
+        "image": "shopify://shop_images/bg-heading.jpg",
         "parallax": false,
         "color": "#000000",
         "overlay": 54,
@@ -43,7 +43,8 @@
         "bg_size": "cover",
         "use_cus_css": false,
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
-      }
+      },
+      "disabled": true
     },
     "main": {
       "type": "main-customers-register",

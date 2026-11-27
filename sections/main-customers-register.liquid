@@ -5,6 +5,11 @@
 assign sid            = section.id
 assign se_stts = section.settings -%}
 
+<div class="sfa">
+  {%- render 'sufias-auth-panel', mode: 'register' -%}
+  <div class="sfa-card">
+  <h1>Create your free account</h1>
+  <p class="sfa-card__sub">Takes one minute. No approval wait, start ordering straight away.</p>
 <div class="t4s-customer is--register t4s-text-{{ se_stts.content_align }}">
   <svg style="display: none">
     <symbol id="icon-error" viewBox="0 0 13 13">
@@ -127,6 +132,39 @@ assign se_stts = section.settings -%}
   {%- endform -%}
 
 </div>
+  </div>
+</div>
+
+<style>
+  .sfa{max-width:1040px;margin:8px auto 56px;padding:0 16px;display:grid;gap:18px;color:#3B2A1E}
+  .sfa *{box-sizing:border-box}
+  .sfa-card{background:#fff;border:1px solid #E8DAC3;border-radius:18px;padding:24px 20px;box-shadow:0 12px 32px rgba(139,94,52,.08)}
+  .sfa-card h1{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:28px;line-height:1.2;margin:0 0 6px;color:#3B2A1E}
+  .sfa-card__sub{margin:0 0 22px;color:#7A6650;font-size:15px;line-height:1.5}
+  .sfa .t4s-customer{max-width:none!important;margin:0!important;padding:0!important;width:100%}
+  .sfa .t4s_frm_input{font-size:16px!important;border-radius:10px!important;border-color:#E2D3BB!important;background:#FFFCF7!important;min-height:52px}
+  .sfa .t4s_frm_input:focus{border-color:#8B5E34!important;background:#fff!important}
+  .sfa .t4s_mb_30{margin-bottom:16px!important}
+  .sfa .t4s_btn_submmit{background:#8B5E34!important;color:#fff!important;border-color:#8B5E34!important;border-radius:10px!important;min-height:52px;font-weight:700;letter-spacing:.5px}
+  .sfa .t4s_btn_submmit:hover{background:#6E4826!important}
+  .sfa .t4s-customer a{color:#8B5E34;text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+  .sfa-panel{background:linear-gradient(160deg,#F3E7D3,#EADBC2);border:1px solid #E8DAC3;border-radius:18px;padding:22px 20px}
+  .sfa-kick{font-size:11px;letter-spacing:2px;font-weight:700;color:#A7802F;margin:0 0 8px}
+  .sfa-panel__h{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:600;line-height:1.25;margin:0 0 14px}
+  .sfa-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .sfa-list li{position:relative;padding-left:28px;font-size:14px;line-height:1.5;color:#5A4632}
+  .sfa-list li::before{content:"✓";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:#C9A24E;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .sfa-list b{color:#3B2A1E}
+  .sfa-panel__sell{margin:16px 0 0;padding-top:14px;border-top:1px solid rgba(139,94,52,.18);font-size:14px;color:#5A4632}
+  .sfa-panel__sell a{color:#8B5E34;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+  @media (min-width:750px){
+    .sfa{grid-template-columns:1fr 1.15fr;gap:28px;align-items:start;margin-top:24px;padding:0 24px}
+    .sfa-panel{padding:36px 32px;position:sticky;top:100px}
+    .sfa-panel__h{font-size:28px}
+    .sfa-card{padding:36px}
+    .sfa-card h1{font-size:34px}
+  }
+</style>
 
 {%- schema -%}
   {

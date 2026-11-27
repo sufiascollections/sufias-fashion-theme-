@@ -1,0 +1,15 @@
+{%- comment -%}
+  Side panel for the register and login pages (sections/main-customers-register|login.liquid).
+  Accepts: mode ('register' or 'login').
+{%- endcomment -%}
+<aside class="sfa-panel" aria-label="Why a Sufias account">
+  <p class="sfa-kick">SUFIAS WHOLESALE MARKETPLACE</p>
+  <p class="sfa-panel__h">{% if mode == 'login' %}Good to see you again{% else %}One free account for wholesale buying{% endif %}</p>
+  <ul class="sfa-list" role="list">
+    <li><b>Wholesale prices</b> on every design, from Sufias and verified sellers</li>
+    <li><b>Order by colour</b>, from 12 suits per design</li>
+    <li><b>Free PostEx delivery</b> with tracking, COD or advance</li>
+    <li><b>Account statement</b> with every order and payment</li>
+  </ul>
+  <p class="sfa-panel__sell">Are you a brand or manufacturer? <a href="/pages/sell">Sell on Sufias</a></p>
+</aside>
