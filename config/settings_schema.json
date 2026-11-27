@@ -2704,6 +2704,12 @@
         "default": true
       },
       {
+        "type": "checkbox",
+        "id": "sufias_hide_abayas",
+        "label": "Hide abayas (not sold wholesale for now)",
+        "default": true
+      },
+      {
         "type": "number",
         "id": "sufias_min_suits",
         "label": "Minimum suits per order (any designs mixed)",

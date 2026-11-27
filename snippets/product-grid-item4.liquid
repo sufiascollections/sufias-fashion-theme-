@@ -119,6 +119,11 @@ endif -%}
     if product.available == false and booking_launch_locked == false
       assign booking_hide = true
     endif
+    if settings.sufias_hide_abayas
+      if product.type == 'Abaya' or product.tags contains 'abaya' or product.tags contains 'Abaya'
+        assign booking_hide = true
+      endif
+    endif
   endif
 -%}
 {%- unless booking_hide -%}

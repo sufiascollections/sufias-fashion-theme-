@@ -208,4 +208,5 @@
   <script src="{{ 'sufias-wholesale-secure.js' | asset_url }}" defer></script>
   {% endif %}
 </section>
+{%- if settings.sufias_hide_abayas -%}<script>window.SufiasHideAbayas=true;</script>{%- endif -%}
 {% schema %}{"name":"Sufias Booking","tag":"section","class":"t4s-section sufias-booking-section","settings":[{"type":"checkbox","id":"ledger_enabled","label":"Save bookings to connected khata backend","default":true},{"type":"header","content":"Banner photos"},{"type":"paragraph","content":"Leave empty to show the newest wholesale designs, one per colour."},{"type":"image_picker","id":"hero_image_1","label":"Photo 1 (left)"},{"type":"image_picker","id":"hero_image_2","label":"Photo 2 (centre)"},{"type":"image_picker","id":"hero_image_3","label":"Photo 3 (right)"}],"presets":[{"name":"Sufias Booking"}]}{% endschema %}

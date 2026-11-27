@@ -666,6 +666,7 @@
           },
           "556a85dc-041d-4d44-8c22-263ed70a8b48": {
             "type": "drop",
+            "disabled": true,
             "settings": {
               "title": "ABAYAS",
               "url": "shopify://collections/abaya-collections",
@@ -1495,6 +1496,7 @@
           },
           "menu_3tezMb": {
             "type": "menu",
+            "disabled": true,
             "settings": {
               "title": "ABAYAS",
               "url": "shopify://collections/abaya-collections",

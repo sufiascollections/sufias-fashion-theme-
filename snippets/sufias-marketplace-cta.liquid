@@ -6,6 +6,7 @@
 {%- endcomment -%}
 {%- assign mk_in_range = false -%}
 {%- if product.tags contains 'booking' -%}{%- assign mk_in_range = true -%}{%- endif -%}
+{%- if settings.sufias_hide_abayas -%}{%- if product.type == 'Abaya' or product.tags contains 'abaya' or product.tags contains 'Abaya' -%}{%- assign mk_in_range = false -%}{%- endif -%}{%- endif -%}
 {%- if type != 'main_sticky' and mk_in_range == false -%}
 <div class="smk smk--off">
   <p class="smk__off-h">This design is not in the wholesale range right now.</p>

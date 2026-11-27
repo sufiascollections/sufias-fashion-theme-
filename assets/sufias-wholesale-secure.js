@@ -95,7 +95,7 @@
 
     async function openCatalog() {
       const catalog = await api('wholesale/catalog');
-      products = catalog.products || [];
+      products = (catalog.products || []).filter(p => !(window.SufiasHideAbayas && /abaya/i.test((p.title || '') + ' ' + (p.productType || p.product_type || '') + ' ' + (p.tags || []).join(' '))));
       render();
       /* A link from a seller design's product page (?design=<product id>) opens that design straight away. */
       const wanted = new URLSearchParams(location.search).get('design');

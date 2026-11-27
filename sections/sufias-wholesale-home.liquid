@@ -72,7 +72,7 @@
       {%- for block in section.blocks -%}
         {%- assign c = block.settings.collection -%}
         {%- assign c_count = 0 -%}
-        {%- for cp in c.products limit: 250 -%}{%- if cp.available and cp.tags contains 'booking' -%}{%- assign c_count = c_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        {%- for cp in c.products limit: 250 -%}{%- if cp.available and cp.tags contains 'booking' -%}{%- if settings.sufias_hide_abayas -%}{%- if cp.type == 'Abaya' or cp.tags contains 'abaya' or cp.tags contains 'Abaya' -%}{%- continue -%}{%- endif -%}{%- endif -%}{%- assign c_count = c_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
         {%- if c_count == 0 -%}{%- continue -%}{%- endif -%}
         {%- assign cimg = block.settings.image | default: c.featured_image | default: c.products[0].featured_media.preview_image -%}
         <a class="swh-catc" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
@@ -93,7 +93,7 @@
     <div class="hsD__row">
       {%- assign nd_n = 0 -%}
       {%- for p in shop_coll.products limit: 60 -%}
-      {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+      {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}{%- if settings.sufias_hide_abayas -%}{%- if p.type == 'Abaya' or p.tags contains 'abaya' or p.tags contains 'Abaya' -%}{%- continue -%}{%- endif -%}{%- endif -%}
       {%- if nd_n >= 4 -%}{%- break -%}{%- endif -%}{%- assign nd_n = nd_n | plus: 1 -%}
       {%- assign nd_code = p.title | split: '– ' | last | strip -%}
       {%- assign nd_name = p.title | split: ' – ' | first | remove: 'Embroidered ' | remove: ' 3-Piece Suit' | strip -%}
@@ -133,7 +133,7 @@
     <div class="swh-grid">
       {%- assign pg_n = 0 -%}
       {%- for p in shop_coll.products limit: 100 -%}
-        {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+        {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}{%- if settings.sufias_hide_abayas -%}{%- if p.type == 'Abaya' or p.tags contains 'abaya' or p.tags contains 'Abaya' -%}{%- continue -%}{%- endif -%}{%- endif -%}
         {%- assign pg_n = pg_n | plus: 1 -%}
         {%- if pg_n <= 4 -%}{%- continue -%}{%- endif -%}
         {%- assign pg_max = s.products_limit | plus: 4 -%}
@@ -293,7 +293,7 @@
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "playfair_display_n6" },
     { "type": "font_picker", "id": "body_font", "label": "Text font", "default": "inter_n4" },
     { "type": "text", "id": "hero_title", "label": "Hero heading", "default": "Pakistan's Wholesale Suits Marketplace" },
-    { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "Embroidered 3-piece suits, winter cotton and abayas from Sufias and trusted sellers, all at wholesale prices. One place, many sellers." },
+    { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "Embroidered 3-piece suits and winter cotton from Sufias and trusted sellers, all at wholesale prices. One place, many sellers." },
     { "type": "image_picker", "id": "hero_image_1", "label": "Hero photo 1 (empty = first product photo)" },
     { "type": "image_picker", "id": "hero_image_2", "label": "Hero photo 2 (empty = second product photo)" },
     { "type": "url", "id": "shop_url", "label": "Shop Wholesale link" },
