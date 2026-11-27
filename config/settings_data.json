@@ -1616,6 +1616,32 @@
               "icons_op": "2",
               "icon": ""
             }
+          },
+          "menu_sfabout": {
+            "type": "menu",
+            "settings": {
+              "title": "ABOUT US",
+              "url": "shopify://pages/about-us",
+              "open_link": "_self",
+              "menu": "",
+              "lb": "",
+              "lb_cl": "",
+              "icons_op": "0",
+              "icon": ""
+            }
+          },
+          "menu_sfcontact": {
+            "type": "menu",
+            "settings": {
+              "title": "CONTACT",
+              "url": "shopify://pages/contact",
+              "open_link": "_self",
+              "menu": "",
+              "lb": "",
+              "lb_cl": "",
+              "icons_op": "0",
+              "icon": ""
+            }
           }
         },
         "block_order": [
@@ -1632,7 +1658,9 @@
           "mb_nav-5",
           "mb_nav-6",
           "mb_nav-8",
-          "mb_nav-9"
+          "mb_nav-9",
+          "menu_sfabout",
+          "menu_sfcontact"
         ],
         "settings": {}
       },

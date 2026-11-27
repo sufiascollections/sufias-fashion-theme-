@@ -129,3 +129,8 @@ body{color:#2A3544}
 .sfm-footer__col a:hover{color:#F7EFDF!important}
 .sfm-footer__bottom{border-top:1px solid #3A4656;color:#A9B0BB}
 .sfm-footer a{color:#E6C98A}
+
+/* Header: About Us / Contact links beside the icons (desktop) */
+.sfh-links{align-items:center;gap:22px;margin-right:26px;vertical-align:middle}
+.sfh-links a{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A3544!important;text-decoration:none;padding:12px 0;border-bottom:1px solid transparent;transition:border-color .2s}
+.sfh-links a:hover{border-bottom-color:#C9A45C}

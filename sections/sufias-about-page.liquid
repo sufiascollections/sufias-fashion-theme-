@@ -1,0 +1,166 @@
+{%- comment -%}
+  About Us page for the Sufias wholesale marketplace (template page.about). Navy / ivory / gold, matches the hero banner.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign wa = s.whatsapp | remove: ' ' | remove: '+' | remove: '-'
+-%}
+<div class="sab">
+  <section class="sab-hero">
+    <div class="sab-in">
+      <p class="sab-kick">About Sufias</p>
+      <h1 class="sab-h1">{{ s.title }}</h1>
+      <p class="sab-lead">{{ s.lead }}</p>
+      <div class="sab-btns">
+        <a class="sab-btn sab-btn--light" href="/pages/booking">Browse wholesale designs</a>
+        <a class="sab-btn sab-btn--line" href="/pages/sell">Sell on Sufias</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sab-in sab-story">
+    <div class="sab-story__text">
+      <p class="sab-kick sab-kick--dark">Our story</p>
+      <h2 class="sab-h2">From a Lahore clothing brand to a wholesale marketplace</h2>
+      <p>Sufias Fashion is a women's clothing brand from Lahore. We design and make embroidered three-piece suits, winter cotton, lawn and abayas.</p>
+      <p>Boutiques and online sellers kept asking to buy in bulk, so we built Sufias into a marketplace: every design is shown with its wholesale price, you pick the colours you need, and we deliver to your door anywhere in Pakistan.</p>
+      <p>Today Sufias brings together our own designs and designs from checked suit makers, so shop owners can fill their racks from one place.</p>
+    </div>
+    <div class="sab-story__pic">
+      <img src="{{ 'sufias-promo-right.jpg' | asset_url }}" alt="Embroidered three-piece suit from Sufias" width="480" height="640" loading="lazy">
+      <span class="sab-story__tag">Made in Lahore</span>
+    </div>
+  </section>
+
+  <section class="sab-band">
+    <div class="sab-in">
+      <p class="sab-kick sab-kick--dark sab-center">How the marketplace works</p>
+      <h2 class="sab-h2 sab-center">One place for buyers and sellers</h2>
+      <div class="sab-cols">
+        <article class="sab-card">
+          <h3>For shop owners</h3>
+          <ul>
+            <li>Free account, no approval wait</li>
+            <li>See every design with its wholesale price</li>
+            <li>Order from 12 suits in total, mixing any designs and colours</li>
+            <li>Pay in advance or cash on delivery</li>
+          </ul>
+          <a href="/account/register">Create a buyer account</a>
+        </article>
+        <article class="sab-card">
+          <h3>For brands and makers</h3>
+          <ul>
+            <li>List your designs after a quality check</li>
+            <li>10% commission, only when a suit sells</li>
+            <li>No listing fee and no monthly fee</li>
+            <li>Paid after delivery and the 3-day return window</li>
+          </ul>
+          <a href="/pages/sell">Become a seller</a>
+        </article>
+        <article class="sab-card">
+          <h3>What Sufias handles</h3>
+          <ul>
+            <li>Orders, payments and customer support</li>
+            <li>Free PostEx delivery with tracking, all Pakistan</li>
+            <li>Returns within 3 days of delivery</li>
+            <li>An account statement for every order and payment</li>
+          </ul>
+          <a href="/pages/faq">Read questions and answers</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sab-in sab-values">
+    <p class="sab-kick sab-kick--dark sab-center">Our promise</p>
+    <h2 class="sab-h2 sab-center">Why boutiques trust Sufias</h2>
+    <div class="sab-vals">
+      <div><b>Quality checked</b><span>Every design is checked before it goes live, including designs from other sellers.</span></div>
+      <div><b>Clear prices</b><span>The wholesale price is on every design. No hidden charges, delivery is free.</span></div>
+      <div><b>New designs often</b><span>Fresh winter, lawn and abaya designs are added regularly.</span></div>
+      <div><b>Real people to talk to</b><span>Our team in Lahore answers on WhatsApp.</span></div>
+    </div>
+  </section>
+
+  <section class="sab-visit">
+    <div class="sab-in sab-visit__in">
+      <div>
+        <p class="sab-kick">Visit or contact us</p>
+        <h2 class="sab-h2 sab-h2--light">Sufias Fashion, Lahore</h2>
+        <p>{{ s.address }}</p>
+        <p>{{ s.hours }}</p>
+      </div>
+      <div class="sab-btns">
+        {%- if wa != blank -%}<a class="sab-btn sab-btn--light" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">WhatsApp {{ s.whatsapp }}</a>{%- endif -%}
+        <a class="sab-btn sab-btn--line" href="/pages/contact">Contact page</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .sab{--n:#2A3544;--n2:#1F2833;--iv:#F7EFDF;--g:#C9A45C;--g2:#A8843E;--mut:#5F6877;--line:#E2DACB;--bg:#FBF6EE;background:var(--bg);color:var(--n2)}
+  .sab *{box-sizing:border-box}
+  .sab-in{max-width:1160px;margin:0 auto;padding:0 16px}
+  .sab-center{text-align:center}
+  .sab-kick{margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#D8B66E}
+  .sab-kick--dark{color:var(--g2)}
+  .sab-h1,.sab-h2{font-family:'Playfair Display',Georgia,serif;font-weight:500;line-height:1.15;margin:0}
+  .sab-h1{font-size:32px;color:var(--iv)}
+  .sab-h2{font-size:26px;color:var(--n2);margin-bottom:14px}
+  .sab-h2--light{color:var(--iv)}
+  .sab-hero{background:radial-gradient(120% 140% at 50% 0%,#3A4960 0%,#2A3544 50%,#1F2833 100%);color:var(--iv);padding:48px 0 52px;text-align:center;border-bottom:3px solid var(--g)}
+  .sab-lead{max-width:660px;margin:16px auto 0;font-size:16px;line-height:1.6;color:#D5D9E0}
+  .sab-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px}
+  .sab-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:6px;font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:600;text-decoration:none!important;transition:background .2s,color .2s}
+  .sab-btn--light{background:#F6EEDF;color:var(--n2)!important}.sab-btn--light:hover{background:#fff}
+  .sab-btn--line{border:1px solid rgba(216,182,110,.8);color:var(--iv)!important}.sab-btn--line:hover{background:rgba(216,182,110,.15)}
+  .sab-story{display:grid;gap:28px;padding-top:48px;padding-bottom:48px;align-items:center}
+  .sab-story p{font-size:16px;line-height:1.7;color:#3A4556;margin:0 0 12px}
+  .sab-story__pic{position:relative;max-width:360px;margin:0 auto;width:100%}
+  .sab-story__pic img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:999px 999px 14px 14px;box-shadow:0 0 0 1px var(--g),0 0 0 7px var(--bg),0 0 0 8px rgba(201,164,92,.45),0 18px 36px rgba(31,40,51,.18)}
+  .sab-story__tag{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:var(--n);color:var(--iv);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:999px;border:1px solid var(--g);white-space:nowrap}
+  .sab-band{background:#F1ECE2;padding:48px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .sab-cols{display:grid;gap:16px;margin-top:22px}
+  .sab-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column}
+  .sab-card h3{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:20px;margin:0 0 12px;color:var(--n2)}
+  .sab-card ul{list-style:none;margin:0 0 16px;padding:0;flex:1}
+  .sab-card li{position:relative;padding-left:22px;margin:0 0 10px;font-size:15px;line-height:1.5;color:#3A4556}
+  .sab-card li::before{content:"";position:absolute;left:2px;top:7px;width:7px;height:7px;background:var(--g);transform:rotate(45deg)}
+  .sab-card a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--n)!important;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--g)}
+  .sab-values{padding-top:48px;padding-bottom:48px}
+  .sab-vals{display:grid;gap:14px;margin-top:22px}
+  .sab-vals div{border-left:2px solid var(--g);padding:4px 0 4px 16px}
+  .sab-vals b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:600;margin-bottom:4px;color:var(--n2)}
+  .sab-vals span{font-size:15px;line-height:1.55;color:var(--mut)}
+  .sab-visit{background:var(--n);color:#D5D9E0;padding:40px 0;border-top:3px solid var(--g)}
+  .sab-visit p{margin:0 0 6px;font-size:15px;line-height:1.6}
+  .sab-visit__in{display:grid;gap:8px}
+  .sab-visit .sab-btns{justify-content:flex-start}
+  @media (min-width:750px){
+    .sab-hero{padding:72px 0 76px}
+    .sab-h1{font-size:46px}
+    .sab-h2{font-size:34px}
+    .sab-lead{font-size:18px}
+    .sab-story{grid-template-columns:1.2fr 1fr;gap:56px;padding-top:72px;padding-bottom:72px}
+    .sab-band,.sab-values{padding-top:68px;padding-bottom:68px}
+    .sab-cols{grid-template-columns:repeat(3,1fr);gap:20px}
+    .sab-vals{grid-template-columns:repeat(2,1fr);gap:24px 40px}
+    .sab-visit__in{grid-template-columns:1fr auto;align-items:center;gap:32px}
+  }
+  @media (min-width:1100px){.sab-vals{grid-template-columns:repeat(4,1fr)}}
+</style>
+
+{% schema %}
+{
+  "name": "Sufias About page",
+  "settings": [
+    {"type": "text", "id": "title", "label": "Heading", "default": "Pakistan's wholesale marketplace for embroidered suits"},
+    {"type": "textarea", "id": "lead", "label": "Intro", "default": "Sufias connects boutiques, shop owners and online sellers with embroidered suits from Sufias Fashion and checked makers, at wholesale prices, delivered free across Pakistan."},
+    {"type": "text", "id": "whatsapp", "label": "WhatsApp number", "default": "+92 301 4509210"},
+    {"type": "text", "id": "address", "label": "Address", "default": "Plot 500, Pindi Stop, Maulana Shaukat Ali Road, Kot Lakhpat, Lahore 54000, Pakistan"},
+    {"type": "text", "id": "hours", "label": "Opening hours", "default": "Monday to Saturday, 9 am to 10 pm"}
+  ],
+  "presets": [{"name": "Sufias About page"}]
+}
+{% endschema %}

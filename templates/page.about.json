@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "sufias-about-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
