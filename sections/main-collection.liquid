@@ -100,6 +100,8 @@
 <link rel="stylesheet" href="{{ 'facets.css' | asset_url }}" media="all">
 {%- endif -%}
 
+{%- comment -%} Wholesale site hides old retail and sold-out items in the grid, so show the whole collection on one page (no near-empty pages). {%- endcomment -%}
+{%- if settings.sufias_wholesale_only -%}{%- assign limit = 250 -%}{%- endif -%}
 {%- paginate collection.products by limit -%}
 <div class="t4s-section-inner t4s_nt_se_{{ section.id }} t4s_se_{{ section.id }} {{ stt_layout }} {% if stt_image_bg != blank and stt_layout != 't4s-se-container' %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank and stt_layout != 't4s-se-container' %} data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} {% render 'section_style', se_stts: section.settings %} >
   {{- html_layout[0] -}}
