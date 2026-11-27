@@ -6,7 +6,8 @@
 <section class="sw wseo" aria-labelledby="wseo-h">
   {%- liquid
     assign shown = 0
-    assign max_designs = section.settings.designs | default: 24
+    assign max_designs = 250
+    assign first_batch = section.settings.designs | default: 12
   -%}
   <div class="sw-section sw-section--soft" id="designs" data-wseo-designs>
     <div class="sw-wrap">
@@ -55,6 +56,34 @@
             out.push(left.splice(pick < 0 ? 0 : pick, 1)[0]);
           }
           out.forEach(function (x) { grid.appendChild(x.li); });
+        })();
+      </script>
+      <div class="wseo-more" data-wseo-more hidden>
+        <p class="wseo-more__count" aria-live="polite"></p>
+        <button type="button" class="sw-btn sw-btn--outline wseo-more__btn">Show more designs</button>
+      </div>
+      <script>
+        /* Show the first batch, then more designs on each tap. Without JS every design stays visible. */
+        (function () {
+          var box = document.currentScript && document.currentScript.previousElementSibling;
+          var grid = box && box.parentNode.querySelector('.wseo-grid');
+          if (!grid) return;
+          var cards = Array.prototype.slice.call(grid.children), step = {{ first_batch | json }}, open = step;
+          if (cards.length <= step) return;
+          var btn = box.querySelector('button'), count = box.querySelector('.wseo-more__count');
+          function paint() {
+            cards.forEach(function (li, i) { li.hidden = i >= open; });
+            var left = cards.length - open;
+            count.textContent = 'Showing ' + Math.min(open, cards.length) + ' of ' + cards.length + ' designs';
+            if (left > 0) { btn.textContent = 'Show ' + Math.min(step, left) + ' more designs'; box.hidden = false; btn.hidden = false; }
+            else { btn.hidden = true; }
+          }
+          btn.addEventListener('click', function () {
+            var first = cards[open];
+            open += step; paint();
+            if (first) { var a = first.querySelector('a'); if (a) a.focus({ preventScroll: true }); }
+          });
+          box.hidden = false; paint();
         })();
       </script>
 
@@ -192,7 +221,7 @@
     {"type": "text", "id": "kicker", "label": "Small heading", "default": "Wholesale from Lahore"},
     {"type": "text", "id": "heading", "label": "Heading", "default": "Wholesale embroidered suits for boutiques and resellers"},
     {"type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Sufias Fashion supplies wholesale embroidered 3-piece suits to boutiques, online sellers and retailers across Pakistan. Choose from winter cotton, khaddar, lawn, chiffon and organza designs with chikankari, thread and cutwork embroidery, in every colour of each design.</p><p>Order from 12 suits in total, mix any designs and colours, and pay in advance or cash on delivery (COD). We pack in Lahore and ship with PostEx to every city in Pakistan, with a tracking number for every parcel.</p>"},
-    {"type": "range", "id": "designs", "label": "Designs to show", "min": 4, "max": 24, "step": 4, "default": 12},
+    {"type": "range", "id": "designs", "label": "Designs shown first (rest behind Show more)", "min": 4, "max": 24, "step": 4, "default": 12},
     {"type": "text", "id": "designs_heading", "label": "Designs heading", "default": "All wholesale designs"},
     {"type": "text", "id": "designs_note", "label": "Designs note", "default": "Tap a design to choose colours. Min. 12 suits per order, mix any designs and colours."},
     {"type": "text", "id": "steps_heading", "label": "Steps heading", "default": "Order wholesale suits in 4 steps"},

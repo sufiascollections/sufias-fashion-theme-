@@ -190,3 +190,10 @@ html.sw-lock,html.sw-lock body{overflow:hidden}
 .sw-gallery__count{position:absolute;top:10px;left:10px;z-index:3;padding:3px 9px;border-radius:999px;background:rgb(29 28 26 / 70%);color:#fff;font-size:12px;font-weight:600}
 .sw-gallery__count:empty{display:none}
 @media(max-width:560px){.sw-cardp__arrow{width:30px;height:30px;margin-top:-15px;font-size:20px;padding-bottom:2px;background:rgb(255 255 255 / 80%)}.sw-cardp__arrow::before{content:'';position:absolute;inset:-7px}.sw-cardp__arrow--prev{left:4px}.sw-cardp__arrow--next{right:4px}}
+/* Wholesale page: Show more designs */
+.wseo-grid>li[hidden]{display:none!important}
+.wseo-more{display:flex;flex-direction:column;align-items:center;gap:10px;margin:28px auto 0;text-align:center}
+.wseo-more[hidden]{display:none}
+.wseo-more__count{margin:0;font-size:14px;color:#7A6552}
+.wseo-more__btn{min-height:48px;min-width:240px;padding:0 28px;font-size:15px}
+@media (max-width:600px){.wseo-more__btn{width:100%;min-width:0}}
