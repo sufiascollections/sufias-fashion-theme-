@@ -21,7 +21,7 @@
     "logo_tr": "shopify://shop_images/header-logo-01.png",
     "logo_tr_width": 160,
     "mobile_nav_type": "1",
-    "price_primary": "#8B5E34",
+    "price_primary": "#2A3544",
     "font_source": "2",
     "fnt_fm_sp2": "poppins_n4",
     "fnt_fm_sp3": "libre_baskerville_n4",
@@ -1066,9 +1066,9 @@
           "btn_config-0": {
             "type": "custom1",
             "settings": {
-              "color_primary": "#8B5E34",
+              "color_primary": "#2A3544",
               "color_second": "#ffffff",
-              "color_primary_hover": "#6E4826",
+              "color_primary_hover": "#1E2733",
               "color_second_hover": "#ffffff"
             }
           },
@@ -1077,7 +1077,7 @@
             "settings": {
               "color_primary": "#F4E4CF",
               "color_second": "#1d1c1a",
-              "color_primary_hover": "#C9A24E",
+              "color_primary_hover": "#C9A45C",
               "color_second_hover": "#1d1c1a"
             }
           }
@@ -2015,7 +2015,7 @@
             "settings": {
               "heading": "",
               "fontf": "inherit",
-              "text_cl": "#3B2A1E",
+              "text_cl": "#1F2833",
               "text_fs": 20,
               "text_lh": 20,
               "text_fw": 500,
@@ -2038,7 +2038,7 @@
         "settings": {
           "image": "shopify://shop_images/shopping-cart-head.jpg",
           "parallax": false,
-          "color": "#F3E7D3",
+          "color": "#F1ECE2",
           "overlay": 90,
           "padding": 50,
           "paddingmb": 50,
@@ -2449,25 +2449,25 @@
       }
     },
     "body_bg": "#FBF6EE",
-    "heading_color": "#3B2A1E",
+    "heading_color": "#1F2833",
     "text_color": "#57524a",
-    "accent_color": "#8B5E34",
+    "accent_color": "#2A3544",
     "secondary_color": "#1d1c1a",
     "border_color": "#EADCCB",
     "border_primary_color": "#1d1c1a",
     "price_secondary": "#6e685f",
     "link_color": "#57524a",
-    "link_color_hover": "#8B5E34",
-    "btn_bg": "#8B5E34",
+    "link_color_hover": "#2A3544",
+    "btn_bg": "#2A3544",
     "btn_color": "#ffffff",
-    "cl_lazyload": "#8B5E34",
+    "cl_lazyload": "#2A3544",
     "bg_lazyload": "#f3ece0",
     "bg_tooltip": "#1d1c1a",
     "cl_tooltip": "#ffffff",
     "sw_primary": "#1d1c1a",
     "sw_secondary": "#6e685f",
     "sw_border": "#EADCCB",
-    "new_badge_color": "#8B5E34",
+    "new_badge_color": "#2A3544",
     "preorder_badge_color": "#8b6b3d",
     "soldout_badge_color": "#6e685f",
     "custom_badge_color": "#2f6b4f"
