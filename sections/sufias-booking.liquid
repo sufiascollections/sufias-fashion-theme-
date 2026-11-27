@@ -9,9 +9,9 @@
       <div class="sw-hero__text">
         <p class="sw-kicker">Sufias Fashion · Wholesale</p>
         <h1 class="sw-hero__title">Wholesale <span class="sw-hero__shine">embroidered</span> suits</h1>
-        <p class="sw-hero__lead">Wholesale 3-piece embroidered suits for boutiques and resellers across Pakistan. Choose a design, set quantities per colour and order 12 to 24 suits per design.</p>
+        <p class="sw-hero__lead">Open to everyone. Browse every design with its wholesale price, pick colours and order from 12 suits per design.</p>
         <nav class="sw-hero__actions" aria-label="Wholesale account">
-          <a class="sw-btn sw-btn--ghost-light" href="/pages/ledger">Ledger</a>
+          <a class="sw-btn sw-btn--primary" href="{% if customer %}#wholesale-designs{% else %}#designs{% endif %}">Browse designs</a>
           <a class="sw-btn sw-btn--ghost-light" href="/pages/sell">Sell with us</a>
           {% if customer %}<button type="button" class="sw-btn sw-btn--ghost-light" data-wholesale-lock hidden>Lock</button>{% endif %}
         </nav>
@@ -107,7 +107,7 @@
 
   {%- render 'sufias-coming-soon' -%}
 
-  <div class="sw-gate sw-wrap" data-wholesale-gate>
+  {%- if customer -%}<div class="sw-gate sw-wrap" data-wholesale-gate>
     <div class="sw-card sw-gate__card">
       {% if customer %}
         <p class="sw-gate__hello">Assalam o Alaikum, {{ customer.first_name | default: customer.name | escape }}</p>
@@ -127,14 +127,9 @@
           <button class="sw-btn sw-btn--primary sw-btn--block" type="submit">Unlock wholesale</button>
           <a class="sw-link" href="/pages/ledger">Forgot PIN?</a>
         </form>
-      {% else %}
-        {%- capture sufias_login_url -%}{{ routes.storefront_login_url }}{% if routes.storefront_login_url contains '?' %}&{% else %}?{% endif %}return_url={{ request.path | url_encode }}&return_to={{ request.path | url_encode }}{%- endcapture -%}
-        <h2 class="sw-h2">Log in to continue</h2>
-        <p class="sw-muted">Log in to request wholesale access. Registration alone does not unlock wholesale prices.</p>
-        <a class="sw-btn sw-btn--primary sw-btn--block" href="{{ sufias_login_url | escape }}">Log in / Register</a>
       {% endif %}
     </div>
-  </div>
+  </div>{%- endif -%}
 
   {% if customer %}
   <div class="sw-content" data-wholesale-content hidden>
@@ -153,7 +148,7 @@
       </div>
     </section>
 
-    <section class="sw-section">
+    <section class="sw-section" id="wholesale-designs">
       <div class="sw-wrap">
         <div class="sw-section__head">
           <div><p class="sw-kicker">Available now</p><h2 class="sw-h2">Wholesale designs</h2></div>

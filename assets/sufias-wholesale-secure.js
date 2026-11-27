@@ -111,7 +111,7 @@
       }
       gate.hidden = true; content.hidden = false; lockBtn.hidden = false;
       const exp = tokenExpiry(token);
-      $('[data-wholesale-unlocked]').textContent = exp ? 'Unlocked until ' + untilText(exp) : '';
+      $('[data-wholesale-unlocked]').textContent = '';
     }
 
     async function access() {

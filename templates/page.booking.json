@@ -40,22 +40,22 @@
         "s1": {
           "type": "step",
           "settings": {
-            "title": "Create a free account",
-            "text": "Register on sufias.com with your name, shop name and WhatsApp number."
+            "title": "Browse designs",
+            "text": "Every design and its wholesale price is open to everyone. No login needed to look."
           }
         },
         "s2": {
           "type": "step",
           "settings": {
-            "title": "Open your account",
-            "text": "Log in and fill your name, shop and phone once on this page. Your wholesale account opens straight away."
+            "title": "Choose colours",
+            "text": "Pick a quantity for each colour. Minimum 12 suits per design, colours can be mixed."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "Choose designs and colours",
-            "text": "See wholesale prices, pick quantities per colour, minimum 12 suits per design."
+            "title": "Place your order",
+            "text": "Log in with your free account only when you send the order, so we know where to deliver."
           }
         },
         "s4": {
@@ -76,7 +76,7 @@
           "type": "faq",
           "settings": {
             "question": "Who can buy wholesale from Sufias Fashion?",
-            "answer": "Boutiques, shop owners, online sellers and resellers in Pakistan. Create a free account, fill your shop details once on this page and order directly at wholesale prices."
+            "answer": "Boutiques, shop owners, online sellers and resellers in Pakistan. Browse freely, then log in with a free account when you place your order."
           }
         },
         "f3": {
