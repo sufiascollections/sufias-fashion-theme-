@@ -1,18 +1,7 @@
 {%- comment -%}
-  Sufias announcement banner under the header. Text, link and photos: Theme settings > Sufias wholesale.
+  Sufias announcement banner, shown on the homepage right below the hero. Text, link and photos: Theme settings > Sufias wholesale.
 {%- endcomment -%}
-{%- liquid
-  assign show = settings.sufias_promo_enable
-  if settings.sufias_promo_pages == 'home' and template.name != 'index'
-    assign show = false
-  endif
-  if template.name == 'customers' or template.name == 'cart' or template.name == 'password' or template.name == 'gift_card'
-    assign show = false
-  endif
-  if template contains 'customers'
-    assign show = false
-  endif
--%}
+{%- assign show = settings.sufias_promo_enable -%}
 {%- if show -%}
 {%- liquid
   assign link = settings.sufias_promo_link | default: '/pages/booking'
@@ -46,7 +35,7 @@
     <span class="spb-glow" aria-hidden="true"></span>
     <span class="spb-pic spb-pic--l" aria-hidden="true">
       {%- if img1 != blank -%}
-        {{ img1 | image_url: width: 360 | image_tag: alt: '', width: 180, height: 240, loading: 'eager', class: 'spb-img' }}
+        {{ img1 | image_url: width: 360 | image_tag: alt: '', width: 180, height: 240, loading: 'lazy', class: 'spb-img' }}
       {%- endif -%}
     </span>
     <span class="spb-mid">
@@ -63,7 +52,7 @@
   </a>
 </div>
 <style>
-  .spb-wrap{max-width:1320px;margin:22px auto 6px;padding:0 16px}
+  .spb-wrap{max-width:1200px;margin:34px auto 18px;padding:0 16px}
   .spb{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:104px;padding:0 12px 0 0;border-radius:22px;text-decoration:none!important;color:#FFF8EC;
     background:linear-gradient(100deg,#6E4826 0%,#8B5E34 38%,#A97540 62%,#7A5130 100%);box-shadow:0 10px 28px rgba(110,72,38,.22);overflow:visible;isolation:isolate}
   .spb::before{content:"";position:absolute;left:50%;top:-12px;transform:translateX(-50%);width:min(46%,520px);height:60px;border-radius:50% 50% 0 0/100% 100% 0 0;background:#7F5530;z-index:-1}
@@ -85,7 +74,7 @@
     box-shadow:0 0 0 5px rgba(251,231,181,.28),0 6px 14px rgba(0,0,0,.22);transition:transform .2s}
   .spb:hover .spb-btn{transform:scale(1.06)}
   @media (min-width:750px){
-    .spb-wrap{margin-top:30px}
+    .spb-wrap{margin:48px auto 28px}
     .spb{min-height:128px;gap:18px;padding-right:22px;grid-template-columns:auto 1fr auto auto}
     .spb::before{top:-18px;height:80px}
     .spb-pic{width:110px;height:150px;margin-top:-26px}
