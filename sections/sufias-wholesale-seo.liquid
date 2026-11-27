@@ -26,7 +26,7 @@
             {%- assign alt = p.title | append: ' – wholesale embroidered suit' -%}
             <li class="wseo-card" data-colour="{{ p.variants.first.title | escape }}" data-title="{{ p.title | escape }}">
               <a href="{{ p.url }}" class="wseo-card__link">
-                <span class="wseo-card__img">
+                <span class="wseo-card__img" data-sf-handle="{{ p.handle }}">
                   {{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', alt: alt }}
                 </span>
                 <span class="wseo-card__title">{{ p.title | escape }}</span>
@@ -165,7 +165,7 @@
     .wseo-head .sw-muted{max-width:420px}
     .wseo-grid{list-style:none;margin:0;padding:0;display:grid;gap:clamp(12px,2vw,20px);grid-template-columns:repeat(4,minmax(0,1fr))}
     .wseo-card__link{display:grid;gap:6px;color:inherit;text-decoration:none}
-    .wseo-card__img{display:block;aspect-ratio:4/5;border-radius:var(--sw-radius);overflow:hidden;background:#ece7df}
+    .wseo-card__img{position:relative;display:block;aspect-ratio:4/5;border-radius:var(--sw-radius);overflow:hidden;background:#ece7df}
     .wseo-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
     .wseo-card__link:hover img{transform:scale(1.04)}
     .wseo-card__title{font-weight:600;line-height:1.3}

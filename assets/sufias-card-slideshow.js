@@ -1,7 +1,7 @@
 /* Sufias: product cards across the store cycle through every photo of the product on their own.
    Photos load only for cards on screen, one photo ahead, so mobile pages stay light. */
 (() => {
-  const STEP = 2000;
+  const STEP = 2500;
   const cache = new Map();
   const seen = new WeakSet();
 
@@ -24,9 +24,13 @@
 
   const start = async (card) => {
     if (card.classList.contains('sf-soon')) return; // photos stay blurred until launch
-    const box = card.querySelector('.t4s-product-img');
-    let handle;
-    try { handle = JSON.parse(card.getAttribute('data-product-options')).handle; } catch (e) { return; }
+    let box, handle;
+    if (card.hasAttribute('data-sf-handle')) { box = card; handle = card.getAttribute('data-sf-handle'); }
+    else {
+      box = card.querySelector('.t4s-product-img');
+      try { handle = JSON.parse(card.getAttribute('data-product-options')).handle; } catch (e) { return; }
+    }
+    if (box && box.querySelector('.sf-cardshow')) return;
     if (!box || !handle) return;
     const list = await photos(handle);
     if (list.length < 2) return;
@@ -45,7 +49,7 @@
       if (i === 0) img.className = 'is-on';
       layer.appendChild(img);
       const dot = document.createElement('span');
-      if (i === 0) dot.className = 'is-on';
+      dot.appendChild(document.createElement('i'));
       dots.appendChild(dot);
       return { img, dot };
     });
@@ -55,10 +59,16 @@
     const load = (n) => { const f = frames[n].img; if (!f.src) f.src = f.dataset.src; };
     load(0); load(1);
     let index = 0, timer = null;
+    const bar = (n) => {
+      frames.forEach((f, i) => { f.dot.classList.toggle('is-done', i < n); f.dot.classList.remove('is-on'); });
+      void frames[n].dot.offsetWidth; // restart the fill animation
+      frames[n].dot.classList.add('is-on');
+    };
     const show = (n) => {
-      frames[index].img.classList.remove('is-on'); frames[index].dot.classList.remove('is-on');
+      frames[index].img.classList.remove('is-on');
       index = n;
-      frames[index].img.classList.add('is-on'); frames[index].dot.classList.add('is-on');
+      frames[index].img.classList.add('is-on');
+      bar(index);
       load((index + 1) % frames.length);
     };
     const tick = () => {
@@ -69,7 +79,9 @@
     };
     const run = () => { if (!timer) timer = setInterval(tick, STEP); };
     const stop = () => { clearInterval(timer); timer = null; };
+    layer.style.setProperty('--sf-step', STEP + 'ms');
     layer.classList.add('is-ready');
+    bar(0);
     setTimeout(tick, 900);
     new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? run() : stop()));
@@ -111,7 +123,7 @@
     if (!soon.size && ticking) { clearInterval(ticking); ticking = null; }
   };
 
-  const SELECTOR = '.t4s-product[data-product-options]';
+  const SELECTOR = '.t4s-product[data-product-options], [data-sf-handle]';
   const scan = (root) => {
     if (!watcher) return;
     const cards = [...root.querySelectorAll(SELECTOR)];
@@ -130,10 +142,15 @@
     '.sf-cardshow.is-ready{opacity:1}',
     '.sf-cardshow img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}',
     '.sf-cardshow img.is-on{opacity:1}',
-    '.sf-cardshow__dots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:4px}',
-    '.sf-cardshow__dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 2px rgba(0,0,0,.35)}',
-    '.sf-cardshow__dots span.is-on{background:#fff}',
-    '@media (max-width:560px){.sf-cardshow__dots{bottom:6px;gap:3px}.sf-cardshow__dots span{width:5px;height:5px}}',
+    '[data-sf-handle] .sf-cardshow img{object-fit:cover;object-position:center top}',
+    '.sf-cardshow__dots{position:absolute;left:10px;right:10px;bottom:8px;display:flex;gap:4px}',
+    '.sf-cardshow__dots span{position:relative;flex:1;height:3px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.45);box-shadow:0 0 2px rgba(0,0,0,.25)}',
+    '.sf-cardshow__dots i{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left center}',
+    '.sf-cardshow__dots span.is-done i{transform:scaleX(1)}',
+    '.sf-cardshow__dots span.is-on i{animation:sfFill var(--sf-step,2000ms) linear forwards}',
+    '@keyframes sfFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}',
+    '@media (prefers-reduced-motion:reduce){.sf-cardshow__dots span.is-on i{animation:none;transform:scaleX(1)}}',
+    '@media (max-width:560px){.sf-cardshow__dots{left:8px;right:8px;bottom:6px;gap:3px}.sf-cardshow__dots span{height:2.5px}}',
   ].join('');
   document.head.appendChild(css);
 
@@ -158,8 +175,26 @@
     location.href = link.href;
   }, { passive: false });
 
+  /* Product page: the main photo gallery moves to the next photo on its own until the shopper touches it. */
+  const autoGallery = () => {
+    const el = document.querySelector('.t4s-product__media-wrapper .flickityt4s-enabled');
+    const F = window.Flickityt4s;
+    if (!el || !F || !F.data || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const inst = F.data(el);
+    if (!inst || !inst.cells || inst.cells.length < 2) return;
+    let timer = null, visible = false, stopped = false;
+    const run = () => { if (!timer && visible && !stopped && !document.hidden) timer = setInterval(() => inst.next(true), 3500); };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const quit = () => { stopped = true; stop(); };
+    const area = el.closest('.t4s-product__media-wrapper') || el;
+    ['pointerdown', 'touchstart', 'keydown', 'wheel'].forEach((t) => area.addEventListener(t, quit, { passive: true, once: true }));
+    new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; visible ? run() : stop(); }, { threshold: 0.5 }).observe(el);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
+  };
+
   const boot = () => {
     scan(document);
+    autoGallery();
     new MutationObserver((records) => {
       for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1) scan(n);
     }).observe(document.body, { childList: true, subtree: true });

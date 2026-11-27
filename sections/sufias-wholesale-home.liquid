@@ -89,7 +89,7 @@
     <div class="hs-btns"><a class="hs-btn hs-gold" href="{{ shop_link }}">See all wholesale designs</a></div>
     <div class="hsD__row">
       {%- for p in shop_coll.products limit: 4 -%}
-      <a class="hsD__card" href="{{ p.url }}"><div>{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}</p></a>
+      <a class="hsD__card" href="{{ p.url }}"><div data-sf-handle="{{ p.handle }}">{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}</p></a>
       {%- endfor -%}
     </div>
   </div></section>
@@ -153,7 +153,7 @@
           assign pimg = p.featured_media.preview_image
         -%}
         <article class="swh-card swh-pc">
-          <a class="swh-pc__img" href="{{ p.url }}">
+          <a class="swh-pc__img" href="{{ p.url }}" data-sf-handle="{{ p.handle }}">
             {%- if pimg != blank -%}{{ pimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240,360,480,600', sizes: '(min-width: 990px) 280px, 46vw', alt: p.title }}{%- endif -%}
             <span class="swh-badge">{% if is_sufias %}Sufias{% elsif p.tags contains 'new-arrival' %}New{% else %}Seller{% endif %}</span>
           </a>

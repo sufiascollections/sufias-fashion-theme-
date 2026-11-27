@@ -291,3 +291,6 @@
 .swh-sellb__nums b{color:#8B5E34}.swh-sellb__nums span{color:var(--mut)}
 .hsC{background:#F3E7D3;color:var(--ink)}.swh .hsC .hs-h{color:var(--ink)}.swh .hsC .hs-p{color:var(--mut)}
 .swh .hsA .hs-h{color:#fff}
+
+/* Auto photo slider on custom cards: badges stay above the sliding photos */
+.swh .hsD__tag,.swh .swh-badge{z-index:2}
