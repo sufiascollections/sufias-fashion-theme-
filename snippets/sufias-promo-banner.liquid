@@ -1,7 +1,7 @@
 {%- comment -%}
   Sufias announcement banner, shown on the homepage right below the hero. Text, link and photos: Theme settings > Sufias wholesale.
 {%- endcomment -%}
-{%- assign show = settings.sufias_promo_enable -%}
+{%- assign show = settings.sufias_promo_enable -%}{%- if place != 'home' -%}{%- assign show = false -%}{%- endif -%}
 {%- if show -%}
 {%- liquid
   assign link = settings.sufias_promo_link | default: '/pages/booking'
