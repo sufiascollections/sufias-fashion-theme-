@@ -99,3 +99,9 @@ body{color:#4A3826}
 .sw .sw-section--dark h2,.sw .sw-section--dark h3,.sw .sw-section--dark strong,.sw .sw-section--dark b{color:#3B2A1E!important}
 /* One heading style on every page (same as homepage): Playfair for big headings, body stays Poppins */
 .sw-hero__title,.sw-h2,.sx-h2,.sx h2,.sl-hero__title,.sl-h2,.sfa h1,.sfa h2{font-family:'Playfair Display',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important}
+/* Phones/tablets: header menu, search and cart are 44px tap targets */
+@media (max-width:1024px){
+  .t4s-site-nav__icons>.t4s-site-nav__icon>a,.t4s-site-nav__icons>.t4s-site-nav__icon>button{display:inline-flex!important;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+  .t4s-site-nav__icons>.t4s-site-nav__icon{margin:0 0 0 2px!important;padding:0!important}
+  .t4s-push-menu-btn{min-height:44px;min-width:44px}
+}
