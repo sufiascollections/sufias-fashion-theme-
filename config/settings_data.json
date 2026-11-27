@@ -741,25 +741,6 @@
               "sp_bettewn_item": 20
             }
           },
-          "drop_swh_sellers": {
-            "type": "drop",
-            "settings": {
-              "title": "SELLERS",
-              "url": "/#sellers",
-              "open_link": "_self",
-              "menu": "",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#9b2c2c",
-              "lb": "",
-              "lb_cl": "",
-              "lazy_mn": true,
-              "pos_sub": "bottom",
-              "pos": "left",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20
-            }
-          },
           "drop_swh_sell": {
             "type": "drop",
             "settings": {
@@ -788,7 +769,6 @@
           "drop_JD8UT4",
           "556a85dc-041d-4d44-8c22-263ed70a8b48",
           "drop_YXhthE",
-          "drop_swh_sellers",
           "drop_swh_sell"
         ],
         "custom_css": [
@@ -1565,7 +1545,7 @@
               "url": "shopify://pages/booking",
               "open_link": "_self",
               "menu": "",
-              "lb": "10%off",
+              "lb": "",
               "lb_cl": "",
               "icons_op": "2",
               "icon": "las la-chair"
@@ -1590,19 +1570,6 @@
           "mb_nav-9": {
             "type": "cur",
             "settings": {}
-          },
-          "menu_swh_sellers": {
-            "type": "menu",
-            "settings": {
-              "title": "SELLERS",
-              "url": "/#sellers",
-              "open_link": "_self",
-              "menu": "",
-              "lb": "",
-              "lb_cl": "",
-              "icons_op": "2",
-              "icon": ""
-            }
           },
           "menu_swh_sell": {
             "type": "menu",
@@ -1652,7 +1619,6 @@
           "mb_nav-3",
           "mb_nav-0",
           "menu_3tezMb",
-          "menu_swh_sellers",
           "menu_swh_sell",
           "menu_sfabout",
           "menu_sfcontact",
@@ -2314,7 +2280,7 @@
                 "copy-of-caravus-classic-stethoscope",
                 "91-short-sleeve-shirt"
               ],
-              "index": true,
+              "index": false,
               "product": false,
               "collection": false,
               "article": false,

@@ -51,7 +51,7 @@
   <section class="swh-stats" aria-label="Wholesale terms">
     <div class="swh-stats__in">
       <div><b>{{ min_suits }}</b><span>suits minimum per order, any designs</span></div>
-      <div><b>Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b><span>wholesale price per suit</span></div>
+      <div><b><small>from</small> Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b><span>wholesale price per suit</span></div>
       <div><b>Free</b><span>PostEx delivery, all Pakistan</span></div>
       <div><b>COD</b><span>or advance payment</span></div>
       <div><b>3 days</b><span>easy return window</span></div>
@@ -107,7 +107,7 @@
         <input id="swh-qty-{{ section.id }}" type="range" min="{{ min_suits }}" max="{{ min_suits | times: 20 }}" step="1" value="{{ min_suits | times: 2 }}" data-calc-range>
         <div class="swh-calc__rows">
           <div><span>Designs</span><b>Mix any designs</b></div>
-          <div><span>Price per suit</span><b>Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b></div>
+          <div><span>Price per suit, from</span><b>Rs {{ base_price | times: 100 | money_without_currency | remove: '.00' }}</b></div>
           <div><span>PostEx delivery</span><b>Free</b></div>
           <div class="swh-calc__total"><span>Estimated total</span><b data-calc-total></b></div>
         </div>

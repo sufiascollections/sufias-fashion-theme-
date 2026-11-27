@@ -294,3 +294,4 @@
 
 /* Auto photo slider on custom cards: badges stay above the sliding photos */
 .swh .hsD__tag,.swh .swh-badge{z-index:2}
+.swh-stats b small{font-size:.55em;font-weight:500;margin-right:.2em;text-transform:lowercase}
