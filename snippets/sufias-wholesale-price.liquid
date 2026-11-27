@@ -9,5 +9,11 @@
     assign wp = settings.sufias_base_wholesale_price | default: 3500
   endif
   assign wc = product.metafields.custom.wholesale_compare_price.value | plus: 0
+  assign wp_unit = 'suit'
+  assign wp_kind = product.type | append: ' ' | append: product.title | downcase
+  if wp_kind contains 'abaya' or wp_kind contains 'frock' or wp_kind contains 'kurti' or wp_kind contains 'maxi' or product.tags contains 'abaya'
+    assign wp_unit = 'piece'
+  endif
+  assign wp_suffix = suffix | default: '/ suit' | replace: 'suit', wp_unit
 -%}
-<span class="sfm-wp">Rs {{ wp | times: 100 | money_without_currency | remove: '.00' }}</span>{% if wc > wp %} <s class="sfm-wp__was">Rs {{ wc | times: 100 | money_without_currency | remove: '.00' }}</s>{% endif %} <small class="sfm-wp__per">{{ suffix | default: '/ suit' }}</small>
+<span class="sfm-wp">Rs {{ wp | times: 100 | money_without_currency | remove: '.00' }}</span>{% if wc > wp %} <s class="sfm-wp__was">Rs {{ wc | times: 100 | money_without_currency | remove: '.00' }}</s>{% endif %} <small class="sfm-wp__per">{{ wp_suffix }}</small>
