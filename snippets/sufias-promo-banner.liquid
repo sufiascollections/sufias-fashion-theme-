@@ -19,13 +19,20 @@
   assign img1 = settings.sufias_promo_img1
   assign img2 = settings.sufias_promo_img2
   if img1 == blank or img2 == blank
-    assign pics = ''
+    assign found = 0
     for p in collections.all.products limit: 12
       if p.featured_image
-        assign pics = pics | append: p.featured_image.src | append: '|'
+        if found == 0 and img1 == blank
+          assign img1 = p.featured_image
+        elsif img2 == blank
+          assign img2 = p.featured_image
+        endif
+        assign found = found | plus: 1
+      endif
+      if img1 != blank and img2 != blank
+        break
       endif
     endfor
-    assign pics = pics | split: '|'
   endif
   assign kicker = settings.sufias_promo_kicker
   assign t1 = settings.sufias_promo_title | default: 'Wholesale'
@@ -40,8 +47,6 @@
     <span class="spb-pic spb-pic--l" aria-hidden="true">
       {%- if img1 != blank -%}
         {{ img1 | image_url: width: 360 | image_tag: alt: '', width: 180, height: 240, loading: 'eager', class: 'spb-img' }}
-      {%- elsif pics[0] != blank -%}
-        <img class="spb-img" src="{{ pics[0] | image_url: width: 360 }}" alt="" width="180" height="240">
       {%- endif -%}
     </span>
     <span class="spb-mid">
@@ -52,8 +57,6 @@
     <span class="spb-pic spb-pic--r" aria-hidden="true">
       {%- if img2 != blank -%}
         {{ img2 | image_url: width: 360 | image_tag: alt: '', width: 180, height: 240, loading: 'lazy', class: 'spb-img' }}
-      {%- elsif pics[1] != blank -%}
-        <img class="spb-img" src="{{ pics[1] | image_url: width: 360 }}" alt="" width="180" height="240" loading="lazy">
       {%- endif -%}
     </span>
     <span class="spb-btn" aria-hidden="true"><span>{% for w in btn_words %}{{ w }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</span></span>
