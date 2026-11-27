@@ -1,3 +1,4 @@
+{%- comment -%} Product page price (wholesale). {%- endcomment -%}
 {%- if product.tags contains 'marketplace' or settings.sufias_wholesale_only -%}
   <div class="t4s-product-price sufias-mk-price sufias-mk-price--single">{% render 'sufias-wholesale-price', product: product, suffix: 'per suit (wholesale)' %}</div>
 {%- else -%}
