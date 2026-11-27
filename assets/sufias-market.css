@@ -97,3 +97,5 @@ body{color:#4A3826}
 .sw-btn--ghost-light,.sl-btn--ghost-light{border-color:#C9A97E!important;color:#5A3E22!important;background:rgba(255,255,255,.5)!important}
 .sw-btn--ghost-light:hover,.sl-btn--ghost-light:hover{background:#5A3E22!important;color:#fff!important}
 .sw .sw-section--dark h2,.sw .sw-section--dark h3,.sw .sw-section--dark strong,.sw .sw-section--dark b{color:#3B2A1E!important}
+/* One heading style on every page (same as homepage): Playfair for big headings, body stays Poppins */
+.sw-hero__title,.sw-h2,.sx-h2,.sx h2,.sl-hero__title,.sl-h2,.sfa h1,.sfa h2{font-family:'Playfair Display',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important}
