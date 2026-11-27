@@ -1,7 +1,7 @@
 {
   "sections": {
     "seller": {
-      "type": "sufias-seller",
+      "type": "sufias-seller-page",
       "settings": {}
     },
     "seller_info": {
