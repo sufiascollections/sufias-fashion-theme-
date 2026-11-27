@@ -178,8 +178,8 @@
 .swh-vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .swh-banner{background:#4A232F;line-height:0}
 .swh-banner__link{display:block;position:relative;max-width:2172px;margin:0 auto}
-.swh .swh-banner img{width:100%;height:auto;aspect-ratio:1065/724;object-fit:cover}
-.swh-banner__btn{position:absolute;left:27.8%;width:44.6%;top:66.6%;height:13.4%;border-radius:4px;transition:box-shadow .2s}
+.swh .swh-banner img{width:100%;height:auto;aspect-ratio:1122/1402;object-fit:cover}
+.swh-banner__btn{position:absolute;left:14.3%;width:71.4%;top:86.4%;height:10.8%;border-radius:4px;transition:box-shadow .2s}
 .swh-banner__link:hover .swh-banner__btn,.swh-banner__link:focus-visible .swh-banner__btn{box-shadow:0 0 0 3px var(--gold),0 8px 24px rgba(0,0,0,.35)}
 .swh-kick{font-size:12px;letter-spacing:2px;font-weight:700;color:#8A5A2B;margin:0 0 8px!important}
 .swh-kick--gold{color:var(--gold)}
