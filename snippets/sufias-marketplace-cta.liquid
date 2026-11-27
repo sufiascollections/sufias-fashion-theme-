@@ -4,7 +4,17 @@
   "Order" opens /pages/booking with the design and colour quantities filled in (?design=<id>&qty=<variant id>:<n>,...).
   Accepts: product, type ('main', 'main_sticky', ...). Renders nothing in the sticky bar.
 {%- endcomment -%}
-{%- unless type == 'main_sticky' -%}
+{%- assign mk_in_range = false -%}
+{%- if product.tags contains 'booking' -%}{%- assign mk_in_range = true -%}{%- endif -%}
+{%- if type != 'main_sticky' and mk_in_range == false -%}
+<div class="smk smk--off">
+  <p class="smk__off-h">This design is not in the wholesale range right now.</p>
+  <p class="smk__off-p">See the designs you can order today, from {{ settings.sufias_min_suits | default: 12 }} suits per order, any designs mixed.</p>
+  <a class="smk__btn" href="/pages/booking">See current wholesale designs</a>
+</div>
+<style>.smk--off{padding:16px;border:1px solid #e6dfd0;border-radius:12px;background:#fbf8f2}.smk__off-h{font-weight:600;color:#2A3544;margin:0 0 6px}.smk__off-p{margin:0 0 12px;color:#5A6372;font-size:14px}.smk--off .smk__btn{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;border-radius:10px;background:#2A3544;color:#fff!important;font-weight:700;text-decoration:none!important}</style>
+{%- endif -%}
+{%- unless type == 'main_sticky' or mk_in_range == false -%}
 {%- liquid
   assign mk_min = settings.sufias_min_suits | default: 12
   assign mk_colour_opt = product.options_with_values | where: 'name', 'Color' | first

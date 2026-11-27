@@ -71,10 +71,13 @@
     <div class="swh-catrow">
       {%- for block in section.blocks -%}
         {%- assign c = block.settings.collection -%}
+        {%- assign c_count = 0 -%}
+        {%- for cp in c.products limit: 250 -%}{%- if cp.available and cp.tags contains 'booking' -%}{%- assign c_count = c_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        {%- if c_count == 0 -%}{%- continue -%}{%- endif -%}
         {%- assign cimg = block.settings.image | default: c.featured_image | default: c.products[0].featured_media.preview_image -%}
         <a class="swh-catc" href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
           <span class="swh-catc__img">{%- if cimg != blank -%}{{ cimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,450,600', sizes: '(min-width: 750px) 280px, 44vw', alt: '' }}{%- endif -%}</span>
-          <span class="swh-catc__t">{{ block.settings.title | default: c.title | escape }}<small>{{ c.products_count }} designs</small></span>
+          <span class="swh-catc__t">{{ block.settings.title | default: c.title | escape }}<small>{{ c_count }} design{% if c_count != 1 %}s{% endif %}</small></span>
         </a>
       {%- endfor -%}
     </div>
@@ -88,8 +91,13 @@
     <p class="hs-p">Just added this week, each with its wholesale rate.</p>
     <div class="hs-btns"><a class="hs-btn hs-gold" href="{{ shop_link }}">See all wholesale designs</a></div>
     <div class="hsD__row">
-      {%- for p in shop_coll.products limit: 4 -%}
-      <a class="hsD__card" href="{{ p.url }}"><div data-sf-handle="{{ p.handle }}">{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{{ p.title | truncate: 42 | escape }}</p></a>
+      {%- assign nd_n = 0 -%}
+      {%- for p in shop_coll.products limit: 60 -%}
+      {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+      {%- if nd_n >= 4 -%}{%- break -%}{%- endif -%}{%- assign nd_n = nd_n | plus: 1 -%}
+      {%- assign nd_code = p.title | split: '– ' | last | strip -%}
+      {%- assign nd_name = p.title | split: ' – ' | first | remove: 'Embroidered ' | remove: ' 3-Piece Suit' | strip -%}
+      <a class="hsD__card" href="{{ p.url }}"><div data-sf-handle="{{ p.handle }}">{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 500 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,500', sizes: '(min-width: 750px) 280px, 62vw' }}{%- endif -%}<span class="hsD__tag">NEW</span></div><p><b>{% render 'sufias-wholesale-price', product: p %}</b>{% if nd_code.size <= 8 and nd_code != p.title %}<span class="hsD__code">Design {{ nd_code | escape }}</span>{{ nd_name | escape }}{% else %}{{ p.title | truncate: 42 | escape }}{% endif %}</p></a>
       {%- endfor -%}
     </div>
   </div></section>
@@ -123,7 +131,13 @@
       {%- if shop_coll != blank -%}<a class="swh-more" href="{{ shop_coll.url }}">View all suits</a>{%- endif -%}
     </div>
     <div class="swh-grid">
-      {%- for p in shop_coll.products offset: 4 limit: s.products_limit -%}
+      {%- assign pg_n = 0 -%}
+      {%- for p in shop_coll.products limit: 100 -%}
+        {%- unless p.available and p.tags contains 'booking' -%}{%- continue -%}{%- endunless -%}
+        {%- assign pg_n = pg_n | plus: 1 -%}
+        {%- if pg_n <= 4 -%}{%- continue -%}{%- endif -%}
+        {%- assign pg_max = s.products_limit | plus: 4 -%}
+        {%- if pg_n > pg_max -%}{%- break -%}{%- endif -%}
         {%- liquid
           assign is_sufias = false
           assign v = p.vendor | downcase
@@ -150,12 +164,18 @@
               assign fabric = fabric | append: ' · 3-piece'
             endif
           endif
+          assign t_low = p.title | downcase
+          if t_low contains 'winter cotton' or p.tags contains 'winter-cotton'
+            assign fabric = 'Winter cotton · 3-piece'
+          elsif fabric == 'Suit' and t_low contains '3-piece'
+            assign fabric = '3-piece suit'
+          endif
           assign pimg = p.featured_media.preview_image
         -%}
         <article class="swh-card swh-pc">
           <a class="swh-pc__img" href="{{ p.url }}" data-sf-handle="{{ p.handle }}">
             {%- if pimg != blank -%}{{ pimg | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240,360,480,600', sizes: '(min-width: 990px) 280px, 46vw', alt: p.title }}{%- endif -%}
-            <span class="swh-badge">{% if is_sufias %}Sufias{% elsif p.tags contains 'new-arrival' %}New{% else %}Seller{% endif %}</span>
+            {%- unless is_sufias -%}<span class="swh-badge">Seller</span>{%- endunless -%}
           </a>
           <div class="swh-pc__body">
             <div class="swh-pc__seller">Sold by {% if is_sufias %}Sufias Fashion{% else %}{{ p.vendor | escape }}{% endif %}</div>

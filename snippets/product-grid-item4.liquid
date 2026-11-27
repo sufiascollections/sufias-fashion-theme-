@@ -111,6 +111,15 @@ endif -%}
   if booking_launch_locked and request.page_type == 'search'
     assign booking_hide = true
   endif
+  # Wholesale site: only current wholesale designs (tag 'booking') that are in stock show in product grids.
+  if settings.sufias_wholesale_only
+    unless product.tags contains 'booking'
+      assign booking_hide = true
+    endunless
+    if product.available == false and booking_launch_locked == false
+      assign booking_hide = true
+    endif
+  endif
 -%}
 {%- unless booking_hide -%}
 

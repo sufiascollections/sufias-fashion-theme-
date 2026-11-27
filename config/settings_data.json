@@ -625,25 +625,6 @@
               "sp_bettewn_item": 20
             }
           },
-          "drop_YBQRzm": {
-            "type": "drop",
-            "settings": {
-              "title": "3 PIECE",
-              "url": "shopify://collections/3-piece",
-              "open_link": "_self",
-              "menu": "",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#9b2c2c",
-              "lb": "",
-              "lb_cl": "",
-              "lazy_mn": true,
-              "pos_sub": "bottom",
-              "pos": "left",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20
-            }
-          },
           "drop_awyTQR": {
             "type": "drop",
             "settings": {
@@ -764,7 +745,6 @@
         "block_order": [
           "drop_X6hEGj",
           "334013b4-82f3-4046-8371-eaf3c3340153",
-          "drop_YBQRzm",
           "drop_awyTQR",
           "drop_JD8UT4",
           "556a85dc-041d-4d44-8c22-263ed70a8b48",
@@ -1471,19 +1451,6 @@
               "icon": ""
             }
           },
-          "mb_nav-1": {
-            "type": "menu",
-            "settings": {
-              "title": "3 PIECE",
-              "url": "shopify://collections/3-piece",
-              "open_link": "_self",
-              "menu": "",
-              "lb": "",
-              "lb_cl": "",
-              "icons_op": "2",
-              "icon": ""
-            }
-          },
           "menu_ecD4UE": {
             "type": "menu",
             "settings": {
@@ -1499,6 +1466,7 @@
           },
           "mb_nav-3": {
             "type": "menu",
+            "disabled": true,
             "settings": {
               "title": "SUMMER",
               "url": "shopify://collections/lawn-3-piece",
@@ -1614,7 +1582,6 @@
         "block_order": [
           "menu_4j8pPA",
           "menu_Dg8hwd",
-          "mb_nav-1",
           "menu_ecD4UE",
           "mb_nav-3",
           "mb_nav-0",

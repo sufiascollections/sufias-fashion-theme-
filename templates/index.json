@@ -15,8 +15,8 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "collection": "3-piece",
-            "title": "Embroidered 3-Piece"
+            "collection": "hot-collections",
+            "title": "Best Sellers"
           }
         },
         "cat_2": {
