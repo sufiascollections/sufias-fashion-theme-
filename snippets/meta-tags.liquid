@@ -38,7 +38,7 @@
 
 <meta property="og:site_name" content="{{ shop_name_escape }}">
 <meta property="og:url" content="{{ og_url }}">
-<meta property="og:title" content="{{ og_title | escape_once }}">
+<meta property="og:title" content="{{ og_title | strip | escape_once }}">
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape_once }}">
 
@@ -58,5 +58,5 @@
   <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
 {%- endif -%}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ og_title | escape_once }}">
+<meta name="twitter:title" content="{{ og_title | strip | escape_once }}">
 <meta name="twitter:description" content="{{ og_description | escape_once }}">
