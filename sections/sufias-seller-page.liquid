@@ -7,20 +7,20 @@
         <h1 class="sw-hero__title">{{ section.settings.heading | escape }}</h1>
         <p class="sw-hero__lead">{{ section.settings.lead | escape }}</p>
       </div>
-      <nav class="sw-hero__actions" aria-label="Wholesale">
+      {%- if customer -%}<nav class="sw-hero__actions" aria-label="Wholesale">
         <a class="sw-btn sw-btn--ghost-light" href="/pages/booking">Wholesale page</a>
-      </nav>
+      </nav>{%- endif -%}
     </div>
   </header>
 
-  <div class="sw-wrap ss-body">
+  <div class="sw-wrap ss-body{% unless customer %} ss-body--guest{% endunless %}">
     {%- unless customer -%}
     </div>
     {%- capture sx_login -%}{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}{%- endcapture -%}
     <div class="sx">
       <div class="sx-wrap sx-start">
         <div class="sx-start__card">
-          <h2>Start selling in 3 minutes</h2>
+          <h2>Start selling on Sufias</h2>
           <p>Create your free Sufias account, then send us your shop name and a few designs. Sufias checks them and approves your seller account.</p>
           <div class="sx-btns">
             <a class="sx-btn sx-btn--main" href="{{ routes.account_register_url }}">Create seller account</a>
@@ -97,6 +97,7 @@
       </div>
     </div>
     <style>
+      .ss-body--guest{display:none!important}
       .sx{--b:#8B5E34;--b2:#6E4826;--gold:#C9A24E;--ink:#3B2A1E;--mut:#7A6650;--line:#E8DAC3;--sand:#F3E7D3;color:var(--ink);padding-bottom:48px}
       .sx *{box-sizing:border-box}.sx h2,.sx h3,.sx p,.sx dl,.sx dd{margin:0}
       .sx-wrap{max-width:1200px;margin:0 auto;padding:0 16px}
@@ -108,7 +109,7 @@
       .sx-btn{flex:1 1 160px;min-height:50px;display:inline-flex;align-items:center;justify-content:center;padding:0 20px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none!important;white-space:nowrap}
       .sx-btn--main{background:var(--b);color:#fff!important}.sx-btn--main:hover{background:var(--b2)}
       .sx-btn--line{border:1px solid var(--b);color:var(--b)!important;background:#fff}
-      .sx-start{display:grid;gap:16px;margin-top:-8px;padding-top:24px}
+      .sx-start{display:grid;gap:16px;padding-top:28px}
       .sx-start__card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(139,94,52,.08)}
       .sx-start__card h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600;margin-bottom:8px}
       .sx-start__card p{color:var(--mut);font-size:15px;line-height:1.6}
