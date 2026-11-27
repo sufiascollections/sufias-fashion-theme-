@@ -3,7 +3,7 @@
   <header class="sw-hero">
     <div class="sw-wrap sw-hero__inner">
       <div>
-        <p class="sw-kicker">Sufias Fashion · Wholesale marketplace</p>
+        <p class="sw-kicker">For brands &amp; manufacturers</p>
         <h1 class="sw-hero__title">{{ section.settings.heading | escape }}</h1>
         <p class="sw-hero__lead">{{ section.settings.lead | escape }}</p>
       </div>
@@ -15,14 +15,144 @@
 
   <div class="sw-wrap ss-body">
     {%- unless customer -%}
-      <div class="ss-card ss-narrow">
-        <h2 class="sw-h2">Log in to sell</h2>
-        <p class="sw-muted">Log in with your Sufias Fashion account. Once Sufias Fashion approves you as a seller, you can list your designs here.</p>
-        <div class="ss-actions">
-          <a class="sw-btn sw-btn--primary" href="{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}">Log in</a>
-          <a class="sw-btn sw-btn--outline" href="{{ routes.account_register_url }}">Create account</a>
+    </div>
+    {%- capture sx_login -%}{{ routes.account_login_url }}?return_url={{ request.path | url_encode }}{%- endcapture -%}
+    <div class="sx">
+      <div class="sx-wrap sx-start">
+        <div class="sx-start__card">
+          <h2>Start selling in 3 minutes</h2>
+          <p>Create your free Sufias account, then send us your shop name and a few designs. We approve sellers within 1 to 2 working days.</p>
+          <div class="sx-btns">
+            <a class="sx-btn sx-btn--main" href="{{ routes.account_register_url }}">Create seller account</a>
+            <a class="sx-btn sx-btn--line" href="{{ sx_login }}">Seller log in</a>
+          </div>
         </div>
+        <ul class="sx-nums" role="list">
+          <li><b>10%</b><span>commission, only when a suit sells</span></li>
+          <li><b>Rs 0</b><span>joining or monthly fee</span></li>
+          <li><b>12 suits</b><span>minimum order per design from buyers</span></li>
+          <li><b>3 days</b><span>after delivery, your payout is released</span></li>
+        </ul>
       </div>
+
+      <section class="sx-wrap sx-sec">
+        <p class="sx-kick">HOW IT WORKS</p>
+        <h2 class="sx-h2">From your workshop to boutiques across Pakistan</h2>
+        <ol class="sx-steps" role="list">
+          <li><span>1</span><h3>Register</h3><p>Create a free account with your name and email.</p></li>
+          <li><span>2</span><h3>Get approved</h3><p>Send your shop name and sample designs on WhatsApp. Sufias checks quality.</p></li>
+          <li><span>3</span><h3>List designs</h3><p>Upload photos, colours and your wholesale price from your seller dashboard.</p></li>
+          <li><span>4</span><h3>Get paid</h3><p>We deliver with PostEx and pay you after delivery and the 3-day return time.</p></li>
+        </ol>
+      </section>
+
+      <section class="sx-wrap sx-sec sx-split">
+        <div class="sx-box">
+          <h3>Sufias handles</h3>
+          <ul class="sx-list" role="list">
+            <li>Buyers, orders and customer messages</li>
+            <li>Payment collection, advance or cash on delivery</li>
+            <li>PostEx booking, delivery and tracking</li>
+            <li>Returns desk and your account statement</li>
+          </ul>
+        </div>
+        <div class="sx-box sx-box--soft">
+          <h3>You handle</h3>
+          <ul class="sx-list" role="list">
+            <li>Making and packing good-quality suits</li>
+            <li>Clear photos, colours and your price</li>
+            <li>Keeping at least 12 suits of each design ready</li>
+            <li>Handing parcels over on time</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="sx-wrap sx-sec">
+        <div class="sx-earn">
+          <div>
+            <p class="sx-kick">EARNINGS EXAMPLE</p>
+            <h2 class="sx-h2">You set the price, you keep 90%</h2>
+            <p class="sx-muted">One boutique orders 12 suits of your design at your price of Rs 2,000 each.</p>
+          </div>
+          <dl class="sx-calc">
+            <div><dt>12 suits × Rs 2,000</dt><dd>Rs 24,000</dd></div>
+            <div><dt>Sufias commission (10%)</dt><dd>− Rs 2,400</dd></div>
+            <div class="sx-calc__you"><dt>Your payout</dt><dd>Rs 21,600</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="sx-wrap sx-sec sx-faq">
+        <p class="sx-kick">SELLER QUESTIONS</p>
+        <h2 class="sx-h2">Before you start</h2>
+        <details><summary>Who can sell on Sufias?</summary><p>Manufacturers, embroidery units and brands in Pakistan that make 3-piece suits and similar wear. Every seller is checked and approved by Sufias first.</p></details>
+        <details><summary>When exactly do I get paid?</summary><p>After the buyer receives the order and the 3-day return time has passed. Your dashboard shows what is on hold, what is due and what has been paid.</p></details>
+        <details><summary>Who pays for returns?</summary><p>Whose goods, their cost. If one of your suits comes back, that cost is yours. You never pay for other sellers' goods.</p></details>
+        <details><summary>Can I change prices and designs later?</summary><p>Yes. Edit designs, colours and prices any time from your seller dashboard.</p></details>
+      </section>
+
+      <div class="sx-wrap sx-final">
+        <h2>Ready to reach more boutiques?</h2>
+        <div class="sx-btns"><a class="sx-btn sx-btn--main" href="{{ routes.account_register_url }}">Create seller account</a><a class="sx-btn sx-btn--line" href="{{ sx_login }}">Seller log in</a></div>
+      </div>
+    </div>
+    <style>
+      .sx{--b:#8B5E34;--b2:#6E4826;--gold:#C9A24E;--ink:#3B2A1E;--mut:#7A6650;--line:#E8DAC3;--sand:#F3E7D3;color:var(--ink);padding-bottom:48px}
+      .sx *{box-sizing:border-box}.sx h2,.sx h3,.sx p,.sx dl,.sx dd{margin:0}
+      .sx-wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+      .sx-sec{padding-top:44px}
+      .sx-kick{font-size:12px;letter-spacing:2px;font-weight:700;color:#A7802F;margin-bottom:8px!important}
+      .sx-h2{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:27px;line-height:1.2;margin-bottom:18px!important}
+      .sx-muted{color:var(--mut);font-size:15px;line-height:1.6}
+      .sx-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+      .sx-btn{flex:1 1 160px;min-height:50px;display:inline-flex;align-items:center;justify-content:center;padding:0 20px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none!important;white-space:nowrap}
+      .sx-btn--main{background:var(--b);color:#fff!important}.sx-btn--main:hover{background:var(--b2)}
+      .sx-btn--line{border:1px solid var(--b);color:var(--b)!important;background:#fff}
+      .sx-start{display:grid;gap:16px;margin-top:-8px;padding-top:24px}
+      .sx-start__card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(139,94,52,.08)}
+      .sx-start__card h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600;margin-bottom:8px}
+      .sx-start__card p{color:var(--mut);font-size:15px;line-height:1.6}
+      .sx-nums{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .sx-nums li{background:var(--sand);border-radius:12px;padding:14px;border-left:3px solid var(--gold)}
+      .sx-nums b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:24px;color:var(--b);font-weight:600}
+      .sx-nums span{font-size:13px;color:var(--mut);line-height:1.4}
+      .sx-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+      .sx-steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 16px 66px;min-height:76px}
+      .sx-steps span{position:absolute;left:16px;top:16px;width:36px;height:36px;border-radius:50%;border:2px solid var(--gold);color:var(--b);font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:17px;display:flex;align-items:center;justify-content:center}
+      .sx-steps h3{font-size:16px;font-weight:700;margin-bottom:4px}
+      .sx-steps p{font-size:14px;line-height:1.5;color:var(--mut)}
+      .sx-split{display:grid;gap:14px}
+      .sx-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+      .sx-box--soft{background:var(--sand)}
+      .sx-box h3{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:600;margin-bottom:10px}
+      .sx-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+      .sx-list li{position:relative;padding-left:28px;font-size:15px;line-height:1.5;color:#4A3826}
+      .sx-list li::before{content:"✓";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+      .sx-earn{background:linear-gradient(135deg,#F3E7D3,#EADBC2);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:18px}
+      .sx-calc{background:#fff;border-radius:14px;padding:6px 18px}
+      .sx-calc div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:15px}
+      .sx-calc dt{color:var(--mut)}.sx-calc dd{font-weight:700}
+      .sx-calc__you{border-bottom:0!important}.sx-calc__you dt{color:var(--ink);font-weight:700}.sx-calc__you dd{font-family:'Playfair Display',Georgia,serif;font-size:24px;color:var(--b)}
+      .sx-faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+      .sx-faq summary{cursor:pointer;padding:14px 16px;font-weight:600;font-size:15px;min-height:48px;list-style-position:inside}
+      .sx-faq details p{padding:0 16px 14px;color:var(--mut);font-size:14px;line-height:1.6}
+      .sx-final{margin-top:44px!important;text-align:center;background:var(--sand);border-radius:18px;padding:28px 18px!important;max-width:1168px}
+      .sx-final h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600}
+      .sx-final .sx-btns{justify-content:center;max-width:460px;margin-left:auto;margin-right:auto}
+      @media (min-width:750px){
+        .sx-wrap{padding:0 24px}.sx-sec{padding-top:64px}.sx-h2{font-size:36px}
+        .sx-start{grid-template-columns:1.1fr 1fr;align-items:stretch;gap:24px}
+        .sx-start__card{padding:32px}.sx-start__card h2{font-size:30px}
+        .sx-btn{flex:0 0 auto;padding:0 28px}
+        .sx-steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+        .sx-steps li{padding:68px 18px 20px}.sx-steps span{left:18px;top:18px}
+        .sx-split{grid-template-columns:1fr 1fr;gap:18px}.sx-box{padding:28px}
+        .sx-earn{grid-template-columns:1fr 1fr;align-items:center;padding:40px;gap:40px}
+        .sx-faq{max-width:820px}
+        .sx-final{padding:40px!important}.sx-final h2{font-size:30px}
+      }
+    </style>
+    <div>
     {%- else -%}
       <p class="sw-status ss-narrow" data-seller-status role="status" aria-live="polite">Checking your seller account…</p>
 
@@ -283,8 +413,8 @@
   "tag": "section",
   "class": "t4s-section sufias-seller-section",
   "settings": [
-    {"type": "text", "id": "heading", "label": "Heading", "default": "Sell on Sufias wholesale"},
-    {"type": "textarea", "id": "lead", "label": "Intro", "default": "Approved sellers list their designs on the Sufias Fashion wholesale page. We take the orders and payments and pay you for every sale."},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Sell your suits to boutiques across Pakistan"},
+    {"type": "textarea", "id": "lead", "label": "Intro", "default": "List your designs on Sufias. We bring the buyers, collect payment and deliver with PostEx. You make the suits."},
     {"type": "text", "id": "whatsapp", "label": "WhatsApp number for seller requests (with country code)", "default": "923228118115"}
   ],
   "presets": [{"name": "Sufias Seller"}]

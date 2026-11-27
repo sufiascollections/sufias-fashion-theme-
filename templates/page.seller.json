@@ -6,6 +6,7 @@
     },
     "seller_info": {
       "type": "sufias-seller-info",
+      "disabled": true,
       "blocks": {
         "step_1": {"type": "step", "settings": {"title": "Create a free account", "text": "Register on sufias.com with your name and email, then log in."}},
         "step_2": {"type": "step", "settings": {"title": "Request seller access", "text": "Send your shop name and a few sample designs to Sufias Fashion on WhatsApp."}},
